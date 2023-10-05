@@ -1,0 +1,1 @@
+import{u as e}from"./titleStore.faffe678.js";import{n as o}from"./entry.3aaf23f8.js";const a={__name:"index",setup(r){const t=e();return o(()=>{t.setTitle("About")}),(n,s)=>null}};export{a as default};
