@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { resolve } from "path";
-export default defineNuxtConfig({
+export default ({
+  target: 'static',
+  router: {
+    base: '/skogssvamp/'
+  },
   modules: [
     'nuxt-icons',
     '@pinia/nuxt',
