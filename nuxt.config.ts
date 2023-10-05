@@ -2,6 +2,9 @@
 import { resolve } from "path";
 
 export default ({
+  router: {
+    base: '/skogsvamp/'
+  },
   target: 'static',
   modules: [
     'nuxt-icons',
