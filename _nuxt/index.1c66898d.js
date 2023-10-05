@@ -1,0 +1,1 @@
+import{u as e}from"./titleStore.72f16bef.js";import{n as o}from"./entry.ef7ebd80.js";const a={__name:"index",setup(r){const t=e();return o(()=>{t.setTitle("About")}),(n,s)=>null}};export{a as default};

@@ -1,0 +1,1 @@
+import{u as e}from"./titleStore.72f16bef.js";import{n as o}from"./entry.ef7ebd80.js";const r={layout:"sidebarLayout"},i=Object.assign(r,{__name:"index",setup(s){const t=e();return o(()=>{t.setTitle("Forestry")}),(n,a)=>null}});export{i as default};
