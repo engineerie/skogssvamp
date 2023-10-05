@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 export default ({
   router: {
-    base: '/skogsvamp/'
+    base: '/skogssvamp/'
   },
   target: 'static',
   modules: [
