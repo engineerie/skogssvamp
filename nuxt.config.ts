@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { resolve } from "path";
-export default {
+export default defineNuxtConfig({
   target: 'static',
   router: {
     base: '/skogssvamp/'
@@ -30,6 +30,6 @@ export default {
       autoprefixer: {},
     },
   },
-}
+})
 
 
