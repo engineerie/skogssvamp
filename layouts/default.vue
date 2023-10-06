@@ -7,8 +7,8 @@
         <div v-if="!isStartPage" class="flex justify-between items-center"> 
           <div class="flex gap-2"> 
             <button @click="toggleSidebar">
-              <Bars3CenterLeftIcon v-if="!isSidebarOpen" class="h-10 w-10 text-green-500"/>
-              <ChevronLeftIcon v-else class="h-10 w-10 text-green-500"/>
+              <Bars3CenterLeftIcon v-if="!isSidebarOpen" class="h-10 w-10 ml-3 text-amber-500"/>
+              <ChevronLeftIcon v-else class="h-10 w-10 ml-3 text-amber-500"/>
             </button> 
             <slot name="title">
               <BaseHeading as="h1" weight="medium" size="3xl">{{ titleStore.title }}</BaseHeading>
@@ -19,7 +19,7 @@
         <div v-if="isStartPage" class="flex justify-end items-center p-4">
           <BaseThemeSwitch />
         </div>
-        <div :class="{'p-4': !isStartPage}">
+        <div :class="{'p-4 pt-8': !isStartPage}">
           <slot />
         </div>
       </div>

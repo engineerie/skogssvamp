@@ -24,10 +24,12 @@
             </div>
           </div>
           </div>
-  </template>
+</template>
+
   
-  <script>
-  
+<script>
+  import { useDashboardStore } from '~/stores/dashboardStore';
+
   export default {
     data() {
       return {
@@ -52,9 +54,10 @@
     methods: {
     generateParams() {
       const params = new URLSearchParams(this.selectedOptions).toString();
+      const dashboardStore = useDashboardStore();
       return params;
     }
   }
   };
-  </script>
+</script>
   

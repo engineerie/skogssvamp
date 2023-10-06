@@ -23,7 +23,7 @@ export default withShurikenUI({
       colors: {
         // Override only the colors you want to change
         primary: colors.amber, 
-        muted: colors.stone,
+        muted: colors.neutral,
         info: colors.stone,
         success: colors.teal,
         warning: colors.amber,
@@ -32,8 +32,8 @@ export default withShurikenUI({
       shurikenUi: {
         tooltip: {
           font: 'sans',
-          bg: '[#f43f5e]',
-          bgDark: '[#f43f5e]',
+          bg: '[#f59e0b]',
+          bgDark: '[#f59e0b]',
           text: 'white',
           textDark: 'white',
           minWidth: '3rem',

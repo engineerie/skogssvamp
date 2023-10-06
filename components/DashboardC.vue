@@ -1,8 +1,10 @@
 <template>
-      <ListBoxRow />
+  <ListBoxRow class="mb-4"/>
+  <div class="grid grid-cols-5 gap-4">  
+      <DashboardInfo class="col-span-2"/>
+      <DashboardInfo2 />
+    </div>
 </template>
-
-
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
