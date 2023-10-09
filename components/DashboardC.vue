@@ -1,13 +1,14 @@
 <!-- DashboardC.vue -->
 <template>
   <ListBoxRow class="mb-4"/>
+  <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5 m-2 bg-amber-500 hover:bg-amber-400 float-right" data-nui-tooltip-position="left"
+  data-nui-tooltip="Compare this environment">
+    <Icon name="heroicons:plus-solid" class="h-5 w-5 text-white hover:text-amber-500"/>
+  </BaseButtonIcon>
   <div class="grid grid-cols-5 gap-4">  
       <DashboardInfo class="col-span-2"/>
       <DashboardInfo2 />
     </div>
-    <BaseButton @click="addToComparison">Add to Comparison</BaseButton>
-    <BaseButton to="/compare">Comparison Page</BaseButton>
-
 </template>
 
 <script setup>

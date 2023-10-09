@@ -5,7 +5,11 @@
         
         <div v-if="currentDirectory === 'svampdata'">
           <BaseHeading size="lg" weight="normal" class="my-4">Mushroom Data</BaseHeading>
-          <NuxtLink to="" class="text-neutral-500 dark:text-neutral-300 text-sm">Compare</NuxtLink>
+          <ul>
+            <li><NuxtLink to="/svampdata" class="text-neutral-500 dark:text-neutral-300 text-sm">Select Location</NuxtLink></li>
+            <li><NuxtLink to="/svampdata/compare" class="text-neutral-500 dark:text-neutral-300 text-sm">View Comparison</NuxtLink></li>
+          </ul>
+          
         </div>
         <div v-else-if="currentDirectory === 'skogsbruk'">
           <BaseHeading size="lg" weight="normal" class="my-4">Forestry</BaseHeading>
