@@ -1,3 +1,4 @@
+<!-- DashboardInfo2.vue -->
 <template>
     <BaseCard shape="curved" class="p-6" color="primary">
       <BaseHeading

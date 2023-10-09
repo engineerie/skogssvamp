@@ -1,3 +1,5 @@
+<!-- ListBoxRow.vue -->
+
 <template>
     <div class="p-6  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
             <BaseHeading as="h2" size="md" class="mb-4">Select Location</BaseHeading>

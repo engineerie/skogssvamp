@@ -1,3 +1,4 @@
+<!-- DashboardC.vue -->
 <template>
   <ListBoxRow class="mb-4"/>
   <div class="grid grid-cols-5 gap-4">  
