@@ -24,7 +24,7 @@ import { useRoute } from 'vue-router';
 import { useSidebarStore } from '~/stores/sidebarStore';
 
 const { isSidebarOpen } = toRefs(useSidebarStore());
-console.log("Initial isSidebarOpen in SideBar.vue:", isSidebarOpen.value);
+
 
 const route = useRoute();
 const currentDirectory = ref('');
@@ -36,14 +36,6 @@ const sidebarClass = computed(() => {
 watch(() => route.path, () => {
   const segments = route.path.split('/');
   currentDirectory.value = segments[1]; // Assuming the directory is the first segment after the initial '/'
-});
-
-watch(() => isSidebarOpen.value, (newVal) => {
-  console.log("SideBar.vue: isSidebarOpen:", newVal);
-});
-
-watch(() => isSidebarOpen.value, (newVal, oldVal) => {
-  console.log("SideBar.vue: isSidebarOpen changed from", oldVal, "to", newVal);
 });
 
 </script>

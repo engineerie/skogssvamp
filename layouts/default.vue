@@ -44,16 +44,7 @@ const route = useRoute();
 const isStartPage = computed(() => route.path === '/');
 const { isSidebarOpen, toggleSidebar } = toRefs(sidebarStore);  // Destructure from the same instance
 
-// Debugging logs
-watch(() => sidebarStore.isSidebarOpen, (newVal, oldVal) => {
-  console.log("Watched isSidebarOpen: ", newVal);
-});
 
-onMounted(() => {
-  console.log("Entire Store State:", sidebarStore);
-  console.log("Is Sidebar Open from Store:", sidebarStore.isSidebarOpen);
-  console.log("Direct Access: ", sidebarStore.isSidebarOpen);
-});
 </script>
 
 

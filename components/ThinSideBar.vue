@@ -37,8 +37,6 @@ const isInHome = computed(() => route.path === '/');
 
 const { openSidebar, isSidebarOpen, closeSidebar } = useSidebarStore(); // Destructure isSidebarOpen here
     
-onMounted(() => {
-  console.log('Client: isSidebarOpen:', isSidebarOpen.value);
-});
+
 </script>
 
