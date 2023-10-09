@@ -4,6 +4,9 @@
   <BaseMessage v-if="maxEnvironmentsReached" type="primary">
     You can compare max five environments at the time.
   </BaseMessage>
+  <BaseMessage v-if="duplicateEnvironment" type="warning">
+    This environment is already in the comparison view.
+  </BaseMessage>
   <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5 mt-4 bg-amber-500 hover:bg-amber-400 float-right" data-nui-tooltip-position="left"
   data-nui-tooltip="Add to Compare">
     <Icon name="heroicons:plus-solid" class="h-5 w-5 text-white hover:text-amber-500"/>
@@ -27,6 +30,7 @@ const query = ref(route.query);
 const titleStore = useTitleStore();
 const dashboardInfoStore = useDashboardInfoStore();
 
+const duplicateEnvironment = computed(() => comparisonStore.duplicateEnvironment);
 const maxEnvironmentsReached = ref(false);  // This will hold our condition
 
 const addToComparison = () => {
@@ -62,6 +66,15 @@ const formattedQuery = computed(() => {
   return parts.join(', ');
 });
 
+const queryAsJson = computed(() => JSON.stringify(route.query));
+
+watch(queryAsJson, (newQuery, oldQuery) => {
+  console.log('Query changed', newQuery, oldQuery);  
+  if (newQuery !== oldQuery) {
+    console.log('Calling clearDuplicateFlag');  
+    comparisonStore.clearDuplicateFlag();
+  }
+});
 
 
 // Watch for changes in formattedQuery and update the title
