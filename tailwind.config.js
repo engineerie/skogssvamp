@@ -24,9 +24,9 @@ export default withShurikenUI({
         // Override only the colors you want to change
         primary: colors.amber, 
         muted: colors.neutral,
-        info: colors.stone,
+        info: colors.yellow,
         success: colors.teal,
-        warning: colors.amber,
+        warning: colors.violet,
         danger: colors.rose,
       },
       shurikenUi: {

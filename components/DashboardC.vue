@@ -1,11 +1,14 @@
 <!-- DashboardC.vue -->
 <template>
   <ListBoxRow class="mb-4"/>
-  <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5 m-2 bg-amber-500 hover:bg-amber-400 float-right" data-nui-tooltip-position="left"
-  data-nui-tooltip="Compare this environment">
+  <BaseMessage v-if="maxEnvironmentsReached" type="primary">
+    You can compare max five environments at the time.
+  </BaseMessage>
+  <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5 mt-4 bg-amber-500 hover:bg-amber-400 float-right" data-nui-tooltip-position="left"
+  data-nui-tooltip="Add to Compare">
     <Icon name="heroicons:plus-solid" class="h-5 w-5 text-white hover:text-amber-500"/>
   </BaseButtonIcon>
-  <div class="grid grid-cols-5 gap-4">  
+  <div class="grid grid-cols-5 gap-4 mt-4">  
       <DashboardInfo class="col-span-2"/>
       <DashboardInfo2 />
     </div>
@@ -24,7 +27,14 @@ const query = ref(route.query);
 const titleStore = useTitleStore();
 const dashboardInfoStore = useDashboardInfoStore();
 
+const maxEnvironmentsReached = ref(false);  // This will hold our condition
+
 const addToComparison = () => {
+  if (comparisonStore.environments.length >= 5) {
+      maxEnvironmentsReached.value = true;
+      return;
+    }
+    maxEnvironmentsReached.value = false; // Reset in case it was true before
   // Fetch the most current state directly from DashboardInfoStore
   const currentRedListedMessage = dashboardInfoStore.RedListedMessage;
   const currentEnvironmentMessage = dashboardInfoStore.EnvironmentMessage;
@@ -51,6 +61,7 @@ const formattedQuery = computed(() => {
   }
   return parts.join(', ');
 });
+
 
 
 // Watch for changes in formattedQuery and update the title

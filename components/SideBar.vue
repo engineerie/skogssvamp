@@ -9,6 +9,23 @@
             <li><NuxtLink to="/svampdata" class="text-neutral-500 dark:text-neutral-300 text-sm">Select Location</NuxtLink></li>
             <li><NuxtLink to="/svampdata/compare" class="text-neutral-500 dark:text-neutral-300 text-sm">View Comparison</NuxtLink></li>
           </ul>
+
+          <BaseHeading size="lg" weight="normal" class="my-4">Comparison List</BaseHeading>
+          <ul>
+        <li v-for="(env, index) in environments" :key="index" class="flex">
+          <div class="tag-wrapper ">
+            <BaseTag size="sm" shape="rounded" color="success" flavor="pastel" class="m-1">{{ env.query.geography }}</BaseTag>
+            <BaseTag size="sm" shape="rounded" color="info" flavor="pastel" class="m-1">{{ env.query.forestType }}</BaseTag>
+            <BaseTag size="sm" shape="rounded" color="warning" flavor="pastel" class="m-1">{{ env.query.vegetationType }}</BaseTag>
+            <BaseTag size="sm" shape="rounded" color="danger" flavor="pastel" class="m-1">{{ env.query.standAge }}</BaseTag>
+            <hr class="border-t-0.5 border-neutral-500 my-3"/>
+          </div>
+          <div>
+          <BaseButtonIcon @click="removeEnvironment(index)" size="xs" shape="full" class="m-1"><Icon name="heroicons:x-mark-20-solid" class="h-3.5 w-3.5" /></BaseButtonIcon>
+          </div>
+        </li>
+        
+      </ul>
           
         </div>
         <div v-else-if="currentDirectory === 'skogsbruk'">
@@ -26,9 +43,16 @@
 import { ref, watch, computed, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { useSidebarStore } from '~/stores/sidebarStore';
+import { useComparisonStore } from '~/stores/comparisonStore';
+
+const comparisonStore = useComparisonStore();
+  const environments = comparisonStore.environments;
+
+  const removeEnvironment = (index) => {
+    comparisonStore.removeEnvironment(index);
+  };
 
 const { isSidebarOpen } = toRefs(useSidebarStore());
-
 
 const route = useRoute();
 const currentDirectory = ref('');
