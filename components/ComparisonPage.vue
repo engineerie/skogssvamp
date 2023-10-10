@@ -1,12 +1,12 @@
 <!-- ComparisonPage.vue -->
 <template>
-    <div class="grid grid-cols-5 gap-8">
+    <div class="grid grid-cols-5 gap-4">
         <div v-for="env in environments" :key="env.query">
             <div class=" gap-2 mb-4">
-                <BaseTag shape="rounded" color="info" flavor="pastel" class="m-1">{{ env.query.geography.split(" ")[0] }}</BaseTag>
-                <BaseTag shape="rounded" color="success" flavor="pastel" class="m-1">{{ env.query.forestType }}</BaseTag>
-                <BaseTag shape="rounded" color="warning" flavor="pastel" class="m-1">{{ env.query.vegetationType }}</BaseTag>
-                <BaseTag shape="rounded" color="danger" flavor="pastel" class="m-1">{{ env.query.standAge.split(" ")[0] }}</BaseTag>
+                <BaseTag size="sm" shape="rounded" color="info" flavor="pastel" class="m-1">{{ env.query.geography.split(" ")[0] }}</BaseTag>
+                <BaseTag size="sm" shape="rounded" color="success" flavor="pastel" class="m-1">{{ env.query.forestType }}</BaseTag>
+                <BaseTag size="sm" shape="rounded" color="warning" flavor="pastel" class="m-1">{{ env.query.vegetationType }}</BaseTag>
+                <BaseTag size="sm" shape="rounded" color="danger" flavor="pastel" class="m-1">{{ env.query.standAge.split(" ")[0] }}</BaseTag>
              </div>
                 
              <BaseCard shape="curved" class="p-6 mb-4">

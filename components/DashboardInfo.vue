@@ -29,15 +29,15 @@ const { geography, forestType, vegetationType, standAge } = route.query;
 const key = `${geography}-${forestType}-${vegetationType}-${standAge}`;
 
 const messages = {
-'North Sweden-Spruce-Tall herbs-1-40 years': 'Ideal for Morel mushrooms.',
-'North Sweden-Spruce-Tall herbs-41-90 years': 'Perfect for Truffles.',
-'North Sweden-Spruce-Tall herbs-91< years': 'Not recommended for any mushrooms.',
-'North Sweden-Spruce-Low herbs-1-40 years': 'Great for Shiitake.',
-'North Sweden-Spruce-Low herbs-41-90 years': 'Good for Oyster mushrooms.',
-'North Sweden-Spruce-Low herbs-91< years': 'Not suitable for mushroom growth.',
+'North Sweden-Spruce-Tall herbs-1-40 years': 'Morel mushrooms.',
+'North Sweden-Spruce-Tall herbs-41-90 years': 'Possibly Truffles.',
+'North Sweden-Spruce-Tall herbs-91< years': 'Chanterelles.',
+'North Sweden-Spruce-Low herbs-1-40 years': 'Great for Penny Bun.',
+'North Sweden-Spruce-Low herbs-41-90 years': 'Mostly Fly Agaric.',
+'North Sweden-Spruce-Low herbs-91< years': 'Good for Chanterelles.',
 // ... (and so on for all combinations)
 'South Sweden-Pine-Low herbs-41-90 years': 'Great for Chanterelles.',
-'South Sweden-Pine-Low herbs-91< years': 'Excellent for Porcini.',
+'South Sweden-Pine-Low herbs-91< years': 'Excellent for Funnel Chanterelles.',
 // ... (and so on for all combinations)
 };
 

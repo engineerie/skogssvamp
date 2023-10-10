@@ -1,7 +1,7 @@
 <template>
   <aside :class="[sidebarClass, 'sync-transition']" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-r-[1px] dark:border-neutral-700 border-neutral-300">
-      <div class="flex flex-col ml-24">
+      <div class="flex flex-col ml-[88px]">
         
         <div v-if="currentDirectory === 'svampdata'">
           <BaseHeading size="lg" weight="normal" class="my-4">Mushroom Data</BaseHeading>
@@ -14,10 +14,10 @@
           <ul>
         <li v-for="(env, index) in environments" :key="index" class="flex">
           <div class="tag-wrapper ">
-            <BaseTag size="sm" shape="rounded" color="success" flavor="pastel" class="m-1">{{ env.query.geography }}</BaseTag>
+            <BaseTag size="sm" shape="rounded" color="success" flavor="pastel" class="m-1">{{ env.query.geography.split(" ")[0] }}</BaseTag>
             <BaseTag size="sm" shape="rounded" color="info" flavor="pastel" class="m-1">{{ env.query.forestType }}</BaseTag>
             <BaseTag size="sm" shape="rounded" color="warning" flavor="pastel" class="m-1">{{ env.query.vegetationType }}</BaseTag>
-            <BaseTag size="sm" shape="rounded" color="danger" flavor="pastel" class="m-1">{{ env.query.standAge }}</BaseTag>
+            <BaseTag size="sm" shape="rounded" color="danger" flavor="pastel" class="m-1">{{ env.query.standAge.split(" ")[0] }}</BaseTag>
             <hr class="border-t-0.5 border-neutral-500 my-3"/>
           </div>
           <div>

@@ -5,12 +5,13 @@
     You can compare max five environments at the time.
   </BaseMessage>
   <BaseMessage v-if="duplicateEnvironment" type="warning">
-    This environment is already in the comparison view.
+    This environment has laready been added to your comparison view.
   </BaseMessage>
-  <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5 mt-4 bg-amber-500 hover:bg-amber-400 float-right" data-nui-tooltip-position="left"
+  <div class="flex justify-end mt-4">
+  <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5" data-nui-tooltip-position="left"
   data-nui-tooltip="Add to Compare">
-    <Icon name="heroicons:plus-solid" class="h-5 w-5 text-white hover:text-amber-500"/>
-  </BaseButtonIcon>
+    <Icon name="heroicons:plus-solid" class="h-5 w-5"/>
+  </BaseButtonIcon></div>
   <div class="grid grid-cols-5 gap-4 mt-4">  
       <DashboardInfo class="col-span-2"/>
       <DashboardInfo2 />
