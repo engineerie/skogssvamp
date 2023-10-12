@@ -10,40 +10,47 @@
     >
     Environment Info: 
     </BaseHeading>
-    <BaseParagraph size="md" lead="tight" color="primary">
+    <BaseParagraph v-if="dataLoaded" size="md" lead="tight" color="primary">
       {{ EnvironmentMessage }}
     </BaseParagraph>
   </BaseCard>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import Papa from 'papaparse';
 import { useDashboardInfoStore } from '~/stores/dashboardInfoStore'
 
+const environmentData = ref([]);
+const dataLoaded = ref(false);  // New variable to track data load status
 const route = useRoute();
+
+// Fetch and parse the CSV file
+onMounted(() => {
+  Papa.parse('/csv/environmentInfo.csv', {
+    download: true,
+    header: true,
+    dynamicTyping: true,
+    complete: function(results) {
+      console.log("Parsed CSV data: ", results.data);
+      environmentData.value = results.data;
+      dataLoaded.value = true;  // Set to true once data is loaded
+    }
+  });
+});
 
 // Define a computed property for a unique message based on the environment
 const EnvironmentMessage = computed(() => {
-const { geography, forestType, vegetationType, standAge } = route.query;
-const key = `${geography}-${forestType}-${vegetationType}-${standAge}`;
+  if (dataLoaded.value) {  // Only proceed if data is loaded
+    const { geography, forestType, vegetationType, standAge } = route.query;
+    const key = `${geography}-${forestType}-${vegetationType}-${standAge}`;
 
-const messages = {
-'North Sweden-Spruce-Tall herbs-1-40 years': 'Morel mushrooms.',
-'North Sweden-Spruce-Tall herbs-41-90 years': 'Possibly Truffles.',
-'North Sweden-Spruce-Tall herbs-91< years': 'Chanterelles.',
-'North Sweden-Spruce-Low herbs-1-40 years': 'Great for Penny Bun.',
-'North Sweden-Spruce-Low herbs-41-90 years': 'Mostly Fly Agaric.',
-'North Sweden-Spruce-Low herbs-91< years': 'Good for Chanterelles.',
-// ... (and so on for all combinations)
-'South Sweden-Pine-Low herbs-41-90 years': 'Great for Chanterelles.',
-'South Sweden-Pine-Low herbs-91< years': 'Excellent for Funnel Chanterelles.',
-// ... (and so on for all combinations)
-};
+    const matchingEnvironment = environmentData.value.find(
+      env => env.environment_id === key
+    );
 
-return messages[key] || 'No specific information available for this environment.';
+    return matchingEnvironment ? matchingEnvironment.environment_message : 'No specific information available for this environment.';
+  }
 });
-
-const dashboardInfoStore = useDashboardInfoStore();
-dashboardInfoStore.updateEnvironmentMessage(EnvironmentMessage.value);
 </script>

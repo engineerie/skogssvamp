@@ -7,11 +7,11 @@
   <BaseMessage v-if="duplicateEnvironment" type="warning">
     This environment has already been added to your comparison view.
   </BaseMessage>
-  <!-- <div class="flex justify-end mt-4">
+ <!-- <div class="flex justify-end mt-4">
   <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5" data-nui-tooltip-position="left"
   data-nui-tooltip="Add to Compare">
     <Icon name="heroicons:plus-solid" class="h-5 w-5"/>
-  </BaseButtonIcon></div> -->
+  </BaseButtonIcon></div>  -->
 
 
 <div class="grid grid-cols-4 grid-rows-5 gap-4">

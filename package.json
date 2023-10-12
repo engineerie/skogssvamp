@@ -23,7 +23,9 @@
     "@heroicons/vue": "^2.0.18",
     "@pinia/nuxt": "^0.4.11",
     "nuxt-icons": "^3.2.1",
-    "pinia": "^2.1.6"
+    "papaparse": "^5.4.1",
+    "pinia": "^2.1.6",
+    "sqlite3": "^5.1.6"
   },
   "overrides": {
     "vue": "latest"

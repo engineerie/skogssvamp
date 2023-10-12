@@ -1,52 +1,60 @@
 <!-- DashboardInfo2.vue -->
 <template>
-  <BaseCard shape="curved" class="p-6" >
+  <BaseCard shape="curved" class="p-6">
     <BaseHeading
       as="h4"
       size="sm"
       weight="medium"
       lead="tight"
-      class="mb-2 "
+      class="mb-2 text-muted-400"
     >
-    Redlisted Species 
+      Redlisted Species Info: 
     </BaseHeading>
-
-    <BaseHeading weight="semibold" size="4xl" lead="tight">
-      {{ RedListedMessage }}
-    </BaseHeading>
+    <BaseParagraph v-if="dataLoaded" size="md" lead="tight" color="primary">
+      {{ RedlistedSpecies }}
+    </BaseParagraph>
+    <BaseParagraph v-else size="md" lead="tight" color="primary">
+      Loading...
+    </BaseParagraph>
   </BaseCard>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import Papa from 'papaparse';
 import { useDashboardInfoStore } from '~/stores/dashboardInfoStore'
 
-
+const environmentData = ref([]);
+const dataLoaded = ref(false);
 const route = useRoute();
+const dashboardInfoStore = useDashboardInfoStore();
 
-// Define a computed property for a unique message based on the environment
-const RedListedMessage = computed(() => {
-const { geography, forestType, vegetationType, standAge } = route.query;
-const key = `${geography}-${forestType}-${vegetationType}-${standAge}`;
 
-const messages = {
-'North Sweden-Spruce-Tall herbs-1-40 years': '2',
-'North Sweden-Spruce-Tall herbs-41-90 years': '3',
-'North Sweden-Spruce-Tall herbs-91< years': '5',
-'North Sweden-Spruce-Low herbs-1-40 years': '6',
-'North Sweden-Spruce-Low herbs-41-90 years': '1',
-'North Sweden-Spruce-Low herbs-91< years': '0',
-// ... (and so on for all combinations)
-'South Sweden-Pine-Low herbs-41-90 years': '1',
-'South Sweden-Pine-Low herbs-91< years': '4',
-// ... (and so on for all combinations)
-};
-
-return messages[key] || 'No data';
+// Fetch and parse the CSV file
+onMounted(() => {
+  Papa.parse('/csv/environmentInfo.csv', {
+    download: true,
+    header: true,
+    dynamicTyping: true,
+    complete: function(results) {
+      environmentData.value = results.data;
+      dataLoaded.value = true;
+    }
+  });
 });
 
-const dashboardInfoStore = useDashboardInfoStore();
-dashboardInfoStore.updateRedListedMessage(RedListedMessage.value);
+// Define a computed property for a unique redlisted species message based on the environment
+const RedlistedSpecies = computed(() => {
+  if (dataLoaded.value) {
+    const { geography, forestType, vegetationType, standAge } = route.query;
+    const key = `${geography}-${forestType}-${vegetationType}-${standAge}`;
 
+    const matchingEnvironment = environmentData.value.find(
+      env => env.environment_id === key
+    );
+
+    return matchingEnvironment ? matchingEnvironment.redlisted_species : 'No specific information available for this environment.';
+  }
+});
 </script>
