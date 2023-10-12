@@ -6,8 +6,9 @@
         <div  class=" grid grid-cols-5 gap-4 items-end">        
         <BaseListbox v-model="selectedOptions.geography" label="Geography" :items="geographyOptions" placeholder="Select" />
         <BaseListbox v-model="selectedOptions.forestType" label="Forest Type" :items="forestTypeOptions" placeholder="Select" />
-        <BaseListbox v-model="selectedOptions.vegetationType" label="Vegetation Type" :items="vegetationTypeOptions" placeholder="Select" />
         <BaseListbox v-model="selectedOptions.standAge" label="Stand Age" :items="standAgeOptions" placeholder="Select"/>
+        <BaseListbox v-model="selectedOptions.vegetationType" label="Vegetation Type" :items="vegetationTypeOptions" placeholder="Select" />
+        
             <div class="self-end ml-2">
               <div v-if="!isButtonDisabled">
                 <NuxtLink :to="`/svampdata/dashboard?${generateParams()}`">

@@ -5,17 +5,22 @@
     You can compare max five environments at the time.
   </BaseMessage>
   <BaseMessage v-if="duplicateEnvironment" type="warning">
-    This environment has laready been added to your comparison view.
+    This environment has already been added to your comparison view.
   </BaseMessage>
-  <div class="flex justify-end mt-4">
+  <!-- <div class="flex justify-end mt-4">
   <BaseButtonIcon @click="addToComparison" size="xs" shape="full" flavor="solid" color="primary" class="p-0.5" data-nui-tooltip-position="left"
   data-nui-tooltip="Add to Compare">
     <Icon name="heroicons:plus-solid" class="h-5 w-5"/>
-  </BaseButtonIcon></div>
-  <div class="grid grid-cols-5 gap-4 mt-4">  
-      <DashboardInfo class="col-span-2"/>
-      <DashboardInfo2 />
-    </div>
+  </BaseButtonIcon></div> -->
+
+
+<div class="grid grid-cols-4 grid-rows-5 gap-4">
+  <div class="col-span-2"><EDNATable /></div>
+  <div class="row-span-2"><DashboardInfo2 /> <DashboardInfo class="my-4"/></div>
+  <div class=" row-span-2 col-start-4"><EnvironmentImage /></div>
+  <div class=""></div>
+</div>
+
 </template>
 
 <script setup>
@@ -24,6 +29,8 @@ import { useRoute } from 'vue-router';
 import { useTitleStore } from '~/stores/titleStore';
 import { useComparisonStore } from '~/stores/comparisonStore';
 import { useDashboardInfoStore } from '~/stores/dashboardInfoStore';
+import EnvironmentImage from './EnvironmentImage.vue';  // Add this line
+
 
 const comparisonStore = useComparisonStore();
 const route = useRoute();

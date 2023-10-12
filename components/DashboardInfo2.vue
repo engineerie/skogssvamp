@@ -1,6 +1,6 @@
 <!-- DashboardInfo2.vue -->
 <template>
-  <BaseCard shape="curved" class="p-6" color="primary">
+  <BaseCard shape="curved" class="p-6" >
     <BaseHeading
       as="h4"
       size="sm"
