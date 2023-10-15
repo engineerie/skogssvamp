@@ -33,7 +33,6 @@ onMounted(() => {
     header: true,
     dynamicTyping: true,
     complete: function(results) {
-      console.log("Parsed CSV data: ", results.data);
       environmentData.value = results.data;
       dataLoaded.value = true;  // Set to true once data is loaded
     }
