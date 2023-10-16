@@ -1,6 +1,6 @@
 <!-- DashboardInfo2.vue -->
 <template>
-  <BaseCard shape="curved" class="p-6">
+    <div class="p-6  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
     <BaseHeading
       as="h4"
       size="sm"
@@ -16,7 +16,7 @@
     <BaseParagraph v-else size="md" lead="tight" color="primary">
       Loading...
     </BaseParagraph>
-  </BaseCard>
+  </div>
 </template>
 
 <script setup>

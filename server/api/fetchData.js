@@ -11,7 +11,7 @@ const fetchDataFromDB = async ({ geography, forestType, vegetationType, standAge
 
   const data = await db.all(
     `
-    SELECT app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn
+    SELECT DISTINCT app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp
     FROM app_metadata
     JOIN app_abundance ON app_metadata.lims = app_abundance.lims
     JOIN app_taxonomy ON app_abundance.clusterid = app_taxonomy.clusterid

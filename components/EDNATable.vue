@@ -1,21 +1,26 @@
 <template>
-  <BaseCard shape="curved" class="p-6">
-    <BaseHeading size="md" class=" mb-4">Species list from e-DNA data</BaseHeading>
+  <div class="p-6  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
+   <BaseHeading size="md" class=" mb-4 ">Species list from e-DNA data</BaseHeading> 
     <div id="scrollbar" class="overscroll-contain overflow-y-scroll h-96">  <!-- Remove padding here -->
       <!-- Check if data is available -->
       <div v-if="data">
         <!-- Display data in a table -->
         <table class="w-full text-sm text-left table-auto ">  <!-- Added table-auto and w-full -->
-          <thead class="bg-white dark:bg-neutral-800 sticky top-0 dark:text-neutral-500 text-neutral-500">
+          <thead class="bg-neutral-100 dark:bg-neutral-800 sticky top-0 dark:text-neutral-500 text-neutral-500">
             <tr>
-              <th class="px-6 py-3">Taxon</th>  <!-- Added padding here -->
-              <th class="px-6 py-3">Swedish name</th>  <!-- Added padding here -->
+              <th class="px-6 py-3 ">Taxon</th>
+              <th class="px-6 py-3 ">Swedish name</th>
+              <th class="px-6 py-3">Edible</th>  <!-- New column -->
+
             </tr>
           </thead>
           <tbody >
             <tr v-for="row in data" :key="row.taxon" class="border-b border-stone-200 dark:border-stone-700">
               <td class="py-2 px-6">{{ row.taxon }}</td>  <!-- Added padding here -->
               <td class="px-6">{{ row.snamn }}</td>  <!-- Added padding here -->
+              <td class="px-6">
+                <div v-if="row.matsvamp === 1" class="bg-yellow-500 rounded-full w-4 h-4"></div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -25,7 +30,7 @@
         <p>No data available</p>
       </div>
     </div>
-  </BaseCard>
+  </div>
 </template>
 
 
@@ -71,5 +76,6 @@ onMounted(async () => {
     scrollbar-width: thin;
     scrollbar-color: #888 #f2f3f500;
   }
+
   </style>
   
