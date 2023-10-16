@@ -11,22 +11,36 @@ const fetchDataFromDB = async ({ geography, forestType, vegetationType, standAge
 
   const data = await db.all(
     `
-    SELECT DISTINCT app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp
-    FROM app_metadata
-    JOIN app_abundance ON app_metadata.lims = app_abundance.lims
-    JOIN app_taxonomy ON app_abundance.clusterid = app_taxonomy.clusterid
-    JOIN app_taxonomy_dyntaxa ON app_taxonomy.taxon_gbif_name = app_taxonomy_dyntaxa.taxon
+    SELECT 
+    app_taxonomy.taxon, 
+    app_taxonomy_dyntaxa.snamn, 
+    app_taxonomy_dyntaxa.matsvamp,
+    SUM(app_abundance.presence) AS total_presence  
+FROM 
+    app_metadata
+JOIN 
+    app_abundance ON app_metadata.lims = app_abundance.lims
+JOIN 
+    app_taxonomy ON app_abundance.clusterid = app_taxonomy.clusterid
+JOIN 
+    app_taxonomy_dyntaxa ON app_taxonomy.taxon_gbif_name = app_taxonomy_dyntaxa.taxon
     WHERE 
-     ( (app_metadata.latitud > 60 AND ? = ?) OR 
-      (app_metadata.latitud <= 60 AND ? = ?))
-    AND 
-      (
-        (app_metadata.bestandsalder BETWEEN 1 AND 40 AND ? = ?) OR
-        (app_metadata.bestandsalder BETWEEN 41 AND 90 AND ? = ?) OR
-        (app_metadata.bestandsalder > 90 AND ? = ?)
-      )
-    AND app_metadata.vegtyp = ? 
-    AND app_metadata.skogstyp = ?
+    ( (app_metadata.latitud > 60 AND ? = ?) OR 
+      (app_metadata.latitud <= 60 AND ? = ?) )
+AND 
+    ( (app_metadata.bestandsalder BETWEEN 1 AND 40 AND ? = ?) OR
+      (app_metadata.bestandsalder BETWEEN 41 AND 90 AND ? = ?) OR
+      (app_metadata.bestandsalder > 90 AND ? = ?) )
+AND 
+    app_metadata.vegtyp = ? 
+AND 
+    app_metadata.skogstyp = ?
+GROUP BY 
+    app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp  -- Group by the same columns as in the first query
+ORDER BY 
+    total_presence DESC;
+
+
     `,
     [geography, 'North Sweden', geography, 'South Sweden', standAge, '1-40 years', standAge, '41-90 years', standAge, '91< years', vegetationType, forestType]
   );
