@@ -15,10 +15,13 @@
 
 
 <div class="grid grid-cols-4 grid-rows-5 gap-4">
-  <div class="col-span-2"><EDNATable /></div>
-  <div class="row-span-2"><DashboardInfo2 /> <DashboardInfo class="my-4"/></div>
+  <div class="col-span-2"><EDNATable /> </div>
+  <div class=""><DonutChart /></div>
   <div class=" row-span-2 col-start-4"><EnvironmentImage /></div>
-  <div class=""></div>
+  
+  
+  <!-- <div class="col-span-2"><barChart /></div> -->
+  <!-- <div class="col-span-2"><DashboardInfo2 /></div> -->
 </div>
 
 </template>
