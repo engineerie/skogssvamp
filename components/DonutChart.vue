@@ -1,8 +1,8 @@
 <template>
     <div class="p-6 bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
       <BaseHeading size="md" class="mb-4">Species Count</BaseHeading>
-      <div v-if="data">
-        <vue-apex-charts type="donut" :options="chartOptions" :series="chartSeries" class="mb-4"></vue-apex-charts>
+      <div v-if="VueApexCharts && data">
+        <VueApexCharts type="donut" :options="chartOptions" :series="chartSeries" class="mb-4"/>
         <hr class=" border-stone-200 dark:border-stone-700"/>
         <div class="flex justify-between mt-2">
           <div>
@@ -26,10 +26,13 @@
 </template>
   
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { shallowRef, ref, onMounted } from 'vue';
     import { useRoute } from 'vue-router';
-    import VueApexCharts from 'vue3-apexcharts';
-    
+    // import VueApexCharts from 'vue3-apexcharts';
+
+    const VueApexCharts = shallowRef(null);
+
+
     let totalSum = 0;
     const data = ref(null);
     const route = useRoute();
@@ -112,6 +115,11 @@
 
   
   onMounted(async () => {
+
+    if (process.client) { // ensure this code only runs client-side
+    const module = await import('vue3-apexcharts');
+    VueApexCharts.value = module.default;
+  }
     const { geography, forestType, vegetationType, standAge } = route.query;
     const response = await fetch(`/api/fetchData?geography=${geography}&forestType=${forestType}&vegetationType=${vegetationType}&standAge=${standAge}`);
     const result = await response.json();
