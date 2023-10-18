@@ -1,0 +1,1 @@
+import{G as e}from"./entry.c3f902cc.js";const s=e({id:"sidebar",state:()=>({isSidebarOpen:!1}),getters:{isOpen(){return this.isSidebarOpen}},actions:{openSidebar(){this.isSidebarOpen=!0},closeSidebar(){this.isSidebarOpen=!1},toggleSidebar(){this.isSidebarOpen=!this.isSidebarOpen}}});export{s as u};
