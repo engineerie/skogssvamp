@@ -1,25 +1,45 @@
 <template>
-      <div class="p-6  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
-
-      <BaseHeading size="md" class="mb-4">Species Amount</BaseHeading>
+    <div class="p-6 bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
+      <BaseHeading size="md" class="mb-4">Species Count</BaseHeading>
       <div v-if="data">
-        <vue-apex-charts type="donut" class="" :options="chartOptions" :series="chartSeries"></vue-apex-charts>
+        <vue-apex-charts type="donut" :options="chartOptions" :series="chartSeries" class="mb-4"></vue-apex-charts>
+        <hr class=" border-stone-200 dark:border-stone-700"/>
+        <div class="flex justify-between mt-2">
+          <div>
+            <BaseParagraph size="sm" class="text-neutral-500">{{ top4Count }} species</BaseParagraph>
+            <div class="flex items-center"><div class="bg-neutral-500 rounded-full w-2 h-2 mr-1 "></div><BaseParagraph size="sm" class="text-neutral-500">{{ top4Percentage }}%</BaseParagraph></div>
+          </div>
+          <div>
+            <BaseParagraph size="sm" class="text-neutral-500">{{ next10Count }} species</BaseParagraph>
+            <div class="flex items-center"><div class="bg-green-500 rounded-full w-2 h-2 mr-1 "></div><BaseParagraph size="sm" class="text-neutral-500">{{ next10Percentage }}%</BaseParagraph></div>
+          </div>
+          <div>
+            <BaseParagraph size="sm" class="text-neutral-500">{{ remainingCount }} species</BaseParagraph>
+            <div class="flex items-center"><div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div><BaseParagraph size="sm" class="text-neutral-500">{{ remainingPercentage }}%</BaseParagraph></div>
+          </div>
+        </div>
       </div>
       <div v-else>
-        <p>No data available</p>
+        <p>Loading...</p>
       </div>
     </div>
-  </template>
+</template>
   
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import { useRoute } from 'vue-router';
-  import VueApexCharts from 'vue3-apexcharts';
-
-  let totalSum = 0;
-  
-  const data = ref(null);
-  const route = useRoute();
+<script setup>
+    import { ref, onMounted } from 'vue';
+    import { useRoute } from 'vue-router';
+    import VueApexCharts from 'vue3-apexcharts';
+    
+    let totalSum = 0;
+    const data = ref(null);
+    const route = useRoute();
+    
+    const top4Percentage = ref(0);
+    const next10Percentage = ref(0);
+    const remainingPercentage = ref(0);
+    const top4Count = ref(0);
+    const next10Count = ref(0);
+    const remainingCount = ref(0);
 
   const generateColors = (start, end, steps) => {
   const stepR = (end[0] - start[0]) / (steps - 1);
@@ -37,6 +57,7 @@
 };
   
   const chartOptions = ref({
+
     tooltip: {
     y: {
       formatter: function(val) {
@@ -51,18 +72,26 @@
     },
     plotOptions: {
     pie: {
+        expandOnClick: false,
         donut: {
         size: '85%',  // Keep your existing size
         labels: {
           show: true,
+          name: { show: false },
+          value: {
+          show: true,
+          fontSize: '33px',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 500,
+          color: '#737373',
+        },
           total: {
             showAlways: true,
             show: true,
-            label: 'species',
             formatter: function() {
               return `${data.value.length}`;
             },
-          }
+          },
         }
       }
     },
@@ -97,7 +126,7 @@
     // Generate colors
     const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
     const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-    const otherColors = generateColors([46, 16, 101], [237, 233, 254], data.value.length - 14);
+    const otherColors = generateColors([46, 16, 101], [232, 121, 249], data.value.length - 14);
     
     // Concatenate all colors
     const allColors = [...top4Colors, ...next10Colors, ...otherColors];
@@ -106,9 +135,26 @@
     chartSeries.value = data.value.map(row => row.total_presence);
     chartOptions.value.labels = data.value.map(row => row.taxon);
     chartOptions.value.colors = allColors;
+
+    const top4Sum = data.value.slice(0, 4).reduce((acc, row) => acc + row.total_presence, 0);
+      const next10Sum = data.value.slice(4, 14).reduce((acc, row) => acc + row.total_presence, 0);
+      const remainingSum = totalSum - top4Sum - next10Sum;
+  
+      top4Percentage.value = ((top4Sum / totalSum) * 100).toFixed(2);
+      next10Percentage.value = ((next10Sum / totalSum) * 100).toFixed(2);
+      remainingPercentage.value = ((remainingSum / totalSum) * 100).toFixed(2);
+  
+      top4Count.value = data.value.slice(0, 4).length;
+      next10Count.value = data.value.slice(4, 14).length;
+      remainingCount.value = data.value.length - top4Count.value - next10Count.value;
+    
   }
   });
   </script>
+  
+
+ 
+
   
   
   

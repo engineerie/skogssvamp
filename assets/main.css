@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 body{
     @apply bg-neutral-200 dark:bg-neutral-900;
@@ -9,4 +12,3 @@ body{
 .sync-transition {
     transition: all 0.3s ease-in-out;
   }
-

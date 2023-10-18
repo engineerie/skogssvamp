@@ -35,8 +35,9 @@ AND
     app_metadata.vegtyp = ? 
 AND 
     app_metadata.skogstyp = ?
+
 GROUP BY 
-    app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp  -- Group by the same columns as in the first query
+    app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp  
 ORDER BY 
     total_presence DESC;
 

@@ -1,11 +1,11 @@
 <template>
   <div class="p-6 bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
     <BaseHeading size="md" class="mb-4">Species list from e-DNA data</BaseHeading>
-    <div id="scrollbar" class="overscroll-contain overflow-y-scroll h-96">
+    <div id="scrollbar" class="overscroll overflow-y-scroll h-96">
       <div v-if="data">
         <table class="w-full text-sm text-left table-auto">
-          <thead class="bg-neutral-100 dark:bg-neutral-800 sticky top-0 dark:text-neutral-500 text-neutral-500">
-            <tr>
+          <thead class="bg-neutral-100 dark:bg-neutral-800 sticky top-0 dark:text-neutral-500 text-neutral-500 drop-shadow-sm">
+            <tr >
               <th class=" py-3"></th>
               <th class=" py-3">Taxon</th>
               <th class="px-6 py-3">Swedish name</th>
@@ -66,7 +66,7 @@ onMounted(async () => {
 
   const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
   const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-  const otherColors = generateColors([46, 16, 101], [237, 233, 254], data.value.length - 14);
+  const otherColors = generateColors([46, 16, 101], [232, 121, 249], data.value.length - 14);
 
   allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
 });
@@ -88,21 +88,27 @@ onMounted(async () => {
   }
   
   #scrollbar::-webkit-scrollbar-thumb {
-    display: none;
-    background-color: #88888833;  /* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
-  }
+  display: none;
+  background-color: #88888833;  /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
   
-  /* Hover effect for scroll thumb */
-  #scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
-  /* For Firefox */
-  #scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f2f3f500;
-  }
+}
+
+#scrollbar:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+/* For Firefox */
+#scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f2f3f500;
+  transition: scrollbar-color 1s ease-in-out;  /* transition effect for Firefox */
+}
+
+#scrollbar:hover {
+  scrollbar-color: #888 #f2f3f5;
+}
+
 
   </style>
   
