@@ -1,7 +1,7 @@
 <template>
     <div class="p-5  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
     <img :src="imageUrl" class="rounded-xl p-6 dark:bg-violet-200 bg-violet-100 dark:bg-opacity-80"/>
-<BaseProse size="lg" weight="semibold" class="mt-4">North - Pine - Lingon - 41-90</BaseProse>
+<BaseProse size="lg" weight="semibold" class="mt-4"></BaseProse>
     </div>
     
   </template>
@@ -9,6 +9,9 @@
   <script setup>
   import { computed } from 'vue';
   import { useRoute } from 'vue-router';
+
+  const props = defineProps();
+  const id = props.id;
   
   const route = useRoute();
   

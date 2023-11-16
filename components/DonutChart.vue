@@ -26,30 +26,83 @@
 </template>
   
 <script setup>
-    import { shallowRef, ref, onMounted } from 'vue';
+    import { shallowRef  } from 'vue';
     import { useRoute } from 'vue-router';
-    // import VueApexCharts from 'vue3-apexcharts';
+
+const props = defineProps();
+const id = props.id;
 
     const VueApexCharts = shallowRef(null);
-
-
-    let totalSum = 0;
     const data = ref(null);
     const route = useRoute();
-    
     const top4Percentage = ref(0);
     const next10Percentage = ref(0);
     const remainingPercentage = ref(0);
     const top4Count = ref(0);
     const next10Count = ref(0);
     const remainingCount = ref(0);
+    const chartSeries = ref([]);
+    const segmentColors = ref([]);
+    let totalSum = 0;
+    const chartOptions = ref({
+
+tooltip: {
+y: {
+  formatter: function(val) {
+    const percentage = ((val / totalSum) * 100).toFixed(2);
+    return `${percentage}%`;
+  }
+}
+},
+labels: [], // Will be populated with species names
+legend: {
+  show: false,
+},
+plotOptions: {
+pie: {
+    expandOnClick: false,
+    donut: {
+    size: '85%',  // Keep your existing size
+    labels: {
+      show: true,
+      name: { show: false },
+      value: {
+      show: true,
+      fontSize: '33px',
+      fontFamily: 'Inter, sans-serif',
+      fontWeight: 500,
+      color: '#737373',
+    },
+      total: {
+        showAlways: true,
+        show: true,
+        formatter: function() {
+          return `${data.value.length}`;
+        },
+      },
+    }
+  }
+},
+},
+dataLabels: {
+  enabled: false,
+},
+stroke: {
+  show: false,
+  width: 0.3,
+  colors: ['#737373'],
+},
+colors: [] // Initialize an empty array for colors
+});
+    
+    
 
   const generateColors = (start, end, steps) => {
   const stepR = (end[0] - start[0]) / (steps - 1);
   const stepG = (end[1] - start[1]) / (steps - 1);
   const stepB = (end[2] - start[2]) / (steps - 1);
-
   const colors = [];
+
   for (let i = 0; i < steps; i++) {
     const r = Math.round(start[0] + stepR * i);
     const g = Math.round(start[1] + stepG * i);
@@ -59,72 +112,21 @@
   return colors;
 };
   
-  const chartOptions = ref({
 
-    tooltip: {
-    y: {
-      formatter: function(val) {
-        const percentage = ((val / totalSum) * 100).toFixed(2);
-        return `${percentage}%`;
-      }
-    }
-  },
-    labels: [], // Will be populated with species names
-    legend: {
-      show: false,
-    },
-    plotOptions: {
-    pie: {
-        expandOnClick: false,
-        donut: {
-        size: '85%',  // Keep your existing size
-        labels: {
-          show: true,
-          name: { show: false },
-          value: {
-          show: true,
-          fontSize: '33px',
-          fontFamily: 'Inter, sans-serif',
-          fontWeight: 500,
-          color: '#737373',
-        },
-          total: {
-            showAlways: true,
-            show: true,
-            formatter: function() {
-              return `${data.value.length}`;
-            },
-          },
-        }
-      }
-    },
-  },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      show: false,
-      width: 0.3,
-      colors: ['#737373'],
-    },
-    colors: [] // Initialize an empty array for colors
-  });
-  
-  const chartSeries = ref([]);
-  const segmentColors = ref([]);
+  const { fetchState } = await useFetch(async () => {
+  const { geography, forestType, vegetationType, standAge } = route.query;
 
-  
-  onMounted(async () => {
-
-    if (process.client) { // ensure this code only runs client-side
-    const module = await import('vue3-apexcharts');
-    VueApexCharts.value = module.default;
-  }
-    const { geography, forestType, vegetationType, standAge } = route.query;
-    const response = await fetch(`/api/fetchData?geography=${geography}&forestType=${forestType}&vegetationType=${vegetationType}&standAge=${standAge}`);
+   // Encode query parameters before appending them to the URL
+    const encodedURL = `/api/fetchData?geography=${encodeURIComponent(geography)}&forestType=${encodeURIComponent(forestType)}&vegetationType=${encodeURIComponent(vegetationType)}&standAge=${encodeURIComponent(standAge)}`;
+    
+    console.log('Encoded URL:', encodedURL);
+    const response = await fetch(encodedURL);
     const result = await response.json();
     data.value = result.data;
-  
+
+
+
+
     if (data.value) {
     totalSum = data.value.reduce((acc, row) => acc + row.total_presence, 0);
 
@@ -158,6 +160,14 @@
     
   }
   });
+
+
+onMounted(async () => {
+  if (process.client) {  // Ensure this code only runs client-side
+    const module = await import('vue3-apexcharts');
+    VueApexCharts.value = module.default;
+  }
+});
   </script>
   
 

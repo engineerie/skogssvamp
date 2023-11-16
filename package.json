@@ -23,6 +23,7 @@
     "@heroicons/vue": "^2.0.18",
     "@pinia/nuxt": "^0.4.11",
     "apexcharts": "^3.43.0",
+    "axios": "^1.5.1",
     "nuxt-icons": "^3.2.1",
     "papaparse": "^5.4.1",
     "pinia": "^2.1.6",

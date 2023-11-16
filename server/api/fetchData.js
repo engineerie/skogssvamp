@@ -24,7 +24,11 @@ JOIN
     app_taxonomy ON app_abundance.clusterid = app_taxonomy.clusterid
 JOIN 
     app_taxonomy_dyntaxa ON app_taxonomy.taxon_gbif_name = app_taxonomy_dyntaxa.taxon
-    WHERE 
+JOIN 
+    "SI18 & SI19-Table 1" ON app_taxonomy_dyntaxa.taxon = "SI18 & SI19-Table 1".taxon
+WHERE 
+    "SI18 & SI19-Table 1".Lifeform = 'ECM'
+AND 
     ( (app_metadata.latitud > 60 AND ? = ?) OR 
       (app_metadata.latitud <= 60 AND ? = ?) )
 AND 

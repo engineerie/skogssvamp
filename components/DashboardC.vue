@@ -17,7 +17,7 @@
 <div class="grid grid-cols-4 grid-rows-5 gap-4">
   <div class="col-span-2"><EDNATable /> </div>
   <div class=""><DonutChart /></div>
-  <div class=" row-span-2 col-start-4"><EnvironmentImage /></div>
+  <div class=" row-span-2 col-start-4"><EnvironmentImage/></div>
   
   
   <!-- <div class="col-span-2"><barChart /></div> -->
@@ -34,6 +34,8 @@ import { useComparisonStore } from '~/stores/comparisonStore';
 import { useDashboardInfoStore } from '~/stores/dashboardInfoStore';
 import EnvironmentImage from './EnvironmentImage.vue';  // Add this line
 
+const props = defineProps();
+const id = props.id;
 
 const comparisonStore = useComparisonStore();
 const route = useRoute();
@@ -80,9 +82,7 @@ const formattedQuery = computed(() => {
 const queryAsJson = computed(() => JSON.stringify(route.query));
 
 watch(queryAsJson, (newQuery, oldQuery) => {
-  console.log('Query changed', newQuery, oldQuery);  
   if (newQuery !== oldQuery) {
-    console.log('Calling clearDuplicateFlag');  
     comparisonStore.clearDuplicateFlag();
   }
 });
@@ -99,9 +99,7 @@ onMounted(() => {
 });
 
 watch(RedListedMessage, (newVal) => {
-  console.log("Red Listed Message changed:", newVal);
 });
 watch(EnvironmentMessage, (newVal) => {
-  console.log("Environment Message changed:", newVal);
 });
 </script>

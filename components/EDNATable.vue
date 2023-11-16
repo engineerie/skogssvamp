@@ -34,22 +34,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+
+const props = defineProps();
+const id = props.id;
 
 const data = ref(null);
 const allColors = ref([]);
 const route = useRoute();
 
-
-
-onMounted(async () => {
-  const { geography, forestType, vegetationType, standAge } = route.query;
-  const response = await fetch(`/api/fetchData?geography=${geography}&forestType=${forestType}&vegetationType=${vegetationType}&standAge=${standAge}`);
-  const result = await response.json();
-  data.value = result.data;
-
-  const generateColors = (start, end, steps) => {
+const generateColors = (start, end, steps) => {
     const stepR = (end[0] - start[0]) / (steps - 1);
     const stepG = (end[1] - start[1]) / (steps - 1);
     const stepB = (end[2] - start[2]) / (steps - 1);
@@ -64,12 +58,21 @@ onMounted(async () => {
     return colors;
   };
 
+const { fetchState } = await useFetch(async () => {
+  const { geography, forestType, vegetationType, standAge } = route.query;
+  console.log('Route Query:', route.query);
+  const response = await fetch(`/api/fetchData?geography=${geography}&forestType=${forestType}&vegetationType=${vegetationType}&standAge=${standAge}`);
+  const result = await response.json();
+  data.value = result.data;
+
   const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
   const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
   const otherColors = generateColors([46, 16, 101], [232, 121, 249], data.value.length - 14);
 
   allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
+
 });
+
 
 </script>
 
