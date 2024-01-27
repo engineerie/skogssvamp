@@ -1,23 +1,23 @@
 <template>
     <ThinSideBar class="z-50"/>
     <SideBar :isSidebarOpen="isSidebarOpen" @toggleSidebar="toggleSidebar"/> 
-  
-    <div :class="{'w-full': isStartPage, 'ml-[300px]': isSidebarOpen && !isStartPage, 'ml-[64px]': !isSidebarOpen && !isStartPage, 'sync-transition': true}">
-      <div :class="{'p-4 pt-4 pl-10': !isStartPage, 'lg:max-w-full 2xl:max-w-screen-2xl mx-auto': !isStartPage}">
+    <div :class="{'w-full': isStartPage, 'ml-[434px]': isSidebarOpen && !isStartPage, 'ml-[64px]': !isSidebarOpen && !isStartPage, 'sync-transition': true}">
+      <div :class="{'py-4 pr-8 pt-2 pl-8': !isStartPage, 'lg:max-w-full 2xl:max-w-screen-2xl mx-auto': !isStartPage}">
         <div v-if="!isStartPage" class="flex justify-between items-center"> 
           <div class="flex gap-2"> 
             <button @click="toggleSidebar">
               <Bars3CenterLeftIcon v-if="!isSidebarOpen" class="h-10 w-10 ml-3 text-green-500"/>
-              <ChevronLeftIcon v-else class="h-10 w-10 ml-3 text-green-500"/>
+              <ChevronLeftIcon v-else class="h-10 w-10 ml-2 text-green-500"/>
             </button> 
             <slot name="title">
-              <BaseHeading as="h1" weight="medium" size="3xl">{{ titleStore.title }}</BaseHeading>
+              <BaseHeading as="h1" weight="light" size="3xl">{{ titleStore.title }}</BaseHeading>
+              <div class="z-60 ml-4 mr-4">
+                <BaseMessage type="danger">Under utveckling! Information som presenteras kan vara ofullständig eller felaktig. Färdig version lanseras våren 2025. </BaseMessage></div>
             </slot> 
           </div>
           <BaseThemeSwitch />
         </div>
         <div v-if="isStartPage" class="flex justify-end items-center p-4">
-          <BaseThemeSwitch />
         </div>
         <div :class="{'p-4 pt-8': !isStartPage}">
           <slot />

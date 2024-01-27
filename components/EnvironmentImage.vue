@@ -1,38 +1,37 @@
 <template>
-    <div class="p-5  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
-    <img :src="imageUrl" class="rounded-xl p-6 dark:bg-violet-200 bg-violet-100 dark:bg-opacity-80"/>
-<BaseProse size="lg" weight="semibold" class="mt-4"></BaseProse>
-    </div>
-    
-  </template>
-  
-  <script setup>
-  import { computed } from 'vue';
-  import { useRoute } from 'vue-router';
+  <div class="relative grid grid-cols-4 p-5 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 ">
+    <DashboardInfo class="col-span-3"/>
+    <img v-if="imageUrl && !imageError" :src="imageUrl" class="w-auto px-6 py-6 rounded-xl dark:bg-violet-200 bg-violet-100 dark:bg-opacity-80"/>
+    <p v-else>No image available</p>
+  </div>
+</template>
 
-  const props = defineProps();
-  const id = props.id;
-  
-  const route = useRoute();
-  
-  // Convert the URL to an image filename
-  const imageUrl = computed(() => {
-    const { geography, forestType, vegetationType, standAge } = route.query;
-    if (geography && forestType && vegetationType && standAge) {
-      const imageName = `${geography}-${forestType}-${vegetationType}-${standAge}`
-        .toLowerCase()
-        .replace(/\+/g, ' ')
-        .split(' ')
-        .join('_')
-        .replace(/-+/g, '_')
-        .replace(/<+/g, '')
-        .replace(/>+/g, '');
-      const finalUrl = `/images/${imageName}.png`;
-      console.log('Returning dynamic URL:', finalUrl);
-      return finalUrl; 
-    }
-    console.log('Returning null');
-    return null;
-  });
-  </script>
-  
+<script setup>
+import { computed } from 'vue';
+
+// Define props to receive data from the parent component
+const props = defineProps({
+  geography: String,
+  forestType: String,
+  vegetationType: String,
+  standAge: String
+});
+
+const imageError = ref(false);
+
+// Convert the props to an image filename
+const imageUrl = computed(() => {
+  if (props.geography && props.forestType && props.vegetationType && props.standAge) {
+    const imageName = `${props.geography}-${props.forestType}-${props.vegetationType}-${props.standAge}`
+      .toLowerCase()
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/-+/g, '_') // Replace hyphens with underscores
+      .replace(/[<>]+/g, ''); // Remove any < or > characters
+    const finalUrl = `/images/${imageName}.png`;
+    console.log('Returning dynamic URL:', finalUrl);
+    return finalUrl;
+  }
+  console.log('Returning null');
+  return null;
+});
+</script>

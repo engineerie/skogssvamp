@@ -1,7 +1,7 @@
-id,environment_id,environment_message,redlisted_species
-1,North Sweden-Spruce-Tall herbs-1-40 years,Test1,1
-2,North Sweden-Spruce-Tall herbs-41-90 years,Test2,2
-3,North Sweden-Spruce-Tall herbs-91< years,Test3,3
+id,environment_id,environment_message,species_count
+1,North Sweden-Spruce-Tall herbs-1-40 years,Test1,140
+2,North Sweden-Spruce-Tall herbs-41-90 years,Test2,180
+3,North Sweden-Spruce-Tall herbs-91< years,Test3,240
 4,North Sweden-Spruce-Low herbs-1-40 years,,
 5,North Sweden-Spruce-Low herbs-41-90 years,,
 6,North Sweden-Spruce-Low herbs-91< years,,

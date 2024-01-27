@@ -7,9 +7,16 @@ export default defineNuxtConfig({
   },
   // target: 'static',
   modules: [
+    'nuxt-mapbox',
     'nuxt-icons',
     '@pinia/nuxt',
+    '@nuxt/ui',
+    'vue3-carousel-nuxt',
+    'nuxt-swiper',
   ],
+  mapbox: {
+    accessToken: 'pk.eyJ1IjoiZW5naW5lZXJpZWUiLCJhIjoiY2xyZzluNThyMGRuaDJsbzJhbWJoN2YwayJ9._ex2Twr8a9YSL7fyJDA-kA',
+  },
   pinia: {
     autoImports: [
       'defineStore',

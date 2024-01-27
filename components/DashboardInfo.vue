@@ -1,6 +1,6 @@
 <!-- DashboardInfo.vue -->
 <template>
-    <div class="p-6  bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
+    <div class="p-4">
       <BaseHeading
       as="h4"
       size="sm"
@@ -8,9 +8,9 @@
       lead="tight"
       class="mb-2 text-muted-400"
     >
-    Environment Info: 
+    Om den här miljön:
     </BaseHeading>
-    <BaseParagraph v-if="dataLoaded" size="md" lead="tight" color="primary">
+    <BaseParagraph v-if="dataLoaded" size="xl" lead="tight" color="primary">
       {{ EnvironmentMessage }}
     </BaseParagraph>
   </div>
@@ -49,7 +49,7 @@ const EnvironmentMessage = computed(() => {
       env => env.environment_id === key
     );
 
-    return matchingEnvironment ? matchingEnvironment.environment_message : 'No specific information available for this environment.';
+    return matchingEnvironment ? matchingEnvironment.environment_message : 'Genererad text med information om miljön';
   }
 });
 </script>

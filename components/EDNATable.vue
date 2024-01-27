@@ -1,47 +1,59 @@
 <template>
-  <div class="p-6 bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border-[1px] dark:border-stone-700 border-stone-300 rounded-xl">
-    <BaseHeading size="md" class="mb-4">Species list from e-DNA data</BaseHeading>
-    <div id="scrollbar" class="overscroll overflow-y-scroll h-96">
-      <div v-if="data">
-        <table class="w-full text-sm text-left table-auto">
-          <thead class="bg-neutral-100 dark:bg-neutral-800 sticky top-0 dark:text-neutral-500 text-neutral-500 drop-shadow-sm">
-            <tr >
-              <th class=" py-3"></th>
-              <th class=" py-3">Taxon</th>
-              <th class="px-6 py-3">Swedish name</th>
-              <th class="px-6 py-3">Edible</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(row, index) in data" :key="row.taxon" class="border-b border-stone-200 dark:border-stone-700">
-              <td class="py-2 px-2">
-                <div :style="{ backgroundColor: allColors[index] }" class="rounded-full w-4 h-4"></div>
-              </td>
-              <td class="py-2 text-neutral-500">{{ row.taxon }}</td>
-              <td class="px-6 text-neutral-500">{{ row.snamn }}</td>
-              <td class="px-6">
-                <div v-if="row.matsvamp === 1" class="bg-yellow-500 rounded-full w-4 h-4"></div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else>
-        <p>No data available</p>
+  <div class="relative p-6 bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border  dark:border-stone-700 border-stone-300 rounded-xl ">
+    <div class="flex justify-between items-center mb-4">
+      <BaseHeading size="md" class="mb-4">Markinventeringsdata</BaseHeading>
+      <div class="w-12 h-12 mb-4 rounded-lg text-violet-500 flex justify-center items-center  border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">              
+          <Icon name="solar:dna-bold-duotone" class="h-6 w-6" /> 
+        </div>   
+    </div>
+    <SpatialForest :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType" class=""/>
+    <div v-if="data" id="scrollbar" class="overscroll overflow-y-scroll h-96 pl-2">
+      <div v-for="(row, index) in data" :key="row.taxon" class="flex justify-between items-center my-4">
+        <!-- Left section with text and icon -->
+        <div class="flex items-center gap-4">
+          <Icon name="fluent:shape-organic-16-filled" :class="'h-8 w-8'" :style="{ color: allColors[index] }" />
+          <div>
+            <BaseProse class="text-neutral-500">
+              {{ row.snamn ? capitalize(row.snamn) : 'saknar svenskt namn' }}
+            </BaseProse>
+            <BaseProse class="text-xs text-neutral-500">{{ capitalize(row.taxon) }}</BaseProse>
+          </div>
+        </div>
+    
+        <!-- Right section with matsvamp icon -->
+        <div v-if="row.matsvamp === 1">
+          <Icon name="icon-park-twotone:pot" class="h-8 w-8 mr-14 text-yellow-500" />
+        </div>
       </div>
     </div>
+    <div v-else>
+      <p>No data available</p>
+    </div>
   </div>
+
+  
+  
 </template>
+
 
 <script setup>
 import { useRoute } from 'vue-router';
 
-const props = defineProps();
-const id = props.id;
+// Define props to receive data from the parent component
+const props = defineProps({
+  geography: String,
+  forestType: String,
+  standAge: String,
+  vegetationType: String
+});
 
 const data = ref(null);
 const allColors = ref([]);
-const route = useRoute();
+
+const capitalize = (str) => {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
 
 const generateColors = (start, end, steps) => {
     const stepR = (end[0] - start[0]) / (steps - 1);
@@ -58,19 +70,17 @@ const generateColors = (start, end, steps) => {
     return colors;
   };
 
-const { fetchState } = await useFetch(async () => {
-  const { geography, forestType, vegetationType, standAge } = route.query;
-  console.log('Route Query:', route.query);
-  const response = await fetch(`/api/fetchData?geography=${geography}&forestType=${forestType}&vegetationType=${vegetationType}&standAge=${standAge}`);
+// Fetching data on component mount
+onMounted(async () => {
+  const response = await fetch(`/api/fetchData?geography=${props.geography}&forestType=${props.forestType}&vegetationType=${props.vegetationType}&standAge=${props.standAge}`);
   const result = await response.json();
   data.value = result.data;
 
   const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
   const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-  const otherColors = generateColors([46, 16, 101], [232, 121, 249], data.value.length - 14);
+  const otherColors = generateColors([46, 16, 101], [232, 121, 249], data.value.length - 13);
 
   allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
-
 });
 
 
@@ -83,7 +93,7 @@ const { fetchState } = await useFetch(async () => {
 <style scoped>
   /* For Webkit browsers like Chrome, Safari */
   #scrollbar::-webkit-scrollbar {
-    width: 8px; /* width of the entire scrollbar */
+    width: 12px; /* width of the entire scrollbar */
   }
   
   #scrollbar::-webkit-scrollbar-track {
@@ -91,7 +101,7 @@ const { fetchState } = await useFetch(async () => {
   }
   
   #scrollbar::-webkit-scrollbar-thumb {
-  display: none;
+  display: block;
   background-color: #88888833;  /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
   
@@ -112,6 +122,6 @@ const { fetchState } = await useFetch(async () => {
   scrollbar-color: #888 #f2f3f5;
 }
 
-
   </style>
-  
+
+
