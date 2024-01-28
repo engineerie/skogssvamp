@@ -121,7 +121,7 @@
  
 
   
-    <div id="om-projektet" class="pb-16">
+    <div id="om-projektet" class="py-8">
       <div class="mx-72 mt-4">
       <div class="flex flex-col items-center justify-center mx-12">
     
@@ -442,7 +442,7 @@
         <div class="flex items-start">
           <div class="w-12 h-12 mr-5 rounded-lg flex justify-center items-center  border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">              <Icon name="game-icons:grass-mushroom" class="h-5 w-5" /> </div>      
           <div >
-            <BaseHeading size="sm" class=" text-green-500">Professor i Mykologi vid SLU Uppsala</BaseHeading>
+            <BaseHeading size="sm" class=" text-green-500">Professor vid Institutionen för skoglig mykologi och växtpatologi</BaseHeading>
             <BaseHeading size="md" weight="extrabold" class="">Anders Dahlberg</BaseHeading>
             <BaseHeading size="sm"  class=" text-neutral-500">anders.dahlberg@slu.se</BaseHeading>
           </div>

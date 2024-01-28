@@ -2,192 +2,192 @@ id,environment_id,environment_message,species_count
 1,North Sweden-Spruce-Tall herbs-1-40 years,Test1,140
 2,North Sweden-Spruce-Tall herbs-41-90 years,Test2,180
 3,North Sweden-Spruce-Tall herbs-91< years,Test3,240
-4,North Sweden-Spruce-Low herbs-1-40 years,,
-5,North Sweden-Spruce-Low herbs-41-90 years,,
-6,North Sweden-Spruce-Low herbs-91< years,,
-7,North Sweden-Spruce-No field layer-1-40 years,,
-8,North Sweden-Spruce-No field layer-41-90 years,,
-9,North Sweden-Spruce-No field layer-91< years,,
-10,North Sweden-Spruce-Broad grasses-1-40 years,,
-11,North Sweden-Spruce-Broad grasses-41-90 years,,
-12,North Sweden-Spruce-Broad grasses-91< years,,
-13,North Sweden-Spruce-Narrow grasses-1-40 years,,
-14,North Sweden-Spruce-Narrow grasses-41-90 years,,
-15,North Sweden-Spruce-Narrow grasses-91< years,,
-16,North Sweden-Spruce-Blueberry-1-40 years,,
-17,North Sweden-Spruce-Blueberry-41-90 years,,
-18,North Sweden-Spruce-Blueberry-91< years,,
-19,North Sweden-Spruce-Lingonberry-1-40 years,,
-20,North Sweden-Spruce-Lingonberry-41-90 years,,
-21,North Sweden-Spruce-Lingonberry-91< years,,
-22,North Sweden-Spruce-Crowberry/heather-1-40 years,,
-23,North Sweden-Spruce-Crowberry/heather-41-90 years,,
-24,North Sweden-Spruce-Crowberry/heather-91< years,,
-25,North Sweden-Pine-Tall herbs-1-40 years,,
-26,North Sweden-Pine-Tall herbs-41-90 years,,
-27,North Sweden-Pine-Tall herbs-91< years,,
-28,North Sweden-Pine-Low herbs-1-40 years,,
+4,North Sweden-Spruce-Low herbs-1-40 years,,200
+5,North Sweden-Spruce-Low herbs-41-90 years,,200
+6,North Sweden-Spruce-Low herbs-91< years,,200
+7,North Sweden-Spruce-No field layer-1-40 years,,200
+8,North Sweden-Spruce-No field layer-41-90 years,,200
+9,North Sweden-Spruce-No field layer-91< years,,200
+10,North Sweden-Spruce-Broad grasses-1-40 years,,200
+11,North Sweden-Spruce-Broad grasses-41-90 years,,200
+12,North Sweden-Spruce-Broad grasses-91< years,,200
+13,North Sweden-Spruce-Narrow grasses-1-40 years,,200
+14,North Sweden-Spruce-Narrow grasses-41-90 years,,200
+15,North Sweden-Spruce-Narrow grasses-91< years,,200
+16,North Sweden-Spruce-Blueberry-1-40 years,,200
+17,North Sweden-Spruce-Blueberry-41-90 years,,200
+18,North Sweden-Spruce-Blueberry-91< years,,200
+19,North Sweden-Spruce-Lingonberry-1-40 years,,200
+20,North Sweden-Spruce-Lingonberry-41-90 years,,200
+21,North Sweden-Spruce-Lingonberry-91< years,,200
+22,North Sweden-Spruce-Crowberry/heather-1-40 years,,200
+23,North Sweden-Spruce-Crowberry/heather-41-90 years,,200
+24,North Sweden-Spruce-Crowberry/heather-91< years,,200
+25,North Sweden-Pine-Tall herbs-1-40 years,,200
+26,North Sweden-Pine-Tall herbs-41-90 years,,200
+27,North Sweden-Pine-Tall herbs-91< years,,200
+28,North Sweden-Pine-Low herbs-1-40 years,,200
 29,North Sweden-Pine-Low herbs-41-90 years,,
-30,North Sweden-Pine-Low herbs-91< years,,
-31,North Sweden-Pine-No field layer-1-40 years,,
-32,North Sweden-Pine-No field layer-41-90 years,,
-33,North Sweden-Pine-No field layer-91< years,,
-34,North Sweden-Pine-Broad grasses-1-40 years,,
-35,North Sweden-Pine-Broad grasses-41-90 years,,
-36,North Sweden-Pine-Broad grasses-91< years,,
-37,North Sweden-Pine-Narrow grasses-1-40 years,,
-38,North Sweden-Pine-Narrow grasses-41-90 years,,
-39,North Sweden-Pine-Narrow grasses-91< years,,
-40,North Sweden-Pine-Blueberry-1-40 years,,
-41,North Sweden-Pine-Blueberry-41-90 years,,
-42,North Sweden-Pine-Blueberry-91< years,,
-43,North Sweden-Pine-Lingonberry-1-40 years,,
-44,North Sweden-Pine-Lingonberry-41-90 years,,
-45,North Sweden-Pine-Lingonberry-91< years,,
-46,North Sweden-Pine-Crowberry/heather-1-40 years,,
-47,North Sweden-Pine-Crowberry/heather-41-90 years,,
-48,North Sweden-Pine-Crowberry/heather-91< years,,
-49,North Sweden-Mixed Coniferous-Tall herbs-1-40 years,,
-50,North Sweden-Mixed Coniferous-Tall herbs-41-90 years,,
-51,North Sweden-Mixed Coniferous-Tall herbs-91< years,,
-52,North Sweden-Mixed Coniferous-Low herbs-1-40 years,,
-53,North Sweden-Mixed Coniferous-Low herbs-41-90 years,,
-54,North Sweden-Mixed Coniferous-Low herbs-91< years,,
-55,North Sweden-Mixed Coniferous-No field layer-1-40 years,,
-56,North Sweden-Mixed Coniferous-No field layer-41-90 years,,
-57,North Sweden-Mixed Coniferous-No field layer-91< years,,
-58,North Sweden-Mixed Coniferous-Broad grasses-1-40 years,,
-59,North Sweden-Mixed Coniferous-Broad grasses-41-90 years,,
-60,North Sweden-Mixed Coniferous-Broad grasses-91< years,,
-61,North Sweden-Mixed Coniferous-Narrow grasses-1-40 years,,
-62,North Sweden-Mixed Coniferous-Narrow grasses-41-90 years,,
-63,North Sweden-Mixed Coniferous-Narrow grasses-91< years,,
-64,North Sweden-Mixed Coniferous-Blueberry-1-40 years,,
-65,North Sweden-Mixed Coniferous-Blueberry-41-90 years,,
-66,North Sweden-Mixed Coniferous-Blueberry-91< years,,
-67,North Sweden-Mixed Coniferous-Lingonberry-1-40 years,,
-68,North Sweden-Mixed Coniferous-Lingonberry-41-90 years,,
-69,North Sweden-Mixed Coniferous-Lingonberry-91< years,,
-70,North Sweden-Mixed Coniferous-Crowberry/heather-1-40 years,,
-71,North Sweden-Mixed Coniferous-Crowberry/heather-41-90 years,,
-72,North Sweden-Mixed Coniferous-Crowberry/heather-91< years,,
-73,North Sweden-Mixed Deciduous-Tall herbs-1-40 years,,
-74,North Sweden-Mixed Deciduous-Tall herbs-41-90 years,,
-75,North Sweden-Mixed Deciduous-Tall herbs-91< years,,
-76,North Sweden-Mixed Deciduous-Low herbs-1-40 years,,
-77,North Sweden-Mixed Deciduous-Low herbs-41-90 years,,
-78,North Sweden-Mixed Deciduous-Low herbs-91< years,,
-79,North Sweden-Mixed Deciduous-No field layer-1-40 years,,
-80,North Sweden-Mixed Deciduous-No field layer-41-90 years,,
-81,North Sweden-Mixed Deciduous-No field layer-91< years,,
-82,North Sweden-Mixed Deciduous-Broad grasses-1-40 years,,
-83,North Sweden-Mixed Deciduous-Broad grasses-41-90 years,,
-84,North Sweden-Mixed Deciduous-Broad grasses-91< years,,
-85,North Sweden-Mixed Deciduous-Narrow grasses-1-40 years,,
-86,North Sweden-Mixed Deciduous-Narrow grasses-41-90 years,,
-87,North Sweden-Mixed Deciduous-Narrow grasses-91< years,,
-88,North Sweden-Mixed Deciduous-Blueberry-1-40 years,,
-89,North Sweden-Mixed Deciduous-Blueberry-41-90 years,,
-90,North Sweden-Mixed Deciduous-Blueberry-91< years,,
-91,North Sweden-Mixed Deciduous-Lingonberry-1-40 years,,
-92,North Sweden-Mixed Deciduous-Lingonberry-41-90 years,,
-93,North Sweden-Mixed Deciduous-Lingonberry-91< years,,
-94,North Sweden-Mixed Deciduous-Crowberry/heather-1-40 years,,
-95,North Sweden-Mixed Deciduous-Crowberry/heather-41-90 years,,
-96,North Sweden-Mixed Deciduous-Crowberry/heather-91< years,,
-97,South Sweden-Spruce-Tall herbs-1-40 years,,
-98,South Sweden-Spruce-Tall herbs-41-90 years,,
-99,South Sweden-Spruce-Tall herbs-91< years,,
-100,South Sweden-Spruce-Low herbs-1-40 years,,
-101,South Sweden-Spruce-Low herbs-41-90 years,,
-102,South Sweden-Spruce-Low herbs-91< years,,
-103,South Sweden-Spruce-No field layer-1-40 years,,
-104,South Sweden-Spruce-No field layer-41-90 years,,
-105,South Sweden-Spruce-No field layer-91< years,,
-106,South Sweden-Spruce-Broad grasses-1-40 years,,
-107,South Sweden-Spruce-Broad grasses-41-90 years,,
-108,South Sweden-Spruce-Broad grasses-91< years,,
-109,South Sweden-Spruce-Narrow grasses-1-40 years,,
-110,South Sweden-Spruce-Narrow grasses-41-90 years,,
-111,South Sweden-Spruce-Narrow grasses-91< years,,
-112,South Sweden-Spruce-Blueberry-1-40 years,,
-113,South Sweden-Spruce-Blueberry-41-90 years,,
-114,South Sweden-Spruce-Blueberry-91< years,,
-115,South Sweden-Spruce-Lingonberry-1-40 years,,
-116,South Sweden-Spruce-Lingonberry-41-90 years,,
-117,South Sweden-Spruce-Lingonberry-91< years,,
-118,South Sweden-Spruce-Crowberry/heather-1-40 years,,
-119,South Sweden-Spruce-Crowberry/heather-41-90 years,,
-120,South Sweden-Spruce-Crowberry/heather-91< years,,
-121,South Sweden-Pine-Tall herbs-1-40 years,,
-122,South Sweden-Pine-Tall herbs-41-90 years,,
-123,South Sweden-Pine-Tall herbs-91< years,,
-124,South Sweden-Pine-Low herbs-1-40 years,,
-125,South Sweden-Pine-Low herbs-41-90 years,,
-126,South Sweden-Pine-Low herbs-91< years,,
-127,South Sweden-Pine-No field layer-1-40 years,,
-128,South Sweden-Pine-No field layer-41-90 years,,
-129,South Sweden-Pine-No field layer-91< years,,
-130,South Sweden-Pine-Broad grasses-1-40 years,,
-131,South Sweden-Pine-Broad grasses-41-90 years,,
-132,South Sweden-Pine-Broad grasses-91< years,,
-133,South Sweden-Pine-Narrow grasses-1-40 years,,
-134,South Sweden-Pine-Narrow grasses-41-90 years,,
-135,South Sweden-Pine-Narrow grasses-91< years,,
-136,South Sweden-Pine-Blueberry-1-40 years,,
-137,South Sweden-Pine-Blueberry-41-90 years,,
-138,South Sweden-Pine-Blueberry-91< years,,
-139,South Sweden-Pine-Lingonberry-1-40 years,,
-140,South Sweden-Pine-Lingonberry-41-90 years,,
-141,South Sweden-Pine-Lingonberry-91< years,,
-142,South Sweden-Pine-Crowberry/heather-1-40 years,,
-143,South Sweden-Pine-Crowberry/heather-41-90 years,,
-144,South Sweden-Pine-Crowberry/heather-91< years,,
-145,South Sweden-Mixed Coniferous-Tall herbs-1-40 years,,
-146,South Sweden-Mixed Coniferous-Tall herbs-41-90 years,,
-147,South Sweden-Mixed Coniferous-Tall herbs-91< years,,
-148,South Sweden-Mixed Coniferous-Low herbs-1-40 years,,
-149,South Sweden-Mixed Coniferous-Low herbs-41-90 years,,
-150,South Sweden-Mixed Coniferous-Low herbs-91< years,,
-151,South Sweden-Mixed Coniferous-No field layer-1-40 years,,
-152,South Sweden-Mixed Coniferous-No field layer-41-90 years,,
-153,South Sweden-Mixed Coniferous-No field layer-91< years,,
-154,South Sweden-Mixed Coniferous-Broad grasses-1-40 years,,
-155,South Sweden-Mixed Coniferous-Broad grasses-41-90 years,,
-156,South Sweden-Mixed Coniferous-Broad grasses-91< years,,
-157,South Sweden-Mixed Coniferous-Narrow grasses-1-40 years,,
-158,South Sweden-Mixed Coniferous-Narrow grasses-41-90 years,,
-159,South Sweden-Mixed Coniferous-Narrow grasses-91< years,,
-160,South Sweden-Mixed Coniferous-Blueberry-1-40 years,,
-161,South Sweden-Mixed Coniferous-Blueberry-41-90 years,,
-162,South Sweden-Mixed Coniferous-Blueberry-91< years,,
-163,South Sweden-Mixed Coniferous-Lingonberry-1-40 years,,
-164,South Sweden-Mixed Coniferous-Lingonberry-41-90 years,,
-165,South Sweden-Mixed Coniferous-Lingonberry-91< years,,
-166,South Sweden-Mixed Coniferous-Crowberry/heather-1-40 years,,
-167,South Sweden-Mixed Coniferous-Crowberry/heather-41-90 years,,
-168,South Sweden-Mixed Coniferous-Crowberry/heather-91< years,,
-169,South Sweden-Mixed Deciduous-Tall herbs-1-40 years,,
-170,South Sweden-Mixed Deciduous-Tall herbs-41-90 years,,
-171,South Sweden-Mixed Deciduous-Tall herbs-91< years,,
-172,South Sweden-Mixed Deciduous-Low herbs-1-40 years,,
-173,South Sweden-Mixed Deciduous-Low herbs-41-90 years,,
-174,South Sweden-Mixed Deciduous-Low herbs-91< years,,
-175,South Sweden-Mixed Deciduous-No field layer-1-40 years,,
-176,South Sweden-Mixed Deciduous-No field layer-41-90 years,,
-177,South Sweden-Mixed Deciduous-No field layer-91< years,,
-178,South Sweden-Mixed Deciduous-Broad grasses-1-40 years,,
-179,South Sweden-Mixed Deciduous-Broad grasses-41-90 years,,
-180,South Sweden-Mixed Deciduous-Broad grasses-91< years,,
-181,South Sweden-Mixed Deciduous-Narrow grasses-1-40 years,,
-182,South Sweden-Mixed Deciduous-Narrow grasses-41-90 years,,
-183,South Sweden-Mixed Deciduous-Narrow grasses-91< years,,
-184,South Sweden-Mixed Deciduous-Blueberry-1-40 years,,
-185,South Sweden-Mixed Deciduous-Blueberry-41-90 years,,
-186,South Sweden-Mixed Deciduous-Blueberry-91< years,,
-187,South Sweden-Mixed Deciduous-Lingonberry-1-40 years,,
-188,South Sweden-Mixed Deciduous-Lingonberry-41-90 years,,
-189,South Sweden-Mixed Deciduous-Lingonberry-91< years,,
-190,South Sweden-Mixed Deciduous-Crowberry/heather-1-40 years,,
-191,South Sweden-Mixed Deciduous-Crowberry/heather-41-90 years,,
-192,South Sweden-Mixed Deciduous-Crowberry/heather-91< years,,
+30,North Sweden-Pine-Low herbs-91< years,,200
+31,North Sweden-Pine-No field layer-1-40 years,,200
+32,North Sweden-Pine-No field layer-41-90 years,,200
+33,North Sweden-Pine-No field layer-91< years,,200
+34,North Sweden-Pine-Broad grasses-1-40 years,,200
+35,North Sweden-Pine-Broad grasses-41-90 years,,200
+36,North Sweden-Pine-Broad grasses-91< years,,200
+37,North Sweden-Pine-Narrow grasses-1-40 years,,200
+38,North Sweden-Pine-Narrow grasses-41-90 years,,200
+39,North Sweden-Pine-Narrow grasses-91< years,,200
+40,North Sweden-Pine-Blueberry-1-40 years,,200
+41,North Sweden-Pine-Blueberry-41-90 years,,200
+42,North Sweden-Pine-Blueberry-91< years,,200
+43,North Sweden-Pine-Lingonberry-1-40 years,,200
+44,North Sweden-Pine-Lingonberry-41-90 years,,200
+45,North Sweden-Pine-Lingonberry-91< years,,200
+46,North Sweden-Pine-Crowberry/heather-1-40 years,,200
+47,North Sweden-Pine-Crowberry/heather-41-90 years,,200
+48,North Sweden-Pine-Crowberry/heather-91< years,,200
+49,North Sweden-Mixed Coniferous-Tall herbs-1-40 years,,200
+50,North Sweden-Mixed Coniferous-Tall herbs-41-90 years,,200
+51,North Sweden-Mixed Coniferous-Tall herbs-91< years,,200
+52,North Sweden-Mixed Coniferous-Low herbs-1-40 years,,200
+53,North Sweden-Mixed Coniferous-Low herbs-41-90 years,,200
+54,North Sweden-Mixed Coniferous-Low herbs-91< years,,200
+55,North Sweden-Mixed Coniferous-No field layer-1-40 years,,200
+56,North Sweden-Mixed Coniferous-No field layer-41-90 years,,200
+57,North Sweden-Mixed Coniferous-No field layer-91< years,,200
+58,North Sweden-Mixed Coniferous-Broad grasses-1-40 years,,200
+59,North Sweden-Mixed Coniferous-Broad grasses-41-90 years,,200
+60,North Sweden-Mixed Coniferous-Broad grasses-91< years,,200
+61,North Sweden-Mixed Coniferous-Narrow grasses-1-40 years,,200
+62,North Sweden-Mixed Coniferous-Narrow grasses-41-90 years,,200
+63,North Sweden-Mixed Coniferous-Narrow grasses-91< years,,200
+64,North Sweden-Mixed Coniferous-Blueberry-1-40 years,,200
+65,North Sweden-Mixed Coniferous-Blueberry-41-90 years,,200
+66,North Sweden-Mixed Coniferous-Blueberry-91< years,,200
+67,North Sweden-Mixed Coniferous-Lingonberry-1-40 years,,200
+68,North Sweden-Mixed Coniferous-Lingonberry-41-90 years,,200
+69,North Sweden-Mixed Coniferous-Lingonberry-91< years,,200
+70,North Sweden-Mixed Coniferous-Crowberry/heather-1-40 years,,200
+71,North Sweden-Mixed Coniferous-Crowberry/heather-41-90 years,,200
+72,North Sweden-Mixed Coniferous-Crowberry/heather-91< years,,200
+73,North Sweden-Mixed Deciduous-Tall herbs-1-40 years,,200
+74,North Sweden-Mixed Deciduous-Tall herbs-41-90 years,,200
+75,North Sweden-Mixed Deciduous-Tall herbs-91< years,,200
+76,North Sweden-Mixed Deciduous-Low herbs-1-40 years,,200
+77,North Sweden-Mixed Deciduous-Low herbs-41-90 years,,200
+78,North Sweden-Mixed Deciduous-Low herbs-91< years,,200
+79,North Sweden-Mixed Deciduous-No field layer-1-40 years,,200
+80,North Sweden-Mixed Deciduous-No field layer-41-90 years,,200
+81,North Sweden-Mixed Deciduous-No field layer-91< years,,200
+82,North Sweden-Mixed Deciduous-Broad grasses-1-40 years,,200
+83,North Sweden-Mixed Deciduous-Broad grasses-41-90 years,,200
+84,North Sweden-Mixed Deciduous-Broad grasses-91< years,,200
+85,North Sweden-Mixed Deciduous-Narrow grasses-1-40 years,,200
+86,North Sweden-Mixed Deciduous-Narrow grasses-41-90 years,,200
+87,North Sweden-Mixed Deciduous-Narrow grasses-91< years,,200
+88,North Sweden-Mixed Deciduous-Blueberry-1-40 years,,200
+89,North Sweden-Mixed Deciduous-Blueberry-41-90 years,,200
+90,North Sweden-Mixed Deciduous-Blueberry-91< years,,200
+91,North Sweden-Mixed Deciduous-Lingonberry-1-40 years,,200
+92,North Sweden-Mixed Deciduous-Lingonberry-41-90 years,,200
+93,North Sweden-Mixed Deciduous-Lingonberry-91< years,,200
+94,North Sweden-Mixed Deciduous-Crowberry/heather-1-40 years,,200
+95,North Sweden-Mixed Deciduous-Crowberry/heather-41-90 years,,200
+96,North Sweden-Mixed Deciduous-Crowberry/heather-91< years,,200
+97,South Sweden-Spruce-Tall herbs-1-40 years,,200
+98,South Sweden-Spruce-Tall herbs-41-90 years,,200
+99,South Sweden-Spruce-Tall herbs-91< years,,200
+100,South Sweden-Spruce-Low herbs-1-40 years,,200
+101,South Sweden-Spruce-Low herbs-41-90 years,,200
+102,South Sweden-Spruce-Low herbs-91< years,,200
+103,South Sweden-Spruce-No field layer-1-40 years,,200
+104,South Sweden-Spruce-No field layer-41-90 years,,200
+105,South Sweden-Spruce-No field layer-91< years,,200
+106,South Sweden-Spruce-Broad grasses-1-40 years,,200
+107,South Sweden-Spruce-Broad grasses-41-90 years,,200
+108,South Sweden-Spruce-Broad grasses-91< years,,200
+109,South Sweden-Spruce-Narrow grasses-1-40 years,,200
+110,South Sweden-Spruce-Narrow grasses-41-90 years,,200
+111,South Sweden-Spruce-Narrow grasses-91< years,,200
+112,South Sweden-Spruce-Blueberry-1-40 years,,200
+113,South Sweden-Spruce-Blueberry-41-90 years,,200
+114,South Sweden-Spruce-Blueberry-91< years,,200
+115,South Sweden-Spruce-Lingonberry-1-40 years,,200
+116,South Sweden-Spruce-Lingonberry-41-90 years,,200
+117,South Sweden-Spruce-Lingonberry-91< years,,200
+118,South Sweden-Spruce-Crowberry/heather-1-40 years,,200
+119,South Sweden-Spruce-Crowberry/heather-41-90 years,,200
+120,South Sweden-Spruce-Crowberry/heather-91< years,,200
+121,South Sweden-Pine-Tall herbs-1-40 years,,200
+122,South Sweden-Pine-Tall herbs-41-90 years,,200
+123,South Sweden-Pine-Tall herbs-91< years,,200
+124,South Sweden-Pine-Low herbs-1-40 years,,200
+125,South Sweden-Pine-Low herbs-41-90 years,,200
+126,South Sweden-Pine-Low herbs-91< years,,200
+127,South Sweden-Pine-No field layer-1-40 years,,200
+128,South Sweden-Pine-No field layer-41-90 years,,200
+129,South Sweden-Pine-No field layer-91< years,,200
+130,South Sweden-Pine-Broad grasses-1-40 years,,200
+131,South Sweden-Pine-Broad grasses-41-90 years,,200
+132,South Sweden-Pine-Broad grasses-91< years,,200
+133,South Sweden-Pine-Narrow grasses-1-40 years,,200
+134,South Sweden-Pine-Narrow grasses-41-90 years,,200
+135,South Sweden-Pine-Narrow grasses-91< years,,200
+136,South Sweden-Pine-Blueberry-1-40 years,,200
+137,South Sweden-Pine-Blueberry-41-90 years,,200
+138,South Sweden-Pine-Blueberry-91< years,,200
+139,South Sweden-Pine-Lingonberry-1-40 years,,200
+140,South Sweden-Pine-Lingonberry-41-90 years,,200
+141,South Sweden-Pine-Lingonberry-91< years,,200
+142,South Sweden-Pine-Crowberry/heather-1-40 years,,200
+143,South Sweden-Pine-Crowberry/heather-41-90 years,,200
+144,South Sweden-Pine-Crowberry/heather-91< years,,200
+145,South Sweden-Mixed Coniferous-Tall herbs-1-40 years,,200
+146,South Sweden-Mixed Coniferous-Tall herbs-41-90 years,,200
+147,South Sweden-Mixed Coniferous-Tall herbs-91< years,,200
+148,South Sweden-Mixed Coniferous-Low herbs-1-40 years,,200
+149,South Sweden-Mixed Coniferous-Low herbs-41-90 years,,200
+150,South Sweden-Mixed Coniferous-Low herbs-91< years,,200
+151,South Sweden-Mixed Coniferous-No field layer-1-40 years,,200
+152,South Sweden-Mixed Coniferous-No field layer-41-90 years,,200
+153,South Sweden-Mixed Coniferous-No field layer-91< years,,200
+154,South Sweden-Mixed Coniferous-Broad grasses-1-40 years,,200
+155,South Sweden-Mixed Coniferous-Broad grasses-41-90 years,,200
+156,South Sweden-Mixed Coniferous-Broad grasses-91< years,,200
+157,South Sweden-Mixed Coniferous-Narrow grasses-1-40 years,,200
+158,South Sweden-Mixed Coniferous-Narrow grasses-41-90 years,,200
+159,South Sweden-Mixed Coniferous-Narrow grasses-91< years,,200
+160,South Sweden-Mixed Coniferous-Blueberry-1-40 years,,200
+161,South Sweden-Mixed Coniferous-Blueberry-41-90 years,,200
+162,South Sweden-Mixed Coniferous-Blueberry-91< years,,200
+163,South Sweden-Mixed Coniferous-Lingonberry-1-40 years,,200
+164,South Sweden-Mixed Coniferous-Lingonberry-41-90 years,,200
+165,South Sweden-Mixed Coniferous-Lingonberry-91< years,,200
+166,South Sweden-Mixed Coniferous-Crowberry/heather-1-40 years,,200
+167,South Sweden-Mixed Coniferous-Crowberry/heather-41-90 years,,200
+168,South Sweden-Mixed Coniferous-Crowberry/heather-91< years,,200
+169,South Sweden-Mixed Deciduous-Tall herbs-1-40 years,,200
+170,South Sweden-Mixed Deciduous-Tall herbs-41-90 years,,200
+171,South Sweden-Mixed Deciduous-Tall herbs-91< years,,200
+172,South Sweden-Mixed Deciduous-Low herbs-1-40 years,,200
+173,South Sweden-Mixed Deciduous-Low herbs-41-90 years,,200
+174,South Sweden-Mixed Deciduous-Low herbs-91< years,,200
+175,South Sweden-Mixed Deciduous-No field layer-1-40 years,,200
+176,South Sweden-Mixed Deciduous-No field layer-41-90 years,,200
+177,South Sweden-Mixed Deciduous-No field layer-91< years,,200
+178,South Sweden-Mixed Deciduous-Broad grasses-1-40 years,,200
+179,South Sweden-Mixed Deciduous-Broad grasses-41-90 years,,200
+180,South Sweden-Mixed Deciduous-Broad grasses-91< years,,200
+181,South Sweden-Mixed Deciduous-Narrow grasses-1-40 years,,200
+182,South Sweden-Mixed Deciduous-Narrow grasses-41-90 years,,200
+183,South Sweden-Mixed Deciduous-Narrow grasses-91< years,,200
+184,South Sweden-Mixed Deciduous-Blueberry-1-40 years,,200
+185,South Sweden-Mixed Deciduous-Blueberry-41-90 years,,200
+186,South Sweden-Mixed Deciduous-Blueberry-91< years,,200
+187,South Sweden-Mixed Deciduous-Lingonberry-1-40 years,,200
+188,South Sweden-Mixed Deciduous-Lingonberry-41-90 years,,200
+189,South Sweden-Mixed Deciduous-Lingonberry-91< years,,200
+190,South Sweden-Mixed Deciduous-Crowberry/heather-1-40 years,,200
+191,South Sweden-Mixed Deciduous-Crowberry/heather-41-90 years,,200
+192,South Sweden-Mixed Deciduous-Crowberry/heather-91< years,,200

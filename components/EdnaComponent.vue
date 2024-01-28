@@ -20,19 +20,19 @@
     <div v-if="activeTab === 'spatialForest'" class="grid grid-cols-12">
      
     <SpatialForest :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType" class="col-span-6"/>
-   <div v-if="data" class="pr-12 col-span-6 ml-16 -mt-8 ">
-    <div class="flex justify-between top-0 w-full mb-2">
+   <div v-if="data" class=" col-span-6 ml-16 -mt-8 ">
+    <!-- <div class="flex justify-between top-0 w-full mb-2">
       <BaseHeading size="sm" class="ml-12" >Artnamn</BaseHeading>
       <BaseHeading size="sm" class="mr-14">Matsvamp</BaseHeading>
     </div>
-    <hr class="border-stone-200 dark:border-stone-700"/>
-    <div  id="scrollbar" class="h-[310px] overscroll overflow-y-scroll pt-2">
+    <hr class="border-stone-200 dark:border-stone-700"/> -->
+    <div  id="scrollbar" class="h-[340px] overscroll overflow-y-scroll pt-2">
       
       <div v-for="(row, index) in data" :key="row.taxon" class="flex justify-between items-center mb-2">
         <div class="flex items-center gap-4">
           <div class="flex relative align-middle">
             <Icon name="fluent:shape-organic-16-filled" :class="'h-8 w-8'" :style="{ color: allColors[index] }" />
-            <Icon v-if="row.snamn && !row.snamn.includes(' ')" name="tabler:mushroom" class="absolute left-1 bottom-1 h-4 w-4 text-neutral-900"/>
+            <!-- <Icon v-if="row.snamn && !row.snamn.includes(' ')" name="tabler:mushroom" class="absolute left-1 bottom-1 h-4 w-4 text-neutral-900"/> -->
           </div>
           <div>
             <BaseProse class="text-neutral-500">
@@ -43,10 +43,15 @@
 
           </div>
         </div>
-    
-        <div v-if="row.matsvamp === 1">
-          <Icon name="fluent:food-16-filled" class="h-6 w-6 mr-14 text-yellow-500" />
-        </div>
+        <div class="relative flex items-center h-full">
+          <div v-if="row.snamn && !row.snamn.includes(' ')" class="absolute right-20 top-1/2 transform -translate-y-1/2">
+              <Icon name="mingcute:mushroom-line" class="h-6 w-6 text-neutral-500" />
+          </div>
+          <div v-if="row.matsvamp === 1" class="absolute right-8 top-1/2 transform -translate-y-1/2">
+              <Icon name="fluent:food-16-filled" class="h-6 w-6 text-yellow-500" />
+          </div>
+      </div>
+      
        
       </div>
     </div>
@@ -76,9 +81,9 @@
         <div class="flex mt-3">
           <div class="flex h-fit" data-nui-tooltip-position="up" data-nui-tooltip="Mycelform (bild) / Förekomstkategori (färg)">
             <BaseParagraph size="md" class="text-neutral-500" > Mycel =</BaseParagraph>
-            <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 ml-2 rotate-12 text-neutral-500" /> 
+            <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 ml-2 rotate-12 text-violet-500" /> 
             <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 -ml-2 rotate-45 text-green-500" /> 
-            <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 -ml-2 rotate-0 mr-7 text-violet-500" /> 
+            <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 -ml-2 rotate-0 mr-7 text-neutral-500" /> 
           </div>          
           <div class="flex h-fit" data-nui-tooltip-position="up" data-nui-tooltip="Art bildar synlig fruktkropp">
             <BaseParagraph size="md" class="text-neutral-500"> Storsvamp =</BaseParagraph>
@@ -226,6 +231,6 @@ onMounted(async () => {
   scrollbar-color: #888 #f2f3f5;
 }
 
-  </style>
+</style>
 
 

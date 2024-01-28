@@ -116,7 +116,27 @@ if (data.value) {
 
   const newCategories = data.value.map(row => row.taxon);
 
-const annotationsPoints = data.value
+  const currentAnnotationsPoints = data.value
+  .filter(row => row.snamn && !row.snamn.includes(' '))
+  .map(row => ({
+    x: row.taxon,
+    y: row.total_presence,
+    marker: {
+      size: 10,
+      fillColor: 'transparent',
+      strokeWidth: 0,
+      shape: 'circle',
+    },
+    image: {
+      path: '/images/mushroom_gray.png',
+      offsetY: -15,
+      width: 18, 
+      height: 18, 
+    }
+  }));
+
+// New annotations based on your provided condition
+const newAnnotationsPoints = data.value
   .filter(row => row.matsvamp === 1)
   .map(row => ({
     x: row.taxon,
@@ -128,12 +148,16 @@ const annotationsPoints = data.value
       shape: 'circle',
     },
     image: {
-      path: '/images/storsvamp_line.png',
-      offsetY: -15,
+      path: '/images/food_yellow.png',
+      offsetY: -40,
       width: 18, 
       height: 18, 
     }
   }));
+
+// Combine both annotations
+const annotationsPoints = [...currentAnnotationsPoints, ...newAnnotationsPoints];
+
 
 // Create a map for taxon to snamn
 const taxonToSnamnMap = new Map();

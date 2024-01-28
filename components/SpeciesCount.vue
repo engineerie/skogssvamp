@@ -1,6 +1,6 @@
 <template>
   <div class="relative h-fit backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60  border-[1px] dark:border-neutral-800 border-stone-200">
-    <div class="p-6">
+    <div class="p-6 pb-0">
     <div class="grid grid-cols-4">
       <div class="col-span-3">
         <BaseHeading size="md">Artrikedom</BaseHeading>
@@ -103,8 +103,8 @@ const initChart = (ApexCharts, value) => {
         hollow: {
           size: '50%', // Adjust this value to control the thickness
         },
-        startAngle: -90,
-        endAngle: 90,
+        startAngle: 0,
+        endAngle: 360,
         track: {
           background: "#e7e7e7",
           strokeWidth: '97%',
@@ -121,6 +121,7 @@ const initChart = (ApexCharts, value) => {
         dataLabels: {
           name: {
             show: true,
+            offsetY: 10,
             fontSize: '30px',
           },
           value: {
