@@ -27,9 +27,12 @@ standAge: String,
 vegetationType: String
 });
 
+console.log('Received props:', props);
+
+
 const VueApexCharts = shallowRef(null);
 const data = ref(null);
-let totalSum = 0;
+const totalSum = ref(0);
 
 const chartOptions = ref({
 chart: {
@@ -105,123 +108,124 @@ return colors;
 };
 
 const fetchChartData = async () => {
-const encodedURL = `/api/fetchData?geography=${encodeURIComponent(props.geography)}&forestType=${encodeURIComponent(props.forestType)}&vegetationType=${encodeURIComponent(props.vegetationType)}&standAge=${encodeURIComponent(props.standAge)}`;
-const response = await fetch(encodedURL);
-const result = await response.json();
-data.value = result.data;
+  // Construct the filename based on props
+  const filename = `data-${props.geography}-${props.forestType}-${props.standAge}-${props.vegetationType}.json`;
 
-if (data.value) {
-  totalSum = data.value.reduce((acc, row) => acc + row.total_presence, 0);
-  data.value.sort((a, b) => b.total_presence - a.total_presence);
+  try {
+    // Fetch data from the local JSON file
+    const response = await fetch(`/${filename}`);
+    if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
+    const newData = await response.json();
 
-  const newCategories = data.value.map(row => row.taxon);
+    // Check if data is available
+    if (newData && newData.length > 0) {
+      data.value = newData;
+      totalSum.value = data.value.reduce((acc, row) => acc + row.total_presence, 0);
+      data.value.sort((a, b) => b.total_presence - a.total_presence);
 
-  const currentAnnotationsPoints = data.value
-  .filter(row => row.snamn && !row.snamn.includes(' '))
-  .map(row => ({
-    x: row.taxon,
-    y: row.total_presence,
-    marker: {
-      size: 10,
-      fillColor: 'transparent',
-      strokeWidth: 0,
-      shape: 'circle',
-    },
-    image: {
-      path: '/images/mushroom_gray.png',
-      offsetY: -15,
-      width: 18, 
-      height: 18, 
+      const newCategories = data.value.map(row => row.taxon);
+
+      // Process annotations points
+      const currentAnnotationsPoints = data.value
+        .filter(row => row.snamn && !row.snamn.includes(' '))
+        .map(row => ({
+          x: row.taxon,
+          y: row.total_presence,
+          marker: {
+            size: 10,
+            fillColor: 'transparent',
+            strokeWidth: 0,
+            shape: 'circle',
+          },
+          image: {
+            path: '/images/mushroom_gray.png',
+            offsetY: -15,
+            width: 18, 
+            height: 18, 
+          }
+        }));
+
+      const newAnnotationsPoints = data.value
+        .filter(row => row.matsvamp === 1)
+        .map(row => ({
+          x: row.taxon,
+          y: row.total_presence,
+          marker: {
+            size: 10,
+            fillColor: 'transparent',
+            strokeWidth: 0,
+            shape: 'circle',
+          },
+          image: {
+            path: '/images/food_yellow.png',
+            offsetY: -40,
+            width: 18, 
+            height: 18, 
+          }
+        }));
+
+      const annotationsPoints = [...currentAnnotationsPoints, ...newAnnotationsPoints];
+
+      // Map for taxon to snamn
+      const taxonToSnamnMap = new Map();
+      data.value.forEach(row => {
+        taxonToSnamnMap.set(row.taxon, row.snamn ? capitalizeFirstLetter(row.snamn) : 'Svenskt namn saknas');
+      });
+
+      // Update chart options
+      chartOptions.value = {
+        ...chartOptions.value,
+        xaxis: {
+          ...chartOptions.value.xaxis,
+          categories: newCategories,
+          labels: {
+            formatter: function (val) {
+              return taxonToSnamnMap.get(val) || val;
+            }
+          }
+        },
+        annotations: { points: annotationsPoints },
+      };
+
+      // Generate colors and update series data
+      const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
+      const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
+      const otherColors = generateColors([46, 16, 101], [232, 121, 249], Math.max(data.value.length - 14, 1));
+      const individualBarColors = [...top4Colors, ...next10Colors, ...otherColors.slice(0, data.value.length - 14)];
+
+      chartSeries.value = [{
+        name: 'Förekomst',
+        data: data.value.map((row, index) => ({
+          x: row.taxon,
+          y: row.total_presence,
+          fillColor: individualBarColors[index],
+          color: individualBarColors[index],
+          snamn: row.snamn
+        }))
+      }];
+
+      // Update percentages and counts
+      updateCountsAndPercentages();
     }
-  }));
-
-// New annotations based on your provided condition
-const newAnnotationsPoints = data.value
-  .filter(row => row.matsvamp === 1)
-  .map(row => ({
-    x: row.taxon,
-    y: row.total_presence,
-    marker: {
-      size: 10,
-      fillColor: 'transparent',
-      strokeWidth: 0,
-      shape: 'circle',
-    },
-    image: {
-      path: '/images/food_yellow.png',
-      offsetY: -40,
-      width: 18, 
-      height: 18, 
-    }
-  }));
-
-// Combine both annotations
-const annotationsPoints = [...currentAnnotationsPoints, ...newAnnotationsPoints];
-
-
-// Create a map for taxon to snamn
-const taxonToSnamnMap = new Map();
-data.value.forEach(row => {
-  taxonToSnamnMap.set(row.taxon, row.snamn ? capitalizeFirstLetter(row.snamn) : 'Svenskt namn saknas');
-});
-
-chartOptions.value = {
-  ...chartOptions.value,
-  xaxis: {
-    ...chartOptions.value.xaxis,
-    categories: newCategories,
-    labels: {
-      formatter: function (val) {
-        return taxonToSnamnMap.get(val) || val;
-      }
-    }
-  },
-  annotations: { points: annotationsPoints },
-  // Other properties...
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 };
 
-  // Generate colors for each section
-  const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
-  const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-  const otherColors = generateColors([46, 16, 101], [232, 121, 249], Math.max(data.value.length - 14, 1));
-
-  // Assign colors to each bar
-  const individualBarColors = [
-    ...top4Colors,
-    ...next10Colors,
-    ...otherColors.slice(0, data.value.length - 14)
-  ];
-
-  // Update series data with individual bar colors
-  chartSeries.value = [{
-    name: 'Förekomst',
-    data: data.value.map((row, index) => ({
-      x: row.taxon,
-      y: row.total_presence,
-      fillColor: individualBarColors[index],
-      color: individualBarColors[index], // Add color property here
-      snamn: row.snamn // Add the snamn property here
-    }))
-  }];
-
-// Calculations for percentages and counts
-const top4Sum = data.value.slice(0, 4).reduce((acc, row) => acc + row.total_presence, 0);
+function updateCountsAndPercentages() {
+  const top4Sum = data.value.slice(0, 4).reduce((acc, row) => acc + row.total_presence, 0);
   const next10Sum = data.value.slice(4, 14).reduce((acc, row) => acc + row.total_presence, 0);
-  const remainingSum = totalSum - top4Sum - next10Sum;
+  const remainingSum = totalSum.value - top4Sum - next10Sum;
 
-  top4Percentage.value = ((top4Sum / totalSum) * 100).toFixed(0);
-  next10Percentage.value = ((next10Sum / totalSum) * 100).toFixed(0);
-  remainingPercentage.value = ((remainingSum / totalSum) * 100).toFixed(0);
+  top4Percentage.value = ((top4Sum / totalSum.value) * 100).toFixed(0);
+  next10Percentage.value = ((next10Sum / totalSum.value) * 100).toFixed(0);
+  remainingPercentage.value = ((remainingSum / totalSum.value) * 100).toFixed(0);
+  top4Count.value = 4;
+  next10Count.value = 10;
+  remainingCount.value = data.value.length - 14;
 
-  top4Count.value = data.value.slice(0, 4).length;
-  next10Count.value = data.value.slice(4, 14).length;
-  remainingCount.value = data.value.length - top4Count.value - next10Count.value;
-
-  // Emitting the calculated data
   updateParentWithInfo();
-
 }
-};
 
 function capitalizeFirstLetter(string) {
 return string.charAt(0).toUpperCase() + string.slice(1);

@@ -126,11 +126,17 @@
   
 </template>
 
-
 <script setup>
+import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 
+const route = useRoute();
 const activeTab = ref('spatialForest');
+
+const geography = ref('');
+const forestType = ref('');
+const standAge = ref('');
+const vegetationType = ref('');
 
 const top4Count = ref(0);
 const next10Count = ref(0);
@@ -148,15 +154,7 @@ const handleInfoUpdate = (info) => {
   remainingPercentage.value = info.remainingPercentage;
 };
 
-// Define props to receive data from the parent component
-const props = defineProps({
-  geography: String,
-  forestType: String,
-  standAge: String,
-  vegetationType: String
-});
-
-const data = ref(null);
+const data = ref([]);
 const allColors = ref([]);
 
 const capitalize = (str) => {
@@ -165,36 +163,53 @@ const capitalize = (str) => {
 };
 
 const generateColors = (start, end, steps) => {
-    const stepR = (end[0] - start[0]) / (steps - 1);
-    const stepG = (end[1] - start[1]) / (steps - 1);
-    const stepB = (end[2] - start[2]) / (steps - 1);
-    const colors = [];
+  const stepR = (end[0] - start[0]) / (steps - 1);
+  const stepG = (end[1] - start[1]) / (steps - 1);
+  const stepB = (end[2] - start[2]) / (steps - 1);
+  const colors = [];
 
-    for (let i = 0; i < steps; i++) {
-      const r = Math.round(start[0] + stepR * i);
-      const g = Math.round(start[1] + stepG * i);
-      const b = Math.round(start[2] + stepB * i);
-      colors.push(`rgb(${r},${g},${b})`);
-    }
-    return colors;
-  };
+  for (let i = 0; i < steps; i++) {
+    const r = Math.round(start[0] + stepR * i);
+    const g = Math.round(start[1] + stepG * i);
+    const b = Math.round(start[2] + stepB * i);
+    colors.push(`rgb(${r}, ${g}, ${b})`);
+  }
+  return colors;
+};
 
-// Fetching data on component mount
-onMounted(async () => {
-  const response = await fetch(`/api/fetchData?geography=${props.geography}&forestType=${props.forestType}&vegetationType=${props.vegetationType}&standAge=${props.standAge}`);
-  const result = await response.json();
-  data.value = result.data;
+const fetchData = async (geography, forestType, standAge, vegetationType) => {
+  const filename = `data-${geography}-${forestType}-${standAge}-${vegetationType}.json`;
+  try {
+    const response = await fetch(`/${filename}`);
+    if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
+    data.value = await response.json();
 
-  const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
-  const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-  const otherColors = generateColors([46, 16, 101], [232, 121, 249], data.value.length - 13);
+    // Generate colors after data is fetched
+    const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
+    const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
+    const otherColors = generateColors([46, 16, 101], [232, 121, 249], Math.max(data.value.length - 14, 0));
+    allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
-  allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
-});
+// Watch for changes in route params and fetch data accordingly
+watch(() => route.params, (params) => {
+  const { geography, forestType, standAge, vegetationType } = params;
+  if (geography && forestType && standAge && vegetationType) {
+    fetchData(geography, forestType, standAge, vegetationType);
+  }
+}, { immediate: true });
 
+watch(() => route.params, (params) => {
+  geography.value = params.geography || 'default-value';
+  forestType.value = params.forestType || 'default-value';
+  standAge.value = params.standAge || 'default-value';
+  vegetationType.value = params.vegetationType || 'default-value';
+}, { immediate: true });
 
 </script>
-
 
 
 

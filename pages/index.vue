@@ -45,8 +45,8 @@
   </div> 
 </div>
 
-<section class="ml-32">
 
+<section class="ml-32">
   <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
       <div class="mr-auto place-self-center lg:col-span-7">
         <BaseButton to="https://www.slu.se/ew-nyheter/2023/3/se-svampen-i-din-skog/" target="_blank" color="primary" flavor="pastel" size="sm" shape="full" class=" border-[0.5px] border-green-500 inline-flex mb-10"><span>Läs artikel på slu.se</span>      <Icon name="lucide:arrow-up-right" class="me-1 h-4 w-4" />

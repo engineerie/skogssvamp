@@ -3,6 +3,7 @@ import { open } from 'sqlite';
 import { defineEventHandler } from 'h3';
 import { URL } from 'url';  // Import Node's native URL module
 
+// This function is used for both direct fetching and handling HTTP requests
 const fetchDataFromDB = async ({ geography, forestType, vegetationType, standAge }) => {
   const db = await open({
     filename: './server/EDNAData.db',
@@ -55,6 +56,12 @@ ORDER BY
   return data;
 };
 
+export async function fetchDataDirectly({ geography, forestType, vegetationType, standAge }) {
+  // Call fetchDataFromDB and return the data
+  const data = await fetchDataFromDB({ geography, forestType, vegetationType, standAge });
+  return data;
+}
+
 const forestTypeMap = {
   'Pine': 1,
   'Spruce': 2,
@@ -72,6 +79,7 @@ const vegetationTypeMap = {
   'Lingonberry': 7,
   'Crowberry/heather': 8
 };
+
 
 export default defineEventHandler(async (event) => {
   console.log("Full event object:", event);
@@ -101,3 +109,5 @@ export default defineEventHandler(async (event) => {
 
   return { data };
 });
+
+
