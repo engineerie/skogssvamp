@@ -3,8 +3,8 @@
     <div class="grid grid-cols-2 mb-8">
         <div class="">
           <div>
-            <BaseHeading size="md">Vanliga Mykorrhizasvampar</BaseHeading>
-            <BaseParagraph size="sm" class="mb text-neutral-500">Mykorrhizasvampar som kan förekomma i miljön sorterade på hur vanligt förekommande de är</BaseParagraph>
+            <BaseHeading size="md">Vanliga mykorrhizasvampar</BaseHeading>
+            <BaseParagraph size="sm" class="mb text-neutral-500">Arter som kan förekomma i miljön sorterade på hur vanligt förekommande de är.</BaseParagraph>
           
           </div> 
         </div>
@@ -85,11 +85,11 @@
             <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 -ml-2 rotate-45 text-green-500" /> 
             <Icon name="fluent:shape-organic-16-filled" class="h-5 w-5 -ml-2 rotate-0 mr-7 text-neutral-500" /> 
           </div>          
-          <div class="flex h-fit" data-nui-tooltip-position="up" data-nui-tooltip="Art bildar synlig fruktkropp">
+          <div class="flex h-fit" data-nui-tooltip-position="up" data-nui-tooltip="Art bildar synlig fruktkropp (inkorrekt data)">
             <BaseParagraph size="md" class="text-neutral-500"> Storsvamp =</BaseParagraph>
             <Icon name="mingcute:mushroom-line" class="h-5 w-5 ml-2 mr-7 text-neutral-500" /> 
           </div>
-          <div class="flex h-fit" data-nui-tooltip-position="up" data-nui-tooltip="Betraktad som ätlig">
+          <div class="flex h-fit" data-nui-tooltip-position="up" data-nui-tooltip="Art är ätlig">
             <BaseParagraph size="md" class="text-neutral-500"> Matsvamp =</BaseParagraph>
             <Icon name="fluent:food-16-filled" class="h-5 w-5 text-yellow-500 ml-2" /> 
           </div>

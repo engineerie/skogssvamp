@@ -66,9 +66,10 @@
             </div>
           </NuxtLink> 
       </div>
-      <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+      <StartImage />
+      <!-- <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <img src="/images/threeTrees.png" alt="mockup">
-      </div>                
+      </div>                 -->
   </div>
 </section>
   

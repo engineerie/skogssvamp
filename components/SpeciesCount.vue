@@ -4,7 +4,7 @@
     <div class="grid grid-cols-4">
       <div class="col-span-3">
         <BaseHeading size="md">Artrikedom</BaseHeading>
-        <BaseParagraph size="sm" class="mb text-neutral-500">Antalet svamparter som beräknas finnas i miljön.</BaseParagraph>
+        <BaseParagraph size="sm" class="mb text-neutral-500">Antal mykorrhiza som beräknas finnas i denna miljö.</BaseParagraph>
       </div>
       <div class="col-span-1 flex justify-end">
         <Icon name="game-icons:mushrooms" class="dark:opacity-90 w-8 h-8 mb-4 rounded-lg text-green-500 flex justify-center items-center" />

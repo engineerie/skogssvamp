@@ -4,7 +4,7 @@
     <div class="col-span-3">
       <div>
         <BaseHeading size="md">Matsvampar</BaseHeading>
-        <BaseParagraph size="sm" class="mb text-neutral-500">Ätbara svampar som kan förekomma i denna miljö.</BaseParagraph>
+        <BaseParagraph size="sm" class="mb text-neutral-500">Ätbara arter som kan förekomma i denna miljö.</BaseParagraph>
       </div> 
     </div>
     <div class="col-span-1 flex justify-end"> 

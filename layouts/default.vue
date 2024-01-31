@@ -12,10 +12,15 @@
             <slot name="title">
               <BaseHeading as="h1" weight="light" size="3xl">{{ titleStore.title }}</BaseHeading>
               <div class="z-60 ml-4 mr-4">
-                <BaseMessage type="danger">Under utveckling! Information som presenteras kan vara ofullständig eller felaktig. Färdig version lanseras våren 2025. </BaseMessage></div>
+                <BaseMessage type="danger" icon>Under utveckling! Information som presenteras kan vara ofullständig eller felaktig. Färdig version lanseras våren 2025. </BaseMessage></div>
             </slot> 
           </div>
+          <div class="flex justify-end gap-4 items-center">
+          <BaseButtonIcon shape="full" size="md" v-if="isDashboard" data-nui-tooltip-position="down" data-nui-tooltip="Spara miljö som PDF">
+      <Icon name="carbon:generate-pdf" class="size-5" />
+    </BaseButtonIcon>
           <BaseThemeSwitch />
+        </div>
         </div>
         <div v-if="isStartPage" class="flex justify-end items-center p-4">
         </div>
@@ -42,6 +47,7 @@ const sidebarStore = useSidebarStore();
 const titleStore = useTitleStore();
 const route = useRoute();
 const isStartPage = computed(() => route.path === '/');
+const isDashboard = computed(() => route.path.startsWith('/svampdata/dashboard/'));
 const { isSidebarOpen, toggleSidebar } = toRefs(sidebarStore);  // Destructure from the same instance
 
 

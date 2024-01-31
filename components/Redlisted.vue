@@ -5,7 +5,7 @@
         <div class="col-span-3">
           <div>
             <BaseHeading size="md">Rödlistade svampar</BaseHeading>
-            <BaseParagraph size="sm" class="mb text-neutral-500">Rödlistade arter som möjligen kan förekomma i den här miljön. </BaseParagraph>
+            <BaseParagraph size="sm" class="mb text-neutral-500">Rödlistade arter som kan förekomma i denna miljö. </BaseParagraph>
           </div> 
         </div>
         <div class="col-span-1 flex justify-end"> 
