@@ -1,6 +1,6 @@
 <template>
     <div class="hidden lg:mt-0 lg:col-span-5 lg:flex img-magnifier-container">
-  <img id="myimage" src="/images/threeTrees.png" alt="mockup">
+  <img id="myimage" src="/images/boleto_small.png" alt="mockup">
 </div>
 </template>
 
@@ -97,31 +97,31 @@ glass = document.createElement("DIV");
 
       function triggerInitialMove() {
         var e = new MouseEvent("mousemove", {
-          clientX: img.getBoundingClientRect().left + window.pageXOffset + 250,
-          clientY: img.getBoundingClientRect().top + window.pageYOffset + 480
+          clientX: img.getBoundingClientRect().left + window.pageXOffset + 230,
+          clientY: img.getBoundingClientRect().top + window.pageYOffset + 515
         });
         glass.dispatchEvent(e);
       }
-      img.addEventListener('mouseenter', () => {
-        this.mouseInImage = true;
-      });
+      // img.addEventListener('mouseenter', () => {
+      //   this.mouseInImage = true;
+      // });
 
-      img.addEventListener('mouseleave', () => {
-        this.mouseInImage = false;
-        setTimeout(() => {
-          if (!this.mouseInImage) {
-            returnToStart();
-          }
-        }, 1500); // Delay to ensure no conflicting mousemove event
-      });
+      // img.addEventListener('mouseleave', () => {
+      //   this.mouseInImage = false;
+      //   setTimeout(() => {
+      //     if (!this.mouseInImage) {
+      //       returnToStart();
+      //     }
+      //   }, 1500); // Delay to ensure no conflicting mousemove event
+      // });
 
-      function returnToStart() {
-        var e = new MouseEvent("mousemove", {
-          clientX: img.getBoundingClientRect().left + window.pageXOffset + 250,
-          clientY: img.getBoundingClientRect().top + window.pageYOffset + 480
-        });
-        glass.dispatchEvent(e);
-      }
+      // function returnToStart() {
+      //   var e = new MouseEvent("mousemove", {
+      //     clientX: img.getBoundingClientRect().left + window.pageXOffset + 250,
+      //     clientY: img.getBoundingClientRect().top + window.pageYOffset + 480
+      //   });
+      //   glass.dispatchEvent(e);
+      // }
 }
   }
 }
