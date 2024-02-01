@@ -102,9 +102,9 @@ glass = document.createElement("DIV");
         });
         glass.dispatchEvent(e);
       }
-      // img.addEventListener('mouseenter', () => {
-      //   this.mouseInImage = true;
-      // });
+      img.addEventListener('mouseenter', () => {
+        this.mouseInImage = true;
+      });
 
       // img.addEventListener('mouseleave', () => {
       //   this.mouseInImage = false;
