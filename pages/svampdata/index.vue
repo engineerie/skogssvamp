@@ -1,7 +1,7 @@
 <template>
   <div class="bg-neutral-100 absolute top-20 right-4 z-10 w-2/3 rounded-xl">
     <BaseMessage type="info" icon >
-      Kartfunktionen är ännu inte aktiv. Funktion som planeras: Information om Geografi och Skogstyp planeras hämtas för punkt som markeras på karta. Värdena fylls i till vänster under "Sök på beståndstyp". Användare fyller själv i Beståndsålder och Vegetationstyp.     
+      Kartfunktionen är ännu inte aktiv. Funktion som planeras: Information om Geografi och Skogstyp hämtas för punkt som markeras på karta. Värdena fylls i till vänster under "Sök på beståndstyp". Användare fyller själv i Beståndsålder och Vegetationstyp.     
     </BaseMessage>
   </div>
       <!-- <img src="/images/map.jpg" alt="placeholder-image" class="rounded-lg border-[1px] dark:border-neutral-800 border-neutral-300"/> -->

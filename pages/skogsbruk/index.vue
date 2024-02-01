@@ -1,57 +1,61 @@
 <template>
-    <div class="zoomable-image relative">
-    <transition
-      name="fade"
-      mode="in-out"
-    >
-      <img id="zoomableImage" :src="forestStore.currentImage" :key="forestStore.time" class="z-0 absolute" :style="{ transform: `scale(${zoomLevel})` }" />
+  <div class="zoomable-image relative">
+    <transition name="fade" mode="in-out">
+      <!-- Using both forestStore.time and forestStore.stateOn in key to enforce re-render -->
+      <img 
+        id="zoomableImage" 
+        :src="forestStore.currentImage" 
+        :key="`${forestStore.time}-${forestStore.stateOn}`" 
+        class="z-0 absolute rounded-xl" 
+        :style="{ transform: `scale(${zoomLevel})` }" 
+      />
     </transition>
   </div>
+  <timeLine/>
 </template>
-
-<script setup>
-import { ref, onMounted, computed } from 'vue';
+  
+  <script setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useForestStore } from '~/stores/forestStore';
 import { useTitleStore } from '~/stores/titleStore';
-// Store for title management
-const titleStore = useTitleStore();
 
-// Setting the title when the component is mounted
+const titleStore = useTitleStore();
+const forestStore = useForestStore();
+const zoomableImage = ref(null);
+const zoomLevel = ref(1);
+const minZoom = 1;
+const maxZoom = 3; // Adjust max zoom as needed
+
+// Event handler for image zoom
+const handleScroll = (event) => {
+  event.preventDefault();
+  const delta = event.deltaY || event.detail || event.wheelDelta;
+  zoomLevel.value += delta * -0.01;
+  zoomLevel.value = Math.min(Math.max(minZoom, zoomLevel.value), maxZoom);
+};
+
 onMounted(() => {
-  // const environmentTitle = `${geography}, ${forestType}, ${standAge}, ${vegetationType}`;
   titleStore.setTitle("Skogsbruk");
+
+  if (zoomableImage.value) {
+    zoomableImage.value.addEventListener('wheel', handleScroll);
+    zoomableImage.value.addEventListener('load', () => {
+      // Image loaded logic
+    });
+  }
 });
 
-const forestStore = useForestStore();
-  
-  // definePageMeta({ layout: 'none' });
-  
-  const zoomLevel = ref(1);
-  
-  const handleScroll = (event) => {
-    event.preventDefault();
-    const delta = event.deltaY || event.detail || event.wheelDelta;
-    zoomLevel.value += delta * -0.01;
-    
-    // Restrict scale
-    zoomLevel.value = Math.min(Math.max(1, zoomLevel.value), 1);
-  };
+onUnmounted(() => {
+  if (zoomableImage.value) {
+    zoomableImage.value.removeEventListener('wheel', handleScroll);
+    zoomableImage.value.removeEventListener('load', () => {
+      // Image unloaded logic
+    });
+  }
+});
 
 const imagePath = computed(() => forestStore.currentImage);
-const imageLoaded = ref(false);
-
-onMounted(() => {
-  const imageElement = document.querySelector('.zoomable-image');
-  imageElement.addEventListener('wheel', handleScroll);
-  
-  // Pre-load images logic here (if implemented)
-  
-  imageElement.addEventListener('load', () => {
-    imageLoaded.value = true; // Set to true once the image is loaded
-  });
-});
-  </script>
-  
+</script>
 
   <style>
     .zoomable-image {
