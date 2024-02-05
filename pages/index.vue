@@ -1,9 +1,10 @@
 <template>
+
     <BaseHeading size="2xl" weight="semibold" class="absolute top-3.5 left-52 ">Skogssvamp</BaseHeading>
     <BaseThemeSwitch class="absolute top-6 right-52 z-20 opacity-90 "/>
 
 <!-- top nav -->
-<div class="absolute top-6 flex justify-center w-screen ">
+<div class="absolute top-6 flex justify-center w-screen">
     <div class="space-x-10 px-4 flex">
       <NuxtLink to="#om-projektet" class="mb-0.5 text-sm px-2 transition-colors duration-300 opacity-60 hover:opacity-90 " @click.prevent="setActive('#om-projektet')">Funktioner</NuxtLink>
       <!-- <NuxtLink to="#metod" class="text-sm px-2 transition-colors duration-300 opacity-60 hover:opacity-90 " @click.prevent="setActive('#metod')">Om Projektet</NuxtLink>
@@ -13,7 +14,8 @@
 </div>
 
 
- <div v-if="showMessage" class="fixed top-16 left-1/2 transform -translate-x-1/2 text-center z-50 bg-opacity-50">
+
+ <!-- <div v-if="showMessage" class="fixed top-16 left-1/2 transform -translate-x-1/2 text-center z-50 bg-opacity-50">
     <BaseMessage type="danger">
       Under utveckling! Information som presenteras kan vara ofullständig eller felaktig. Färdig version lanseras våren 2025. 
       <BaseButtonClose
@@ -24,7 +26,7 @@
       @click="showMessage = false"
     />
     </BaseMessage>
-  </div>
+  </div> -->
 
 
 

@@ -30,10 +30,12 @@
       </div>
         <div class="flex items-center">
             <!-- Status circle -->
-            
-            <BaseIconBox size="xs" shape="full" class="border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500">
+            <BaseButtonIcon to="https://artfakta.se/artinformation/taxa/sarcosoma-globosum-1445/detaljer" target="_blank" shape="full" size="sm">
+      <Icon name="material-symbols:arrow-forward" class="size-4" />
+    </BaseButtonIcon>
+            <!-- <BaseIconBox size="xs" shape="full" class="border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500">
                 <Icon name="material-symbols:arrow-forward" class="h-4 w-4" />
-            </BaseIconBox>
+            </BaseIconBox> -->
         </div>
     </div>
   

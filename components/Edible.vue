@@ -26,9 +26,12 @@
           </span>
         </div>
       </div>
-      <BaseIconBox size="xs" shape="full" class="border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500">
-        <Icon name="material-symbols:arrow-forward" class="h-4 w-4" />
-      </BaseIconBox>
+      <BaseButtonIcon to="https://svampguiden.com/art/visa/leccinum_rufum" target="_blank" shape="full" size="sm">
+      <Icon name="material-symbols:arrow-forward" class="size-4" />
+    </BaseButtonIcon>
+      <!-- <BaseIconBox size="xs" shape="full" class="border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500">
+        <Icon name="" class="h-4 w-4" />
+      </BaseIconBox> -->
     </div>
 
    

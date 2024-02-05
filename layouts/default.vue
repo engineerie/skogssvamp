@@ -16,6 +16,12 @@
             </slot> 
           </div>
           <div class="flex justify-end gap-4 items-center">
+            <BaseButtonIcon shape="full" size="md" v-if="isDashboard" data-nui-tooltip-position="down" data-nui-tooltip="Dela miljö på sociala medier">
+      <Icon name="material-symbols:share" class="size-5" />
+    </BaseButtonIcon>
+            <BaseButtonIcon shape="full" size="md" v-if="isDashboard" data-nui-tooltip-position="down" data-nui-tooltip="Kopiera länk till miljön">
+      <Icon name="akar-icons:link-chain" class="size-5" />
+    </BaseButtonIcon>
           <BaseButtonIcon shape="full" size="md" v-if="isDashboard" data-nui-tooltip-position="down" data-nui-tooltip="Spara miljö som PDF">
       <Icon name="carbon:generate-pdf" class="size-5" />
     </BaseButtonIcon>
