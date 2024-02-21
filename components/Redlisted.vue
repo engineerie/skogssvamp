@@ -9,6 +9,7 @@
           </div> 
         </div>
         <div class="col-span-1 flex justify-end"> 
+          <button @click="$emit('enlarge')">Enlarge</button>
           <div class="w-12 h-12 mb-4 text-red-500 flex justify-center items-center  rounded-full border-red-500 ">              
             <img src="~/assets/icons/redlisted3.svg" class="h-8 w-8" alt="Redlisted Icon"/>
           </div>   

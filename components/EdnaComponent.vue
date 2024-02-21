@@ -9,6 +9,8 @@
           </div> 
         </div>
         <div class="flex justify-end">
+          <button @click="$emit('enlarge')">Enlarge</button>
+
           <div class="dark:opacity-90 w-12 h-12 mb-4 rounded-lg text-violet-500 flex justify-center items-center">              
           <Icon name="game-icons:plant-roots" class="h-8 w-8" /> 
           </div>  

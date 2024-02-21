@@ -11,6 +11,8 @@
       <!-- <div class="w-12 h-12 mb-4 rounded-lg text-yellow-500 flex justify-center items-center  border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">              
           <Icon name="fluent:food-16-filled" class="h-6 w-6" /> 
         </div>   -->
+        <button @click="$emit('enlarge')">Enlarge</button>
+
         <div class="w-12 h-12 mb-4 text-yellow-500 flex justify-center items-center  rounded-full border-yellow-500 ">              
           <Icon name="fluent:food-16-filled" class="h-8 w-8" /> 
         </div>  
