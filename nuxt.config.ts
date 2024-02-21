@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'vue3-carousel-nuxt',
     'nuxt-swiper',
+    '@nuxt/image',
   ],
   mapbox: {
     accessToken: 'pk.eyJ1IjoiZW5naW5lZXJpZWUiLCJhIjoiY2xyZzluNThyMGRuaDJsbzJhbWJoN2YwayJ9._ex2Twr8a9YSL7fyJDA-kA',

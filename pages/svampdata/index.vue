@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-neutral-100 absolute top-20 right-4 z-10 w-2/3 rounded-xl">
+
+  <div class="bg-neutral-100 absolute top-20 right-4 z-10 left-1/2 rounded-xl">
     <BaseMessage type="info" icon >
       Kartfunktionen är ännu inte aktiv. Funktion som planeras: Information om Geografi och Skogstyp hämtas för punkt som markeras på karta. Värdena fylls i till vänster under "Sök på beståndstyp". Användare fyller själv i Beståndsålder och Vegetationstyp.     
     </BaseMessage>
   </div>
+  
       <!-- <img src="/images/map.jpg" alt="placeholder-image" class="rounded-lg border-[1px] dark:border-neutral-800 border-neutral-300"/> -->
       <MapboxMap
       map-id="{ID}"
@@ -14,6 +16,20 @@
         zoom: 10 // starting zoom
       }"
     />
+<div class="relative">
+    <div class="absolute -left-4 -top-2 w-80">
+      <BaseInput
+      size="lg"
+      v-model="fields.first"
+      shape="full"
+      type="search"
+      placeholder="Sök plats..."
+      icon="lucide:search"
+      /></div>
+    </div>
+
+
+
 </template>
 
 
@@ -36,6 +52,10 @@
 <script setup>
 import { useTitleStore } from '~/stores/titleStore';
 import { onMounted } from 'vue';
+
+const fields = reactive({
+    first: '',
+  })
 
 const titleStore = useTitleStore();
 

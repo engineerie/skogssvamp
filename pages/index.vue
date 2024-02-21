@@ -54,7 +54,7 @@
         <BaseButton to="https://www.slu.se/ew-nyheter/2023/3/se-svampen-i-din-skog/" target="_blank" color="primary" flavor="pastel" size="sm" shape="full" class=" border-[0.5px] border-green-500 inline-flex mb-10"><span>Läs artikel på slu.se</span>      <Icon name="lucide:arrow-up-right" class="me-1 h-4 w-4" />
         </BaseButton>
           <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Se Svampen i din Skog</h1>
-          <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">En webbapplikation för skogsägare och svampintreserade.</p>
+          <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">En webbapplikation för skogsägare och svampintresserade.</p>
           <NuxtLink @click="openSidebar" to="/svampdata" class="inline-flex items-center justify-center"> 
             <div class="rounded-full text-md dark:bg-green-500 dark:border-neutral-600 bg-green-500 border-neutral-300 border-[1px] mr-4 p-2.5 px-5 dark:hover:bg-neutral-800 hover:bg-opacity-85">
               <Icon name="ic:round-rocket-launch" class=" -ms-1 h-6 w-6 mr-3" />
@@ -143,7 +143,7 @@
           <div class="w-12 h-12 mb-4 rounded-lg text-green-500 flex justify-center items-center  border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">              
             <Icon name="mingcute:mushroom-line" class="h-6 w-6" /> 
           </div>      
-          <BaseHeading weight="normal" size="lg" class="mb-2 "> Svampararter i olika skogar </BaseHeading>
+          <BaseHeading weight="normal" size="lg" class="mb-2 "> Svamparter i olika skogar </BaseHeading>
           <BaseHeading weight="light" size="md" class="mb-4 text-neutral-500">
             Ta del av nysammanställd information om vilka svampar som finns i olika skogsmiljöer. </BaseHeading>
             <Icon name="lucide:arrow-right" class="h-5 w-5" /> 
@@ -188,7 +188,7 @@
           <BaseHeading weight="default" size="md" class="mb-2 w-fit border-transparent hover:border-b-black border-b-2 dark:hover:border-b-white  "> Läs mer <Icon name="material-symbols:arrow-forward" class=" h-4 w-4" /></BaseHeading>
         </NuxtLink>
       </div>
-     <div class="flex justify-end mr-12"><ListBoxRowHorizontal/></div>
+     <div class="flex justify-end mr-12"><ListBoxRow/></div>
       
   
     

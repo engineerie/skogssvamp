@@ -1,8 +1,8 @@
-<!-- ListBoxRow.vue -->
+<!-- ListBoxRowMap.vue -->
 
 <template>
         <!-- Geography Options -->
-        <div class="grid grid-cols-4 gap-5">
+        <div class="flex flex-col gap-y-2">
           <div class="p-6 pl-10 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit">
             <div class="absolute right-0 top-0">
             <div class="w-14 h-14 rounded-lg text-fuchsia-500 flex justify-center items-center">              
@@ -69,38 +69,25 @@
   </div>
 </div>
 <!-- I want to move this div outside of the component to the-->
-      <div class="flex justify-between">
-        <div class="mt-2 ml-1 flex">
-        <BaseInput
-        size="sm"
-      v-model="fields.first"
-      shape="full"
-      type="search"
-      placeholder="Sök plats..."
-      icon="lucide:search"
-    />
-    <BaseButton shape="full" size="sm" disabled flavor="solid" color="primary" class="ml-2">
-      <span>Sök</span>
-      <Icon name="lucide:arrow-right" class="me-1 h-4 w-4" />
-</BaseButton>
+<div class="flex justify-end">
+       
+  <div class="mt-2">
+    <div v-if="!isButtonDisabled">
+      <NuxtLink :to="generateParams()">
+        <BaseButton size="md" flavor="solid" color="primary" shape="full">
+          <Icon name="material-symbols:travel-explore" class="me-1 h-5 w-5" />
+          <span>Utforska</span>
+        </BaseButton>
+      </NuxtLink>
+    </div>
+    <div v-else>
+      <BaseButton size="md" disabled flavor="pastel" color="muted" shape="full">
+        <Icon name="material-symbols:travel-explore" class="me-1 h-5 w-5" />
+        <span>Utforska</span>
+      </BaseButton>
+    </div>
   </div>
-          <div class="mt-2">
-            <div v-if="!isButtonDisabled">
-              <NuxtLink :to="generateParams()">
-                <BaseButton size="sm" flavor="solid" color="primary" shape="full">
-                  <Icon name="material-symbols:travel-explore" class="me-1 h-4 w-4" />
-                  <span>Utforska</span>
-                </BaseButton>
-              </NuxtLink>
-            </div>
-            <div v-else>
-              <BaseButton size="sm" disabled flavor="pastel" color="muted" shape="full">
-                <Icon name="material-symbols:travel-explore" class="me-1 h-4 w-4" />
-                <span>Utforska</span>
-              </BaseButton>
-            </div>
-          </div>
-        </div>
+</div>
 </template>
 
 <script setup>

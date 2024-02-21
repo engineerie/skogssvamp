@@ -1,7 +1,7 @@
 <template>
   <div class="relative grid grid-cols-4 p-5 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 ">
     <DashboardInfo class="col-span-3"/>
-    <img v-if="imageUrl && !imageError" :src="imageUrl" class="w-auto px-6 py-6 rounded-xl dark:bg-violet-200 bg-violet-100 dark:bg-opacity-80"/>
+    <NuxtImg v-if="imageUrl && !imageError" :src="imageUrl" class="w-auto px-6 py-6 rounded-xl dark:bg-violet-200 bg-violet-100 dark:bg-opacity-80"/>
     <p v-else>No image available</p>
   </div>
 </template>

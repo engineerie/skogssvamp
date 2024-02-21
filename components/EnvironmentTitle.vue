@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-    <div class="grid grid-cols-4">
+    <div class="grid grid-cols-4 gap-5">
         <div class="flex items-center justify-center">
           <div class=" my-4 w-14 h-14 rounded-lg text-fuchsia-500 flex justify-center items-center ">              
           <Icon name="material-symbols:location-on-outline" class="h-8 w-8" /> 
@@ -40,10 +40,37 @@
        
     </div>
 </div>
+<div class="flex justify-end">
+<BaseButtonAction @click="toggleHeight" shape="full" class="mb-2">  
+        <span class="ml-2">
+          {{ listBoxRowVisible ? 'Ny miljö' : 'Ny miljö' }}
+        </span>
+        <Icon :name="listBoxRowVisible ? 'mdi:chevron-up' : 'mdi:chevron-down'" class="h-6 w-6" />
+</BaseButtonAction>
+</div>
+
+    <!-- Apply dynamic style for height transition -->
+    <div :style="{ height: listBoxRowHeight }" class="overflow-hidden transition-height ease-in-out duration-500">
+    <ListBoxRowHorizontal
+      :geography="props.geography"
+      :forestType="props.forestType"
+      :standAge="props.standAge"
+      :vegetationType="props.vegetationType"
+    />
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+
+const listBoxRowVisible = ref(false);
+const listBoxRowHeight = ref('0px'); // Initial height is 0px
+
+// Method to toggle the height
+const toggleHeight = () => {
+    listBoxRowVisible.value = !listBoxRowVisible.value;
+    listBoxRowHeight.value = listBoxRowVisible.value ? '360px' : '0px';
+};
 
 const props = defineProps({
   geography: String,
@@ -89,3 +116,9 @@ const vegetationTypeLabel = computed(() => getLabel(props.vegetationType, vegeta
 const standAgeLabel = computed(() => getLabel(props.standAge, standAgeOptions));
 </script>
 
+<style>
+/* Specific transition for height */
+.transition-height {
+  transition: height 0.5s ease-in-out;
+}
+</style>

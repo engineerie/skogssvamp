@@ -1,16 +1,16 @@
 <!-- Redlisted.vue -->
 <template>
-    <div class="relative p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200">
+  <div class="relative p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200">
       <div class="grid grid-cols-4 mb-8">
         <div class="col-span-3">
           <div>
-            <BaseHeading size="md">Rödlistade svampar</BaseHeading>
-            <BaseParagraph size="sm" class="mb text-neutral-500">Rödlistade arter som kan förekomma i denna miljö. </BaseParagraph>
+            <BaseHeading size="md">Naturvårdsarter</BaseHeading>
+            <BaseParagraph size="sm" class="mb text-neutral-500">Rödlistade svampar och signalarter som kan förekomma i denna miljö. </BaseParagraph>
           </div> 
         </div>
         <div class="col-span-1 flex justify-end"> 
           <div class="w-12 h-12 mb-4 text-red-500 flex justify-center items-center  rounded-full border-red-500 ">              
-            <Icon name="ph:warning-duotone" class="h-8 w-8" /> 
+            <img src="~/assets/icons/redlisted3.svg" class="h-8 w-8" alt="Redlisted Icon"/>
           </div>   
           <!-- <div class="dark:opacity-90 w-12 h-12 mb-4 rounded-lg text-red-500 flex justify-center items-center  border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">              
             <Icon name="ph:warning-duotone" class="h-6 w-6" /> 

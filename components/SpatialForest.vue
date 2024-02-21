@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-   <img v-if="imageUrl" :src="imageUrl" class="rounded-xl p-6 pt-0 mb-2 h-[300px] w-auto"/>
+   <NuxtImg height="270" v-if="imageUrl" :src="imageUrl" class="rounded-xl p-6 pt-0 mb-2"/>
    <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />
     </div>
 </template>
