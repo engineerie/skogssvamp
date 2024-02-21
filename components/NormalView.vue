@@ -1,0 +1,76 @@
+<template>
+    <div class="grid grid-cols-12 gap-5">
+      <!-- Normal grid layout -->
+      <div class="col-span-9 flex flex-col">
+        <EnvironmentImage 
+          :geography="geography" 
+          :forestType="forestType" 
+          :standAge="standAge" 
+          :vegetationType="vegetationType" 
+          class="flex-grow"
+        />
+      </div>
+      <div class="col-span-3 flex flex-col">
+        <SpeciesCount 
+          class="flex-grow" 
+          :geography="geography" 
+          :forestType="forestType" 
+          :standAge="standAge" 
+          :vegetationType="vegetationType"
+        />
+      </div>
+      <div class="col-span-12">
+        <EdnaComponent 
+          :geography="geography" 
+          :forestType="forestType" 
+          :standAge="standAge" 
+          :vegetationType="vegetationType" 
+          @enlarge="emitEnlarge('FullScreenEdna')"
+        />
+      </div>
+      <div class="col-span-6 flex flex-col">
+        <Edible 
+          class="flex-grow" 
+          :geography="geography" 
+          :forestType="forestType" 
+          :standAge="standAge" 
+          :vegetationType="vegetationType"
+          @enlarge="emitEnlarge('FullScreenEdible')"
+        />
+      </div>
+      <div class="col-span-6 flex flex-col">
+        <Redlisted 
+          class="flex-grow" 
+          :geography="geography" 
+          :forestType="forestType" 
+          :standAge="standAge" 
+          :vegetationType="vegetationType"
+          @enlarge="emitEnlarge('FullScreenRedlisted')"
+        />
+      </div>
+    </div>
+  </template>
+  
+  <script setup>
+  import EnvironmentImage from './EnvironmentImage.vue';
+  import SpeciesCount from './SpeciesCount.vue';
+  import EdnaComponent from './EdnaComponent.vue';
+  import Edible from './Edible.vue';
+  import Redlisted from './Redlisted.vue';
+  
+  // Define props
+  const props = defineProps({
+    geography: String,
+    forestType: String,
+    standAge: String,
+    vegetationType: String
+  });
+  
+  // Define emits
+  const emit = defineEmits(['enlarge']);
+  
+  const emitEnlarge = (componentName) => {
+    emit('enlarge', componentName);
+  };
+  </script>
+  

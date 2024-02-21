@@ -13,60 +13,76 @@
     <div class="fixed bg-green-200  dark:bg-green-500 rounded-full w-56 h-56 -bottom-10 right-40 blur-3xl dark:opacity-15 opacity-15"></div>
   </div>
 
-      <EnvironmentTitle :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType" class="z-20"/>
-      <!-- within this grid -->
-      <div class="grid grid-cols-12 gap-5">
-        <template v-if="!isFullScreenEdna && !isFullScreenEdible && !isFullScreenRedlisted">
+  <div>
+    <EnvironmentTitle :geography="geography" 
+                      :forestType="forestType" 
+                      :standAge="standAge" 
+                      :vegetationType="vegetationType" 
+                      class="z-20"/>
 
-        <div class="col-span-9 flex flex-col">
-          <EnvironmentImage :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType" class="flex-grow"/>
-        </div>
-        <div class="col-span-3 flex flex-col">
-          <SpeciesCount class="flex-grow" :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType"/>
-        </div>
-
-   
-        <div class="col-span-12">
-            <EdnaComponent @enlarge="isFullScreenEdna = true" :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType" class=""/>
-        </div>
-        <div class="col-span-6 flex flex-col">
-          <Edible @enlarge="isFullScreenEdible = true" class="flex-grow" :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType"/>
-        </div>
-        <div class="col-span-6 flex flex-col">
-          <Redlisted  @enlarge="isFullScreenRedlisted = true" class="flex-grow" :geography="geography" :forestType="forestType" :standAge="standAge" :vegetationType="vegetationType" />
-        </div>
-        </template>
-  <FullScreenEdna v-if="isFullScreenEdna" @close="isFullScreenEdna = false" />
-  <FullScreenEdible v-if="isFullScreenEdible" @close="isFullScreenEdible = false" />
-  <FullScreenRedlisted v-if="isFullScreenRedlisted" @close="isFullScreenRedlisted = false" />
-      </div>
- 
+    <div class="">
+      <transition name="fade" mode="out-in">
+        <component :is="activeComponent" 
+                   :geography="geography" 
+                   :forestType="forestType" 
+                   :standAge="standAge" 
+                   :vegetationType="vegetationType" 
+                   @close="handleCloseFullScreen"
+                   @enlarge="handleFullScreen"
+                   key="activeComponent"
+        />
+      </transition>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTitleStore } from '~/stores/titleStore';
-
-import { ref } from 'vue';
 import FullScreenEdna from './FullScreenEdna.vue';
 import FullScreenEdible from './FullScreenEdible.vue';
 import FullScreenRedlisted from './FullScreenRedlisted.vue';
+import NormalView from './NormalView.vue'; // Component for the normal view
 
-const isFullScreenEdna = ref(false);
-const isFullScreenEdible = ref(false);
-const isFullScreenRedlisted = ref(false);
-
-// Fetching route parameters
 const route = useRoute();
+const titleStore = useTitleStore();
 const { geography, forestType, standAge, vegetationType } = route.params;
 
-// Store for title management
-const titleStore = useTitleStore();
+const activeFullScreenComponent = ref(null);
 
-// Setting the title when the component is mounted
+const activeComponent = computed(() => {
+  switch (activeFullScreenComponent.value) {
+    case 'FullScreenEdna':
+      return FullScreenEdna;
+    case 'FullScreenEdible':
+      return FullScreenEdible;
+    case 'FullScreenRedlisted':
+      return FullScreenRedlisted;
+    default:
+      return NormalView;
+  }
+});
+
+const handleFullScreen = (componentName) => {
+  activeFullScreenComponent.value = componentName;
+};
+
+const handleCloseFullScreen = () => {
+  activeFullScreenComponent.value = null;
+};
+
 onMounted(() => {
-  // const environmentTitle = `${geography}, ${forestType}, ${standAge}, ${vegetationType}`;
   titleStore.setTitle("Skogssvamp");
 });
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to /* Initial state for entering and leaving */ {
+  opacity: 0;
+}
+</style>
