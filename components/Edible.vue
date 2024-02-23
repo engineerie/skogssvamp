@@ -7,15 +7,20 @@
         <BaseParagraph size="sm" class="mb text-neutral-500">Ätbara arter som kan förekomma i denna miljö.</BaseParagraph>
       </div> 
     </div>
-    <div class="col-span-1 flex justify-end"> 
+    <div class="col-span-1 flex justify-end gap-2"> 
       <!-- <div class="w-12 h-12 mb-4 rounded-lg text-yellow-500 flex justify-center items-center  border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">              
           <Icon name="fluent:food-16-filled" class="h-6 w-6" /> 
         </div>   -->
-        <button @click="$emit('enlarge')">Enlarge</button>
-
+        <BaseButtonIcon shape="full" @click="$emit('enlarge')" size="sm" class="my-2">
+            <Icon name="material-symbols:open-in-full" class="size-4" />
+        </BaseButtonIcon>
+        <BaseButtonIcon shape="full" size="sm" class="my-2">
+            <Icon name="material-symbols:info-i" class="size-4" />
+        </BaseButtonIcon>
+<!-- 
         <div class="w-12 h-12 mb-4 text-yellow-500 flex justify-center items-center  rounded-full border-yellow-500 ">              
           <Icon name="fluent:food-16-filled" class="h-8 w-8" /> 
-        </div>  
+        </div>   -->
     </div>
   </div>    
     <!-- List of mushrooms -->

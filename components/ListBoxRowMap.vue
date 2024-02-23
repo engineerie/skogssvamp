@@ -71,7 +71,7 @@
 <!-- I want to move this div outside of the component to the-->
 <div class="flex justify-end">
        
-  <div class="mt-2">
+  <div class="absolute top-6 right-8">
     <div v-if="!isButtonDisabled">
       <NuxtLink :to="generateParams()">
         <BaseButton size="md" flavor="solid" color="primary" shape="full">

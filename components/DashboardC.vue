@@ -79,10 +79,17 @@ onMounted(() => {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s, transform 0.5s;
+  transform-origin: center;
 }
 
-.fade-enter, .fade-leave-to /* Initial state for entering and leaving */ {
+.fade-enter-from, .fade-leave-to {
   opacity: 0;
+  transform: scale(0.7);
+}
+
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+  transform: scale(1);
 }
 </style>
