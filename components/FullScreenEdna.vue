@@ -4,29 +4,45 @@
 <template>
  
     <div>
-      <div class="">
+     
+        <transition name="fade" mode="out-in">
+
       <div v-if="selectedRows.length > 0"
-        class="fixed p-6 w-80 h-96 rounded-xl bg-neutral-50 dark:bg-neutral-900 border dark:border-neutral-800 border-neutral-200  z-30"
-        
-        :style="{ top: boxPosition.top + 'px', left: boxPosition.left + 'px' }">
-        <div class="absolute -top-3 -right-3 "> 
-          <BaseButtonIcon shape="full" size="sm" @click="closeInfoBox">
+        class="fixed w-80 h-72 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-900 cursor-grab active:cursor-grabbing"
+        :style="{ top: boxPosition.top + 'px', left: boxPosition.left + 'px' }"  
+        @mousedown="startDrag($event)"
+        @mouseup="stopDrag"
+        @mousemove="drag($event)">
+   
+ 
+          <NuxtImg height="270" src="/images/filtskinn.jpg" class="rounded-t-xl mb-2 pointer-events-none"/>
+
+          <!-- <BaseButtonClose
+          @click="closeInfoBox" 
+          class="absolute top-2 right-2 "
+          size="sm"
+          shape="full"
+          color="muted"
+          /> -->
+          <BaseButtonIcon shape="full" size="sm" @click="closeInfoBox" class="absolute top-2 right-2 ">
             <Icon name="material-symbols:close" class="size-4" />
           </BaseButtonIcon> 
-        </div>
+
         
-        <div class="absolute top-0 left-0 rotate-180"> 
-            <Icon name="clarity:drag-handle-corner-line" class="size-10 cursor-grab active:cursor-grabbing" 
+          
+            <!-- <Icon name="material-symbols:drag-pan" class="absolute bottom-2 left-2 size-4 cursor-grab active:cursor-grabbing" 
             @mousedown="startDrag($event)"
         @mouseup="stopDrag"
-        @mousemove="drag($event)"/>
-        </div>
-        <NuxtImg height="270" src="/images/filtskinn.jpg" class="rounded-xl mb-2"/>
-        <BaseHeading size="md">{{ selectedRows[0].snamn }}</BaseHeading>
+        @mousemove="drag($event)"/>           -->
+       <div class="px-3 pt-1 pointer-events-none">
+        <BaseHeading size="lg" class="pointer-events-none">{{ capitalize(selectedRows[0].snamn) }}</BaseHeading>
+        <BaseHeading weight="light" size="sm" class="pointer-events-none">{{ selectedRows[0].taxon }}</BaseHeading>
+      </div>
+
 
         <!-- Additional details here -->
       </div>
-    </div>
+    </transition>
     <div class="flex justify-between mb-2 items-end">
         <div class="flex items-end">
           <div class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center">              
@@ -89,7 +105,9 @@
               :columns="columns" 
               :rows="paginatedData"
               @select="selectRow">
-              
+              <template #snamn-data="{ row }">
+                <div>{{ capitalize(row.snamn) }}</div>
+              </template>
            
                 <!-- Custom rendering for matsvamp column -->
                 <template #matsvamp-data="{ row }">
@@ -152,6 +170,15 @@
     
 </div>
   </template>
+
+  <style>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.1s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+      opacity: 0;
+    }
+    </style>
   
   <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
@@ -167,9 +194,6 @@ const isInfoBoxVisible = ref(false);
 const selectedRows = ref([]);
 const isDragging = ref(false);
 
-function closeInfoBox() {
-  selectedRows.value = [];
-}
 
 function getCenterPosition() {
   // Assuming you know the size of the box, for example, 200px by 100px
@@ -212,10 +236,14 @@ onUnmounted(() => {
   document.removeEventListener('mouseup', stopDrag);
 });
 
-  function selectRow(row) {
-  // Set selectedRows to an array containing only the clicked row
+function selectRow(row) {
   selectedRows.value = [row];
 }
+
+function closeInfoBox() {
+  selectedRows.value = [];
+}
+
 // Define columns for your table
 const columns = [
 {
@@ -247,7 +275,7 @@ const columns = [
   },
   {
     key: 'redlisted',
-    label: 'Redlisted',
+    label: 'Naturvård',
     sortable: true,
     render: (row) => 'TBD', // Replace with actual logic for redlisted
   }

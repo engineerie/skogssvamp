@@ -1,23 +1,24 @@
 <template>
   <div class="relative p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border  dark:border-neutral-800 border-stone-200 ">
     <div class="grid grid-cols-2 mb-8">
-        <div class="">
+          <div class="flex items-center">
+            <div class="rounded-lg text-violet-500 flex justify-center items-center mr-2">              
+              <Icon name="game-icons:plant-roots" class="h-8 w-8" /> 
+            </div>  
           <div>
-            <BaseHeading size="md">Vanliga mykorrhizasvampar</BaseHeading>
+            <BaseHeading size="md">Mykorrhizasvampar</BaseHeading>
             <BaseParagraph size="sm" class="mb text-neutral-500">Arter som kan förekomma i miljön sorterade på hur vanligt förekommande de är.</BaseParagraph>
-          
           </div> 
-        </div>
-        <div class="flex justify-end">
+      </div>
+
+        <div class="absolute top-6 right-6">
          
-          <BaseButtonIcon shape="full" @click="$emit('enlarge')" class="my-2">
+          <BaseButtonIcon shape="full" @click="$emit('enlarge')" size="md" class="">
             <Icon name="material-symbols:open-in-full" class="size-5" />
           </BaseButtonIcon>
 
 
-          <div class="dark:opacity-90 w-12 h-12 mb-4 rounded-lg text-violet-500 flex justify-center items-center">              
-          <Icon name="game-icons:plant-roots" class="h-8 w-8" /> 
-          </div>  
+         
         </div>
       </div>      
     <div class="flex justify-center">

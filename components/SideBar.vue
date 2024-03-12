@@ -5,22 +5,10 @@
         
         <div v-if="currentDirectory === 'svampdata'" class="">
           <SbSvamp/>
-          <!-- <ul>      
-        <li v-for="(env, index) in environments" :key="index" class="flex">
-          <div class="tag-wrapper ">
-            <BaseTag size="sm" shape="rounded" color="success" flavor="pastel" class="m-1">{{ env.query.geography.split(" ")[0] }}</BaseTag>
-            <BaseTag size="sm" shape="rounded" color="info" flavor="pastel" class="m-1">{{ env.query.forestType }}</BaseTag>
-            <BaseTag size="sm" shape="rounded" color="warning" flavor="pastel" class="m-1">{{ env.query.vegetationType }}</BaseTag>
-            <BaseTag size="sm" shape="rounded" color="danger" flavor="pastel" class="m-1">{{ env.query.standAge.split(" ")[0] }}</BaseTag>
-            <hr class="border-t-0.5 border-neutral-500 my-3"/>
-          </div>
-          <div>
-          <BaseButtonIcon @click="removeEnvironment(index)" size="xs" shape="full" class="m-1"><Icon name="heroicons:x-mark-20-solid" class="h-3.5 w-3.5" /></BaseButtonIcon>
-          </div>
-        </li>
-      </ul>
-           -->
         </div>
+        <div v-if="currentDirectory === 'svampdata/dashboard'" class="">
+          <SbSvampInfo/>
+          </div>
         <div v-else-if="currentDirectory === 'skogsbruk'">
         <SbSkogsbruk />
           </div>
@@ -60,7 +48,8 @@ const sidebarClass = computed(() => {
 
 watch(() => route.path, () => {
   const segments = route.path.split('/');
-  currentDirectory.value = segments[1]; // Assuming the directory is the first segment after the initial '/'
+  // Modify here to include more segments, for instance, the first two segments after the initial '/'
+  currentDirectory.value = segments.slice(1, 3).join('/');
 });
 </script>
 

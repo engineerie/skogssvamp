@@ -56,6 +56,11 @@ const isStartPage = computed(() => route.path === '/');
 const isDashboard = computed(() => route.path.startsWith('/svampdata/dashboard/'));
 const { isSidebarOpen, toggleSidebar } = toRefs(sidebarStore);  // Destructure from the same instance
 
+watch(isDashboard, (newVal) => {
+  if (newVal) {
+    sidebarStore.closeSidebar(); // Close the sidebar when dashboard is loaded
+  }
+});
 
 </script>
 
