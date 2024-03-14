@@ -1,9 +1,12 @@
 import { resolve } from "path";
 
 export default defineNuxtConfig({
-
+  image: {
+    provider: 'netlify'
+    },
   app: {
-    ssr: true,
+    ssr: false, // Disable Server-Side rendering
+    target: 'static' // Set the deployment target to static
     // baseURL: '/skogssvamp/', // baseURL: '/<repository>/'
     // buildAssetsDir: 'assets', // don't use "_" at the begining of the folder name to avoids nojkill conflict
   },

@@ -5,11 +5,11 @@
         <!-- <transition name="fade" mode="in-out"> -->
           <!-- Using both forestStore.time and forestStore.stateOn in key to enforce re-render -->
           <NuxtImg 
-          width="400"    
+          provider="netlify"
+          width="1200"    
             :src="forestStore.currentImage" 
             :key="`${forestStore.time}-${forestStore.stateOn}`" 
             class="z-0 rounded-xl" 
-            format="webp"
           />
         <!-- </transition> -->
       </div>
