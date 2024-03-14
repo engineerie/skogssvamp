@@ -5,12 +5,11 @@
         <!-- <transition name="fade" mode="in-out"> -->
           <!-- Using both forestStore.time and forestStore.stateOn in key to enforce re-render -->
           <NuxtImg 
-           height="1200"
-            id="zoomableImage" 
+          width="400"    
             :src="forestStore.currentImage" 
             :key="`${forestStore.time}-${forestStore.stateOn}`" 
             class="z-0 rounded-xl" 
-            :style="{ transform: `scale(${zoomLevel})` }" 
+            format="webp"
           />
         <!-- </transition> -->
       </div>

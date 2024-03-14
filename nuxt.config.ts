@@ -1,9 +1,7 @@
 import { resolve } from "path";
 
 export default defineNuxtConfig({
-  image: {
-    provider: 'netlify',
-  },
+
   app: {
     ssr: true,
     // baseURL: '/skogssvamp/', // baseURL: '/<repository>/'
