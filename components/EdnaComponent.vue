@@ -187,7 +187,7 @@ const generateColors = (start, end, steps) => {
 const fetchData = async (geography, forestType, standAge, vegetationType) => {
   const filename = `data-${geography}-${forestType}-${standAge}-${vegetationType}.json`;
   try {
-    const response = await fetch(`/${filename}`);
+    const response = await fetch(`/edna/${filename}`);
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
 

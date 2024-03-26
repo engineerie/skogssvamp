@@ -5,7 +5,6 @@
         <!-- <transition name="fade" mode="in-out"> -->
           <!-- Using both forestStore.time and forestStore.stateOn in key to enforce re-render -->
           <NuxtImg 
-          provider="netlify"
           width="1200"    
             :src="forestStore.currentImage" 
             :key="`${forestStore.time}-${forestStore.stateOn}`" 

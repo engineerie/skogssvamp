@@ -2,8 +2,7 @@ import { resolve } from "path";
 
 export default defineNuxtConfig({
   image: {
-    provider: 'netlify'
-    },
+    provider: 'netlify'    },
   app: {
     ssr: false, // Disable Server-Side rendering
     target: 'static' // Set the deployment target to static
