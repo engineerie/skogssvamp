@@ -1,1 +1,80 @@
-[{"taxon":"Amphinema sp. 1","snamn":null,"matsvamp":0,"total_presence":21},{"taxon":"Piloderma sp. 5","snamn":null,"matsvamp":0,"total_presence":14},{"taxon":"Tylospora fibrillosa","snamn":"bomullsskinn","matsvamp":0,"total_presence":11},{"taxon":"Amanita fulva","snamn":"brun kamskivling","matsvamp":0,"total_presence":7},{"taxon":"Piloderma olivaceum","snamn":"mörkt ullskinn","matsvamp":0,"total_presence":4},{"taxon":"Elaphomyces asperulus","snamn":"ljusbrun hjorttryffel","matsvamp":0,"total_presence":3},{"taxon":"Tomentella badia","snamn":null,"matsvamp":0,"total_presence":3},{"taxon":"Piloderma byssinum","snamn":"ullskinn","matsvamp":0,"total_presence":2},{"taxon":"Russula rhodopus","snamn":"lackkremla","matsvamp":0,"total_presence":2},{"taxon":"Cortinarius armeniacus","snamn":"aprikosspindling","matsvamp":0,"total_presence":1},{"taxon":"Lactarius tabidus","snamn":"småriska","matsvamp":0,"total_presence":1},{"taxon":"Otidea leporina","snamn":"litet haröra","matsvamp":0,"total_presence":1},{"taxon":"Russula risigallina","snamn":"aprikoskremla","matsvamp":0,"total_presence":1}]
+[
+  {
+    "taxon": "Amphinema sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 21
+  },
+  {
+    "taxon": "Piloderma sp. 5",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 14
+  },
+  {
+    "taxon": "Tylospora fibrillosa",
+    "snamn": "bomullsskinn",
+    "matsvamp": 0,
+    "total_presence": 11
+  },
+  {
+    "taxon": "Amanita fulva",
+    "snamn": "brun kamskivling",
+    "matsvamp": 0,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Elaphomyces asperulus",
+    "snamn": "ljusbrun hjorttryffel",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Tomentella badia",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Piloderma byssinum",
+    "snamn": "ullskinn",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Russula rhodopus",
+    "snamn": "lackkremla",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Cortinarius armeniacus",
+    "snamn": "aprikosspindling",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Lactarius tabidus",
+    "snamn": "småriska",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Otidea leporina",
+    "snamn": "litet haröra",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Russula risigallina",
+    "snamn": "aprikoskremla",
+    "matsvamp": 0,
+    "total_presence": 1
+  }
+]

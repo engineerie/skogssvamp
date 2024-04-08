@@ -1,1 +1,152 @@
-[{"taxon":"Piloderma sp. 2","snamn":null,"matsvamp":0,"total_presence":70},{"taxon":"Trichophaea sp. 2","snamn":null,"matsvamp":0,"total_presence":70},{"taxon":"Tylospora asterophora","snamn":"astralskinn","matsvamp":0,"total_presence":62},{"taxon":"Trichophaea sp. 1","snamn":null,"matsvamp":0,"total_presence":45},{"taxon":"Tomentella sp. 12","snamn":"filtskinn","matsvamp":0,"total_presence":42},{"taxon":"Amphinema sp. 2","snamn":null,"matsvamp":0,"total_presence":18},{"taxon":"Pseudotomentella mucidula","snamn":null,"matsvamp":0,"total_presence":16},{"taxon":"Amphinema sp. 1","snamn":null,"matsvamp":0,"total_presence":12},{"taxon":"Cortinarius semivestitus","snamn":null,"matsvamp":0,"total_presence":10},{"taxon":"Trichophaea sp. 5","snamn":null,"matsvamp":0,"total_presence":10},{"taxon":"Amphinema byssoides","snamn":"kraterskinn","matsvamp":0,"total_presence":9},{"taxon":"Pseudotomentella sp. 2","snamn":null,"matsvamp":0,"total_presence":8},{"taxon":"Cortinarius comptulus","snamn":"rundsporig spindling","matsvamp":0,"total_presence":6},{"taxon":"Hygrophorus pustulatus","snamn":"grynvaxskivling","matsvamp":0,"total_presence":6},{"taxon":"Inocybe aff. flavella","snamn":null,"matsvamp":0,"total_presence":5},{"taxon":"Trichophaea sp. 3","snamn":null,"matsvamp":0,"total_presence":5},{"taxon":"Lactarius picinus","snamn":"beckriska","matsvamp":0,"total_presence":3},{"taxon":"Thelephora terrestris","snamn":"vårtöra","matsvamp":0,"total_presence":3},{"taxon":"Piloderma olivaceum","snamn":"mörkt ullskinn","matsvamp":0,"total_presence":2},{"taxon":"Thelephora palmata","snamn":"busksvamp","matsvamp":0,"total_presence":2},{"taxon":"Amanita rubescens","snamn":"rodnande flugsvamp","matsvamp":0,"total_presence":1},{"taxon":"Cortinarius saniosus","snamn":"gultrådig spindling","matsvamp":0,"total_presence":1},{"taxon":"Elaphomyces muricatus","snamn":"marmorerad hjorttryffel","matsvamp":0,"total_presence":1},{"taxon":"Hysterangium sp.","snamn":"brosktryfflar","matsvamp":0,"total_presence":1},{"taxon":"Laccaria tortilis","snamn":"dvärglaxskivling","matsvamp":0,"total_presence":1}]
+[
+  {
+    "taxon": "Piloderma sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 70
+  },
+  {
+    "taxon": "Trichophaea sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 70
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 62
+  },
+  {
+    "taxon": "Trichophaea sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 45
+  },
+  {
+    "taxon": "Tomentella sp. 12",
+    "snamn": "filtskinn",
+    "matsvamp": 0,
+    "total_presence": 42
+  },
+  {
+    "taxon": "Amphinema sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 18
+  },
+  {
+    "taxon": "Pseudotomentella mucidula",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 16
+  },
+  {
+    "taxon": "Amphinema sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 12
+  },
+  {
+    "taxon": "Cortinarius semivestitus",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Trichophaea sp. 5",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Amphinema byssoides",
+    "snamn": "kraterskinn",
+    "matsvamp": 0,
+    "total_presence": 9
+  },
+  {
+    "taxon": "Pseudotomentella sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Cortinarius comptulus",
+    "snamn": "rundsporig spindling",
+    "matsvamp": 0,
+    "total_presence": 6
+  },
+  {
+    "taxon": "Hygrophorus pustulatus",
+    "snamn": "grynvaxskivling",
+    "matsvamp": 0,
+    "total_presence": 6
+  },
+  {
+    "taxon": "Inocybe aff. flavella",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Trichophaea sp. 3",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Lactarius picinus",
+    "snamn": "beckriska",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Thelephora terrestris",
+    "snamn": "vårtöra",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Thelephora palmata",
+    "snamn": "busksvamp",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Amanita rubescens",
+    "snamn": "rodnande flugsvamp",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Cortinarius saniosus",
+    "snamn": "gultrådig spindling",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Elaphomyces muricatus",
+    "snamn": "marmorerad hjorttryffel",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Hysterangium sp.",
+    "snamn": "brosktryfflar",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Laccaria tortilis",
+    "snamn": "dvärglaxskivling",
+    "matsvamp": 0,
+    "total_presence": 1
+  }
+]

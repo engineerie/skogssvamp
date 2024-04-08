@@ -1,1 +1,218 @@
-[{"taxon":"Tomentella sp. 13","snamn":"filtskinn","matsvamp":0,"total_presence":84},{"taxon":"Tylospora asterophora","snamn":"astralskinn","matsvamp":0,"total_presence":35},{"taxon":"Amphinema byssoides","snamn":"kraterskinn","matsvamp":0,"total_presence":33},{"taxon":"Piloderma olivaceum","snamn":"mörkt ullskinn","matsvamp":0,"total_presence":32},{"taxon":"Pseudotomentella sp. 6","snamn":null,"matsvamp":0,"total_presence":32},{"taxon":"Trichophaea sp. 1","snamn":null,"matsvamp":0,"total_presence":30},{"taxon":"Piloderma byssinum","snamn":"ullskinn","matsvamp":0,"total_presence":21},{"taxon":"Elaphomyces granulatus","snamn":"grynig hjorttryffel","matsvamp":0,"total_presence":16},{"taxon":"Piloderma sp. 7","snamn":null,"matsvamp":0,"total_presence":14},{"taxon":"Tylospora fibrillosa","snamn":"bomullsskinn","matsvamp":0,"total_presence":10},{"taxon":"Amphinema sp. 2","snamn":null,"matsvamp":0,"total_presence":9},{"taxon":"Russula puellaris","snamn":"sienakremla","matsvamp":0,"total_presence":9},{"taxon":"Amanita fulva","snamn":"brun kamskivling","matsvamp":0,"total_presence":8},{"taxon":"Pseudotomentella sp. 5","snamn":null,"matsvamp":0,"total_presence":8},{"taxon":"Russula integra","snamn":"mandelkremla","matsvamp":1,"total_presence":8},{"taxon":"Inocybe leptophylla","snamn":"tofstråding","matsvamp":0,"total_presence":7},{"taxon":"Russula firmula","snamn":"glanskremla","matsvamp":0,"total_presence":7},{"taxon":"Inocybe proximella","snamn":null,"matsvamp":0,"total_presence":5},{"taxon":"Amanita rubescens","snamn":"rodnande flugsvamp","matsvamp":0,"total_presence":4},{"taxon":"Hygrophorus pustulatus","snamn":"grynvaxskivling","matsvamp":0,"total_presence":4},{"taxon":"Tomentellopsis echinospora","snamn":"brunt brokskinn","matsvamp":0,"total_presence":4},{"taxon":"Cortinarius diasemospermus var. leptospermus","snamn":null,"matsvamp":0,"total_presence":3},{"taxon":"Piloderma sphaerosporum","snamn":null,"matsvamp":0,"total_presence":3},{"taxon":"Russula vesca","snamn":"kantkremla","matsvamp":1,"total_presence":3},{"taxon":"Cortinarius brunneus","snamn":"umbraspindling","matsvamp":0,"total_presence":2},{"taxon":"Elaphomyces asperulus","snamn":"ljusbrun hjorttryffel","matsvamp":0,"total_presence":2},{"taxon":"Inocybe fuscidula","snamn":"strecktråding","matsvamp":0,"total_presence":2},{"taxon":"Piloderma bicolor","snamn":"gultrådsskinn","matsvamp":0,"total_presence":2},{"taxon":"Russula adusta","snamn":"svedkremla","matsvamp":0,"total_presence":2},{"taxon":"Russula nauseosa","snamn":"strimkremla","matsvamp":0,"total_presence":2},{"taxon":"Amanita muscaria","snamn":"röd flugsvamp/brun flugsvamp","matsvamp":0,"total_presence":1},{"taxon":"Inocybe mixtilis","snamn":"löktråding","matsvamp":0,"total_presence":1},{"taxon":"Inocybe sphagnophila","snamn":null,"matsvamp":0,"total_presence":1},{"taxon":"Pseudotomentella tristis","snamn":null,"matsvamp":0,"total_presence":1},{"taxon":"Russula aeruginea","snamn":"grönkremla","matsvamp":1,"total_presence":1},{"taxon":"Russula velenovskyi","snamn":"gulröd kremla","matsvamp":0,"total_presence":1}]
+[
+  {
+    "taxon": "Tomentella sp. 13",
+    "snamn": "filtskinn",
+    "matsvamp": 0,
+    "total_presence": 84
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 35
+  },
+  {
+    "taxon": "Amphinema byssoides",
+    "snamn": "kraterskinn",
+    "matsvamp": 0,
+    "total_presence": 33
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 32
+  },
+  {
+    "taxon": "Pseudotomentella sp. 6",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 32
+  },
+  {
+    "taxon": "Trichophaea sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 30
+  },
+  {
+    "taxon": "Piloderma byssinum",
+    "snamn": "ullskinn",
+    "matsvamp": 0,
+    "total_presence": 21
+  },
+  {
+    "taxon": "Elaphomyces granulatus",
+    "snamn": "grynig hjorttryffel",
+    "matsvamp": 0,
+    "total_presence": 16
+  },
+  {
+    "taxon": "Piloderma sp. 7",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 14
+  },
+  {
+    "taxon": "Tylospora fibrillosa",
+    "snamn": "bomullsskinn",
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Amphinema sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 9
+  },
+  {
+    "taxon": "Russula puellaris",
+    "snamn": "sienakremla",
+    "matsvamp": 0,
+    "total_presence": 9
+  },
+  {
+    "taxon": "Amanita fulva",
+    "snamn": "brun kamskivling",
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Pseudotomentella sp. 5",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Russula integra",
+    "snamn": "mandelkremla",
+    "matsvamp": 1,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Inocybe leptophylla",
+    "snamn": "tofstråding",
+    "matsvamp": 0,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Russula firmula",
+    "snamn": "glanskremla",
+    "matsvamp": 0,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Inocybe proximella",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Amanita rubescens",
+    "snamn": "rodnande flugsvamp",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Hygrophorus pustulatus",
+    "snamn": "grynvaxskivling",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Tomentellopsis echinospora",
+    "snamn": "brunt brokskinn",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Cortinarius diasemospermus var. leptospermus",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Russula vesca",
+    "snamn": "kantkremla",
+    "matsvamp": 1,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Cortinarius brunneus",
+    "snamn": "umbraspindling",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Elaphomyces asperulus",
+    "snamn": "ljusbrun hjorttryffel",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Inocybe fuscidula",
+    "snamn": "strecktråding",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Piloderma bicolor",
+    "snamn": "gultrådsskinn",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Russula adusta",
+    "snamn": "svedkremla",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Russula nauseosa",
+    "snamn": "strimkremla",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Amanita muscaria",
+    "snamn": "röd flugsvamp/brun flugsvamp",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Inocybe mixtilis",
+    "snamn": "löktråding",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Inocybe sphagnophila",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Pseudotomentella tristis",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Russula aeruginea",
+    "snamn": "grönkremla",
+    "matsvamp": 1,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Russula velenovskyi",
+    "snamn": "gulröd kremla",
+    "matsvamp": 0,
+    "total_presence": 1
+  }
+]
