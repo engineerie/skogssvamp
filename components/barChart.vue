@@ -3,8 +3,8 @@
   <div class="overflow-x-scroll" id="scrollbar">
     <div v-if="VueApexCharts && data" class="text-neutral-500">
       <VueApexCharts
-        height="300px"
-        width="150%"
+        height="365px"
+        width="100%"
         type="bar"
         :options="chartOptions"
         :series="chartSeries"
@@ -23,6 +23,20 @@ import { computed, ref, onMounted, shallowRef } from "vue";
 const isDarkMode = computed(() => {
   return document.documentElement.classList.contains("dark");
 });
+
+const getIconPath = (svampGrupp) => {
+  const iconMapping = {
+    hattsvamp: "/images/svampgrupp/hattsvamp.webp",
+    kantarell: "/images/svampgrupp/kantarell.webp",
+    sopp: "/images/svampgrupp/sopp.webp",
+    taggsvamp: "/images/svampgrupp/taggsvamp.webp",
+    fingersvamp: "/images/svampgrupp/fingersvamp.webp",
+    tryffel: "/images/svampgrupp/tryffel.webp",
+    skinnsvamp: "/images/svampgrupp/skinnsvamp.webp",
+    skålsvamp: "/images/svampgrupp/skalsvamp.webp",
+  };
+  return iconMapping[svampGrupp] || "/images/svampgrupp/default-icon.png"; // Fallback to a default icon
+};
 
 // Define props to receive data from the parent component
 const props = defineProps({
@@ -132,25 +146,22 @@ const fetchChartData = async () => {
 
       const newCategories = data.value.map((row) => row.taxon);
 
-      // Process annotations points
-      const currentAnnotationsPoints = data.value
-        .filter((row) => row.snamn && !row.snamn.includes(" "))
-        .map((row) => ({
-          x: row.taxon,
-          y: row.total_presence,
-          marker: {
-            size: 10,
-            fillColor: "transparent",
-            strokeWidth: 0,
-            shape: "circle",
-          },
-          image: {
-            path: "/images/mushroom_gray.png",
-            offsetY: -15,
-            width: 18,
-            height: 18,
-          },
-        }));
+      const currentAnnotationsPoints = data.value.map((row) => ({
+        x: row.taxon,
+        y: row.total_presence,
+        marker: {
+          size: 10,
+          fillColor: "transparent",
+          strokeWidth: 0,
+          shape: "circle",
+        },
+        image: {
+          path: getIconPath(row["Svamp-grupp"]), // Use the correct property key
+          offsetY: -15,
+          width: 18,
+          height: 18,
+        },
+      }));
 
       const newAnnotationsPoints = data.value
         .filter((row) => row.matsvamp === 1)
@@ -339,8 +350,8 @@ onMounted(async () => {
   scrollbar-color: #888 #f2f3f500;
   transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
 }
-
+/* 
 #scrollbar:hover {
   scrollbar-color: #888 #f2f3f5;
-}
+} */
 </style>

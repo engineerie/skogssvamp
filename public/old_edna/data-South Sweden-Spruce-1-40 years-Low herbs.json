@@ -1,0 +1,200 @@
+[
+  {
+    "taxon": "Piloderma sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 154
+  },
+  {
+    "taxon": "Piloderma sp. 12",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 126
+  },
+  {
+    "taxon": "Piloderma sp. 3",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 70
+  },
+  {
+    "taxon": "Pseudotomentella sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 64
+  },
+  {
+    "taxon": "Tylospora fibrillosa",
+    "snamn": "bomullsskinn",
+    "matsvamp": 0,
+    "total_presence": 57
+  },
+  {
+    "taxon": "Amphinema byssoides",
+    "snamn": "kraterskinn",
+    "matsvamp": 0,
+    "total_presence": 30
+  },
+  {
+    "taxon": "Trichophaea sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 30
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 30
+  },
+  {
+    "taxon": "Hygrophorus olivaceoalbus",
+    "snamn": "olivvaxskivling",
+    "matsvamp": 1,
+    "total_presence": 24
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 23
+  },
+  {
+    "taxon": "Inocybe sp. 3",
+    "snamn": "trådingar",
+    "matsvamp": 0,
+    "total_presence": 18
+  },
+  {
+    "taxon": "Lactarius rufus",
+    "snamn": "pepparriska",
+    "matsvamp": 0,
+    "total_presence": 17
+  },
+  {
+    "taxon": "Tomentella badia",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 12
+  },
+  {
+    "taxon": "Amphinema sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 9
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Tomentella ellisii",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Russula cyanoxantha",
+    "snamn": "brokkremla",
+    "matsvamp": 1,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Cortinarius scaurus",
+    "snamn": "grön myrspindling",
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Russula velenovskyi",
+    "snamn": "gulröd kremla",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Sistotrema albopallescens",
+    "snamn": "ljungporing",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Cortinarius casimiri",
+    "snamn": "storsporig spindling",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Cortinarius comptulus",
+    "snamn": "rundsporig spindling",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Thelephora terrestris",
+    "snamn": "vårtöra",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Elaphomyces muricatus",
+    "snamn": "marmorerad hjorttryffel",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Pyronemataceae sp. 3",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Hygrophorus pustulatus",
+    "snamn": "grynvaxskivling",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Lactarius fennoscandicus",
+    "snamn": "zonerad granblodriska",
+    "matsvamp": 1,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Melanogaster broomeanus",
+    "snamn": "aromatisk slemtryffel",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Naucoria bohemica",
+    "snamn": "silverskräling",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Paxillus aff. involutus",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Pseudotomentella tristis",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Pyronemataceae sp. 4",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Xerocomus ferrugineus",
+    "snamn": "vitköttig sammetssopp",
+    "matsvamp": 1,
+    "total_presence": 1
+  }
+]

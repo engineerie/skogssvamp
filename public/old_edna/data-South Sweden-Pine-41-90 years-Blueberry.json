@@ -1,0 +1,212 @@
+[
+  {
+    "taxon": "Suillus variegatus",
+    "snamn": "sandsopp",
+    "matsvamp": 1,
+    "total_presence": 138
+  },
+  {
+    "taxon": "Tomentella sp. 12",
+    "snamn": "filtskinn",
+    "matsvamp": 0,
+    "total_presence": 105
+  },
+  {
+    "taxon": "Tylospora fibrillosa",
+    "snamn": "bomullsskinn",
+    "matsvamp": 0,
+    "total_presence": 63
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 52
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 50
+  },
+  {
+    "taxon": "Cortinarius aff. acutus",
+    "snamn": "spetsspindling",
+    "matsvamp": 0,
+    "total_presence": 27
+  },
+  {
+    "taxon": "Piloderma bicolor",
+    "snamn": "gultrådsskinn",
+    "matsvamp": 0,
+    "total_presence": 24
+  },
+  {
+    "taxon": "Serendipita sp. 18",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 24
+  },
+  {
+    "taxon": "Amanita fulva",
+    "snamn": "brun kamskivling",
+    "matsvamp": 0,
+    "total_presence": 20
+  },
+  {
+    "taxon": "Piloderma sp. 3",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 14
+  },
+  {
+    "taxon": "Russula decolorans",
+    "snamn": "tegelkremla",
+    "matsvamp": 1,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Cortinarius limonius",
+    "snamn": "eldspindling",
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Tylopilus felleus",
+    "snamn": "gallsopp",
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Lactarius tabidus",
+    "snamn": "småriska",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Russula gracillima",
+    "snamn": "spädkremla",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Suillus bovinus",
+    "snamn": "örsopp",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Clavulina sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Cortinarius ferrugineovelatus",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Cortinarius semisanguineus",
+    "snamn": "rödskivig kanelspindling",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Inocybe napipes",
+    "snamn": "knöltråding",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Piloderma byssinum",
+    "snamn": "ullskinn",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Russula puellaris",
+    "snamn": "sienakremla",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Thelephora terrestris",
+    "snamn": "vårtöra",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Lactarius quietus",
+    "snamn": "ekriska",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Russula versicolor",
+    "snamn": "skarp sienakremla",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Sistotrema alboluteum",
+    "snamn": "oljeporing",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Cortinarius comptulus",
+    "snamn": "rundsporig spindling",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Hygrophorus camarophyllus",
+    "snamn": "sotvaxskivling",
+    "matsvamp": 1,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Lactarius camphoratus",
+    "snamn": "kamferriska",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Lactarius torminosus",
+    "snamn": "skäggriska",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Pseudotomentella humicola",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Pseudotomentella tristis",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Russula paludosa",
+    "snamn": "storkremla",
+    "matsvamp": 1,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Russula rhodopus",
+    "snamn": "lackkremla",
+    "matsvamp": 0,
+    "total_presence": 1
+  }
+]

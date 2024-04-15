@@ -1,0 +1,224 @@
+[
+  {
+    "taxon": "Amphinema byssoides",
+    "snamn": "kraterskinn",
+    "matsvamp": 0,
+    "total_presence": 63
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 42
+  },
+  {
+    "taxon": "Tylospora fibrillosa",
+    "snamn": "bomullsskinn",
+    "matsvamp": 0,
+    "total_presence": 34
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 33
+  },
+  {
+    "taxon": "Pseudotomentella sp. 4",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 16
+  },
+  {
+    "taxon": "Piloderma sp. 13",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 14
+  },
+  {
+    "taxon": "Amphinema sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 12
+  },
+  {
+    "taxon": "Russula velenovskyi",
+    "snamn": "gulröd kremla",
+    "matsvamp": 0,
+    "total_presence": 12
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 12
+  },
+  {
+    "taxon": "Lactarius rufus",
+    "snamn": "pepparriska",
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Lactarius tabidus",
+    "snamn": "småriska",
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Trichophaea sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Trichophaea sp. 3",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 10
+  },
+  {
+    "taxon": "Thelephora terrestris",
+    "snamn": "vårtöra",
+    "matsvamp": 0,
+    "total_presence": 9
+  },
+  {
+    "taxon": "Cortinarius hircinosmus",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Hygrophorus olivaceoalbus",
+    "snamn": "olivvaxskivling",
+    "matsvamp": 1,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Piloderma bicolor",
+    "snamn": "gultrådsskinn",
+    "matsvamp": 0,
+    "total_presence": 8
+  },
+  {
+    "taxon": "Pseudotomentella humicola",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Tomentellopsis echinospora",
+    "snamn": "brunt brokskinn",
+    "matsvamp": 0,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Amphinema sp. 2",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 6
+  },
+  {
+    "taxon": "Clavulina sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 6
+  },
+  {
+    "taxon": "Trichophaea sp. 1",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 5
+  },
+  {
+    "taxon": "Amanita fulva",
+    "snamn": "brun kamskivling",
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Pseudotomentella mucidula",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 4
+  },
+  {
+    "taxon": "Cortinarius helobius",
+    "snamn": "pionjärspindling",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Russula griseascens",
+    "snamn": "grånande giftkremla",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Cortinarius biformis",
+    "snamn": "gycklarspindling",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Hysterangium sp.",
+    "snamn": "brosktryfflar",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Lactarius pubescens",
+    "snamn": "blek skäggriska",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Pseudotomentella tristis",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Suillus bovinus",
+    "snamn": "örsopp",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Tomentella atramentaria",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Tylospora sp.",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Cortinarius semisanguineus",
+    "snamn": "rödskivig kanelspindling",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Hydnotrya tulasnei",
+    "snamn": "vecktryffel",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Russula versicolor",
+    "snamn": "skarp sienakremla",
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Suillus variegatus",
+    "snamn": "sandsopp",
+    "matsvamp": 1,
+    "total_presence": 1
+  }
+]

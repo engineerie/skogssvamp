@@ -105,6 +105,13 @@
             :rows="paginatedData"
             @select="selectRow"
           >
+            <template #empty-state>
+              <div class="flex flex-col items-center justify-center py-6 gap-3">
+                <span class="italic text-sm"
+                  >Inga vanligt förekommande matsvampar i denna miljön</span
+                >
+              </div>
+            </template>
             <template #rating-data="{ row }">
               <div class="flex">
                 <span v-for="n in getValidRating(row.rating)" :key="n">
@@ -116,7 +123,23 @@
               </div>
             </template>
             <template #Commonname-data="{ row }">
-              <div>{{ capitalize(row.Commonname) }}</div>
+              <div class="">{{ capitalize(row.Commonname) }}</div>
+            </template>
+            <template #Scientificname-data="{ row }">
+              <div class="italic font-thin">{{ row.Scientificname }}</div>
+            </template>
+            <template #Svamp-grupp-data="{ row }">
+              <div
+                data-nui-tooltip-position="left"
+                :data-nui-tooltip="capitalize(row['Svamp-grupp'])"
+                class="ml-2"
+              >
+                <NuxtImg
+                  :src="getIconPath(row['Svamp-grupp'])"
+                  class="w-5"
+                  alt="Svamp Icon"
+                />
+              </div>
             </template>
             <!-- ...other columns... -->
           </UTable>
@@ -200,6 +223,21 @@ console.log("FullScreenEdible setup started");
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
+const getIconPath = (svampGrupp) => {
+  const iconMapping = {
+    hattsvamp: "hattsvamp.webp",
+    kantarell: "kantarell.webp",
+    sopp: "sopp.webp",
+    taggsvamp: "taggsvamp.webp",
+    fingersvamp: "fingersvamp.webp",
+    tryffel: "tryffel.webp",
+    skinnsvamp: "skinnsvamp.webp",
+    skålsvamp: "skalsvamp.webp",
+  };
+
+  return `/images/svampgrupp/${iconMapping[svampGrupp] || "default-icon.webp"}`;
+};
+
 const props = defineProps({
   isNormalView: Boolean,
 });
@@ -209,18 +247,19 @@ console.log("isNormalView in FullScreenEdible:", props.isNormalView);
 const computedUITable = computed(() => ({
   thead: props.isNormalView ? "" : "",
   td: {
-    base: "overflow-hidden",
-    padding: "py-6",
+    base: "",
+    padding: "py-6 pl-6",
     size: "text-md",
     color: "text-neutral-500 dark:text-neutral-400",
   },
   th: {
-    padding: "pt-4",
+    padding: "pt-4 pl-6",
   },
   // divide: props.isNormalView
   //   ? ""
   //   : "divide-y divide-neutral-200 dark:divide-neutral-800",
   tr: {
+    padding: "pl-12",
     base: "overflow-hidden",
     selected: "bg-neutral-100 dark:bg-neutral-900",
     active:
@@ -286,11 +325,6 @@ function closeInfoBox() {
 
 const columns = [
   {
-    key: "Svamp-grupp",
-    label: "Grupp",
-    sortable: props.isNormalView ? false : true,
-  },
-  {
     key: "Commonname",
     label: "Namn",
     sortable: props.isNormalView ? false : true,
@@ -298,6 +332,11 @@ const columns = [
   {
     key: "Scientificname",
     label: "Latinskt namn",
+    sortable: props.isNormalView ? false : true,
+  },
+  {
+    key: "Svamp-grupp",
+    label: props.isNormalView ? "Grupp" : "Grupp",
     sortable: props.isNormalView ? false : true,
   },
   {

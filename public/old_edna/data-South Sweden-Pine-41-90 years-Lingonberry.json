@@ -1,0 +1,50 @@
+[
+  {
+    "taxon": "Tomentella sp. 10",
+    "snamn": "filtskinn",
+    "matsvamp": 0,
+    "total_presence": 42
+  },
+  {
+    "taxon": "Hysterangium sp.",
+    "snamn": "brosktryfflar",
+    "matsvamp": 0,
+    "total_presence": 13
+  },
+  {
+    "taxon": "Suillus variegatus",
+    "snamn": "sandsopp",
+    "matsvamp": 1,
+    "total_presence": 13
+  },
+  {
+    "taxon": "Cortinarius armillatus",
+    "snamn": "rödbandad spindling",
+    "matsvamp": 0,
+    "total_presence": 6
+  },
+  {
+    "taxon": "Piloderma bicolor",
+    "snamn": "gultrådsskinn",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Piloderma olivaceum",
+    "snamn": "mörkt ullskinn",
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 2
+  },
+  {
+    "taxon": "Tylospora sp.",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 2
+  }
+]

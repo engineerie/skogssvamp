@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="relative p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
-  >
-    <div class="grid grid-cols-2 mb-8">
+  <!-- <div class="grid grid-cols-2 mb-8">
       <div class="flex items-center">
         <div
           class="rounded-lg text-violet-500 flex justify-center items-center mr-2"
@@ -28,10 +25,84 @@
           <Icon name="material-symbols:open-in-full" class="size-5" />
         </BaseButtonIcon>
       </div>
+    </div> -->
+  <div class="grid grid-cols-12" v-if="activeTab === 'spatialForest'">
+    <div class="col-span-7">
+      <div class="flex mb-3">
+        <div
+          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
+        >
+          <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+        </div>
+        <BaseHeading
+          size="3xl"
+          weight="medium"
+          class="text-neutral-800 dark:text-neutral-300"
+          >Mykorrhizasvampar</BaseHeading
+        >
+        <BaseTabs
+          class="ml-4 -mb-8"
+          v-model="activeTab"
+          :tabs="[
+            { icon: 'material-symbols:bar-chart', value: 'columnChart' },
+            { icon: 'mdi:forest-outline', value: 'spatialForest' },
+          ]"
+        >
+        </BaseTabs>
+      </div>
+      <div
+        class="h-[505px] p-10 pt-16 backdrop-blur-3xl rounded-l-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      >
+        <!-- <DonutChart
+          v-if="activeTab === 'columnChart'"
+          :geography="geography"
+          :forestType="forestType"
+          :standAge="standAge"
+          :vegetationType="vegetationType"
+          @updateInfo="handleInfoUpdate"
+          class="h-fit"
+        /> -->
+        <SpatialForest
+          :geography="geography"
+          :forestType="forestType"
+          :standAge="standAge"
+          :vegetationType="vegetationType"
+        />
+      </div>
     </div>
-    <div class="flex justify-center">
+    <FullScreenEdna
+      :isNormalView="true"
+      @enlarge="emitEnlarge('FullScreenEdna')"
+      class="col-span-5"
+    />
+  </div>
+  <div v-if="activeTab === 'columnChart'">
+    <div class="flex">
+      <div
+        class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
+      >
+        <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+      </div>
+      <BaseHeading
+        size="3xl"
+        weight="medium"
+        class="text-neutral-800 dark:text-neutral-300"
+        >Mykorrhizasvampar</BaseHeading
+      >
+      <BaseTabs
+        class="ml-4"
+        v-model="activeTab"
+        :tabs="[
+          { icon: 'material-symbols:bar-chart', value: 'columnChart' },
+          { icon: 'mdi:forest-outline', value: 'spatialForest' },
+        ]"
+      >
+      </BaseTabs>
+    </div>
+    <div
+      class="p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+    >
       <BarChart
-        v-if="activeTab === 'columnChart'"
         :geography="geography"
         :forestType="forestType"
         :standAge="standAge"
@@ -39,18 +110,8 @@
         @updateInfo="handleInfoUpdate"
         class="w-full h-full"
       />
-    </div>
-    <div v-if="activeTab === 'spatialForest'" class="grid grid-cols-12">
-      <SpatialForest
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        class="col-span-6"
-      />
-      <div v-if="data" class="col-span-6 ml-16 -mt-8">
-        <FullScreenEdna />
-        <!-- <div id="scrollbar" class="h-[340px] overscroll overflow-y-scroll pt-2">
+      <!--<div v-if="data" class="col-span-6 ml-16 -mt-8">
+         <div id="scrollbar" class="h-[340px] overscroll overflow-y-scroll pt-2">
           <div
             v-for="(row, index) in data"
             :key="row.taxon"
@@ -97,7 +158,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div> 
       </div>
       <div v-else>
         <div class="max-w-sm space-y-2 mt-2">
@@ -105,22 +166,14 @@
           <BasePlaceload class="h-4 w-[85%] rounded" />
         </div>
       </div>
-    </div>
+      -->
 
-    <!-- Information section aligned to the bottom -->
-    <div class="-mb-6">
-      <hr class="border-stone-200 dark:border-stone-700 mb-4" />
-      <div class="flex justify-between">
-        <BaseTabs
-          v-model="activeTab"
-          :tabs="[
-            { icon: 'material-symbols:bar-chart', value: 'columnChart' },
-            { icon: 'mdi:forest-outline', value: 'spatialForest' },
-          ]"
-        >
-        </BaseTabs>
-        <div class="flex">
-          <div class="flex mt-3">
+      <!-- Information section aligned to the bottom -->
+      <div class="-mb-6">
+        <hr class="border-stone-200 dark:border-stone-700 mb-4" />
+        <div class="flex justify-between">
+          <div class="flex">
+            <!-- <div class="flex mt-3">
             <div
               class="flex h-fit"
               data-nui-tooltip-position="up"
@@ -168,48 +221,49 @@
                 class="h-5 w-5 text-yellow-500 ml-2"
               />
             </div>
+          </div> -->
           </div>
-        </div>
-        <div class="flex">
-          <div
-            class="border-r-[1px] dark:border-neutral-800 border-stone-300 mb-6 mr-4 pr-4 mt-3 pl-8 flex"
-          >
-            <BaseParagraph size="md" class="text-neutral-500">
-              {{ data ? data.length : 0 }} arter
-            </BaseParagraph>
-          </div>
-          <div v-if="activeTab === 'columnChart'" class="flex gap-8">
-            <div>
-              <BaseParagraph size="md" class="text-neutral-500"
-                >{{ top4Count }} arter</BaseParagraph
-              >
-              <div class="flex items-center">
-                <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div>
-                <BaseParagraph size="md" class="text-neutral-500"
-                  >{{ top4Percentage }}%</BaseParagraph
-                >
-              </div>
+          <div class="flex">
+            <div
+              class="border-r-[1px] dark:border-neutral-800 border-stone-300 mb-6 mr-4 pr-4 mt-3 pl-8 flex"
+            >
+              <BaseParagraph size="md" class="text-neutral-500">
+                {{ data ? data.length : 0 }} arter
+              </BaseParagraph>
             </div>
-            <div>
-              <BaseParagraph size="md" class="text-neutral-500"
-                >{{ next10Count }} arter</BaseParagraph
-              >
-              <div class="flex items-center">
-                <div class="bg-green-500 rounded-full w-2 h-2 mr-1"></div>
+            <div v-if="activeTab === 'columnChart'" class="flex gap-8">
+              <div>
                 <BaseParagraph size="md" class="text-neutral-500"
-                  >{{ next10Percentage }}%</BaseParagraph
+                  >{{ top4Count }} arter</BaseParagraph
                 >
+                <div class="flex items-center">
+                  <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div>
+                  <BaseParagraph size="md" class="text-neutral-500"
+                    >{{ top4Percentage }}%</BaseParagraph
+                  >
+                </div>
               </div>
-            </div>
-            <div>
-              <BaseParagraph size="md" class="text-neutral-500"
-                >{{ remainingCount }} arter</BaseParagraph
-              >
-              <div class="flex items-center">
-                <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div>
+              <div>
                 <BaseParagraph size="md" class="text-neutral-500"
-                  >{{ remainingPercentage }}%</BaseParagraph
+                  >{{ next10Count }} arter</BaseParagraph
                 >
+                <div class="flex items-center">
+                  <div class="bg-green-500 rounded-full w-2 h-2 mr-1"></div>
+                  <BaseParagraph size="md" class="text-neutral-500"
+                    >{{ next10Percentage }}%</BaseParagraph
+                  >
+                </div>
+              </div>
+              <div>
+                <BaseParagraph size="md" class="text-neutral-500"
+                  >{{ remainingCount }} arter</BaseParagraph
+                >
+                <div class="flex items-center">
+                  <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div>
+                  <BaseParagraph size="md" class="text-neutral-500"
+                    >{{ remainingPercentage }}%</BaseParagraph
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -222,6 +276,17 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+
+const props = defineProps({
+  isNormalView: Boolean,
+});
+
+// Define emits
+const emit = defineEmits(["enlarge"]);
+
+const emitEnlarge = (componentName) => {
+  emit("enlarge", componentName);
+};
 
 const route = useRoute();
 const activeTab = ref("spatialForest");
@@ -314,35 +379,3 @@ watch(
   { immediate: true }
 );
 </script>
-
-<style scoped>
-/* For Webkit browsers like Chrome, Safari */
-#scrollbar::-webkit-scrollbar {
-  width: 8px; /* width of the entire scrollbar */
-}
-
-#scrollbar::-webkit-scrollbar-track {
-  display: none; /* color of the tracking area */
-}
-
-#scrollbar::-webkit-scrollbar-thumb {
-  display: block;
-  background-color: #88888833; /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
-}
-
-#scrollbar:hover::-webkit-scrollbar-thumb {
-  display: block;
-}
-
-/* For Firefox */
-#scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #888 #f2f3f500;
-  transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
-}
-
-#scrollbar:hover {
-  scrollbar-color: #888 #f2f3f5;
-}
-</style>

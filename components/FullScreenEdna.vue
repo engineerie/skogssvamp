@@ -34,8 +34,11 @@
         </div>
       </div>
     </transition>
-    <div class="flex justify-between mb-2 items-end">
-      <div class="flex items-end">
+    <div
+      class="flex justify-between mb-2 items-end"
+      :class="{ 'mt-3': isNormalView }"
+    >
+      <div class="flex items-end" v-if="props.isNormalView == false">
         <div
           class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
         >
@@ -48,9 +51,10 @@
           >Mykorrhizasvampar</BaseHeading
         >
       </div>
+      <div v-else></div>
 
       <div class="flex gap-2 items-end">
-        <div class="w-20">
+        <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
             v-model="rowsPerPage"
             :items="[5, 10, 20, 30, 40, 50]"
@@ -66,35 +70,47 @@
           shape="full"
           placeholder="Sök i tabell"
         />
-        <BaseButtonIcon shape="full" @click="$emit('close')">
-          <Icon name="material-symbols:close-fullscreen" class="size-5" />
+        <BaseButtonIcon
+          shape="full"
+          @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
+        >
+          <Icon
+            v-if="props.isNormalView"
+            name="material-symbols:open-in-full"
+            class="size-5"
+          />
+          <Icon
+            v-else
+            name="material-symbols:close-fullscreen"
+            class="size-5"
+          />
         </BaseButtonIcon>
       </div>
     </div>
 
     <div
-      class="relative pt-3 backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      :class="{ 'rounded-xl': !isNormalView }"
+      class="relative backdrop-blur-3xl overflow-clip rounded-r-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
-      <div class="grid grid-cols-2 mb-8"></div>
-
-      <div v-if="filteredData" class="col-span-6 -mt-12">
-        <div class="h-fit pt-2">
+      <div v-if="filteredData" class="col-span-6">
+        <div class="">
           <!-- v-model="selectedRows" -->
 
           <!-- UTable with Filtered Data -->
           <UTable
+            id="scrollbar"
+            :class="{ 'h-[420px]': isNormalView }"
             :sort-button="{
               color: 'text-neutral-700 dark:text-neutral-300',
               size: 'xl',
             }"
             :ui="{
               td: {
-                padding: 'py-6',
                 size: 'text-md',
                 color: 'text-neutral-500 dark:text-neutral-400',
               },
+              thead: 'sticky top-0 bg-white shadow-sm shadow-neutral-300 z-20',
               tbody: 'divide-y divide-neutral-200 dark:divide-neutral-800',
-              divide: 'divide-y divide-neutral-300 dark:divide-neutral-700',
               tr: {
                 base: '',
                 selected: 'bg-neutral-100 dark:bg-neutral-900',
@@ -106,8 +122,58 @@
             :rows="paginatedData"
             @select="selectRow"
           >
+            <template v-if="isNormalView" #total_presence-data="{ row, index }">
+              <div class="flex items-center justify-center">
+                <div
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="`Förekomst: ${row['total_presence']}`"
+                >
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    :class="'h-8 w-8'"
+                    :style="{ color: allColors[index] }"
+                  />
+                </div>
+              </div>
+            </template>
             <template #snamn-data="{ row }">
               <div>{{ capitalize(row.snamn) }}</div>
+            </template>
+            <template #taxon-data="{ row }">
+              <div class="italic font-thin">{{ row.taxon }}</div>
+            </template>
+            <template #Svamp-grupp-data="{ row }">
+              <div
+                data-nui-tooltip-position="left"
+                :data-nui-tooltip="
+                  row['Svamp-grupp'] !== '0'
+                    ? capitalize(row['Svamp-grupp'])
+                    : 'Okänd'
+                "
+                class="ml-2"
+              >
+                <NuxtImg
+                  v-if="row['Svamp-grupp'] !== '0'"
+                  :src="getIconPath(row['Svamp-grupp'])"
+                  class="w-5"
+                  alt="Svamp Icon"
+                />
+
+                <Icon
+                  v-else
+                  name="material-symbols:question-mark-rounded"
+                  class="size-5"
+                />
+              </div>
+            </template>
+            <!-- Inside your UTable where you define templates for data rows -->
+            <template #RL2020kat-data="{ row }">
+              <div
+                :class="getStatusColor(row.RL2020kat)"
+                class="h-8 w-8 rounded-full flex items-center justify-center text-white"
+              >
+                {{ getStatusAbbreviation(row.RL2020kat) }}
+              </div>
             </template>
 
             <!-- Custom rendering for matsvamp column -->
@@ -135,6 +201,7 @@
             <div>
               <!-- Pagination component -->
               <UPagination
+                :max="2"
                 v-model="page"
                 :page-count="rowsPerPage"
                 :total="totalItems"
@@ -199,6 +266,25 @@
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
+const getIconPath = (svampGrupp) => {
+  const iconMapping = {
+    hattsvamp: "hattsvamp.webp",
+    kantarell: "kantarell.webp",
+    sopp: "sopp.webp",
+    taggsvamp: "taggsvamp.webp",
+    fingersvamp: "fingersvamp.webp",
+    tryffel: "tryffel.webp",
+    skinnsvamp: "skinnsvamp.webp",
+    skålsvamp: "skalsvamp.webp",
+  };
+
+  return `/images/svampgrupp/${iconMapping[svampGrupp] || "default-icon.webp"}`;
+};
+
+const props = defineProps({
+  isNormalView: Boolean,
+});
+
 const route = useRoute();
 const activeTab = ref("spatialForest");
 
@@ -208,7 +294,6 @@ const selectedRows = ref([]);
 const isDragging = ref(false);
 
 function getCenterPosition() {
-  // Assuming you know the size of the box, for example, 200px by 100px
   const boxWidth = 200;
   const boxHeight = 400;
 
@@ -256,40 +341,87 @@ function closeInfoBox() {
   selectedRows.value = [];
 }
 
+const getStatusAbbreviation = (status) => {
+  const abbreviations = {
+    LC: "LC",
+    NT: "NT", // Near Threatened
+    EN: "EN", // Endangered
+    VU: "VU", // Vulnerable
+    CR: "CR", // Critically Endangered
+    RE: "RE", // Regionally Extinct
+    DD: "DD", // Data Deficient
+  };
+  return abbreviations[status] || "??"; // Default case
+};
+
+const getStatusColor = (status) => {
+  const colors = {
+    LC: "bg-green-400",
+    NT: "bg-rose-400", // Lighter shade for less severe status
+    EN: "bg-rose-600", // Endangered
+    VU: "bg-rose-500", // Vulnerable
+    CR: "bg-rose-800", // Critically Endangered
+    RE: "bg-black", // Darker shade for more severe status
+    DD: "bg-gray-500", // Data Deficient
+  };
+  return colors[status] || "bg-gray-200"; // Default color for unknown status
+};
+
+const getStatusTooltip = (status) => {
+  const tooltips = {
+    LC: "Livskraftig",
+    NT: "Nära hotad",
+    EN: "Starkt hotad",
+    VU: "Sårbar",
+    CR: "Akut hotad",
+    RE: "Nationellt utdöd",
+    DD: "Kunskapsbrist",
+  };
+  return tooltips[status] || "Okänd status";
+};
+
 // Define columns for your table
 const columns = [
   {
     key: "total_presence",
-    label: "Förekomst",
-    sortable: true,
+    label: props.isNormalView ? "" : "Förekomst",
+    sortable: props.isNormalView ? false : true,
+    render: (row, index) => ({
+      template: `<Icon name="fluent:shape-organic-16-filled" :style="{ color: allColors[${index}] }" class="h-8 w-8"/>`,
+    }),
   },
   {
     key: "snamn",
-    label: "Svenskt namn",
-    sortable: true,
+    label: "Namn",
+    sortable: props.isNormalView ? false : true,
   },
   {
     key: "taxon",
     label: "Latinskt namn",
-    sortable: true,
+    sortable: props.isNormalView ? false : true,
   },
   {
-    key: "storsvamp",
-    label: "Typ",
-    sortable: true,
-    render: (row) => (row.storsvamp ? "Yes" : "No"),
+    key: "Svamp-grupp",
+    label: props.isNormalView ? "Grupp" : "Grupp",
+    sortable: props.isNormalView ? false : true,
   },
   {
     key: "matsvamp",
     label: "Matsvamp",
-    sortable: true,
+    sortable: props.isNormalView ? false : true,
+
     render: (row) => (row.matsvamp ? "Yes" : "No"),
   },
   {
-    key: "redlisted",
+    key: "RL2020kat",
     label: "Naturvård",
-    sortable: true,
-    render: (row) => "TBD", // Replace with actual logic for redlisted
+    sortable: props.isNormalView ? false : true,
+    render: (row) => {
+      const statusAbbr = getStatusAbbreviation(row.RL2020kat);
+      const statusColor = getStatusColor(row.RL2020kat);
+      const tooltip = getStatusTooltip(row.RL2020kat);
+      return `<div class="flex items-center justify-center w-6 h-6 rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
+    },
   },
 ];
 
@@ -389,7 +521,7 @@ watch(
 const searchQuery = ref("");
 const page = ref(1);
 const rowsPerPageOptions = [5, 10, 20, 30, 40, 50]; // Options for rows per page
-const rowsPerPage = ref(10); // Default rows per page
+const rowsPerPage = ref(props.isNormalView ? 500 : 10);
 const selectedRow = ref(null);
 
 // Computed property for filtered data
@@ -426,3 +558,34 @@ const endItem = computed(() =>
   Math.min(page.value * rowsPerPage.value, totalItems.value)
 );
 </script>
+
+<style scoped>
+/* For Webkit browsers like Chrome, Safari */
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+  background-color: #6f202033; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+#scrollbar:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+/* For Firefox */
+#scrollbar {
+  scrollbar-width: medium;
+  scrollbar-color: #88888800 #f2f3f500;
+  transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
+}
+
+#scrollbar:hover {
+  scrollbar-color: #ff0000 #f2f3f5;
+}
+</style>

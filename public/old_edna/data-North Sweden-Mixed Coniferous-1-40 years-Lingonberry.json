@@ -1,0 +1,38 @@
+[
+  {
+    "taxon": "Suillus variegatus",
+    "snamn": "sandsopp",
+    "matsvamp": 1,
+    "total_presence": 7
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 6
+  },
+  {
+    "taxon": "Amphinema byssoides",
+    "snamn": "kraterskinn",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 3
+  },
+  {
+    "taxon": "Cortinarius clarobrunneus",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  },
+  {
+    "taxon": "Wilcoxina rehmii",
+    "snamn": null,
+    "matsvamp": 0,
+    "total_presence": 1
+  }
+]
