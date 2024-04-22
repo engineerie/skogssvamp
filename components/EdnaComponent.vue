@@ -45,7 +45,10 @@
           v-model="activeTab"
           :tabs="[
             { icon: 'material-symbols:bar-chart', value: 'columnChart' },
-            { icon: 'mdi:forest-outline', value: 'spatialForest' },
+            {
+              icon: 'material-symbols:format-list-bulleted-rounded',
+              value: 'spatialForest',
+            },
           ]"
         >
         </BaseTabs>
@@ -94,7 +97,10 @@
         v-model="activeTab"
         :tabs="[
           { icon: 'material-symbols:bar-chart', value: 'columnChart' },
-          { icon: 'mdi:forest-outline', value: 'spatialForest' },
+          {
+            icon: 'material-symbols:format-list-bulleted-rounded',
+            value: 'spatialForest',
+          },
         ]"
       >
       </BaseTabs>

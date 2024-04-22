@@ -1,0 +1,41 @@
+[
+  {
+    "taxon": "Wilcoxina rehmii",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 6,
+    "Artfakta": "Information saknas",
+    "RL2020kat": "0",
+    "Svamp-grupp": "0",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "sample_plot_count": 2
+  },
+  {
+    "taxon": "Tylospora asterophora",
+    "snamn": "astralskinn",
+    "matsvamp": 0,
+    "total_presence": 3,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/6346/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "skinnsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "sample_plot_count": 2
+  },
+  {
+    "taxon": "Piloderma sphaerosporum",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/253758/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "skinnsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "sample_plot_count": 2
+  }
+]

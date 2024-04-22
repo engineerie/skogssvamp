@@ -38,6 +38,25 @@ const getIconPath = (svampGrupp) => {
   return iconMapping[svampGrupp] || "/images/svampgrupp/default-icon.png"; // Fallback to a default icon
 };
 
+const getStatusColor = (status) => {
+  const colors = {
+    NT: "#fdae6b", // Corresponding to bg-rose-400
+    EN: "#fd8d3c", // bg-rose-600
+    VU: "#f16913", // bg-rose-500
+    CR: "#d94801", // bg-rose-800
+  };
+  return colors[status] || "#cccccc"; // Default color for unknown status
+};
+
+const generateStatusMarkerSVG = (status) => {
+  const fillColor = getStatusColor(status);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+    <circle cx="9" cy="9" r="8" fill="${fillColor}" />
+    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="8" font-family="Arial" dy=".1em">${status}</text>
+  </svg>`;
+  return "data:image/svg+xml;base64," + btoa(svg);
+};
+
 // Define props to receive data from the parent component
 const props = defineProps({
   geography: String,
@@ -182,7 +201,27 @@ const fetchChartData = async () => {
           },
         }));
 
+      const redAnnotationsPoints = data.value
+        .filter((row) => ["NT", "EN", "VU", "CR"].includes(row.RL2020kat))
+        .map((row) => ({
+          x: row.taxon,
+          y: row.total_presence,
+          marker: {
+            size: 10,
+            fillColor: "transparent",
+            strokeWidth: 0,
+            shape: "circle",
+          },
+          image: {
+            path: generateStatusMarkerSVG(row.RL2020kat),
+            offsetY: -40, // Adjust this as needed
+            width: 24,
+            height: 24,
+          },
+        }));
+
       const annotationsPoints = [
+        ...redAnnotationsPoints,
         ...currentAnnotationsPoints,
         ...newAnnotationsPoints,
       ];
