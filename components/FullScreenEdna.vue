@@ -142,19 +142,19 @@
             <template #taxon-data="{ row }">
               <div class="italic font-thin">{{ row.taxon }}</div>
             </template>
-            <template #Svamp-grupp-data="{ row }">
+            <template #Svamp-grupp-släkte-data="{ row }">
               <div
                 data-nui-tooltip-position="left"
                 :data-nui-tooltip="
-                  row['Svamp-grupp'] !== '0'
-                    ? capitalize(row['Svamp-grupp'])
+                  row['Svamp-grupp-släkte'] !== '0'
+                    ? capitalize(row['Svamp-grupp-släkte'])
                     : 'Okänd'
                 "
                 class="ml-2"
               >
                 <NuxtImg
-                  v-if="row['Svamp-grupp'] !== '0'"
-                  :src="getIconPath(row['Svamp-grupp'])"
+                  v-if="row['Svamp-grupp-släkte'] !== 'Saknas'"
+                  :src="getIconPath(row['Svamp-grupp-släkte'])"
                   class="w-5"
                   alt="Svamp Icon"
                 />
@@ -169,10 +169,20 @@
             <!-- Inside your UTable where you define templates for data rows -->
             <template #RL2020kat-data="{ row }">
               <div
-                :class="getStatusColor(row.RL2020kat)"
-                class="h-8 w-8 rounded-full flex items-center justify-center text-white"
+                data-nui-tooltip-position="left"
+                :data-nui-tooltip="
+                  row['RL2020kat'] !== 'Saknas'
+                    ? getStatusTooltip(row.RL2020kat)
+                    : 'Ej bedömd'
+                "
+                class="ml-2"
               >
-                {{ getStatusAbbreviation(row.RL2020kat) }}
+                <div
+                  :class="getStatusColor(row.RL2020kat)"
+                  class="h-8 w-8 rounded-full flex items-center justify-center text-white"
+                >
+                  {{ getStatusAbbreviation(row.RL2020kat) }}
+                </div>
               </div>
             </template>
 
@@ -351,20 +361,22 @@ const getStatusAbbreviation = (status) => {
     RE: "RE", // Regionally Extinct
     DD: "DD", // Data Deficient
   };
-  return abbreviations[status] || "??"; // Default case
+  return abbreviations[status] || "NE"; // Default case
 };
 
 const getStatusColor = (status) => {
   const colors = {
-    LC: "bg-green-400",
-    NT: "bg-rose-400", // Lighter shade for less severe status
-    EN: "bg-rose-600", // Endangered
-    VU: "bg-rose-500", // Vulnerable
-    CR: "bg-rose-800", // Critically Endangered
-    RE: "bg-black", // Darker shade for more severe status
-    DD: "bg-gray-500", // Data Deficient
+    // LC: "bg-[#CDD428]",
+    LC: "bg-green-500",
+    NT: "bg-[#D7838E]",
+    EN: "bg-[#CC526B]",
+    VU: "bg-[#D7838E]",
+    CR: "bg-[#C4004F]",
+    RE: "bg-[#421A31]",
+    DD: "bg-[#E8E9E7]",
   };
-  return colors[status] || "bg-gray-200"; // Default color for unknown status
+  // return colors[status] || "bg-[#EAB61F]";
+  return colors[status] || "bg-yellow-500";
 };
 
 const getStatusTooltip = (status) => {
@@ -377,7 +389,7 @@ const getStatusTooltip = (status) => {
     RE: "Nationellt utdöd",
     DD: "Kunskapsbrist",
   };
-  return tooltips[status] || "Okänd status";
+  return tooltips[status] || "Ej bedömd";
 };
 
 // Define columns for your table
@@ -401,7 +413,7 @@ const columns = [
     sortable: props.isNormalView ? false : true,
   },
   {
-    key: "Svamp-grupp",
+    key: "Svamp-grupp-släkte",
     label: props.isNormalView ? "Grupp" : "Grupp",
     sortable: props.isNormalView ? false : true,
   },

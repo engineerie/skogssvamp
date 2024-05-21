@@ -1,1 +1,47 @@
-[{"taxon":"Serendipita sp. 12","snamn":"Saknar svenskt namn","matsvamp":0,"total_presence":16,"Artfakta":"Information saknas","RL2020kat":"0","Svamp-grupp":"0","Svamp-Undersvamp-grupp":"0","Signal_art":"0","Svampguiden":"0"},{"taxon":"Tuber sp.","snamn":"ädeltryfflar","matsvamp":0,"total_presence":6,"Artfakta":"Information saknas","RL2020kat":"0","Svamp-grupp":"0","Svamp-Undersvamp-grupp":"0","Signal_art":"0","Svampguiden":"0"},{"taxon":"Cortinarius xanthocephalus","snamn":"gul björkspindling","matsvamp":0,"total_presence":1,"Artfakta":"https://artfakta.se/artinformation/taxa/249275/detaljer","RL2020kat":"LC","Svamp-grupp":"hattsvamp","Svamp-Undersvamp-grupp":"0","Signal_art":"0","Svampguiden":"0"}]
+[
+  {
+    "taxon": "Serendipita sp. 12",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 16,
+    "Artfakta": "Information saknas",
+    "RL2020kat": "0",
+    "Svamp-grupp": "0",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "Genus": "Serendipita",
+    "sample_plot_count": 5,
+    "Svamp-grupp-släkte": "Saknas"
+  },
+  {
+    "taxon": "Tuber sp.",
+    "snamn": "ädeltryfflar",
+    "matsvamp": 0,
+    "total_presence": 6,
+    "Artfakta": "Information saknas",
+    "RL2020kat": "0",
+    "Svamp-grupp": "0",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "Genus": "Tuber",
+    "sample_plot_count": 5,
+    "Svamp-grupp-släkte": "Saknas"
+  },
+  {
+    "taxon": "Cortinarius xanthocephalus",
+    "snamn": "gul björkspindling",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/249275/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "hattsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "Genus": "Cortinarius",
+    "sample_plot_count": 5,
+    "Svamp-grupp-släkte": "hattsvamp"
+  }
+]

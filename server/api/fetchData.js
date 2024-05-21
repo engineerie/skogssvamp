@@ -17,56 +17,57 @@ const fetchDataFromDB = async ({
 
   const data = await db.all(
     `
-    SELECT 
-      app_taxonomy.taxon, 
-      IFNULL(app_taxonomy_dyntaxa.snamn, 'Saknar svenskt namn') AS snamn,
-      app_taxonomy_dyntaxa.matsvamp,
-      SUM(app_abundance.presence) AS total_presence,
-      COALESCE(r.Artfakta, 'Information saknas') AS Artfakta,
-      COALESCE(r.RL2020kat, '0') AS RL2020kat,
-      COALESCE(r."Svamp-grupp", '0') AS "Svamp-grupp",
-      COALESCE(r."Svamp-Undersvamp-grupp", '0') AS "Svamp-Undersvamp-grupp",
-      COALESCE(r."Signal_art", '0') AS "Signal_art",
-      COALESCE(r.Svampguiden, '0') AS Svampguiden,
-      (SELECT COUNT(DISTINCT lims) FROM app_metadata WHERE 
-        "SI18 & SI19-Table 1".Lifeform = 'ECM' AND
-        ((latitud > 60 AND ? = 'North Sweden') OR 
-        (latitud <= 60 AND ? = 'South Sweden')) AND
-        ((bestandsalder BETWEEN 1 AND 40 AND ? = '1-40 years') OR
-        (bestandsalder BETWEEN 41 AND 90 AND ? = '41-90 years') OR
-        (bestandsalder > 90 AND ? = '91< years')) AND
-        vegtyp = ? AND
-        skogstyp = ?) AS sample_plot_count
-    FROM 
-      app_metadata
-    JOIN 
-      app_abundance ON app_metadata.lims = app_abundance.lims
-    JOIN 
-      app_taxonomy ON app_abundance.clusterid = app_taxonomy.clusterid
-    JOIN 
-      app_taxonomy_dyntaxa ON app_taxonomy.taxon_gbif_name = app_taxonomy_dyntaxa.taxon
-    JOIN 
-      "SI18 & SI19-Table 1" ON app_taxonomy_dyntaxa.taxon = "SI18 & SI19-Table 1".taxon
-    LEFT JOIN 
-      "2024_matsvamp_rödlista_svampgrupp_2_april" r ON app_taxonomy.taxon = r.Scientificname
-    WHERE 
-      "SI18 & SI19-Table 1".Lifeform = 'ECM'
-    AND 
-      ((app_metadata.latitud > 60 AND ? = 'North Sweden') OR 
-      (app_metadata.latitud <= 60 AND ? = 'South Sweden'))
-    AND 
-      ((app_metadata.bestandsalder BETWEEN 1 AND 40 AND ? = '1-40 years') OR
-      (app_metadata.bestandsalder BETWEEN 41 AND 90 AND ? = '41-90 years') OR
-      (app_metadata.bestandsalder > 90 AND ? = '91< years'))
-    AND 
-      app_metadata.vegtyp = ? 
-    AND 
-      app_metadata.skogstyp = ?
-    GROUP BY 
-      app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp  
-    ORDER BY 
-      total_presence DESC
-    `,
+  SELECT 
+    app_taxonomy.taxon, 
+    IFNULL(app_taxonomy_dyntaxa.snamn, 'Saknar svenskt namn') AS snamn,
+    app_taxonomy_dyntaxa.matsvamp,
+    SUM(app_abundance.presence) AS total_presence,
+    COALESCE(r.Artfakta, 'Information saknas') AS Artfakta,
+    COALESCE(r.RL2020kat, '0') AS RL2020kat,
+    COALESCE(r."Svamp-grupp", '0') AS "Svamp-grupp",
+    COALESCE(r."Svamp-Undersvamp-grupp", '0') AS "Svamp-Undersvamp-grupp",
+    COALESCE(r."Signal_art", '0') AS "Signal_art",
+    COALESCE(r.Svampguiden, '0') AS Svampguiden,
+    COALESCE("SI18 & SI19-Table 1".Genus, 'Saknas') AS Genus, 
+    (SELECT COUNT(DISTINCT lims) FROM app_metadata WHERE 
+      "SI18 & SI19-Table 1".Lifeform = 'ECM' AND
+      ((latitud > 60 AND ? = 'North Sweden') OR 
+      (latitud <= 60 AND ? = 'South Sweden')) AND
+      ((bestandsalder BETWEEN 1 AND 40 AND ? = '1-40 years') OR
+      (bestandsalder BETWEEN 41 AND 90 AND ? = '41-90 years') OR
+      (bestandsalder > 90 AND ? = '91< years')) AND
+      vegtyp = ? AND
+      skogstyp = ?) AS sample_plot_count
+  FROM 
+    app_metadata
+  JOIN 
+    app_abundance ON app_metadata.lims = app_abundance.lims
+  JOIN 
+    app_taxonomy ON app_abundance.clusterid = app_taxonomy.clusterid
+  JOIN 
+    app_taxonomy_dyntaxa ON app_taxonomy.taxon_gbif_name = app_taxonomy_dyntaxa.taxon
+  JOIN 
+    "SI18 & SI19-Table 1" ON app_taxonomy_dyntaxa.taxon = "SI18 & SI19-Table 1".taxon
+  LEFT JOIN 
+    "2024_matsvamp_rödlista_svampgrupp_2_april" r ON app_taxonomy.taxon = r.Scientificname
+  WHERE 
+    "SI18 & SI19-Table 1".Lifeform = 'ECM'
+  AND 
+    ((app_metadata.latitud > 60 AND ? = 'North Sweden') OR 
+    (app_metadata.latitud <= 60 AND ? = 'South Sweden'))
+  AND 
+    ((app_metadata.bestandsalder BETWEEN 1 AND 40 AND ? = '1-40 years') OR
+    (app_metadata.bestandsalder BETWEEN 41 AND 90 AND ? = '41-90 years') OR
+    (app_metadata.bestandsalder > 90 AND ? = '91< years'))
+  AND 
+    app_metadata.vegtyp = ? 
+  AND 
+    app_metadata.skogstyp = ?
+  GROUP BY 
+    app_taxonomy.taxon, app_taxonomy_dyntaxa.snamn, app_taxonomy_dyntaxa.matsvamp, "SI18 & SI19-Table 1".Genus  
+  ORDER BY 
+    total_presence DESC
+  `,
     [
       geography,
       geography, // For North or South Sweden condition

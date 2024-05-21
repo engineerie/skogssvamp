@@ -54,7 +54,7 @@
         </BaseTabs>
       </div>
       <div
-        class="h-[505px] p-10 pt-16 backdrop-blur-3xl rounded-l-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+        class="h-[505px] overflow-hidden backdrop-blur-3xl rounded-l-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
       >
         <!-- <DonutChart
           v-if="activeTab === 'columnChart'"

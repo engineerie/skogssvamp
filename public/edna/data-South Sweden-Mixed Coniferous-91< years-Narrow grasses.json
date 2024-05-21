@@ -1,1 +1,47 @@
-[{"taxon":"Lactarius trivialis","snamn":"skogsriska","matsvamp":0,"total_presence":5,"Artfakta":"https://artfakta.se/artinformation/taxa/4780/detaljer","RL2020kat":"LC","Svamp-grupp":"hattsvamp","Svamp-Undersvamp-grupp":"0","Signal_art":"0","Svampguiden":"https://svampguiden.com/art/visa/lactarius_trivialis"},{"taxon":"Russula amethystina","snamn":"Saknar svenskt namn","matsvamp":0,"total_presence":2,"Artfakta":"https://artfakta.se/artinformation/taxa/5828/detaljer","RL2020kat":"LC","Svamp-grupp":"hattsvamp","Svamp-Undersvamp-grupp":"0","Signal_art":"0","Svampguiden":"0"},{"taxon":"Lactarius rufus","snamn":"pepparriska","matsvamp":0,"total_presence":1,"Artfakta":"https://artfakta.se/artinformation/taxa/4763/detaljer","RL2020kat":"LC","Svamp-grupp":"hattsvamp","Svamp-Undersvamp-grupp":"0","Signal_art":"0","Svampguiden":"https://svampguiden.com/art/visa/lactarius_rufus"}]
+[
+  {
+    "taxon": "Lactarius trivialis",
+    "snamn": "skogsriska",
+    "matsvamp": 0,
+    "total_presence": 5,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/4780/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "hattsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "https://svampguiden.com/art/visa/lactarius_trivialis",
+    "Genus": "Lactarius",
+    "sample_plot_count": 3,
+    "Svamp-grupp-släkte": "hattsvamp"
+  },
+  {
+    "taxon": "Russula amethystina",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 2,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/5828/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "hattsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "0",
+    "Genus": "Russula",
+    "sample_plot_count": 3,
+    "Svamp-grupp-släkte": "hattsvamp"
+  },
+  {
+    "taxon": "Lactarius rufus",
+    "snamn": "pepparriska",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/4763/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "hattsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "Signal_art": "0",
+    "Svampguiden": "https://svampguiden.com/art/visa/lactarius_rufus",
+    "Genus": "Lactarius",
+    "sample_plot_count": 3,
+    "Svamp-grupp-släkte": "hattsvamp"
+  }
+]

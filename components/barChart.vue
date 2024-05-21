@@ -175,7 +175,7 @@ const fetchChartData = async () => {
           shape: "circle",
         },
         image: {
-          path: getIconPath(row["Svamp-grupp"]), // Use the correct property key
+          path: getIconPath(row["Svamp-grupp-släkte"]), // Use the correct property key
           offsetY: -15,
           width: 18,
           height: 18,

@@ -60,7 +60,70 @@ for (let geo of geographyOptions) {
   }
 }
 
-// Function to prefetch data for each combination
+// Mapping of genera to their corresponding svamp-grupp values
+const genusToSvampGrupp = {
+  Acephala: "Saknas",
+  Alpova: "Saknas",
+  Amanita: "hattsvamp",
+  Amphinema: "skinnsvamp",
+  Boletus: "sopp",
+  Byssocorticium: "skinnsvamp",
+  Cenococcum: "Saknas",
+  Chalciporus: "Saknas",
+  Chamonixia: "tryffel",
+  Chroogomphus: "Saknas",
+  Clavulina: "Saknas",
+  Cortinarius: "hattsvamp",
+  Craterellus: "kantarell",
+  Elaphomyces: "tryffel",
+  Entoloma: "hattsvamp",
+  Gautieria: "Saknas",
+  Genea: "tryffel",
+  Geopora: "Saknas",
+  Hebeloma: "hattsvamp",
+  Helvellosebacina: "Saknas",
+  Humaria: "skålsvamp",
+  Hyaloscypha: "Saknas",
+  Hydnotrya: "tryffel",
+  Hydnum: "Saknas",
+  Hygrophorus: "hattsvamp",
+  Hymenogaster: "tryffel",
+  Hysterangium: "Saknas",
+  Imleria: "sopp",
+  Inocybe: "hattsvamp",
+  Laccaria: "hattsvamp",
+  Lactarius: "hattsvamp",
+  Leccinum: "sopp",
+  Melanogaster: "tryffel",
+  Naucoria: "hattsvamp",
+  Otidea: "skålsvamp",
+  Paxillus: "hattsvamp",
+  Phellodon: "taggsvamp",
+  Piloderma: "skinnsvamp",
+  Pseudotomentella: "Saknas",
+  Ramaria: "Saknas",
+  Rhizopogon: "tryffel",
+  Russula: "hattsvamp",
+  Scleroderma: "tryffel",
+  Sebacina: "Saknas",
+  Serendipita: "Saknas",
+  Sistotrema: "övrigt",
+  Suillus: "sopp",
+  Tarzetta: "Saknas",
+  Thelephora: "skinnsvamp",
+  Tomentella: "skinnsvamp",
+  Tomentellopsis: "skinnsvamp",
+  Tretomyces: "skinnsvamp",
+  Tricholoma: "hattsvamp",
+  Trichophaea: "Saknas",
+  Tuber: "Saknas",
+  Tylopilus: "sopp",
+  Tylospora: "skinnsvamp",
+  Wilcoxina: "Saknas",
+  Xerocomellus: "sopp",
+  Xerocomus: "sopp",
+};
+
 async function prefetchData() {
   for (const { geo, forest, veg, age } of allCombinations) {
     try {
@@ -92,10 +155,20 @@ async function prefetchData() {
         continue;
       }
 
+      // Add Svamp-grupp-släkte to each entry in the data
+      const enrichedData = data.map((entry) => {
+        const genus = entry.Genus;
+        const svampGruppSlakte = genusToSvampGrupp[genus] || "Saknas";
+        return {
+          ...entry,
+          "Svamp-grupp-släkte": svampGruppSlakte,
+        };
+      });
+
       const filename = `data-${geo}-${forest}-${age}-${veg}.json`;
       fs.writeFileSync(
         path.join(__dirname, `../static/${filename}`),
-        JSON.stringify(data)
+        JSON.stringify(enrichedData, null, 2) // Ensure JSON is pretty-printed for readability
       );
       console.log(`Data pre-fetching complete for ${filename}.`);
     } catch (error) {

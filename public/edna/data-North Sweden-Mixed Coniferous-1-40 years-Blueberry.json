@@ -9,7 +9,10 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Amphinema",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Cortinarius ochrophyllus",
@@ -21,7 +24,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Cortinarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Piloderma sp. 4",
@@ -33,7 +39,10 @@
     "Svamp-grupp": "0",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Piloderma",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Piloderma byssinum",
@@ -45,7 +54,10 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Piloderma",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Piloderma sphaerosporum",
@@ -57,7 +69,10 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Piloderma",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Serendipita sp. 18",
@@ -69,7 +84,10 @@
     "Svamp-grupp": "0",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Serendipita",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "Saknas"
   },
   {
     "taxon": "Russula decolorans",
@@ -81,7 +99,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "https://svampguiden.com/art/visa/russula_decolorans"
+    "Svampguiden": "https://svampguiden.com/art/visa/russula_decolorans",
+    "Genus": "Russula",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Suillus variegatus",
@@ -93,7 +114,10 @@
     "Svamp-grupp": "sopp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "https://svampguiden.com/art/visa/suillus_variegatus"
+    "Svampguiden": "https://svampguiden.com/art/visa/suillus_variegatus",
+    "Genus": "Suillus",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "sopp"
   },
   {
     "taxon": "Piloderma bicolor",
@@ -105,7 +129,10 @@
     "Svamp-grupp": "0",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Piloderma",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Piloderma olivaceum",
@@ -117,7 +144,10 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Piloderma",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Russula versicolor",
@@ -129,7 +159,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Russula",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Lactarius vietus",
@@ -141,7 +174,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Lactarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Tylospora fibrillosa",
@@ -153,7 +189,10 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Tylospora",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Cortinarius armillatus",
@@ -165,7 +204,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Cortinarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Cortinarius pholideus",
@@ -177,7 +219,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Cortinarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Otidea sp. 1",
@@ -189,7 +234,10 @@
     "Svamp-grupp": "0",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Otidea",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skålsvamp"
   },
   {
     "taxon": "Cortinarius malachius",
@@ -201,7 +249,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Cortinarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Cortinarius tabularis",
@@ -213,7 +264,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Cortinarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Lactarius rufus",
@@ -225,7 +279,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "https://svampguiden.com/art/visa/lactarius_rufus"
+    "Svampguiden": "https://svampguiden.com/art/visa/lactarius_rufus",
+    "Genus": "Lactarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Lactarius torminosus",
@@ -237,7 +294,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "https://svampguiden.com/art/visa/lactarius_torminosus"
+    "Svampguiden": "https://svampguiden.com/art/visa/lactarius_torminosus",
+    "Genus": "Lactarius",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Thelephora terrestris",
@@ -249,6 +309,9 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Thelephora",
+    "sample_plot_count": 14,
+    "Svamp-grupp-släkte": "skinnsvamp"
   }
 ]

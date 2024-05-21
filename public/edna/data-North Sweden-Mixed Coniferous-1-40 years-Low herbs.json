@@ -9,7 +9,10 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Amphinema",
+    "sample_plot_count": 1,
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "taxon": "Russula versicolor",
@@ -21,7 +24,10 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Russula",
+    "sample_plot_count": 1,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "taxon": "Tylospora asterophora",
@@ -33,6 +39,9 @@
     "Svamp-grupp": "skinnsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "Signal_art": "0",
-    "Svampguiden": "0"
+    "Svampguiden": "0",
+    "Genus": "Tylospora",
+    "sample_plot_count": 1,
+    "Svamp-grupp-släkte": "skinnsvamp"
   }
 ]
