@@ -79,7 +79,7 @@ import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import { useTitleStore } from "~/stores/titleStore";
 
 // Reactive references for state management
-const time = ref(0);
+const time = ref(25);
 const showTree = ref(true); // State for tree visibility switch
 const showFungi = ref(true); // State for fungi visibility switch
 const selectedFrameworkIndex = ref(0); // Index of selected framework
@@ -90,16 +90,17 @@ const selectedTimeIndex = ref(0); // Index of selected time from times array
 const frameworks = [
   {
     id: 1,
-    label: "Naturskydd",
-    text: "Orörd skog",
-    icon: "pepicons-pop:tree-circle",
-  },
-  {
-    id: 4,
     label: "Trakthygge",
     text: "Kalavverkning med hänsyn",
     icon: "material-symbols:resize",
   },
+  {
+    id: 4,
+    label: "Naturskydd",
+    text: "Orörd skog",
+    icon: "pepicons-pop:tree-circle",
+  },
+
   {
     id: 2,
     label: "Blädning",
