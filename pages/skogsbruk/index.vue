@@ -4,7 +4,7 @@
       <div class="zoomable-image relative">
         <NuxtImg
           width="1200"
-          src="/images/Skogsbruksbilder/trakthygge_20_dölj_dölj_produktionsskog_.png"
+          :src="currentImagePath"
           class="z-0 rounded-xl"
           format="webp"
           quality="70"
@@ -28,7 +28,11 @@
       class="relative p-3 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200 flex flex-col justify-between"
     >
       <div>
-        <UTabs :items="items" class="w-full">
+        <UTabs
+          :items="startskog"
+          class="w-full"
+          v-model="selectedStartskogIndex"
+        >
           <template #default="{ item, selected }">
             <span
               class="truncate"
@@ -38,7 +42,12 @@
             </span>
           </template>
         </UTabs>
-        <UTabs :items="frameworks" class="w-full" orientation="vertical">
+        <UTabs
+          :items="frameworks"
+          class="w-full"
+          orientation="vertical"
+          v-model="selectedFrameworkIndex"
+        >
           <template #default="{ item, selected }" class="justify-start">
             <Icon
               :name="item.icon"
@@ -54,12 +63,12 @@
           </template>
         </UTabs>
         <div class="grid grid-cols-1 gap-3 mx-2 my-3">
-          <BaseSwitchThin label="Träd" color="primary" />
-          <BaseSwitchThin label="Svamp" color="primary" />
+          <BaseSwitchThin v-model="showTree" label="Träd" color="primary" />
+          <BaseSwitchThin v-model="showFungi" label="Svamp" color="primary" />
         </div>
       </div>
       <div class="w-full mt-auto">
-        <USelectMenu v-model="time_value" :options="times" />
+        <USelectMenu v-model="selectedTimeIndex" :options="timesLabels" />
       </div>
     </div>
   </div>
@@ -69,18 +78,14 @@
 import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import { useTitleStore } from "~/stores/titleStore";
 
-const progress = ref(0);
-
-const Startskog = ref("value_1");
-
+// Reactive references for state management
 const time = ref(0);
+const showTree = ref(true); // State for tree visibility switch
+const showFungi = ref(true); // State for fungi visibility switch
+const selectedFrameworkIndex = ref(0); // Index of selected framework
+const selectedStartskogIndex = ref(0); // Reactive state for selected startskog
 
-const value = ref({
-  id: 1,
-  label: "Naturskydd",
-  text: "Orörd skog",
-  icon: "pepicons-pop:tree-circle",
-});
+const selectedTimeIndex = ref(0); // Index of selected time from times array
 
 const frameworks = [
   {
@@ -109,13 +114,13 @@ const frameworks = [
   },
   {
     id: 3,
-    label: "Skärmställning",
+    label: "Skärmträd",
     text: "Fröträd lämnas",
     icon: "simple-icons:redwoodjs",
   },
 ];
 
-const times = [
+const timesLabels = [
   "Innan avverkning",
   "Efter avverkning",
   "20 år efter avverkning",
@@ -123,17 +128,46 @@ const times = [
   "80 år efter avverkning",
 ];
 
-const items = [
+const times = ["före", "efter", "20", "50", "80"];
+
+const startskog = [
   {
     label: "Naturskog",
+    value: "naturskog",
     icon: "i-heroicons-information-circle",
   },
   {
     label: "Produktion",
+    value: "produktionsskog_",
     icon: "i-heroicons-arrow-down-tray",
   },
 ];
 
+const currentFramework = computed(
+  () => frameworks[selectedFrameworkIndex.value]
+);
+const currentStartskog = computed(
+  () => startskog[selectedStartskogIndex.value].value
+); // Use value for filename
+
+const currentTime = computed(() => times[selectedTimeIndex.value]);
+
+// Map slider values to time labels for filenames
+function mapTimeToLabel(value) {
+  const labels = [0, 25, 50, 75, 100]; // Slider values
+  const index = labels.indexOf(value);
+  return times[index] || times[0]; // Default to 'före' if not found
+}
+
+// Current image path computed with mapped time label
+const currentImagePath = computed(() => {
+  const framework = currentFramework.value.label.toLowerCase();
+  const timeLabel = mapTimeToLabel(time.value);
+  const treeVisibility = showTree.value ? "visa" : "dölj";
+  const fungiVisibility = showFungi.value ? "visa" : "dölj";
+  const startskogValue = currentStartskog.value;
+  return `/images/Skogsbruksbilder/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+});
 // Computed property to convert numeric time value to index
 const timeIndex = computed({
   get: () => time.value / 25,
@@ -150,12 +184,9 @@ const time_value = computed({
     if (index !== -1) timeIndex.value = index; // Update the index which updates time
   },
 });
-
+// Setup the title store
 const titleStore = useTitleStore();
-
-onMounted(() => {
-  titleStore.setTitle("Skogsbruk");
-});
+onMounted(() => titleStore.setTitle("Skogsbruk"));
 </script>
 
 <style>
