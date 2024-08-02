@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-12 gap-5">
     <!-- Normal grid layout -->
-    <div class="col-span-9 flex flex-col">
+    <!-- <div class="col-span-9 flex flex-col">
       <EnvironmentImage
         :geography="geography"
         :forestType="forestType"
@@ -18,15 +18,9 @@
         :standAge="standAge"
         :vegetationType="vegetationType"
       />
-    </div>
+    </div> -->
     <div class="col-span-12">
-      <EdnaComponent
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        @enlarge="emitEnlarge('FullScreenEdna')"
-      />
+      <EdnaComponent @enlarge="emitEnlarge('FullScreenEdna')" />
     </div>
     <div class="col-span-6 flex flex-col">
       <FullScreenEdible

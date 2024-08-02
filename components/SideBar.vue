@@ -18,7 +18,7 @@
             >About</BaseHeading
           >
         </div>
-        <div v-else-if="currentDirectory === 'guide'">
+        <div v-else-if="currentDirectory.startsWith('guide')">
           <SbDokumentation />
           <!-- <BaseHeading size="lg" weight="normal" class="my-4">Dokumentation</BaseHeading> -->
         </div>
@@ -39,7 +39,7 @@ const currentDirectory = ref("");
 
 const sidebarClass = computed(() => {
   return isSidebarOpen.value
-    ? "fixed top-0 left-0 z-40 w-[450px] h-screen translate-x-0"
+    ? "fixed top-0 left-0 z-40 w-[370px] h-screen translate-x-0"
     : "fixed top-0 left-0 z-40 w-64 h-screen -translate-x-full";
 });
 

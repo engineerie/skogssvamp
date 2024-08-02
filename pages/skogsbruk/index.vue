@@ -5,7 +5,7 @@
         <NuxtImg
           width="1200"
           :src="currentImagePath"
-          class="z-0 rounded-xl"
+          class="z-0 rounded-xl border-[0.5px] border-primary-500"
           format="webp"
           quality="70"
         />

@@ -90,7 +90,7 @@
 
     <div
       :class="{ 'rounded-xl': !isNormalView }"
-      class="relative backdrop-blur-3xl overflow-clip rounded-r-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
       <div v-if="filteredData" class="col-span-6">
         <div class="">

@@ -1,45 +1,56 @@
 <template>
-  <MapboxMap
-    map-id="myMap"
-    :options="{
-      style: 'mapbox://styles/engineeriee/clrqylxgt00em01peeru3593y', // your custom style
-      center: [15.448, 61.255], // your specified center
-      zoom: 10, // zoom level
-    }"
-    style="height: 100vh"
-    @styleload="() => console.log('style loaded')"
-    @click="updateMarker"
-  >
-    <MapboxDefaultMarker
-      marker-id="customHTMLMarker"
-      v-model:lnglat="lnglat"
-      :options="{ draggable: true }"
-      @dragend="() => console.log('dragend')"
+  <div class="h-window">
+    <MapboxMap
+      map-id="myMap"
+      :options="{
+        style: 'mapbox://styles/engineeriee/clrqylxgt00em01peeru3593y',
+        center: [15.448, 61.255],
+        zoom: 10,
+      }"
+      style="height: 100vh"
+      @click="updateMarker"
     >
-      <!-- Popup displaying dynamic lnglat data -->
+      <MapboxGeocoder
+        class="rounded-xl"
+        ref="geocoderRef"
+        position="top-left"
+        :options="{
+          version: 'v6',
+        }"
+      />
+      <MapboxGeolocateControl position="top-right" />
+
       <MapboxDefaultPopup
         popup-id="myPopup"
         :lnglat="lnglat"
         :options="{ closeOnClick: false }"
       >
-        <h1>Hello World! {{ lnglat }}</h1>
-        <button @click="showAlert">Click Me!</button>
+        <h1>{{ lnglat }}</h1>
       </MapboxDefaultPopup>
-    </MapboxDefaultMarker>
-  </MapboxMap>
+    </MapboxMap>
+
+    <div class="h-fit w-full absolute bottom-0">
+      <!-- Binding the emitted value to a prop or v-model in ListBoxRowMap -->
+      <!-- MapboxMap Component -->
+      <ListBoxRowMap :geography="geographyOption" />
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
-const lnglat = ref({ lng: 15.448, lat: 61.255 }); // Initial marker position
+const lnglat = ref({ lng: 15.448, lat: 61.255 });
+const geographyOption = ref("");
 
 function updateMarker(event) {
-  // Updates marker to the coordinates of the map click
   lnglat.value = {
     lng: event.lngLat.lng,
     lat: event.lngLat.lat,
   };
+  // Determine the geography option based on latitude
+  geographyOption.value =
+    event.lngLat.lat > 60 ? "North Sweden" : "South Sweden";
 }
 
 function showAlert() {

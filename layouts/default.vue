@@ -4,8 +4,12 @@
   <div
     :class="{
       'w-full': isStartPage,
-      'ml-[434px]': isSidebarOpen && !isStartPage,
-      'ml-[64px]': !isSidebarOpen && !isStartPage,
+      'pl-[32px]': isSvampdata,
+
+      'ml-[350px]': isSidebarOpen && !isStartPage,
+      'ml-[64px]': !isSidebarOpen && !isSvampdata,
+
+      'ml-[20px]': isSidebarOpen && isDocumentation,
       'sync-transition': true,
     }"
   >
@@ -82,10 +86,20 @@ const sidebarStore = useSidebarStore();
 const titleStore = useTitleStore();
 const route = useRoute();
 const isStartPage = computed(() => route.path === "/");
+const isSvampdata = computed(() => route.path === "/svampdata");
+
+const isDocumentation = computed(() => route.path === "/guide");
+
 const isDashboard = computed(() =>
   route.path.startsWith("/svampdata/dashboard/")
 );
 const { isSidebarOpen, toggleSidebar } = toRefs(sidebarStore); // Destructure from the same instance
+
+watch(isSvampdata, (newVal) => {
+  if (newVal) {
+    sidebarStore.closeSidebar(); // Ensure the sidebarStore has a method to close the sidebar
+  }
+});
 
 watch(isDashboard, (newVal) => {
   if (newVal) {

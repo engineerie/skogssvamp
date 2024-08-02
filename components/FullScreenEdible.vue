@@ -39,7 +39,7 @@
         <div
           class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
         >
-          <Icon name="fluent:food-16-filled" class="h-10 w-10" />
+          <Icon name="icon-park-solid:fork-spoon" class="h-10 w-10" />
         </div>
         <BaseHeading
           size="3xl"

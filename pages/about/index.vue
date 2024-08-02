@@ -1,14 +1,12 @@
-<template>
-  
-</template>
+<template></template>
 
 <script setup>
-import { useTitleStore } from '~/stores/titleStore';
-import { onMounted } from 'vue';
+import { useTitleStore } from "~/stores/titleStore";
+import { onMounted } from "vue";
 
 const titleStore = useTitleStore();
 
 onMounted(() => {
-  titleStore.setTitle('About');
+  titleStore.setTitle("About");
 });
 </script>
