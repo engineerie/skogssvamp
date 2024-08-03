@@ -22,7 +22,7 @@
           <div class="flex justify-between gap-2">
             <span
               :class="{ 'disabled-text': isOptionDisabled(option) }"
-              class="text-md"
+              class="text-sm"
               >{{ option.label }}</span
             >
             <BaseRadio
@@ -126,9 +126,9 @@
     <div class="mt-2">
       <div v-if="!isButtonDisabled">
         <NuxtLink :to="generateParams()">
-          <BaseButton size="sm" flavor="solid" color="primary" shape="full">
-            <Icon name="material-symbols:travel-explore" class="me-1 h-4 w-4" />
-            <span>Utforska</span>
+          <BaseButton size="sm" flavor="solid" color="default" shape="full">
+            <Icon name="material-symbols:refresh" class="me-1 h-4 w-4" />
+            <span>Uppdatera</span>
           </BaseButton>
         </NuxtLink>
       </div>
@@ -140,7 +140,7 @@
           color="muted"
           shape="full"
         >
-          <Icon name="material-symbols:travel-explore" class="me-1 h-4 w-4" />
+          <Icon name="material-symbols:refresh" class="me-1 h-4 w-4" />
           <span>Utforska</span>
         </BaseButton>
       </div>

@@ -4,7 +4,7 @@
   <div
     :class="{
       'w-full': isStartPage,
-      'pl-[32px]': isSvampdata,
+      'ml-[32px]': isSvampdata,
 
       'ml-[350px]': isSidebarOpen && !isStartPage,
       'ml-[64px]': !isSidebarOpen && !isSvampdata,

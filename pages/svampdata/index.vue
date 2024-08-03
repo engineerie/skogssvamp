@@ -1,5 +1,5 @@
 <template>
-  <div class="h-window">
+  <div class="h-window mr-[32px]">
     <MapboxMap
       map-id="myMap"
       :options="{
@@ -30,9 +30,9 @@
     </MapboxMap>
 
     <div class="h-fit w-full absolute bottom-0">
-      <!-- Binding the emitted value to a prop or v-model in ListBoxRowMap -->
-      <!-- MapboxMap Component -->
-      <ListBoxRowMap :geography="geographyOption" />
+      <div class="relative mr-[32px]">
+        <ListBoxRowMap :geography="geographyOption" />
+      </div>
     </div>
   </div>
 </template>

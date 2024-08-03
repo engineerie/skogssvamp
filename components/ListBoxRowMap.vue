@@ -1,7 +1,7 @@
 <template>
   <!-- Geography Options -->
-  <div class="bg-neutral-50">
-    <div class="grid grid-cols-4 gap-5 rounded-xl p-6 w-fit">
+  <div class="bg-neutral-50 w-full">
+    <div class="grid grid-cols-6 gap-5 rounded-xl p-6 w-full">
       <div
         class="p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
       >
@@ -120,10 +120,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- I want to move this div outside of the component to the-->
-    <div class="flex justify-end">
-      <div class="absolute top-6 right-8">
+      <div class="col-span-2 mr-12 h-full">
         <div v-if="!isButtonDisabled">
           <NuxtLink :to="generateParams()">
             <BaseButton size="md" flavor="solid" color="primary" shape="full">
@@ -146,6 +143,12 @@
             <Icon name="material-symbols:travel-explore" class="me-1 h-5 w-5" />
             <span>Utforska</span>
           </BaseButton>
+        </div>
+
+        <div
+          class="p-6 mt-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200"
+        >
+          info
         </div>
       </div>
     </div>
