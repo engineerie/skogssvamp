@@ -13,6 +13,9 @@ const forestTypeOptions = [
   "Tallskog",
   "Barrblandskog",
   "Lövblandskog",
+  "Lövskog",
+  "Naturbete",
+  "EkBokskog",
 ];
 const vegetationTypeOptions = [
   "Blåbär",
@@ -24,8 +27,7 @@ const vegetationTypeOptions = [
   "Smalblad gräs",
   "Utan fältskikt",
 ];
-const standAgeOptions = ["1-40", "41-90", "91"];
-
+const standAgeOptions = ["1-40", "41-90", "91", "allaåldrar"];
 let allCombinations = [];
 
 // Generating all combinations of parameters
@@ -102,12 +104,19 @@ const genusToSvampGrupp = {
   Xerocomellus: "sopp",
   Xerocomus: "sopp",
 };
+// Function to log data
+function logToFile(data) {
+  const logFilePath = path.join(__dirname, "app.log");
+  fs.appendFileSync(logFilePath, data + "\n", { encoding: "utf8" });
+}
 
 async function prefetchData() {
   for (const { geo, forest, veg, age } of allCombinations) {
-    try {
-      console.log("Fetching data for:", { geo, forest, veg, age });
+    const startMessage = `Starting fetch for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}`;
+    console.log(startMessage);
+    logToFile(startMessage); // Log to file
 
+    try {
       const data = await fetchDataDirectly({
         geography: geo,
         forestType: forest,
@@ -115,33 +124,34 @@ async function prefetchData() {
         standAge: age,
       });
 
+      const fetchCompleteMessage = `Fetch complete for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}`;
+      console.log(fetchCompleteMessage);
+      logToFile(fetchCompleteMessage); // Log to file
+
+      console.log(`Fetched data length: ${data.length}`);
+      logToFile(`Fetched data length: ${data.length}`); // Log to file
+
       if (!data || data.length === 0) {
-        console.log("No data fetched for combination", {
-          geo,
-          forest,
-          veg,
-          age,
-        });
+        const noDataMessage = `No data fetched for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}`;
+        console.log(noDataMessage);
+        logToFile(noDataMessage); // Log to file
         continue;
       }
 
-      // Replace "/" in vegetation type for file naming
       const safeVeg = veg.replace("/", "");
-
-      // Format the fetched data as JSON and save to a file
       const filename = `data-${geo}-${forest}-${age}-${safeVeg}.json`;
-      fs.writeFileSync(
-        path.join(__dirname, `../static/${filename}`),
-        JSON.stringify(data, null, 2) // Ensure JSON is pretty-printed for readability
-      );
-      console.log(`Data pre-fetching complete for ${filename}.`);
+      const filePath = path.join(__dirname, `../static/${filename}`);
+
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+      const writtenMessage = `Data written to ${filePath}. File size: ${
+        fs.statSync(filePath).size
+      } bytes`;
+      console.log(writtenMessage);
+      logToFile(writtenMessage); // Log to file
     } catch (error) {
-      console.error(
-        "Error during data prefetch for combination",
-        { geo, forest, veg, age },
-        ":",
-        error
-      );
+      const errorMessage = `Error during data fetch for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}: ${error}`;
+      console.error(errorMessage);
+      logToFile(errorMessage); // Log to file
     }
   }
 }

@@ -1,0 +1,36 @@
+[
+  {
+    "SpeciesCode": "SI18-1481",
+    "taxon": "Hymenogaster huthii",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "Information saknas",
+    "RL2020kat": "0",
+    "Svamp-grupp": "0",
+    "Svamp-Undersvamp-grupp": "0",
+    "SIGNAL_art": "0",
+    "Svampguiden": "0",
+    "Nya svamp-boken": "0",
+    "Genus": "Hymenogaster",
+    "sample_plot_count": 1,
+    "sample_env_count": 1
+  },
+  {
+    "SpeciesCode": "SI18-9",
+    "taxon": "Suillus variegatus",
+    "snamn": "sandsopp",
+    "matsvamp": 1,
+    "total_presence": 1,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/6090/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "sopp",
+    "Svamp-Undersvamp-grupp": "0",
+    "SIGNAL_art": "0",
+    "Svampguiden": "https://svampguiden.com/art/visa/suillus_variegatus",
+    "Nya svamp-boken": "x",
+    "Genus": "Suillus",
+    "sample_plot_count": 1,
+    "sample_env_count": 1
+  }
+]

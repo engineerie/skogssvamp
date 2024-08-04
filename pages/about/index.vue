@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <DynamicDivsLanding />
+</template>
 
 <script setup>
 import { useTitleStore } from "~/stores/titleStore";

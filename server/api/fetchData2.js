@@ -19,13 +19,48 @@ const fetchDataFromDB = async ({
     driver: sqlite3.Database,
   });
 
-  // Define forest type condition based on input
-  let forestTypeCondition = `m.Marktyp = '${forestType}'`;
-  if (forestType === "Lövblandskog") {
-    forestTypeCondition =
-      "m.Marktyp IN ('Björkskog', 'Ek/bokskog', 'Övrig lövskog')";
+  // Modify the SQL condition for stand age
+  let ageCondition = "";
+  if (standAge === "allaåldrar") {
+    ageCondition = "1=1"; // Always true, does not filter by age
+  } else if (standAge === "91") {
+    ageCondition = "m.Bestandsalder >= 91";
+  } else {
+    const ageRange = standAge.split("-");
+    ageCondition = `m.Bestandsalder BETWEEN ${ageRange[0]} AND ${
+      ageRange[1] || 999
+    }`;
   }
 
+  // Define forest type condition based on input
+  let forestTypeCondition = "";
+  switch (forestType) {
+    case "Granskog":
+      forestTypeCondition = "m.Marktyp = 'Granskog'";
+      break;
+    case "Tallskog":
+      forestTypeCondition = "m.Marktyp = 'Tallskog'";
+      break;
+    case "Barrblandskog":
+      forestTypeCondition =
+        "(m.Marktyp IN ('Barrblandskog', 'Fjällbarrskog') OR (m.Marktyp = 'Hygge' AND m.H_form IN ('Mår typ 1', 'Mår typ 2')))";
+      break;
+    case "Lövblandskog":
+      forestTypeCondition =
+        "(m.Marktyp = 'Blandskog' OR (m.Marktyp = 'Hygge' AND m.H_form = 'Mull'))";
+      break;
+    case "Lövskog":
+      forestTypeCondition = "m.Marktyp IN ('Björkskog', 'Övrig lövskog')";
+      break;
+    case "Naturbete":
+      forestTypeCondition = "m.Marktyp = 'Naturbete'";
+      break;
+    case "EkBokskog":
+      forestTypeCondition = "m.Marktyp = 'Ek/Bokskog'";
+      break;
+    default:
+      forestTypeCondition = "1=1"; // This will always be true, effectively ignoring this filter if no valid type is provided
+  }
   // Ensure all identifiers, especially table names with special characters, are correctly quoted
   const query = `
     SELECT 
@@ -48,9 +83,7 @@ const fetchDataFromDB = async ({
         FROM Metadata m1
         WHERE 
           m1.lat ${geography === "Norr" ? ">=" : "<"} 60 AND
-          m1.Bestandsalder ${standAge === "91" ? ">=" : "BETWEEN"} ${
-    standAge.split("-")[0]
-  } AND ${standAge.split("-")[1] || 999} AND
+  ${ageCondition.replace("m.", "m1.")} AND
           ${forestTypeCondition.replace("m.", "m1.")} AND
           m1.Fältskikt = '${vegetationType}'
       ) AS sample_env_count
@@ -63,17 +96,15 @@ const fetchDataFromDB = async ({
     LEFT JOIN 
       "2024_matsvamp_rödlista_svampgrupp_2_april" ms ON sd.Taxon = ms.Scientificname
     WHERE 
-      m.lat ${geography === "Norr" ? ">=" : "<"} 60
-      AND m.Bestandsalder ${standAge === "91" ? ">=" : "BETWEEN"} ${
-    standAge.split("-")[0]
-  } AND ${standAge.split("-")[1] || 999}
-      AND ${forestTypeCondition}
-      AND m.Fältskikt = '${vegetationType}'
-    GROUP BY 
-      mcv.SpeciesCode, sd.Taxon_sp
-    ORDER BY 
-      sd.Taxon_sp
-  `;
+    m.lat ${geography === "Norr" ? ">=" : "<"} 60
+    AND ${ageCondition}
+    AND ${forestTypeCondition}
+    AND m.Fältskikt = '${vegetationType}'
+  GROUP BY 
+    mcv.SpeciesCode, sd.Taxon_sp
+  ORDER BY 
+    sd.Taxon_sp
+`;
 
   console.log("Executing SQL Query:");
   console.log(query);

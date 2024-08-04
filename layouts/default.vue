@@ -3,8 +3,8 @@
   <SideBar :isSidebarOpen="isSidebarOpen" @toggleSidebar="toggleSidebar" />
   <div
     :class="{
-      'w-full': isStartPage,
-      'ml-[32px]': isSvampdata,
+      'pl-4': isStartPage,
+      'ml-20': isSvampdata,
 
       'ml-[350px]': isSidebarOpen && !isStartPage,
       'ml-[64px]': !isSidebarOpen && !isSvampdata,
@@ -15,8 +15,9 @@
   >
     <div
       :class="{
-        'py-4 pr-8 pt-2 pl-8': !isStartPage,
-        'lg:max-w-full 2xl:max-w-screen-2xl mx-auto': !isStartPage,
+        'py-4 pr-8 pt-2 pl-8': !isStartPage && !isSvampdata,
+        'lg:max-w-full 2xl:max-w-screen-2xl mx-auto':
+          !isStartPage && !isSvampdata,
       }"
     >
       <div v-if="!isStartPage" class="flex justify-between items-center">
@@ -67,8 +68,8 @@
           <BaseThemeSwitch />
         </div>
       </div>
-      <div v-if="isStartPage" class="flex justify-end items-center p-4"></div>
-      <div :class="{ 'p-4 pt-8': !isStartPage }">
+      <!-- <div v-if="isStartPage" class="flex justify-end items-center"></div> -->
+      <div :class="{ 'p-4 pt-8': !isStartPage && !isSvampdata }">
         <slot />
       </div>
     </div>
