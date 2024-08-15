@@ -14,24 +14,8 @@
     "Nya svamp-boken": "0",
     "Genus": "Inocybe",
     "sample_plot_count": 1,
-    "sample_env_count": 2
-  },
-  {
-    "SpeciesCode": "SI18-307",
-    "taxon": "Laccaria tortilis sp.2",
-    "snamn": "dvärglaxskivling",
-    "matsvamp": 0,
-    "total_presence": 1,
-    "Artfakta": "https://artfakta.se/artinformation/taxa/4679/detaljer",
-    "RL2020kat": "LC",
-    "Svamp-grupp": "hattsvamp",
-    "Svamp-Undersvamp-grupp": "0",
-    "SIGNAL_art": "0",
-    "Svampguiden": "0",
-    "Nya svamp-boken": "0",
-    "Genus": "Laccaria",
-    "sample_plot_count": 1,
-    "sample_env_count": 2
+    "sample_env_count": 2,
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI18-346",
@@ -48,6 +32,25 @@
     "Nya svamp-boken": "0",
     "Genus": "Lactarius",
     "sample_plot_count": 1,
-    "sample_env_count": 2
+    "sample_env_count": 2,
+    "Svamp-grupp-släkte": "hattsvamp"
+  },
+  {
+    "SpeciesCode": "SI18-307",
+    "taxon": "Laccaria tortilis sp.2",
+    "snamn": "dvärglaxskivling",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/4679/detaljer",
+    "RL2020kat": "LC",
+    "Svamp-grupp": "hattsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "SIGNAL_art": "0",
+    "Svampguiden": "0",
+    "Nya svamp-boken": "0",
+    "Genus": "Laccaria",
+    "sample_plot_count": 1,
+    "sample_env_count": 2,
+    "Svamp-grupp-släkte": "hattsvamp"
   }
 ]

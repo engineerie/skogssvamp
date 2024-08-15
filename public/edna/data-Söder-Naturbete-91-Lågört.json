@@ -14,7 +14,8 @@
     "Nya svamp-boken": "0",
     "Genus": "Hymenogaster",
     "sample_plot_count": 1,
-    "sample_env_count": 1
+    "sample_env_count": 1,
+    "Svamp-grupp-släkte": "tryffel"
   },
   {
     "SpeciesCode": "SI18-9",
@@ -31,6 +32,7 @@
     "Nya svamp-boken": "x",
     "Genus": "Suillus",
     "sample_plot_count": 1,
-    "sample_env_count": 1
+    "sample_env_count": 1,
+    "Svamp-grupp-släkte": "sopp"
   }
 ]

@@ -103,7 +103,7 @@ const fetchDataFromDB = async ({
   GROUP BY 
     mcv.SpeciesCode, sd.Taxon_sp
   ORDER BY 
-    sd.Taxon_sp
+    total_presence desc
 `;
 
   console.log("Executing SQL Query:");

@@ -1,31 +1,115 @@
 <template>
   <!-- list view -->
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-3">
-      <div class="flex mb-3">
+  <div class="grid grid-cols-12 gap-4 relative">
+    <transition name="fade" mode="out-in">
+      <div
+        v-if="activeTab === 'columnChart'"
+        class="flex gap-2 absolute right-0 top-3"
+      >
         <div
-          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
+          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
         >
-          <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+            >{{ data ? data.length : 0 }}
+          </BaseHeading>
+          <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
         </div>
-        <BaseHeading
-          size="3xl"
-          weight="medium"
-          class="text-neutral-800 dark:text-neutral-300"
-          >Mykorrhizasvampar</BaseHeading
+
+        <div
+          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
         >
-        <BaseTabs
-          class="ml-4 -mb-8"
-          v-model="activeTab"
-          :tabs="[
-            { icon: 'material-symbols:bar-chart', value: 'columnChart' },
-            {
-              icon: 'material-symbols:format-list-bulleted-rounded',
-              value: 'spatialForest',
-            },
-          ]"
+          <div class="flex items-end">
+            <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
+            <BaseHeading
+              size="xl"
+              weight="medium"
+              class="-mb-1 mx-1.5 text-gray-500"
+              >{{ top4Percentage }}%
+            </BaseHeading>
+            <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+              >{{ top4Count }} Arter</BaseHeading
+            >
+          </div>
+        </div>
+        <div
+          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
         >
-        </BaseTabs>
+          <div class="flex items-end">
+            <!-- <div class="bg-green-500 rounded-full w-5 h-5 mr-1"></div> -->
+            <BaseHeading
+              size="xl"
+              weight="medium"
+              class="-mb-1 mx-1.5 text-green-500"
+              >{{ next10Percentage }}%
+            </BaseHeading>
+            <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+              >{{ next10Count }} Arter</BaseHeading
+            >
+          </div>
+        </div>
+
+        <div
+          class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+        >
+          <div class="flex items-end">
+            <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
+
+            <BaseHeading
+              size="xl"
+              weight="medium"
+              class="-mb-1 mx-1.5 text-violet-500"
+              >{{ remainingPercentage }}%
+            </BaseHeading>
+            <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+              >{{ remainingCount }} Arter</BaseHeading
+            >
+          </div>
+        </div>
+
+        <!-- <div
+          class="flex items-end pl-2 pr-4 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+        >
+          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+            >{{ sampleEnvCount }}
+          </BaseHeading>
+          <BaseHeading weight="medium" size="xs">Provytor</BaseHeading>
+        </div> -->
+
+        <BaseButtonIcon @click="handleZoomIn" shape="full">
+          <Icon name="heroicons:magnifying-glass-plus" class="h-5 w-5" />
+        </BaseButtonIcon>
+        <BaseButtonIcon @click="handleZoomOut" shape="full">
+          <Icon name="heroicons:magnifying-glass-minus-solid" class="h-5 w-5" />
+        </BaseButtonIcon>
+      </div>
+    </transition>
+    <div class="col-span-5">
+      <div class="flex justify between">
+        <div class="flex mb-3">
+          <div
+            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
+          >
+            <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+          </div>
+          <BaseHeading
+            size="3xl"
+            weight="medium"
+            class="text-neutral-800 dark:text-neutral-300"
+            >Mykorrhizasvampar</BaseHeading
+          >
+          <BaseTabs
+            class="ml-4 -mb-8"
+            v-model="activeTab"
+            :tabs="[
+              { icon: 'material-symbols:bar-chart', value: 'columnChart' },
+              {
+                icon: 'material-symbols:format-list-bulleted-rounded',
+                value: 'spatialForest',
+              },
+            ]"
+          >
+          </BaseTabs>
+        </div>
       </div>
 
       <transition name="fade" mode="out-in">
@@ -47,7 +131,7 @@
         v-if="activeTab === 'spatialForest'"
         :isNormalView="true"
         @enlarge="emitEnlarge('FullScreenEdna')"
-        class="col-span-9"
+        class="col-span-7"
       />
     </transition>
   </div>
@@ -91,10 +175,12 @@
           :vegetationType="vegetationType"
           @updateInfo="handleInfoUpdate"
           class="w-full h-full"
+          :chartWidth="chartWidth"
+          :key="`-${routeKey}`"
         />
 
         <!-- Information section aligned to the bottom -->
-        <div class="-mb-6">
+        <!-- <div class="-mb-6">
           <hr class="border-stone-200 dark:border-stone-700 mb-4" />
           <div class="flex justify-between">
             <div class="flex"></div>
@@ -143,7 +229,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </transition>
   </div>
@@ -157,14 +243,38 @@ const props = defineProps({
   isNormalView: Boolean,
 });
 
+const route = useRoute();
+
+const routeKey = computed(
+  () =>
+    `${route.path}-${route.query.geography}-${route.query.forestType}-${route.query.standAge}-${route.query.vegetationType}`
+);
+
+const chartWidth = ref("100%");
+
+const handleZoomIn = () => {
+  let currentWidth = parseInt(chartWidth.value);
+  if (currentWidth < 600) {
+    // Check and adjust these limits as needed
+    chartWidth.value = `${currentWidth + 250}%`; // Adjust zoom increment here
+  }
+};
+
+const handleZoomOut = () => {
+  let currentWidth = parseInt(chartWidth.value);
+  if (currentWidth > 100) {
+    // Check and adjust these limits as needed
+    chartWidth.value = `${currentWidth - 250}%`; // Adjust zoom decrement here
+  }
+};
+
 // Define emits
-const emit = defineEmits(["enlarge"]);
+const emit = defineEmits(["zoomIn", "zoomOut", "enlarge"]);
 
 const emitEnlarge = (componentName) => {
   emit("enlarge", componentName);
 };
 
-const route = useRoute();
 const activeTab = ref("spatialForest");
 
 const geography = ref("");

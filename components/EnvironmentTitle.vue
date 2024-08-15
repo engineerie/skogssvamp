@@ -104,7 +104,7 @@ const listBoxRowHeight = ref("0px");
 
 const toggleHeight = () => {
   listBoxRowVisible.value = !listBoxRowVisible.value;
-  listBoxRowHeight.value = listBoxRowVisible.value ? "340px" : "0px";
+  listBoxRowHeight.value = listBoxRowVisible.value ? "314px" : "0px";
 };
 
 const route = useRoute();
@@ -112,29 +112,33 @@ const router = useRouter();
 
 // Define options as reactive references if they might change, or as constants outside the setup function if they are static
 const geographyOptions = [
-  { value: "North Sweden", label: "Norra Sverige" },
-  { value: "South Sweden", label: "Södra Sverige" },
+  { value: "Norr", label: "Norra Sverige" },
+  { value: "Söder", label: "Södra Sverige" },
 ];
 const forestTypeOptions = [
-  { value: "Spruce", label: "Gran" },
-  { value: "Pine", label: "Tall" },
-  { value: "Mixed Coniferous", label: "Blandad barrskog" },
-  { value: "Mixed Deciduous", label: "Blandad lövskog" },
+  { value: "Granskog", label: "Granskog" },
+  { value: "Tallskog", label: "Tallskog" },
+  { value: "Barrblandskog", label: "Blandad barrskog" },
+  { value: "Lövblandskog", label: "Blandad lövskog" },
+  { value: "Lövskog", label: "Lövskog" },
+  { value: "EkBokskog", label: "Ek och Bokskog" },
+  { value: "Naturbete", label: "Naturbete" },
 ];
 const standAgeOptions = [
-  { value: "1-40 years", label: "1-40 år" },
-  { value: "41-90 years", label: "41-90 år" },
-  { value: "91< years", label: "91 år och äldre" },
+  { value: "1-40", label: "1-40 år" },
+  { value: "41-90", label: "41-90 år" },
+  { value: "91", label: "91 år och äldre" },
+  { value: "allaåldrar", label: "Alla åldrar" },
 ];
 const vegetationTypeOptions = [
-  { value: "Tall herbs", label: "Högört" },
-  { value: "Low herbs", label: "Lågört" },
-  { value: "No field layer", label: "Kalmark" },
-  { value: "Broad grasses", label: "Bredblad gräs" },
-  { value: "Narrow grasses", label: "Smalblad gräs" },
-  { value: "Blueberry", label: "Blåbär" },
-  { value: "Lingonberry", label: "Lingon" },
-  { value: "Crowberry/heather", label: "Kråkbär/Ljung" },
+  { value: "Högört", label: "Högört" },
+  { value: "Lågört", label: "Lågört" },
+  { value: "Utan fältskikt", label: "Utan fältskikt" },
+  { value: "Bredblad gräs", label: "Bredblad gräs" },
+  { value: "Smalblad gräs", label: "Smalblad gräs" },
+  { value: "Blåbär", label: "Blåbär" },
+  { value: "Lingon", label: "Lingon" },
+  { value: "KråkbärLjung", label: "Kråkbär och Ljung" },
 ];
 
 // Computed properties to get the labels from the options based on the URL parameters
@@ -160,7 +164,7 @@ const vegetationTypeLabel = computed(() => {
 });
 </script>
 
-<style>
+<style scoped>
 /* Specific transition for height */
 .transition-height {
   transition: height 0.5s ease-in-out;

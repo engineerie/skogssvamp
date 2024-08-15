@@ -1,18 +1,18 @@
 <template></template>
 
 <script setup>
-import { useTitleStore } from '~/stores/titleStore';
-import { onMounted } from 'vue';
+// import { useTitleStore } from '~/stores/titleStore';
+// import { onMounted } from 'vue';
 
-const titleStore = useTitleStore();
+// const titleStore = useTitleStore();
 
-onMounted(() => {
-  titleStore.setTitle('Dokumentation');
-});
+// onMounted(() => {
+//   titleStore.setTitle('Dokumentation');
+// });
 </script>
 
 <script>
 export default {
-  layout: 'sidebarLayout'
+  layout: "sidebarLayout",
 };
 </script>

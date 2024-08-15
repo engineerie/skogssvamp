@@ -43,33 +43,33 @@ for (let geo of geographyOptions) {
 
 // Mapping of genera to their corresponding svamp-grupp values
 const genusToSvampGrupp = {
-  Acephala: "Saknas",
-  Alpova: "Saknas",
+  Acephala: "övrigt",
+  Alpova: "tryffel",
   Amanita: "hattsvamp",
   Amphinema: "skinnsvamp",
   Boletus: "sopp",
   Byssocorticium: "skinnsvamp",
-  Cenococcum: "Saknas",
-  Chalciporus: "Saknas",
-  Chamonixia: "tryffel",
-  Chroogomphus: "Saknas",
-  Clavulina: "Saknas",
+  Cenococcum: "övrigt",
+  Chalciporus: "sopp",
+  Chamonixia: "sopp",
+  Chroogomphus: "hattsvamp",
+  Clavulina: "fingersvamp",
   Cortinarius: "hattsvamp",
   Craterellus: "kantarell",
   Elaphomyces: "tryffel",
   Entoloma: "hattsvamp",
-  Gautieria: "Saknas",
+  Gautieria: "tryffel",
   Genea: "tryffel",
-  Geopora: "Saknas",
+  Geopora: "tryffel",
   Hebeloma: "hattsvamp",
-  Helvellosebacina: "Saknas",
+  Helvellosebacina: "övrigt",
   Humaria: "skålsvamp",
-  Hyaloscypha: "Saknas",
+  Hyaloscypha: "skålsvamp",
   Hydnotrya: "tryffel",
-  Hydnum: "Saknas",
+  Hydnum: "taggsvamp",
   Hygrophorus: "hattsvamp",
   Hymenogaster: "tryffel",
-  Hysterangium: "Saknas",
+  Hysterangium: "tryffel",
   Imleria: "sopp",
   Inocybe: "hattsvamp",
   Laccaria: "hattsvamp",
@@ -81,26 +81,26 @@ const genusToSvampGrupp = {
   Paxillus: "hattsvamp",
   Phellodon: "taggsvamp",
   Piloderma: "skinnsvamp",
-  Pseudotomentella: "Saknas",
-  Ramaria: "Saknas",
+  Pseudotomentella: "skinnsvamp",
+  Ramaria: "fingersvamp",
   Rhizopogon: "tryffel",
   Russula: "hattsvamp",
   Scleroderma: "tryffel",
-  Sebacina: "Saknas",
-  Serendipita: "Saknas",
+  Sebacina: "övrigt",
+  Serendipita: "övrigt",
   Sistotrema: "övrigt",
   Suillus: "sopp",
-  Tarzetta: "Saknas",
+  Tarzetta: "skålsvamp",
   Thelephora: "skinnsvamp",
   Tomentella: "skinnsvamp",
   Tomentellopsis: "skinnsvamp",
   Tretomyces: "skinnsvamp",
   Tricholoma: "hattsvamp",
-  Trichophaea: "Saknas",
-  Tuber: "Saknas",
+  Trichophaea: "skålsvamp",
+  Tuber: "tryffel",
   Tylopilus: "sopp",
   Tylospora: "skinnsvamp",
-  Wilcoxina: "Saknas",
+  Wilcoxina: "skålsvamp",
   Xerocomellus: "sopp",
   Xerocomus: "sopp",
 };
@@ -138,11 +138,20 @@ async function prefetchData() {
         continue;
       }
 
+      const enrichedData = data.map((entry) => {
+        const genus = entry.Genus;
+        const svampGruppSlakte = genusToSvampGrupp[genus] || "Saknas";
+        return {
+          ...entry,
+          "Svamp-grupp-släkte": svampGruppSlakte,
+        };
+      });
+
       const safeVeg = veg.replace("/", "");
       const filename = `data-${geo}-${forest}-${age}-${safeVeg}.json`;
       const filePath = path.join(__dirname, `../static/${filename}`);
 
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+      fs.writeFileSync(filePath, JSON.stringify(enrichedData, null, 2));
       const writtenMessage = `Data written to ${filePath}. File size: ${
         fs.statSync(filePath).size
       } bytes`;
@@ -158,3 +167,32 @@ async function prefetchData() {
 
 // Execute the prefetch function
 prefetchData();
+
+// Assuming allCombinations is already defined as in your script
+async function generateValidCombinations() {
+  let validCombinations = [];
+  for (const { geo, forest, veg, age } of allCombinations) {
+    const safeVeg = veg.replace("/", ""); // Normalize the vegetation type here
+    try {
+      const data = await fetchDataDirectly({
+        geography: geo,
+        forestType: forest,
+        vegetationType: veg,
+        standAge: age,
+      });
+      if (data && data.length > 0) {
+        validCombinations.push({ geo, forest, veg: safeVeg, age }); // Store using normalized veg
+      }
+    } catch (error) {
+      console.error(
+        `Failed to fetch data for combination ${geo}, ${forest}, ${veg}, ${age}: ${error}`
+      );
+    }
+  }
+  fs.writeFileSync(
+    path.join(__dirname, "validCombinations.json"),
+    JSON.stringify(validCombinations)
+  );
+  console.log("Valid combinations have been saved.");
+}
+generateValidCombinations();

@@ -1,39 +1,39 @@
 <template>
-  <div class="h-window mr-[32px]">
-    <MapboxMap
-      map-id="myMap"
-      :options="{
-        style: 'mapbox://styles/engineeriee/clrqylxgt00em01peeru3593y',
-        center: [15.448, 61.255],
-        zoom: 10,
-      }"
-      style="height: 100vh"
-      @click="updateMarker"
-    >
-      <MapboxGeocoder
-        class="rounded-xl"
-        ref="geocoderRef"
-        position="top-left"
+  <div class="flex h-full w-full overflow-hidden">
+    <div class="bg-gray-200 relative flex-1">
+      <MapboxMap
+        map-id="myMap"
         :options="{
-          version: 'v6',
+          style: 'mapbox://styles/engineeriee/clrqylxgt00em01peeru3593y',
+          center: [15.448, 61.255],
+          zoom: 12,
         }"
-      />
-      <MapboxGeolocateControl position="top-right" />
-
-      <MapboxDefaultPopup
-        popup-id="myPopup"
-        :lnglat="lnglat"
-        :options="{ closeOnClick: false }"
+        style="height: 100vh"
+        @click="updateMarker"
       >
-        <h1>{{ lnglat }}</h1>
-      </MapboxDefaultPopup>
-    </MapboxMap>
+        <MapboxGeocoder
+          class="rounded-xl"
+          ref="geocoderRef"
+          :options="{
+            version: 'v6',
+          }"
+        />
 
-    <div class="h-fit w-full absolute bottom-0">
-      <div class="relative mr-[32px]">
-        <ListBoxRowMap :geography="geographyOption" />
-      </div>
+        <MapboxDefaultPopup
+          popup-id="myPopup"
+          :lnglat="lnglat"
+          :options="{ closeOnClick: false }"
+        >
+          <h1>{{ lnglat }}</h1>
+        </MapboxDefaultPopup>
+      </MapboxMap>
     </div>
+
+    <!-- Half width for the list box -->
+    <ListBoxRowMap
+      :geographyFromMap="geographyOption"
+      @update:geographyFromMap="handleGeographyChange"
+    />
   </div>
 </template>
 
@@ -44,19 +44,25 @@ const lnglat = ref({ lng: 15.448, lat: 61.255 });
 const geographyOption = ref("");
 
 function updateMarker(event) {
+  geographyOption.value = null; // Reset before setting new value
   lnglat.value = {
     lng: event.lngLat.lng,
     lat: event.lngLat.lat,
   };
-  // Determine the geography option based on latitude
-  geographyOption.value =
-    event.lngLat.lat > 60 ? "North Sweden" : "South Sweden";
+  // Use nextTick or setTimeout to ensure reactivity system updates
+  nextTick(() => {
+    geographyOption.value = event.lngLat.lat > 60 ? "Norr" : "Söder";
+  });
 }
 
 function showAlert() {
   alert(
     `Current location: Longitude ${lnglat.value.lng}, Latitude ${lnglat.value.lat}`
   );
+}
+
+function handleGeographyChange(newGeography) {
+  geographyOption.value = newGeography;
 }
 </script>
 

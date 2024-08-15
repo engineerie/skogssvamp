@@ -1,14 +1,12 @@
-<template>
-  <DynamicDivsLanding />
-</template>
+<template></template>
 
 <script setup>
-import { useTitleStore } from "~/stores/titleStore";
-import { onMounted } from "vue";
+// import { useTitleStore } from "~/stores/titleStore";
+// import { onMounted } from "vue";
 
-const titleStore = useTitleStore();
+// const titleStore = useTitleStore();
 
-onMounted(() => {
-  titleStore.setTitle("About");
-});
+// onMounted(() => {
+//   titleStore.setTitle("About");
+// });
 </script>

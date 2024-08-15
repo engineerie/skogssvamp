@@ -39,7 +39,7 @@
         <div
           class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
         >
-          <Icon name="icon-park-solid:fork-spoon" class="h-10 w-10" />
+          <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
         </div>
         <BaseHeading
           size="3xl"
@@ -101,9 +101,10 @@
               size: 'xl',
             }"
             :ui="computedUITable"
-            :columns="columns"
+            :columns="selectedColumns"
             :rows="paginatedData"
             @select="selectRow"
+            :key="route.fullPath"
           >
             <template #empty-state>
               <div class="flex flex-col items-center justify-center py-6 gap-3">
@@ -112,6 +113,13 @@
                 >
               </div>
             </template>
+            <!-- <template v-slot:förekomst-data="{ row }">
+              <div>
+                {{
+                  parseInt(row.förekomst_skog) + parseInt(row.förekomst_ålder)
+                }}
+              </div>
+            </template> -->
             <template #rating-data="{ row }">
               <div class="flex">
                 <span v-for="n in getValidRating(row.rating)" :key="n">
@@ -122,11 +130,45 @@
                 </span>
               </div>
             </template>
+            <template #förekomst_ung-data="{ row }">
+              <div>
+                <!-- If value is 1, show the mushroom icon -->
+                <div v-if="row.förekomst_ung === 1">
+                  <Icon name="tabler:mushroom" class="h-4 w-4" />
+                </div>
+                <!-- If value is 0, show the leaf icon -->
+                <div v-else-if="row.förekomst_ung === 0">
+                  <Icon name="heroicons:x-mark-16-solid" class="h-4 w-4" />
+                </div>
+              </div>
+            </template>
+
+            <template #förekomst_skog_ålder-data="{ row }">
+              <div class="flex">
+                <span
+                  v-for="n in getValidFörekomst(row.förekomst_skog_ålder)"
+                  :key="n"
+                >
+                  <Icon name="tabler:mushroom" class="h-4 w-4" />
+                </span>
+              </div>
+            </template>
+            <!-- <template #förekomst_ung-data="{ row }">
+              <div class="text-ellipsis overflow-hidden">
+                {{ capitalize(row.förekomst_ung) }}
+              </div>
+            </template> -->
             <template #Commonname-data="{ row }">
-              <div class="">{{ capitalize(row.Commonname) }}</div>
+              <div class="text-ellipsis overflow-hidden">
+                {{ capitalize(row.Commonname) }}
+              </div>
             </template>
             <template #Scientificname-data="{ row }">
-              <div class="italic font-thin">{{ row.Scientificname }}</div>
+              <div
+                class="italic font-thin overflow-hidden text-ellipsis truncate"
+              >
+                {{ row.Scientificname }}
+              </div>
             </template>
             <template #Svamp-grupp-data="{ row }">
               <div
@@ -225,10 +267,10 @@ import { useRoute } from "vue-router";
 
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
-    hattsvamp: "hattsvamp.webp",
+    hattsvamp: "hattsvamp.png",
     kantarell: "kantarell.webp",
-    sopp: "sopp.webp",
-    taggsvamp: "taggsvamp.webp",
+    sopp: "sopp.png",
+    taggsvamp: "taggsvamp.png",
     fingersvamp: "fingersvamp.webp",
     tryffel: "tryffel.webp",
     skinnsvamp: "skinnsvamp.webp",
@@ -274,18 +316,17 @@ const isInfoBoxVisible = ref(false);
 const selectedRows = ref([]);
 const isDragging = ref(false);
 
-function getCenterPosition() {
-  // Assuming you know the size of the box, for example, 200px by 100px
-  const boxWidth = 200;
-  const boxHeight = 400;
+// function getCenterPosition() {
+//   const boxWidth = 200;
+//   const boxHeight = 400;
 
-  const centerX = (window.innerWidth - boxWidth) / 2;
-  const centerY = (window.innerHeight - boxHeight) / 2;
+//   const centerX = (window.innerWidth - boxWidth) / 2;
+//   const centerY = (window.innerHeight - boxHeight) / 2;
 
-  return { top: centerY, left: centerX };
-}
+//   return { top: centerY, left: centerX };
+// }
 
-const boxPosition = reactive(getCenterPosition());
+// const boxPosition = reactive(getCenterPosition());
 const dragOffset = reactive({ x: 0, y: 0 });
 
 function startDrag(event) {
@@ -325,8 +366,18 @@ function closeInfoBox() {
 
 const columns = [
   {
+    key: "förekomst_ung",
+    label: "Ungskog",
+    sortable: props.isNormalView ? false : true,
+  },
+  {
+    key: "förekomst_skog_ålder",
+    label: "Förekomst",
+    sortable: props.isNormalView ? false : true,
+  },
+  {
     key: "Commonname",
-    label: "Namn",
+    label: "Namn      ",
     sortable: props.isNormalView ? false : true,
   },
   {
@@ -345,6 +396,17 @@ const columns = [
     sortable: props.isNormalView ? false : true,
   },
 ];
+
+const selectedColumns = computed(() =>
+  [
+    standAge.value == "1-40" ? columns[0] : null, // Always include
+    columns[1], // Always include
+    columns[2], // Include based on isNormalView
+    !props.isNormalView ? columns[3] : null, // Always include
+    columns[4], // Always include
+    columns[5], // Always include
+  ].filter((column) => column !== null)
+);
 
 const sortedData = computed(() => {
   // Sort data based on your sorting logic
@@ -377,6 +439,12 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
 const getValidRating = (rating) => {
   const parsedRating = parseInt(rating);
   return Number.isNaN(parsedRating) ? 0 : parsedRating;
+};
+
+const getValidFörekomst = (förekomst_skog_ålder) => {
+  const parsedFörekomst = parseInt(förekomst_skog_ålder);
+  // Subtract 1 from the parsed value but ensure it doesn't go below 0
+  return Math.max(0, Number.isNaN(parsedFörekomst) ? 0 : parsedFörekomst - 1);
 };
 
 // Watch for changes in route params and fetch data accordingly

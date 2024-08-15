@@ -20,7 +20,10 @@
           !isStartPage && !isSvampdata,
       }"
     >
-      <div v-if="!isStartPage" class="flex justify-between items-center">
+      <div
+        v-if="!isStartPage && !isSvampdata"
+        class="flex justify-between items-center"
+      >
         <div class="flex gap-2">
           <button @click="toggleSidebar">
             <Bars3CenterLeftIcon
@@ -29,8 +32,8 @@
             />
             <ChevronLeftIcon v-else class="h-10 w-10 ml-2 text-green-500" />
           </button>
-          <slot name="title">
-            <BaseHeading as="h1" weight="light" size="3xl">{{
+          <slot name="title" :key="route.path">
+            <BaseHeading as="h1" weight="light" size="3xl" :key="route.path">{{
               titleStore.title
             }}</BaseHeading>
             <!-- <div class="z-60 ml-4 mr-4">
@@ -53,6 +56,7 @@
             v-if="isDashboard"
             data-nui-tooltip-position="down"
             data-nui-tooltip="Kopiera länk till miljön"
+            @click="copyLinkToClipboard"
           >
             <Icon name="akar-icons:link-chain" class="size-5" />
           </BaseButtonIcon>
@@ -83,6 +87,8 @@ import { useTitleStore } from "~/stores/titleStore";
 import { useRoute } from "vue-router";
 import { useSidebarStore } from "~/stores/sidebarStore";
 
+const toast = useToast();
+
 const sidebarStore = useSidebarStore();
 const titleStore = useTitleStore();
 const route = useRoute();
@@ -107,6 +113,51 @@ watch(isDashboard, (newVal) => {
     sidebarStore.closeSidebar(); // Close the sidebar when dashboard is loaded
   }
 });
+
+const copyLinkToClipboard = () => {
+  navigator.clipboard
+    .writeText(window.location.href)
+    .then(() => {
+      toast.add({
+        title: "Länken har kopierats till urklipp.",
+        type: "success", // Assuming your toast system supports different types
+      });
+    })
+    .catch((err) => {
+      console.error("Failed to copy: ", err);
+      toast.add({
+        title: "Kunde inte kopiera länken.",
+        type: "error",
+      });
+    });
+};
+
+watch(
+  () => route.path,
+  (newPath) => {
+    // Logic to determine the title based on the route path
+    const newTitle = determineTitle(newPath);
+    titleStore.setTitle(newTitle);
+  },
+  { immediate: true } // Ensure it runs initially
+);
+
+function determineTitle(path) {
+  // Implement your logic to return the title based on the route
+  if (path.includes("/skogsbruk")) {
+    return "Skogssbruk";
+  }
+  if (path.includes("svampdata")) {
+    return "Svamparter";
+  }
+  if (path.includes("/guide")) {
+    return "Dokumentation";
+  }
+  if (path.includes("/about")) {
+    return "Om projektet";
+  }
+  return "Default Title";
+}
 </script>
 
 <style>

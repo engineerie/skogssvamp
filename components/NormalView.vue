@@ -31,16 +31,19 @@
         :vegetationType="vegetationType"
         :isNormalView="true"
         @enlarge="emitEnlarge('FullScreenEdible')"
+        :key="route.fullPath"
       />
     </div>
     <div class="col-span-6 flex flex-col">
-      <Redlisted
+      <FullScreenRedlisted
         class="flex-grow"
         :geography="geography"
         :forestType="forestType"
         :standAge="standAge"
         :vegetationType="vegetationType"
+        :isNormalView="true"
         @enlarge="emitEnlarge('FullScreenRedlisted')"
+        :key="route.fullPath"
       />
     </div>
   </div>
@@ -52,6 +55,8 @@ import SpeciesCount from "./SpeciesCount.vue";
 import EdnaComponent from "./EdnaComponent.vue";
 import Edible from "./Edible.vue";
 import Redlisted from "./Redlisted.vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
 
 // Define props
 const props = defineProps({

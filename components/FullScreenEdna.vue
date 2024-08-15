@@ -64,6 +64,24 @@
             label-float
           />
         </div>
+
+        <!-- display the  "sample_env_count" here  -->
+        <div
+          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
+        >
+          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+            >{{ totalItems }}
+          </BaseHeading>
+          <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
+        </div>
+        <div
+          class="flex items-end pl-2 pr-4 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+        >
+          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+            >{{ sampleEnvCount }}
+          </BaseHeading>
+          <BaseHeading weight="medium" size="xs">Provytor</BaseHeading>
+        </div>
         <BaseInput
           icon="i-heroicons-magnifying-glass-20-solid"
           v-model="searchQuery"
@@ -106,13 +124,13 @@
             }"
             :ui="{
               td: {
+                base: 'max-w-52 truncate',
                 size: 'text-md',
                 color: 'text-neutral-500 dark:text-neutral-400',
               },
               thead: 'sticky top-0 bg-white shadow-sm shadow-neutral-300 z-20',
               tbody: 'divide-y divide-neutral-200 dark:divide-neutral-800',
               tr: {
-                base: '',
                 selected: 'bg-neutral-100 dark:bg-neutral-900',
                 active:
                   'hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-900',
@@ -155,15 +173,11 @@
                 <NuxtImg
                   v-if="row['Svamp-grupp-släkte'] !== 'Saknas'"
                   :src="getIconPath(row['Svamp-grupp-släkte'])"
-                  class="w-5"
+                  class="w-6"
                   alt="Svamp Icon"
                 />
 
-                <Icon
-                  v-else
-                  name="material-symbols:question-mark-rounded"
-                  class="size-5"
-                />
+                <Icon v-else name="heroicons:x-mark-20-solid" class="size-7" />
               </div>
             </template>
             <!-- Inside your UTable where you define templates for data rows -->
@@ -190,8 +204,8 @@
             <template #matsvamp-data="{ row }">
               <div v-if="row.matsvamp === 1">
                 <Icon
-                  name="fluent:food-16-filled"
-                  class="h-8 w-8 text-yellow-500 -my-2"
+                  name="icon-park-solid:knife-fork"
+                  class="h-7 w-7 text-yellow-500 -my-2"
                 />
               </div>
               <div v-if="row.matsvamp === 0"></div>
@@ -276,12 +290,18 @@
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
+const sampleEnvCount = computed(() => {
+  // Check if data is not empty and return the sample_env_count of the first item
+  return data.value.length > 0 ? data.value[0].sample_env_count : 0;
+});
+
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
-    hattsvamp: "hattsvamp.webp",
+    övrigt: "default-icon.png",
+    hattsvamp: "hattsvamp.png",
     kantarell: "kantarell.webp",
-    sopp: "sopp.webp",
-    taggsvamp: "taggsvamp.webp",
+    sopp: "sopp.png",
+    taggsvamp: "taggsvamp.png",
     fingersvamp: "fingersvamp.webp",
     tryffel: "tryffel.webp",
     skinnsvamp: "skinnsvamp.webp",
@@ -303,17 +323,17 @@ const isInfoBoxVisible = ref(false);
 const selectedRows = ref([]);
 const isDragging = ref(false);
 
-function getCenterPosition() {
-  const boxWidth = 200;
-  const boxHeight = 400;
+// function getCenterPosition() {
+//   const boxWidth = 200;
+//   const boxHeight = 400;
 
-  const centerX = (window.innerWidth - boxWidth) / 2;
-  const centerY = (window.innerHeight - boxHeight) / 2;
+//   const centerX = (window.innerWidth - boxWidth) / 2;
+//   const centerY = (window.innerHeight - boxHeight) / 2;
 
-  return { top: centerY, left: centerX };
-}
+//   return { top: centerY, left: centerX };
+// }
 
-const boxPosition = reactive(getCenterPosition());
+// const boxPosition = reactive(getCenterPosition());
 const dragOffset = reactive({ x: 0, y: 0 });
 
 function startDrag(event) {

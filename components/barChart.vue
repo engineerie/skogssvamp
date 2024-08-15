@@ -3,8 +3,9 @@
   <div class="overflow-x-scroll" id="scrollbar">
     <div v-if="VueApexCharts && data" class="text-neutral-500">
       <VueApexCharts
+        :key="`${chartWidth}-${routeKey}`"
         height="365px"
-        width="100%"
+        :width="chartWidth"
         type="bar"
         :options="chartOptions"
         :series="chartSeries"
@@ -20,16 +21,20 @@
 <script setup>
 import { computed, ref, onMounted, shallowRef } from "vue";
 
+const route = useRoute();
+
+const emits = defineEmits(["updateInfo"]);
+
 const isDarkMode = computed(() => {
   return document.documentElement.classList.contains("dark");
 });
 
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
-    hattsvamp: "/images/svampgrupp/hattsvamp.webp",
+    hattsvamp: "/images/svampgrupp/hattsvamp.png",
     kantarell: "/images/svampgrupp/kantarell.webp",
-    sopp: "/images/svampgrupp/sopp.webp",
-    taggsvamp: "/images/svampgrupp/taggsvamp.webp",
+    sopp: "/images/svampgrupp/sopp.png",
+    taggsvamp: "/images/svampgrupp/taggsvamp.png",
     fingersvamp: "/images/svampgrupp/fingersvamp.webp",
     tryffel: "/images/svampgrupp/tryffel.webp",
     skinnsvamp: "/images/svampgrupp/skinnsvamp.webp",
@@ -59,6 +64,7 @@ const generateStatusMarkerSVG = (status) => {
 
 // Define props to receive data from the parent component
 const props = defineProps({
+  chartWidth: String,
   geography: String,
   forestType: String,
   standAge: String,
@@ -81,7 +87,8 @@ const chartOptions = ref({
   plotOptions: {
     bar: {
       horizontal: false,
-      columnWidth: "80%",
+
+      // columnWidth: "80%",
     },
   },
   dataLabels: {
@@ -93,6 +100,7 @@ const chartOptions = ref({
     colors: ["transparent"],
   },
   xaxis: {
+    // tickPlacement: "on",
     axisTicks: {
       show: false,
     },
@@ -114,8 +122,11 @@ const chartOptions = ref({
     opacity: 1,
   },
   grid: {
-    show: false,
-    // Other grid configurations
+    show: true,
+    padding: {
+      left: 30, // or whatever value that works
+      right: 30, // or whatever value that works
+    }, // Other grid configurations
   },
 });
 
@@ -125,7 +136,6 @@ const remainingPercentage = ref(0);
 const top4Count = ref(0);
 const next10Count = ref(0);
 const remainingCount = ref(0);
-const emits = defineEmits(["updateInfo"]);
 
 const chartSeries = ref([]);
 
