@@ -18,6 +18,16 @@
         arter), och lila representerar de ovanliga arterna (187 arter).
       </p>
     </div>
+    <div class="hidden">
+      <NuxtImg
+        v-for="(src, index) in allImageUrls"
+        :key="index"
+        :src="src"
+        height="505"
+        width="805"
+        format="webp"
+      />
+    </div>
   </div>
 </template>
 
@@ -50,5 +60,49 @@ const imageUrl = computed(() => {
     console.log("Returning dynamic URL:", finalUrl);
     return finalUrl;
   }
+});
+
+// List of possible values for each prop
+const geographies = ["norr", "söder"];
+const forestTypes = [
+  "granskog",
+  "tallskog",
+  "barrblandskog",
+  "lövblandskog",
+  "lövskog",
+  "naturbete",
+  "EkBokskog",
+];
+const vegetationTypes = [
+  "Högört",
+  "Lågört",
+  "Utan fältskikt",
+  "Bredblad gräs",
+  "Smalblad gräs",
+  "Blåbär",
+  "Lingon",
+  "KråkbärLjung",
+];
+const standAges = ["1-40", "41-90", "91", "allaåldrar"];
+
+// Generate all possible image URLs
+const allImageUrls = computed(() => {
+  const urls = [];
+  for (const geography of geographies) {
+    for (const forestType of forestTypes) {
+      for (const vegetationType of vegetationTypes) {
+        for (const standAge of standAges) {
+          const imageName =
+            `${geography}-${forestType}-${vegetationType}-${standAge}`
+              .toLowerCase()
+              .replace(/\s+/g, "_") // Replace spaces with underscores
+              .replace(/-+/g, "_") // Replace hyphens with underscores
+              .replace(/[<>]+/g, "_"); // Remove any < or > characters
+          urls.push(`/images/bilderDNASkog/${imageName}.png`);
+        }
+      }
+    }
+  }
+  return urls;
 });
 </script>

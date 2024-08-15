@@ -333,12 +333,22 @@ watch(
 );
 
 const generateParams = () => {
+  if (
+    !selectedOptions.value.geography ||
+    !selectedOptions.value.forestType ||
+    !selectedOptions.value.standAge ||
+    !selectedOptions.value.vegetationType
+  ) {
+    return ""; // Return an empty string or handle this case appropriately
+  }
+
   const path = [
     encodeURIComponent(selectedOptions.value.geography),
     encodeURIComponent(selectedOptions.value.forestType),
     encodeURIComponent(selectedOptions.value.standAge),
     encodeURIComponent(selectedOptions.value.vegetationType),
   ].join("/");
+
   return `/svampdata/dashboard/${path}`;
 };
 </script>
