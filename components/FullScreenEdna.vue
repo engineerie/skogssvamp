@@ -1,14 +1,6 @@
 <template>
-  <div class="hidden">
-    <NuxtImg
-      v-for="icon in allIcons"
-      :key="icon"
-      :src="`/images/svampgrupp/${icon}`"
-      alt="Preload Icon"
-    />
-  </div>
   <div>
-    <transition name="fade" mode="out-in">
+    <!-- <transition name="fade" mode="out-in">
       <div
         v-if="selectedRows.length > 0"
         class="fixed w-80 h-72 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-900 cursor-grab active:cursor-grabbing"
@@ -41,7 +33,7 @@
           }}</BaseHeading>
         </div>
       </div>
-    </transition>
+    </transition> -->
     <div
       class="flex justify-between mb-2 items-end"
       :class="{ 'mt-3': isNormalView }"
@@ -297,18 +289,6 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
-
-const allIcons = [
-  "default-icon.png",
-  "hattsvamp.png",
-  "kantarell.webp",
-  "sopp.png",
-  "taggsvamp.png",
-  "fingersvamp.webp",
-  "tryffel.webp",
-  "skinnsvamp.webp",
-  "skalsvamp.webp",
-];
 
 const sampleEnvCount = computed(() => {
   // Check if data is not empty and return the sample_env_count of the first item
