@@ -1,4 +1,15 @@
 <template>
+  <div class="hidden">
+    <NuxtImg
+      v-for="imagePath in allImagePaths"
+      :key="imagePath"
+      :src="imagePath"
+      width="1200"
+      format="webp"
+      quality="70"
+      alt="Preload Image"
+    />
+  </div>
   <div class="grid grid-cols-4 gap-5 mb-8">
     <div class="flex justify-between col-span-3 px-12">
       <div
@@ -436,6 +447,29 @@ const time_value = computed({
 // Setup the title store
 // const titleStore = useTitleStore();
 // onMounted(() => titleStore.setTitle("Skogsbruk"));
+
+// Compute all possible image paths
+const allImagePaths = computed(() => {
+  const paths = [];
+
+  frameworks.forEach(({ label }) => {
+    times.forEach((timeLabel) => {
+      [true, false].forEach((showTree) => {
+        [true, false].forEach((showFungi) => {
+          startskog.forEach(({ value: startskogValue }) => {
+            const framework = label.toLowerCase();
+            const treeVisibility = showTree ? "visa" : "dölj";
+            const fungiVisibility = showFungi ? "visa" : "dölj";
+            const path = `/images/Skogsbruksbilder/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+            paths.push(path);
+          });
+        });
+      });
+    });
+  });
+
+  return paths;
+});
 </script>
 
 <style scoped>
