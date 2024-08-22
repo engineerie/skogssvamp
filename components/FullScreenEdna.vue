@@ -34,6 +34,48 @@
         </div>
       </div>
     </transition> -->
+
+    <transition name="slide">
+      <div
+        v-if="selectedRows.length > 0"
+        class="fixed pointer-events-none top-0 right-0 h-full w-80 border-l dark:border-neutral-800 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-900"
+      >
+        <!-- Transparent Top Section -->
+        <div class="h-14 bg-transparent pointer-events-none"></div>
+
+        <!-- Sidebar Content with Background -->
+        <div
+          class="relative bg-neutral-100 dark:bg-neutral-900 h-full pointer-events-auto"
+        >
+          <div class="p-5">
+            <div class="flex justify-between items-end mb-2">
+              <BaseHeading size="xl" weight="thin" class="-mb-1.5"
+                >Artinformation</BaseHeading
+              >
+              <BaseButtonIcon
+                shape="full"
+                size="sm"
+                @click="closeInfoBox"
+                class=""
+              >
+                <Icon name="material-symbols:close" class="size-4" />
+              </BaseButtonIcon>
+            </div>
+            <NuxtImg
+              height="270"
+              src="/images/filtskinn.jpg"
+              class="rounded-xl mb-2"
+            />
+            <BaseHeading size="lg">{{
+              capitalize(selectedRows[0].snamn)
+            }}</BaseHeading>
+            <BaseHeading weight="light" size="sm">{{
+              selectedRows[0].taxon
+            }}</BaseHeading>
+          </div>
+        </div>
+      </div>
+    </transition>
     <div
       class="flex justify-between mb-2 items-end"
       :class="{ 'mt-3': isNormalView }"
@@ -284,11 +326,40 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
 }
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
+}
 </style>
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+
+const selectedRows = ref([]); // Tracks the selected rows
+
+function selectRow(row) {
+  selectedRows.value = [row]; // Store the selected row in the array
+}
+
+function closeInfoBox() {
+  selectedRows.value = []; // Clear the selection to hide the sidebar
+}
+
+// Capitalize function for displaying the species name
+const capitalize = (str) => {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
 
 const sampleEnvCount = computed(() => {
   // Check if data is not empty and return the sample_env_count of the first item
@@ -320,7 +391,6 @@ const activeTab = ref("spatialForest");
 
 const isInfoBoxVisible = ref(false);
 
-const selectedRows = ref([]);
 const isDragging = ref(false);
 
 // function getCenterPosition() {
@@ -362,14 +432,6 @@ onUnmounted(() => {
   document.removeEventListener("mousemove", drag);
   document.removeEventListener("mouseup", stopDrag);
 });
-
-function selectRow(row) {
-  selectedRows.value = [row];
-}
-
-function closeInfoBox() {
-  selectedRows.value = [];
-}
 
 const getStatusAbbreviation = (status) => {
   const abbreviations = {
@@ -486,11 +548,6 @@ const handleInfoUpdate = (info) => {
 const data = ref([]);
 const allColors = ref([]);
 
-const capitalize = (str) => {
-  if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-};
-
 const generateColors = (start, end, steps) => {
   const stepR = (end[0] - start[0]) / (steps - 1);
   const stepG = (end[1] - start[1]) / (steps - 1);
@@ -554,7 +611,6 @@ const searchQuery = ref("");
 const page = ref(1);
 const rowsPerPageOptions = [5, 10, 20, 30, 40, 50]; // Options for rows per page
 const rowsPerPage = ref(props.isNormalView ? 500 : 10);
-const selectedRow = ref(null);
 
 // Computed property for filtered data
 const filteredData = computed(() => {

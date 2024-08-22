@@ -1,9 +1,19 @@
 <template>
   <div
-    class="fixed h-screen px-3 py-4 w-20 bg-neutral-100 dark:bg-neutral-900 dark:bg-opacity-100 border-r-[1px] dark:border-neutral-800 border-neutral-300"
+    class="fixed h-screen px-3 py-4 bg-neutral-100 dark:bg-neutral-900 dark:bg-opacity-100 border-r-[1px] dark:border-neutral-800 border-neutral-300 flex flex-col justify-between"
   >
     <div class="flex flex-col items-center">
-      <BaseButtonIcon
+      <NuxtLink
+        @click="closeSidebar"
+        shape="full"
+        to="/"
+        class="mb-5"
+        data-nui-tooltip-position="right"
+        data-nui-tooltip="Hem"
+      >
+        <icon name="hugeicons:mushroom" class="size-9 text-green-500" />
+      </NuxtLink>
+      <!-- <BaseButtonIcon
         :color="isInHome ? 'primary' : 'default'"
         @click="closeSidebar"
         shape="full"
@@ -12,8 +22,8 @@
         data-nui-tooltip-position="right"
         data-nui-tooltip="Hem"
       >
-        <icon name="tabler:home" class="h-5 w-5" />
-      </BaseButtonIcon>
+       
+      </BaseButtonIcon> -->
       <BaseButtonIcon
         :color="isInSvampData ? 'primary' : 'default'"
         @click="openSidebar"
@@ -27,18 +37,20 @@
       </BaseButtonIcon>
       <BaseButtonIcon
         :color="isInSkogsbruk ? 'primary' : 'default'"
-        @click="openSidebar"
         shape="full"
         to="/skogsbruk"
         class="h-5 w-5 my-5"
         data-nui-tooltip-position="right"
         data-nui-tooltip="Svampar och skogsbruk"
       >
-        <icon name="jam:tree" class="h-5 w-5" />
+        <icon
+          name="material-symbols:nature-people-outline-rounded"
+          class="h-5 w-5"
+        />
       </BaseButtonIcon>
-      <!-- <BaseButtonIcon :color="isInSvampliv ? 'primary' : 'default'" @click="openSidebar" shape="full" to="/svampliv" class="h-5 w-5 my-5" data-nui-tooltip-position="right" data-nui-tooltip="Hur svampar lever">
-                <icon name="tabler:mushroom" class="h-5 w-5"/>
-            </BaseButtonIcon> -->
+    </div>
+
+    <div class="flex flex-col items-center">
       <BaseButtonIcon
         :color="isInGuide ? 'primary' : 'default'"
         @click="openSidebar"

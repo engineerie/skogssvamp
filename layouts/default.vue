@@ -1,28 +1,30 @@
 <template>
-  <ThinSideBar class="z-50" />
-  <SideBar :isSidebarOpen="isSidebarOpen" @toggleSidebar="toggleSidebar" />
-  <div
-    :class="{
-      'pl-4': isStartPage,
-      'ml-20': isSvampdata,
-
-      'ml-[350px]': isSidebarOpen && !isStartPage,
-      'ml-[64px]': !isSidebarOpen && !isSvampdata,
-
-      'ml-[20px]': isSidebarOpen && isDocumentation,
-      'sync-transition': true,
-    }"
-  >
+  <div class="relative">
+    <ThinSideBar
+      :class="{ 'hidden w-0': isStartPage, 'w-20': !isStartPage }"
+      class="z-50 transition-all duration-300"
+    />
+    <SideBar
+      :isSidebarOpen="isSidebarOpen"
+      @toggleSidebar="toggleSidebar"
+      class="z-30"
+    />
     <div
-      :class="{
-        'py-4 pr-8 pt-2 pl-8': !isStartPage && !isSvampdata,
-        'lg:max-w-full 2xl:max-w-screen-2xl mx-auto':
-          !isStartPage && !isSvampdata,
-      }"
+      v-if="!isExactSvampdata"
+      class="container mx-auto flex justify-between items-center"
     >
       <div
-        v-if="!isStartPage && !isSvampdata"
-        class="flex justify-between items-center"
+        :class="[
+          'fixed top-0 left-0 right-0 flex justify-between items-center z-20 transition-all duration-300',
+          {
+            hidden: isStartPage,
+            'ml-20': isSvampdataSubRoute && !isStartPage,
+            'ml-[350px]': isSidebarOpen && !isStartPage,
+            'ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
+            'ml-[20px]': isSidebarOpen && isDocumentation,
+          },
+        ]"
+        class="bg-neutral-100 dark:bg-neutral-900 py-2 px-6"
       >
         <div class="flex gap-2">
           <button @click="toggleSidebar">
@@ -33,11 +35,9 @@
             <ChevronLeftIcon v-else class="h-10 w-10 ml-2 text-green-500" />
           </button>
           <slot name="title" :key="route.path">
-            <BaseHeading as="h1" weight="light" size="3xl" :key="route.path">{{
-              titleStore.title
-            }}</BaseHeading>
-            <!-- <div class="z-60 ml-4 mr-4">
-                <BaseMessage type="danger" icon>Under utveckling! Information som presenteras kan vara ofullständig eller felaktig. Färdig version lanseras våren 2025. </BaseMessage></div> -->
+            <BaseHeading as="h1" weight="light" size="3xl" :key="route.path">
+              {{ titleStore.title }}
+            </BaseHeading>
           </slot>
         </div>
         <div class="flex justify-end gap-4 items-center">
@@ -72,9 +72,34 @@
           <BaseThemeSwitch />
         </div>
       </div>
-      <!-- <div v-if="isStartPage" class="flex justify-end items-center"></div> -->
-      <div :class="{ 'p-4 pt-8': !isStartPage && !isSvampdata }">
-        <slot />
+    </div>
+    <div
+      :class="{
+        'pt-0': isExactSvampdata,
+        'pt-12': !isExactSvampdata && !isStartPage,
+
+        'pl-0': isStartPage,
+        'ml-20 ': isSvampdataSubRoute && !isExactSvampdata && !isStartPage,
+        'ml-[350px]': isSidebarOpen && !isExactSvampdata && !isStartPage,
+        'ml-[64px]':
+          !isSidebarOpen &&
+          !isSvampdataSubRoute &&
+          !isExactSvampdata &&
+          !isStartPage,
+        'ml-[20px]': isSidebarOpen && isDocumentation,
+        'sync-transition': true,
+      }"
+    >
+      <div
+        :class="{
+          'py-4 pr-8 pt-2 pl-8': !isStartPage && !isExactSvampdata,
+          'lg:max-w-full 2xl:max-w-screen-2xl mx-auto ':
+            !isStartPage && !isExactSvampdata,
+        }"
+      >
+        <div :class="{ 'p-4 pt-8': !isStartPage && !isExactSvampdata }">
+          <slot />
+        </div>
       </div>
     </div>
   </div>
@@ -94,6 +119,10 @@ const titleStore = useTitleStore();
 const route = useRoute();
 const isStartPage = computed(() => route.path === "/");
 const isSvampdata = computed(() => route.path === "/svampdata");
+const isExactSvampdata = computed(() => route.path === "/svampdata");
+const isSvampdataSubRoute = computed(() =>
+  route.path.startsWith("/svampdata/")
+);
 
 const isDocumentation = computed(() => route.path === "/guide");
 
