@@ -2,9 +2,9 @@
   <!-- Geography Options -->
 
   <div
-    class="grid grid-cols-1 gap-3 p-5 pb-12 border-l-[1px] dark:border-neutral-800 border-neutral-00 w-96 h-screen bg-neutral-50 dark:bg-neutral-900 overflow-y-scroll shrink-0"
+    class="grid grid-cols-4 gap-3 p-5 pb-12 dark:border-neutral-800 border-neutral-00 w-fulloverflow-y-scroll shrink-0"
   >
-    <div class="flex justify-between pb-">
+    <!-- <div class="flex justify-between pb-">
       <BaseHeading>Miljö</BaseHeading>
       <BaseThemeSwitch />
     </div>
@@ -16,11 +16,11 @@
         Uppgifter om beståndsålder och markvegetation behöver väljas
         manuellt.</BaseProse
       >
-    </div>
+    </div> -->
     <div>
       <label class="text-neutral-400 text-sm">Geografi</label>
       <div
-        class="p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
         <div>
           <div
@@ -56,7 +56,7 @@
     <div>
       <label class="text-neutral-400 text-sm">Skogstyp</label>
       <div
-        class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
         <div>
           <div
@@ -92,7 +92,7 @@
     <div>
       <label class="text-neutral-400 text-sm">Beståndsålder</label>
       <div
-        class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
         <div>
           <div
@@ -128,7 +128,7 @@
     <div>
       <label class="text-neutral-400 text-sm">Markvegetation</label>
       <div
-        class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
         <div>
           <div

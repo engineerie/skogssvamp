@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed h-screen px-3 py-4 bg-neutral-100 dark:bg-neutral-900 dark:bg-opacity-100 border-r-[1px] dark:border-neutral-800 border-neutral-300 flex flex-col justify-between"
+    class="fixed h-screen px-3 py-4 bg-neutral-100 dark:bg-neutral-900 dark:bg-opacity-50 border-r-[1px] dark:border-neutral-700 border-neutral-300 flex flex-col justify-between"
   >
     <div class="flex flex-col items-center">
       <NuxtLink

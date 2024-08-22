@@ -5,7 +5,7 @@
       width="805"
       v-if="imageUrl"
       :src="imageUrl"
-      class="image-fit border-b-[1px] dark:border-neutral-800 border-neutral-200"
+      class="image-fit border-b-[1px] dark:border-neutral-700 border-neutral-200"
       format="webp"
     />
     <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />

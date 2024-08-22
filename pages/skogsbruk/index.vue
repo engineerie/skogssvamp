@@ -21,7 +21,8 @@
           rounded="none"
           mask="hexed"
           :class="{
-            ' -translate-y-1 bg-violet-400': selectedFrameworkIndex === 0,
+            ' -translate-y-1 bg-violet-400 dark:bg-violet-400':
+              selectedFrameworkIndex === 0,
           }"
           class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-violet-400 dark:bg-neutral-500/20 dark:group-hover:bg-violet-400"
         >
@@ -41,9 +42,9 @@
           size="md"
           weight="medium"
           lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600"
+          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
           :class="{
-            ' text-muted-600': selectedFrameworkIndex === 0,
+            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 0,
           }"
         >
           Trakthygge
@@ -59,7 +60,8 @@
           mask="hexed"
           class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-sky-400 dark:bg-neutral-500/20 dark:group-hover:bg-sky-400"
           :class="{
-            '  bg-sky-400 -translate-y-1': selectedFrameworkIndex === 3,
+            '  bg-sky-400 dark:bg-sky-400 -translate-y-1':
+              selectedFrameworkIndex === 3,
           }"
         >
           <BaseIconBox
@@ -75,9 +77,9 @@
           size="md"
           weight="medium"
           lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600"
+          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
           :class="{
-            ' text-muted-600': selectedFrameworkIndex === 3,
+            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 3,
           }"
         >
           Luckhuggning
@@ -93,7 +95,8 @@
           rounded="none"
           mask="hexed"
           :class="{
-            ' -translate-y-1 bg-orange-400': selectedFrameworkIndex === 4,
+            ' -translate-y-1 bg-orange-400 dark:bg-orange-400':
+              selectedFrameworkIndex === 4,
           }"
           class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-orange-400 dark:bg-neutral-500/20 dark:group-hover:bg-orange-400"
         >
@@ -113,9 +116,9 @@
           size="md"
           weight="medium"
           lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600"
+          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
           :class="{
-            ' text-muted-600': selectedFrameworkIndex === 4,
+            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 4,
           }"
         >
           Skärmträd
@@ -130,7 +133,8 @@
           rounded="none"
           mask="hexed"
           :class="{
-            ' -translate-y-1 bg-teal-400': selectedFrameworkIndex === 2,
+            ' -translate-y-1 bg-teal-400 dark:bg-teal-400':
+              selectedFrameworkIndex === 2,
           }"
           class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-teal-400 dark:bg-neutral-500/20 dark:group-hover:bg-teal-400"
         >
@@ -150,9 +154,9 @@
           size="md"
           weight="medium"
           lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600"
+          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
           :class="{
-            ' text-muted-600': selectedFrameworkIndex === 2,
+            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 2,
           }"
         >
           Blädning
@@ -168,7 +172,8 @@
           mask="hexed"
           class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-green-400 dark:bg-neutral-500/20 dark:group-hover:bg-green-400"
           :class="{
-            ' -translate-y-1 bg-primary-400 ': selectedFrameworkIndex === 1,
+            ' -translate-y-1 bg-primary-400 dark:bg-primary-400 ':
+              selectedFrameworkIndex === 1,
           }"
         >
           <BaseIconBox
@@ -187,9 +192,9 @@
           size="md"
           weight="medium"
           lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600"
+          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
           :class="{
-            ' text-muted-600': selectedFrameworkIndex === 1,
+            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 1,
           }"
         >
           Naturskydd

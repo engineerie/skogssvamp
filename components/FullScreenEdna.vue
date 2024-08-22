@@ -1,5 +1,10 @@
 <template>
   <div>
+    <NuxtImg
+      height="270"
+      src="/images/filtskinn.jpg"
+      class="rounded-xl mb-2 hidden"
+    />
     <!-- <transition name="fade" mode="out-in">
       <div
         v-if="selectedRows.length > 0"
@@ -38,14 +43,14 @@
     <transition name="slide">
       <div
         v-if="selectedRows.length > 0"
-        class="fixed pointer-events-none top-0 right-0 h-full w-80 border-l dark:border-neutral-800 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-900"
+        class="fixed pointer-events-none top-0 right-0 h-full w-80 border-l dark:border-neutral-700 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-800"
       >
         <!-- Transparent Top Section -->
         <div class="h-14 bg-transparent pointer-events-none"></div>
 
         <!-- Sidebar Content with Background -->
         <div
-          class="relative bg-neutral-100 dark:bg-neutral-900 h-full pointer-events-auto"
+          class="relative bg-neutral-100 dark:bg-neutral-800 h-full pointer-events-auto"
         >
           <div class="p-5">
             <div class="flex justify-between items-end mb-2">
@@ -89,7 +94,7 @@
         <BaseHeading
           size="3xl"
           weight="medium"
-          class="text-neutral-800 dark:text-neutral-300"
+          class="text-neutral-800 dark:text-neutral-200"
           >Mykorrhizasvampar</BaseHeading
         >
       </div>
@@ -109,7 +114,7 @@
 
         <!-- display the  "sample_env_count" here  -->
         <div
-          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
+          class="flex items-end px-3 -mr-2 pb-1.5 bg-white dark:bg-neutral-800 border-[0.5px] border-neutral-300 dark:border-neutral-600 rounded-l-full text-neutral-400"
         >
           <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
             >{{ totalItems }}
@@ -117,7 +122,7 @@
           <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
         </div>
         <div
-          class="flex items-end pl-2 pr-4 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+          class="flex items-end pl-2 pr-4 pb-1.5 bg-white dark:bg-neutral-800 border-[0.5px] border-neutral-300 dark:border-neutral-600 rounded-r-full text-neutral-400"
         >
           <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
             >{{ sampleEnvCount }}
@@ -150,7 +155,7 @@
 
     <div
       :class="{ 'rounded-xl': !isNormalView }"
-      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
     >
       <div v-if="filteredData" class="col-span-6">
         <div class="">
@@ -161,21 +166,22 @@
             id="scrollbar"
             :class="{ 'h-[420px]': isNormalView }"
             :sort-button="{
-              color: 'text-neutral-700 dark:text-neutral-300',
+              color: 'text-neutral-700 dark:text-neutral-200',
               size: 'xl',
             }"
             :ui="{
               td: {
                 base: 'max-w-52 truncate',
                 size: 'text-md',
-                color: 'text-neutral-500 dark:text-neutral-400',
+                color: 'text-neutral-500 dark:text-neutral-300',
               },
-              thead: 'sticky top-0 bg-white shadow-sm shadow-neutral-300 z-20',
-              tbody: 'divide-y divide-neutral-200 dark:divide-neutral-800',
+              thead:
+                'sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-20',
+              tbody: 'divide-y divide-neutral-200 dark:divide-neutral-700',
               tr: {
-                selected: 'bg-neutral-100 dark:bg-neutral-900',
+                selected: 'bg-neutral-100 dark:bg-neutral-800',
                 active:
-                  'hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-900',
+                  'hover:bg-neutral-100 dark:hover:bg-neutral-700 active:bg-neutral-200 dark:active:bg-neutral-800',
               },
             }"
             :columns="columns"
@@ -255,7 +261,7 @@
             <!-- ...other columns... -->
           </UTable>
           <div
-            class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-800"
+            class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-700"
           >
             <div>
               <!-- Display the current range and total items -->
@@ -284,8 +290,8 @@
                     icon="i-heroicons-chevron-left-20-solid"
                     size="lg"
                     color="white"
-                    :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                    class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                    :ui="{ rounded: 'rounded-full dark:border-neutral-700' }"
+                    class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-800 border-[0.5px]"
                     @click="onClick"
                   />
                 </template>
@@ -296,8 +302,8 @@
                     icon="i-heroicons-chevron-right-20-solid"
                     size="lg"
                     color="white"
-                    :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                    class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                    :ui="{ rounded: 'rounded-full dark:border-neutral-700' }"
+                    class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-800 border-[0.5px]"
                     @click="onClick"
                   />
                 </template>

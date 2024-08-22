@@ -67,9 +67,14 @@
       <!-- Hero Image -->
       <div class="mt-4 z-10">
         <img
-          src="/images/SeSvampenIDinSkog.png"
+          src="/images/HeroImageDark.jpg"
+          alt="App Screenshot in Dark Mode"
+          class="mx-auto rounded-lg shadow-lg max-w-full h-auto hidden dark:block"
+        />
+        <img
+          src="/images/HeroImage.jpg"
           alt="App Screenshot"
-          class="mx-auto rounded-lg shadow-lg max-w-full h-auto"
+          class="mx-auto rounded-lg shadow-lg max-w-full h-auto dark:hidden"
         />
       </div>
     </div>

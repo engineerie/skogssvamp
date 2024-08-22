@@ -115,7 +115,7 @@
       <transition name="fade" mode="out-in">
         <div
           v-if="activeTab === 'spatialForest'"
-          class="h-[505px] overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+          class="h-[505px] overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
         >
           <SpatialForest
             :geography="geography"

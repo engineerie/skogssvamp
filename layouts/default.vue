@@ -9,22 +9,19 @@
       @toggleSidebar="toggleSidebar"
       class="z-30"
     />
-    <div
-      v-if="!isExactSvampdata"
-      class="container mx-auto flex justify-between items-center"
-    >
+    <div class="container mx-auto flex justify-between items-center">
       <div
         :class="[
           'fixed top-0 left-0 right-0 flex justify-between items-center z-20 transition-all duration-300',
           {
             hidden: isStartPage,
-            'ml-20': isSvampdataSubRoute && !isStartPage,
+            'ml-16': isSvampdataSubRoute && !isStartPage,
             'ml-[350px]': isSidebarOpen && !isStartPage,
             'ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
             'ml-[20px]': isSidebarOpen && isDocumentation,
           },
         ]"
-        class="bg-neutral-100 dark:bg-neutral-900 py-2 px-6"
+        class="bg-neutral-100 dark:bg-neutral-800 py-2 px-6"
       >
         <div class="flex gap-2">
           <button @click="toggleSidebar">
@@ -75,12 +72,11 @@
     </div>
     <div
       :class="{
-        'pt-0': isExactSvampdata,
-        'pt-12': !isExactSvampdata && !isStartPage,
+        'pt-12': !isStartPage,
 
         'pl-0': isStartPage,
-        'ml-20 ': isSvampdataSubRoute && !isExactSvampdata && !isStartPage,
-        'ml-[350px]': isSidebarOpen && !isExactSvampdata && !isStartPage,
+        'ml-16 ': !isStartPage,
+        'ml-[350px]': isSidebarOpen && !isStartPage,
         'ml-[64px]':
           !isSidebarOpen &&
           !isSvampdataSubRoute &&
@@ -92,7 +88,7 @@
     >
       <div
         :class="{
-          'py-4 pr-8 pt-2 pl-8': !isStartPage && !isExactSvampdata,
+          'py-4 pt-2 pl-6 pr-4': !isStartPage,
           'lg:max-w-full 2xl:max-w-screen-2xl mx-auto ':
             !isStartPage && !isExactSvampdata,
         }"
