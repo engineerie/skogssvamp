@@ -74,9 +74,46 @@
             <BaseHeading size="lg">{{
               capitalize(selectedRows[0].snamn)
             }}</BaseHeading>
-            <BaseHeading weight="light" size="sm">{{
+            <BaseHeading weight="light" size="sm" class="mb-2">{{
               selectedRows[0].taxon
             }}</BaseHeading>
+            <NuxtLink
+              :to="stripDetailsFromURL(selectedRows[0].Artfakta)"
+              target="blank"
+              class="text-md font-thin mb-3"
+            >
+              Artfakta.se
+            </NuxtLink>
+            <div class="flex mt-3 items-center">
+              <div
+                :class="getStatusColor(selectedRows[0].RL2020kat)"
+                class="h-7 w-7 rounded-full flex items-center justify-center text-white text-sm mr-2"
+              >
+                {{ getStatusAbbreviation(selectedRows[0].RL2020kat) }}
+              </div>
+              <BaseHeading weight="light" size="sm">{{
+                getStatusTooltip(selectedRows[0].RL2020kat)
+              }}</BaseHeading>
+            </div>
+
+            <div class="flex my-2">
+              <NuxtImg
+                v-if="selectedRows['Svamp-grupp-släkte'] !== 'Saknas'"
+                :src="getIconPath(selectedRows[0]['Svamp-grupp-släkte'])"
+                class="w-6 mr-2"
+                alt="Svamp Icon"
+              />
+              <BaseHeading weight="light" size="sm">{{
+                capitalize(selectedRows[0]["Svamp-grupp-släkte"])
+              }}</BaseHeading>
+            </div>
+            <div v-if="selectedRows[0].matsvamp === 1" class="flex">
+              <Icon
+                name="icon-park-solid:knife-fork"
+                class="h-7 w-7 text-yellow-500 mr-2"
+              />
+              <BaseHeading weight="light" size="sm"> Matsvamp </BaseHeading>
+            </div>
           </div>
         </div>
       </div>
@@ -351,8 +388,20 @@
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
-const selectedRows = ref([]); // Tracks the selected rows
+// Method to strip 'detaljer' from the URL if it exists
+const stripDetailsFromURL = (url) => {
+  if (!url) return "";
+  return url.replace("/detaljer", "");
+};
 
+// Example selectedRows data
+const selectedRows = ref([
+  {
+    snamn: "Example Name",
+    taxon: "Example Taxon",
+    Artfakta: "https://artfakta.se/taxa/6090/detaljer", // Example URL
+  },
+]);
 function selectRow(row) {
   selectedRows.value = [row]; // Store the selected row in the array
 }
