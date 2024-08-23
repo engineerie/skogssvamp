@@ -328,8 +328,24 @@
       <div
         class="relative p-3 h-full backdrop-blur-3xl rounded-xl text-neutral-500 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200 flex flex-col justify-between"
       >
-        Tidsspecifik information, förklara vad som händer i just den bilden som
-        visas
+        <!-- Chart Section -->
+        <div
+          v-if="VueApexCharts && chartSeries.length"
+          class="text-neutral-500"
+        >
+          <VueApexCharts
+            :key="`${chartWidth}-${timeLabel}`"
+            height="280px"
+            width="100%"
+            type="bar"
+            :options="chartOptions"
+            :series="chartSeries"
+          />
+        </div>
+        <div v-else class="flex justify-center">
+          <!-- Placeholder, styled with Tailwind CSS -->
+          <BasePlaceload class="h-[300px] w-full m-2" />
+        </div>
       </div>
     </div>
   </div>
@@ -338,6 +354,113 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import { useTitleStore } from "~/stores/titleStore";
+
+const VueApexCharts = shallowRef(null);
+
+onMounted(async () => {
+  if (process.client) {
+    const module = await import("vue3-apexcharts");
+    VueApexCharts.value = module.default;
+  }
+});
+
+// const chartSeries = ref([
+//   {
+//     name: "Series 1",
+//     data: [
+//       { x: "Category 1", y: 10, fillColor: "#ffffff" }, // White
+//       { x: "Category 2", y: 20, fillColor: "#808080" }, // Gray
+//       { x: "Category 3", y: 30, fillColor: "#000000" }, // Black
+//       { x: "Category 4", y: 40, fillColor: "#ff0000" }, // Red
+//     ],
+//   },
+// ]);
+
+const chartSeries = computed(() => {
+  const valuesMap = {
+    före: {
+      white: 20,
+      gray: 30,
+      black: 20,
+      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 2,
+    },
+    efter: { white: 1, gray: 1, black: 1, red: 0 },
+    20: {
+      white: 35,
+      gray: 8,
+      black: 1,
+      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 0,
+    },
+    50: {
+      white: 30,
+      gray: 10,
+      black: 3,
+      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 0,
+    },
+    80: {
+      white: 15,
+      gray: 18,
+      black: 20,
+      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 0,
+    },
+  };
+
+  const timeValues = valuesMap[timeLabel.value] || valuesMap["före"];
+
+  return [
+    {
+      name: "Series 1",
+      data: [
+        { x: "Skinnsvampar", y: timeValues.white, fillColor: "#e5e5e5" },
+        { x: "Soppar", y: timeValues.gray, fillColor: "#737373" },
+        { x: "Spindlingar", y: timeValues.black, fillColor: "#0a0a0a" },
+        { x: "Rödlistade", y: timeValues.red, fillColor: "#ef4444" },
+      ],
+    },
+  ];
+});
+const chartOptions = ref({
+  chart: {
+    toolbar: {
+      show: false,
+    },
+  },
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      distributed: true,
+    },
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  xaxis: {
+    categories: ["Skinnsvampar", "Soppar", "Spindlingar", "Rödlistade"],
+    labels: {
+      show: false, // Hide labels on the x-axis
+    },
+  },
+  yaxis: {
+    min: 0, // Set the minimum value of the y-axis
+    max: 40, // Set the maximum value of the y-axis
+    labels: {
+      show: false, // Hide labels on the y-axis
+    },
+  },
+  grid: {
+    show: false, // Hide the grid lines behind the bars
+  },
+  fill: {
+    opacity: 1,
+    colors: undefined,
+  },
+  legend: {
+    show: true,
+    markers: {
+      fillColors: ["#e5e5e5", "#737373", "#0a0a0a", "#ef4444"], // Match colors with the columns
+    },
+  },
+});
 
 // Reactive references for state management
 const time = ref(25);
@@ -381,6 +504,14 @@ const frameworks = [
     icon: "simple-icons:redwoodjs",
   },
 ];
+
+onMounted(async () => {
+  if (process.client) {
+    const module = await import("vue3-apexcharts");
+    VueApexCharts.value = module.default;
+    // Optionally, load data here or elsewhere
+  }
+});
 
 const timesLabels = [
   "Innan avverkning",
