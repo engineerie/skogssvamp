@@ -395,13 +395,7 @@ const stripDetailsFromURL = (url) => {
 };
 
 // Example selectedRows data
-const selectedRows = ref([
-  {
-    snamn: "Example Name",
-    taxon: "Example Taxon",
-    Artfakta: "https://artfakta.se/taxa/6090/detaljer", // Example URL
-  },
-]);
+const selectedRows = ref([]);
 function selectRow(row) {
   selectedRows.value = [row]; // Store the selected row in the array
 }
