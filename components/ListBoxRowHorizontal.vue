@@ -134,7 +134,7 @@
     </div>
   </div>
   <!-- Navigation Buttons -->
-  <div class="flex justify-end">
+  <!-- <div class="flex justify-end">
     <div class="mt-2">
       <div>
         <NuxtLink :to="generateParams()">
@@ -151,30 +151,20 @@
         </NuxtLink>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
 import { ref, watch, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const props = defineProps({
   geographyFromMap: String,
 });
 
-const validCombinations = ref([]);
-
-// Fetching valid combinations on mounted
-onMounted(async () => {
-  const response = await fetch("/validCombinations.json");
-  validCombinations.value = await response.json();
-});
-
-const fields = reactive({
-  first: "",
-});
-
+const router = useRouter();
 const route = useRoute();
+const validCombinations = ref([]);
 
 // Options for the select fields
 const geographyOptions = [
@@ -207,6 +197,18 @@ const vegetationTypeOptions = [
   { value: "KråkbärLjung", label: "Kråkbär och Ljung" },
 ];
 
+// Fetching valid combinations on mounted
+onMounted(async () => {
+  const response = await fetch("/validCombinations.json");
+  validCombinations.value = await response.json();
+
+  // Initialize selectedOptions based on current route params
+  selectedOptions.value.geography = route.params.geography || null;
+  selectedOptions.value.forestType = route.params.forestType || null;
+  selectedOptions.value.standAge = route.params.standAge || null;
+  selectedOptions.value.vegetationType = route.params.vegetationType || null;
+});
+
 // Reactive state based on route parameters
 const selectedOptions = ref({
   geography: null,
@@ -215,18 +217,41 @@ const selectedOptions = ref({
   vegetationType: null,
 });
 
-function isButtonDisabled() {
-  // Check if any of the selected options are null or undefined
-  return Object.values(selectedOptions.value).some(
-    (option) => option === null || option === undefined
-  );
-}
+// Watch for changes in selected options and update the URL
+watch(
+  selectedOptions,
+  () => {
+    if (
+      selectedOptions.value.geography &&
+      selectedOptions.value.forestType &&
+      selectedOptions.value.standAge &&
+      selectedOptions.value.vegetationType
+    ) {
+      const newPath = generateParams();
+      router.push(newPath); // or router.replace(newPath) if you want to replace the current URL without adding to the history
+    }
+  },
+  { deep: true }
+);
+
+// Watch for changes in the route params and update the selectedOptions accordingly
+watch(
+  () => route.params,
+  (newParams) => {
+    selectedOptions.value.geography = newParams.geography || null;
+    selectedOptions.value.forestType = newParams.forestType || null;
+    selectedOptions.value.standAge = newParams.standAge || null;
+    selectedOptions.value.vegetationType = newParams.vegetationType || null;
+  },
+  { immediate: true }
+);
 
 // Function to update selections and toggle the checkbox
 function updateSelection(value, category) {
   selectedOptions.value[category] =
     selectedOptions.value[category] === value ? null : value;
 }
+
 const enabledGeographyOptions = computed(() => {
   return geographyOptions.map((option) => ({
     ...option,
@@ -311,27 +336,6 @@ const enabledVegetationTypes = computed(() => {
   }));
 });
 
-// Compute initial state from route parameters and setup watchers
-watch(
-  () => route.params,
-  (newParams) => {
-    selectedOptions.value.geography = newParams.geography || null;
-    selectedOptions.value.forestType = newParams.forestType || null;
-    selectedOptions.value.standAge = newParams.standAge || null;
-    selectedOptions.value.vegetationType = newParams.vegetationType || null;
-  },
-  { immediate: true }
-);
-
-// Watcher to react to changes in geography from the map
-watch(
-  () => props.geographyFromMap,
-  (newGeography) => {
-    selectedOptions.value.geography = newGeography;
-  },
-  { immediate: true }
-);
-
 const generateParams = () => {
   if (
     !selectedOptions.value.geography ||
@@ -351,6 +355,15 @@ const generateParams = () => {
 
   return `/svampdata/dashboard/${path}`;
 };
+
+// Watcher to react to changes in geography from the map
+watch(
+  () => props.geographyFromMap,
+  (newGeography) => {
+    selectedOptions.value.geography = newGeography;
+  },
+  { immediate: true }
+);
 </script>
 
 <style>

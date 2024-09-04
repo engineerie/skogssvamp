@@ -104,7 +104,7 @@ const listBoxRowHeight = ref("0px");
 
 const toggleHeight = () => {
   listBoxRowVisible.value = !listBoxRowVisible.value;
-  listBoxRowHeight.value = listBoxRowVisible.value ? "314px" : "0px";
+  listBoxRowHeight.value = listBoxRowVisible.value ? "275px" : "0px";
 };
 
 const route = useRoute();
