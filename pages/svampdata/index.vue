@@ -5,15 +5,19 @@
       <MapboxMap
         map-id="myMap"
         :options="{
-          style: 'mapbox://styles/engineeriee/clrqylxgt00em01peeru3593y',
-          center: [15.448, 61.255],
-          zoom: 12,
+          style: 'mapbox://styles/mapbox/standard-satellite',
+          center: [15.448, 60.255],
+          zoom: 6,
         }"
         style="position: relative; top: 0; bottom: 0; height: 400px"
         @click="updateMarker"
         @onLoad="onMapLoad"
       >
+        <MapboxNavigationControl />
+        <MapboxGeolocateControl />
+        <MapboxScaleControl />
         <MapboxGeocoder
+          position="top-left"
           class="rounded-xl"
           ref="geocoderRef"
           :options="{
