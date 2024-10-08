@@ -105,7 +105,7 @@ const cycleSkog = () => {
 };
 
 onMounted(() => {
-  setInterval(cycleSkog, 6000); // Change every 2 seconds
+  setInterval(cycleSkog, 12000); // Change every 12 seconds
 });
 </script>
 

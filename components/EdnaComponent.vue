@@ -6,6 +6,25 @@
         v-if="activeTab === 'columnChart'"
         class="flex gap-2 absolute right-0 top-3"
       >
+        <div class="flex items-end h-10">
+          <div class="w-28">
+            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+              >Dataunderlag</BaseHeading
+            >
+
+            <div class="flex items-end">
+              <UProgress
+                :color="color"
+                :indicator="false"
+                :value="sampleEnvCount"
+                :max="100"
+                size="2xl"
+                :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
+              />
+            </div>
+          </div>
+        </div>
+
         <div
           class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
         >
@@ -238,6 +257,22 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+
+const sampleEnvCount = computed(() => {
+  // Check if data is not empty and return the sample_env_count of the first item
+  return data.value.length > 0 ? data.value[0].sample_env_count : 0;
+});
+
+const color = computed(() => {
+  switch (true) {
+    case sampleEnvCount.value < 10:
+      return "red";
+    case sampleEnvCount.value < 50:
+      return "amber";
+    default:
+      return "primary";
+  }
+});
 
 const props = defineProps({
   isNormalView: Boolean,

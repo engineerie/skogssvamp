@@ -1,0 +1,38 @@
+[
+  {
+    "SpeciesCode": "SI18-529",
+    "taxon": "Paxillus involutus",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "https://artfakta.se/artinformation/taxa/6051059/detaljer",
+    "RL2020kat": "0",
+    "Svamp-grupp": "hattsvamp",
+    "Svamp-Undersvamp-grupp": "0",
+    "SIGNAL_art": "0",
+    "Svampguiden": "0",
+    "Nya svamp-boken": "0",
+    "Genus": "Paxillus",
+    "sample_plot_count": 1,
+    "sample_env_count": 2,
+    "Svamp-grupp-släkte": "hattsvamp"
+  },
+  {
+    "SpeciesCode": "SI21-15007",
+    "taxon": "Hymenogaster sp.5",
+    "snamn": "Saknar svenskt namn",
+    "matsvamp": 0,
+    "total_presence": 1,
+    "Artfakta": "Information saknas",
+    "RL2020kat": "0",
+    "Svamp-grupp": "0",
+    "Svamp-Undersvamp-grupp": "0",
+    "SIGNAL_art": "0",
+    "Svampguiden": "0",
+    "Nya svamp-boken": "0",
+    "Genus": "Hymenogaster",
+    "sample_plot_count": 1,
+    "sample_env_count": 2,
+    "Svamp-grupp-släkte": "tryffel"
+  }
+]

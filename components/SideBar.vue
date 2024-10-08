@@ -1,9 +1,9 @@
 <template>
   <aside :class="[sidebarClass, 'sync-transition']" aria-label="Sidebar">
     <div
-      class="h-full px-6 py-4 overflow-y-auto bg-neutral-50 dark:bg-neutral-900 border-r-[1px] dark:border-neutral-800 border-neutral-300"
+      class="h-full px-3 py-2 overflow-y-auto bg-neutral-50 dark:bg-neutral-900 border-r-[1px] dark:border-neutral-800 border-neutral-300"
     >
-      <div class="flex flex-col ml-[88px]">
+      <div class="flex flex-col ml-[80px]">
         <div v-if="currentDirectory === 'svampdata'" class="">
           <SbSvamp />
         </div>
@@ -39,7 +39,7 @@ const currentDirectory = ref("");
 
 const sidebarClass = computed(() => {
   return isSidebarOpen.value
-    ? "fixed top-0 left-0 z-40 w-[370px] h-screen translate-x-0"
+    ? "fixed top-0 left-0 z-40 w-[420px] h-screen translate-x-0"
     : "fixed top-0 left-0 z-40 w-64 h-screen -translate-x-full";
 });
 

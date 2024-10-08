@@ -16,7 +16,7 @@
           {
             hidden: isStartPage,
             'ml-16': isSvampdataSubRoute && !isStartPage,
-            'ml-[350px]': isSidebarOpen && !isStartPage,
+            'ml-[400px]': isSidebarOpen && !isStartPage,
             'ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
             'ml-[20px]': isSidebarOpen && isDocumentation,
           },
@@ -25,7 +25,8 @@
       >
         <div class="flex gap-2">
           <button @click="toggleSidebar">
-            <Bars3CenterLeftIcon
+            <Icon
+              name="material-symbols-light:data-info-alert-rounded"
               v-if="!isSidebarOpen"
               class="h-10 w-10 ml-3 text-green-500"
             />
@@ -76,7 +77,7 @@
 
         'pl-0': isStartPage,
         'ml-16 ': !isStartPage,
-        'ml-[350px]': isSidebarOpen && !isStartPage,
+        'ml-[400px]': isSidebarOpen && !isStartPage,
         'ml-[64px]':
           !isSidebarOpen &&
           !isSvampdataSubRoute &&

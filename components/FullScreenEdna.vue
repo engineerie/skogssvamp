@@ -118,78 +118,91 @@
         </div>
       </div>
     </transition>
-    <div
-      class="flex justify-between mb-2 items-end"
-      :class="{ 'mt-3': isNormalView }"
-    >
-      <div class="flex items-end" v-if="props.isNormalView == false">
-        <div
-          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-        >
-          <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+    <div class="">
+      <div
+        class="flex justify-between mb-2 items-end"
+        :class="{ 'mt-3': isNormalView }"
+      >
+        <div class="flex items-end" v-if="props.isNormalView == false">
+          <div
+            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
+          >
+            <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+          </div>
+          <BaseHeading
+            size="3xl"
+            weight="medium"
+            class="text-neutral-800 dark:text-neutral-200"
+            >Mykorrhizasvampar</BaseHeading
+          >
         </div>
-        <BaseHeading
-          size="3xl"
-          weight="medium"
-          class="text-neutral-800 dark:text-neutral-200"
-          >Mykorrhizasvampar</BaseHeading
-        >
-      </div>
-      <div v-else></div>
+        <div v-else></div>
 
-      <div class="flex gap-2 items-end">
-        <div v-if="!props.isNormalView" class="w-20">
-          <BaseListbox
-            v-model="rowsPerPage"
-            :items="[5, 10, 20, 30, 40, 50]"
-            placeholder="Rader per sida"
+        <div class="flex gap-2 items-end">
+          <div class="flex items-end h-10">
+            <div class="w-28">
+              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+                >Dataunderlag</BaseHeading
+              >
+
+              <div class="flex items-end">
+                <UProgress
+                  :color="color"
+                  :indicator="false"
+                  :value="sampleEnvCount"
+                  :max="100"
+                  size="2xl"
+                  :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
+                  indicator
+                />
+              </div>
+            </div>
+          </div>
+          <div v-if="!props.isNormalView" class="w-20">
+            <BaseListbox
+              v-model="rowsPerPage"
+              :items="[5, 10, 20, 30, 40, 50]"
+              placeholder="Rader per sida"
+              shape="full"
+              label="Rader"
+              label-float
+            />
+          </div>
+
+          <!-- display the  "sample_env_count" here  -->
+
+          <div
+            class="flex items-end px-3 pb-1.5 bg-white dark:bg-neutral-800 border-[0.5px] border-neutral-300 dark:border-neutral-600 rounded-full text-neutral-400"
+          >
+            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+              >{{ totalItems }}
+            </BaseHeading>
+            <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
+          </div>
+          <BaseInput
+            icon="i-heroicons-magnifying-glass-20-solid"
+            v-model="searchQuery"
             shape="full"
-            label="Rader"
-            label-float
+            placeholder="Sök i tabell"
           />
+          <BaseButtonIcon
+            shape="full"
+            @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
+          >
+            <Icon
+              v-if="props.isNormalView"
+              name="material-symbols:open-in-full"
+              class="size-5"
+            />
+            <Icon
+              v-else
+              name="material-symbols:close-fullscreen"
+              class="size-5"
+            />
+          </BaseButtonIcon>
         </div>
-
-        <!-- display the  "sample_env_count" here  -->
-        <div
-          class="flex items-end px-3 -mr-2 pb-1.5 bg-white dark:bg-neutral-800 border-[0.5px] border-neutral-300 dark:border-neutral-600 rounded-l-full text-neutral-400"
-        >
-          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-            >{{ totalItems }}
-          </BaseHeading>
-          <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
-        </div>
-        <div
-          class="flex items-end pl-2 pr-4 pb-1.5 bg-white dark:bg-neutral-800 border-[0.5px] border-neutral-300 dark:border-neutral-600 rounded-r-full text-neutral-400"
-        >
-          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-            >{{ sampleEnvCount }}
-          </BaseHeading>
-          <BaseHeading weight="medium" size="xs">Provytor</BaseHeading>
-        </div>
-        <BaseInput
-          icon="i-heroicons-magnifying-glass-20-solid"
-          v-model="searchQuery"
-          shape="full"
-          placeholder="Sök i tabell"
-        />
-        <BaseButtonIcon
-          shape="full"
-          @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
-        >
-          <Icon
-            v-if="props.isNormalView"
-            name="material-symbols:open-in-full"
-            class="size-5"
-          />
-          <Icon
-            v-else
-            name="material-symbols:close-fullscreen"
-            class="size-5"
-          />
-        </BaseButtonIcon>
       </div>
     </div>
-
     <div
       :class="{ 'rounded-xl': !isNormalView }"
       class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
@@ -208,7 +221,7 @@
             }"
             :ui="{
               td: {
-                base: 'max-w-52 truncate',
+                base: 'max-w-52',
                 size: 'text-md',
                 color: 'text-neutral-500 dark:text-neutral-300',
               },
@@ -225,11 +238,14 @@
             :rows="paginatedData"
             @select="selectRow"
           >
-            <template v-if="isNormalView" #total_presence-data="{ row, index }">
+            <template
+              v-if="isNormalView"
+              #sample_plot_count-data="{ row, index }"
+            >
               <div class="flex items-center justify-center">
                 <div
                   data-nui-tooltip-position="right"
-                  :data-nui-tooltip="`Förekomst: ${row['total_presence']}`"
+                  :data-nui-tooltip="`Förekommer i ${row['sample_plot_count']} av ${sampleEnvCount} skogar`"
                 >
                   <Icon
                     name="fluent:shape-organic-16-filled"
@@ -243,7 +259,9 @@
               <div>{{ capitalize(row.snamn) }}</div>
             </template>
             <template #taxon-data="{ row }">
-              <div class="italic font-thin">{{ row.taxon }}</div>
+              <div class="italic font-thin max-w-52 truncate">
+                {{ row.taxon }}
+              </div>
             </template>
             <template #Svamp-grupp-släkte-data="{ row }">
               <div
@@ -267,20 +285,30 @@
             </template>
             <!-- Inside your UTable where you define templates for data rows -->
             <template #RL2020kat-data="{ row }">
-              <div
-                data-nui-tooltip-position="left"
-                :data-nui-tooltip="
-                  row['RL2020kat'] !== 'Saknas'
-                    ? getStatusTooltip(row.RL2020kat)
-                    : 'Ej bedömd'
-                "
-                class="ml-2"
-              >
+              <div class="flex items-center space-x-2">
+                <!-- Existing Status Circle -->
+
                 <div
                   :class="getStatusColor(row.RL2020kat)"
-                  class="h-8 w-8 rounded-full flex items-center justify-center text-white"
+                  class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0"
+                  data-nui-tooltip-position="left"
+                  :data-nui-tooltip="
+                    row['RL2020kat'] !== 'Saknas'
+                      ? getStatusTooltip(row.RL2020kat)
+                      : 'Ej bedömd'
+                  "
                 >
                   {{ getStatusAbbreviation(row.RL2020kat) }}
+                </div>
+
+                <!-- Conditional Blue 'S' Circle -->
+                <div v-if="row.SIGNAL_art === 'S'" class="relative">
+                  <div
+                    class="h-8 w-8 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10"
+                    :data-nui-tooltip="'Signalart'"
+                  >
+                    S
+                  </div>
                 </div>
               </div>
             </template>
@@ -304,8 +332,8 @@
               <!-- Display the current range and total items -->
               <BaseProse class="text-sm"
                 >Visar {{ startItem }} till {{ endItem }} av
-                {{ totalItems }} arter</BaseProse
-              >
+                {{ totalItems }} arter
+              </BaseProse>
             </div>
             <div>
               <!-- Pagination component -->
@@ -387,6 +415,17 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+
+const color = computed(() => {
+  switch (true) {
+    case sampleEnvCount.value < 10:
+      return "red";
+    case sampleEnvCount.value < 50:
+      return "amber";
+    default:
+      return "primary";
+  }
+});
 
 // Method to strip 'detaljer' from the URL if it exists
 const stripDetailsFromURL = (url) => {
@@ -526,7 +565,7 @@ const getStatusTooltip = (status) => {
 // Define columns for your table
 const columns = [
   {
-    key: "total_presence",
+    key: "sample_plot_count",
     label: props.isNormalView ? "" : "Förekomst",
     sortable: props.isNormalView ? false : true,
     render: (row, index) => ({
@@ -557,7 +596,7 @@ const columns = [
   },
   {
     key: "RL2020kat",
-    label: "Naturvård",
+    label: "Status",
     sortable: props.isNormalView ? false : true,
     render: (row) => {
       const statusAbbr = getStatusAbbreviation(row.RL2020kat);

@@ -12,8 +12,7 @@
       />
     </div>
     <div v-else class="flex justify-center">
-      <!-- Placeholder, styled with Tailwind CSS -->
-      <BasePlaceload class="h-[300px] w-full m-2" />
+      <div class="h-[300px] w-full m-2"></div>
     </div>
   </div>
 </template>
@@ -168,16 +167,16 @@ const fetchChartData = async () => {
     if (newData && newData.length > 0) {
       data.value = newData;
       totalSum.value = data.value.reduce(
-        (acc, row) => acc + row.total_presence,
+        (acc, row) => acc + row.sample_plot_count,
         0
       );
-      data.value.sort((a, b) => b.total_presence - a.total_presence);
+      data.value.sort((a, b) => b.sample_plot_count - a.sample_plot_count);
 
       const newCategories = data.value.map((row) => row.taxon);
 
       const currentAnnotationsPoints = data.value.map((row) => ({
         x: row.taxon,
-        y: row.total_presence,
+        y: row.sample_plot_count,
         marker: {
           size: 10,
           fillColor: "transparent",
@@ -196,7 +195,7 @@ const fetchChartData = async () => {
         .filter((row) => row.matsvamp === 1)
         .map((row) => ({
           x: row.taxon,
-          y: row.total_presence,
+          y: row.sample_plot_count,
           marker: {
             size: 10,
             fillColor: "transparent",
@@ -215,7 +214,7 @@ const fetchChartData = async () => {
         .filter((row) => ["NT", "EN", "VU", "CR"].includes(row.RL2020kat))
         .map((row) => ({
           x: row.taxon,
-          y: row.total_presence,
+          y: row.sample_plot_count,
           marker: {
             size: 10,
             fillColor: "transparent",
@@ -279,7 +278,7 @@ const fetchChartData = async () => {
           name: "Förekomst",
           data: data.value.map((row, index) => ({
             x: row.taxon,
-            y: row.total_presence,
+            y: row.sample_plot_count,
             fillColor: individualBarColors[index],
             color: individualBarColors[index],
             snamn: row.snamn,
@@ -298,10 +297,10 @@ const fetchChartData = async () => {
 function updateCountsAndPercentages() {
   const top4Sum = data.value
     .slice(0, 4)
-    .reduce((acc, row) => acc + row.total_presence, 0);
+    .reduce((acc, row) => acc + row.sample_plot_count, 0);
   const next10Sum = data.value
     .slice(4, 14)
-    .reduce((acc, row) => acc + row.total_presence, 0);
+    .reduce((acc, row) => acc + row.sample_plot_count, 0);
   const remainingSum = totalSum.value - top4Sum - next10Sum;
 
   top4Percentage.value = ((top4Sum / totalSum.value) * 100).toFixed(0);

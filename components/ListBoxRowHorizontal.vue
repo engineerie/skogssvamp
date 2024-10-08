@@ -1,6 +1,6 @@
 <template>
   <!-- Geography Options -->
-  <div class="grid grid-cols-4 gap-5">
+  <div class="grid grid-cols-4 gap-5 overflow-visible">
     <div
       class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
     >
@@ -9,6 +9,8 @@
           v-for="option in enabledGeographyOptions"
           :key="option.value"
           class="flex justify-between mb-2 text-neutral-500"
+          @mouseover="setHoveredDescription(option.description)"
+          @mouseleave="clearHoveredDescription"
         >
           <label
             :for="'geography-' + option.value"
@@ -42,6 +44,8 @@
           v-for="option in enabledForestTypes"
           :key="option.value"
           class="flex justify-between mb-2 text-neutral-500"
+          @mouseover="setHoveredDescription(option.description)"
+          @mouseleave="clearHoveredDescription"
         >
           <label
             :for="'forestType-' + option.value"
@@ -75,6 +79,8 @@
           v-for="option in enabledStandAges"
           :key="option.value"
           class="flex justify-between mb-2 text-neutral-500"
+          @mouseover="setHoveredDescription(option.description)"
+          @mouseleave="clearHoveredDescription"
         >
           <label
             :for="'standAge-' + option.value"
@@ -108,6 +114,8 @@
           v-for="option in enabledVegetationTypes"
           :key="option.value"
           class="flex justify-between mb-2 text-neutral-500"
+          @mouseover="setHoveredDescription(option.description)"
+          @mouseleave="clearHoveredDescription"
         >
           <label
             :for="'vegetationType-' + option.value"
@@ -131,6 +139,11 @@
           />
         </div>
       </div>
+    </div>
+  </div>
+  <div class="text-neutral-400 text-sm relative overflow-visible">
+    <div class="absolute -bottom-2 left-0 w-3/4">
+      <div class="flex items-end">{{ hoveredDescription }}</div>
     </div>
   </div>
   <!-- Navigation Buttons -->
@@ -158,6 +171,19 @@
 import { ref, watch, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
+// State to track hovered description
+const hoveredDescription = ref("");
+
+// Function to update hovered description
+const setHoveredDescription = (description) => {
+  hoveredDescription.value = description || "";
+};
+
+// Function to clear hovered description
+const clearHoveredDescription = () => {
+  hoveredDescription.value = "";
+};
+
 const props = defineProps({
   geographyFromMap: String,
 });
@@ -168,17 +194,52 @@ const validCombinations = ref([]);
 
 // Options for the select fields
 const geographyOptions = [
-  { value: "Norr", label: "Norra Sverige" },
-  { value: "Söder", label: "Södra Sverige" },
+  {
+    value: "Norr",
+    label: "Norra Sverige",
+    description: "Norr om latitude 60°",
+  },
+  {
+    value: "Söder",
+    label: "Södra Sverige",
+    description: "Söder om latitude 60°",
+  },
 ];
 const forestTypeOptions = [
-  { value: "Granskog", label: "Granskog" },
-  { value: "Tallskog", label: "Tallskog" },
-  { value: "Barrblandskog", label: "Blandad barrskog" },
-  { value: "Lövblandskog", label: "Blandad lövskog" },
-  { value: "Lövskog", label: "Lövskog" },
-  { value: "EkBokskog", label: "Ek och Bokskog" },
-  { value: "Naturbete", label: "Naturbete" },
+  {
+    value: "Granskog",
+    label: "Granskog",
+    description: "Minst 70% barrträd och varav minst 70% av barrträden är gran",
+  },
+  {
+    value: "Tallskog",
+    label: "Tallskog",
+    description: "Minst 70% barrträd och varav minst 70% av barrträden är tall",
+  },
+  {
+    value: "Barrblandskog",
+    label: "Blandad barrskog",
+    description:
+      "Minst 70% barrträd varav varken tall eller gran utgör 70% av barrträden",
+  },
+  {
+    value: "Lövblandskog",
+    label: "Blandad lövskog",
+    description:
+      "31-69% lövträd respektive barrträd, samt hygge med jordslag mull",
+  },
+  { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
+  {
+    value: "EkBokskog",
+    label: "Ek och Bokskog",
+    description:
+      "Minst 70% lövträd varav minst 70% av lövträden är ek eller bok",
+  },
+  {
+    value: "Naturbete",
+    label: "Naturbete",
+    description: "Trädbevuxna gräsmarker för bestesdjur",
+  },
 ];
 const standAgeOptions = [
   { value: "1-40", label: "1-40 år" },
@@ -187,14 +248,49 @@ const standAgeOptions = [
   { value: "allaåldrar", label: "Alla åldrar" },
 ];
 const vegetationTypeOptions = [
-  { value: "Högört", label: "Högört" },
-  { value: "Lågört", label: "Lågört" },
+  {
+    value: "Högört",
+    label: "Högört",
+    description:
+      "Typarter är brudborste, högvuxna ormbunkar, kärrfibbla, kärrtistel, ormbär, stormhatt, strätta, älgört och ängssyra.",
+  },
+  {
+    value: "Lågört",
+    label: "Lågört",
+    description:
+      "Typarter är blodrot, bredbladiga gräs, ekbräken, ekorrbär, harsyra, humleblomster, kärrfräken, orkidéer och violarter. ",
+  },
   { value: "Utan fältskikt", label: "Utan fältskikt" },
-  { value: "Bredblad gräs", label: "Bredblad gräs" },
-  { value: "Smalblad gräs", label: "Smalblad gräs" },
-  { value: "Blåbär", label: "Blåbär" },
-  { value: "Lingon", label: "Lingon" },
-  { value: "KråkbärLjung", label: "Kråkbär och Ljung" },
+  {
+    value: "Bredblad gräs",
+    label: "Bredblad gräs",
+    description:
+      "Gräsarter med breda och ofta saftrika blad, t.ex. hässlebrodd och tuvtåtel. Här kan också örnbräken och enstaka typarter för hög- och lågörttyperna förekomma.",
+  },
+  {
+    value: "Smalblad gräs",
+    label: "Smalblad gräs",
+    description:
+      "Där gräs, örnbräken och örter täcker mer än 1/4 av marken och där gräsarter med trådsmala blad, t.ex. kruståtel och fårsvingel dominerar.",
+  },
+  {
+    value: "Blåbär",
+    label: "Blåbär",
+    description:
+      "Där mer än 1/2 av marken täcks av blåbär, ormbunkar och lummer.",
+  },
+  {
+    value: "Lingon",
+    label: "Lingon",
+    description:
+      "Där mer än 1/2 av marken täcks av lingon och mjölon samt örter, gräs, ormbunkar, lummer och blåbär.",
+  },
+  {
+    value: "KråkbärLjung",
+    label: "Kråkbär och Ljung",
+    description:
+      "Där mer än 1/2 av marken täcks av kråkbär, ljung och klockljung samt lingon, ormbunkar, lummer och blåbär.",
+  },
 ];
 
 // Fetching valid combinations on mounted

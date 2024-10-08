@@ -1,5 +1,59 @@
 <template>
   <div class="w-full h-full overflow-auto p-4 pr-2">
+    <!-- Modal -->
+    <UModal v-model="isModalOpen" v-if="isModalOpen">
+      <UCard
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
+        <template #header>
+          <div class="flex justify-between">
+            <div class="flex items-end">
+              <Icon
+                name="material-symbols:info-rounded"
+                class="h-9 w-9 text-green-500 mr-4"
+              />
+              <BaseHeading
+                size="2xl"
+                weight="thin"
+                class="text-neutral-800 dark:text-neutral-200"
+                >Välj miljö</BaseHeading
+              >
+            </div>
+            <BaseButtonIcon
+              shape="full"
+              size="sm"
+              @click="isModalOpen = false"
+              class=""
+            >
+              <Icon name="material-symbols:close" class="size-4" />
+            </BaseButtonIcon>
+          </div>
+        </template>
+
+        <UCard class="relative">
+          <BaseProse class="ml-2 my-4">
+            Sök och klicka på kartan för att hämta information om geografi och
+            skogstyp från nationell marktäckedata. Du kan även välja manuellt i
+            kategorierna nedanför. Observera att beståndsålder och
+            markvegetation alltid måste anges manuellt.
+          </BaseProse>
+        </UCard>
+
+        <template #footer>
+          <BaseProse class="text-neutral-500">
+            Se
+            <NuxtLink to="/guide" class="underline" @click="isModalOpen = false"
+              >dokumentationen</NuxtLink
+            >
+            för mer information.
+          </BaseProse>
+        </template>
+      </UCard>
+    </UModal>
+
     <!-- Map Container with rounded corners and margin -->
     <div class="rounded-xl overflow-hidden shadow-lg">
       <MapboxMap
@@ -54,7 +108,10 @@
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from "vue";
+import { ref, computed, nextTick, onMounted } from "vue";
+
+// State to control modal visibility
+const isModalOpen = ref(false);
 
 // Store the longitude and latitude
 const lnglat = ref({ lng: 15.448, lat: 61.255 });
@@ -88,6 +145,11 @@ function updateMarker(event) {
 function handleGeographyChange(newGeography) {
   geographyOption.value = newGeography;
 }
+
+// Automatically open modal when the component is mounted
+onMounted(() => {
+  isModalOpen.value = true; // Show modal on load
+});
 </script>
 
 <style>

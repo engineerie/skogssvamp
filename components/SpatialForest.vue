@@ -1,4 +1,36 @@
 <template>
+  <!-- Info Button -->
+  <BaseIconBox
+    shape="full"
+    size="xs"
+    variant="solid"
+    color="muted"
+    class="fixed top-2 right-2 border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500"
+    @mouseover="isHovered = true"
+    @mouseleave="isHovered = false"
+  >
+    <Icon name="material-symbols:info-i-rounded" class="size-4" />
+  </BaseIconBox>
+
+  <!-- UCard that shows on hover -->
+  <Transition name="fade">
+    <UCard
+      v-show="isHovered"
+      class="fixed top-12 right-2 ml-12 bg-opacity-90 backdrop-blur-lg text-neutral-800 dark:text-neutral-300"
+      @mouseover="isHovered = true"
+      @mouseleave="isHovered = false"
+    >
+      <p>
+        Figuren illustrerar hur utbredningen av mykorrhizasvampars mycel kan se
+        ut i 41-90 år gamla tallskogar med blåbärsris i norra Sverige. De olika
+        färgerna representerar olika svampars frekvens: grått indikerar de
+        vanligaste arterna (4 arter), grönt visar de mindre vanliga arterna (10
+        arter), och lila representerar de ovanliga arterna (187 arter).
+      </p>
+    </UCard>
+  </Transition>
+
+  <!-- Image Section -->
   <div class="justify-center">
     <NuxtImg
       height="505"
@@ -9,15 +41,7 @@
       format="webp"
     />
     <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />
-    <div class="p-4 text-sm text-neutral-500">
-      <p>
-        Figuren illustrerar hur utbredningen av mykorrhizasvampars mycel kan se
-        ut i 41-90 år gamla tallskogar med blåbärsris i norra Sverige. De olika
-        färgerna representerar olika svampars frekvens: grått indikerar de
-        vanligaste arterna (4 arter), grönt visar de mindre vanliga arterna (10
-        arter), och lila representerar de ovanliga arterna (187 arter).
-      </p>
-    </div>
+    <div class="p-4 text-sm text-neutral-500"></div>
     <div class="hidden">
       <NuxtImg
         v-for="(src, index) in allImageUrls"
@@ -33,6 +57,10 @@
 
 <script setup>
 import { computed } from "vue";
+import { ref } from "vue";
+
+// State to track hover status
+const isHovered = ref(false);
 
 // Define props to receive data from the parent component
 const props = defineProps({
@@ -106,3 +134,15 @@ const allImageUrls = computed(() => {
   return urls;
 });
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

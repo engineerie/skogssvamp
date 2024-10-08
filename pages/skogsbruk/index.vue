@@ -197,7 +197,7 @@
             ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 1,
           }"
         >
-          Naturskydd
+          Inga åtgärder
         </BaseHeading>
       </div>
     </div>

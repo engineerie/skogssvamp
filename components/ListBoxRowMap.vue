@@ -2,21 +2,9 @@
   <!-- Geography Options -->
 
   <div
-    class="grid grid-cols-4 gap-3 p-5 pb-12 dark:border-neutral-800 border-neutral-00 w-fulloverflow-y-scroll shrink-0"
+    class="grid grid-cols-4 gap-3 p-5 pb-4 dark:border-neutral-800 border-neutral-00 w-fulloverflow-y-scroll shrink-0"
   >
-    <!-- <div class="flex justify-between pb-">
-      <BaseHeading>Miljö</BaseHeading>
-      <BaseThemeSwitch />
-    </div>
-    <div
-      class="p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
-    >
-      <BaseProse class="text-sm">
-        Välj geografi och skogstyp direkt på kartan eller i listorna nedan.
-        Uppgifter om beståndsålder och markvegetation behöver väljas
-        manuellt.</BaseProse
-      >
-    </div> -->
+    <!-- Geography Selection -->
     <div>
       <label class="text-neutral-400 text-sm">Geografi</label>
       <div
@@ -27,6 +15,8 @@
             v-for="option in enabledGeographyOptions"
             :key="option.value"
             class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
           >
             <label
               :for="'geography-' + option.value"
@@ -52,6 +42,7 @@
         </div>
       </div>
     </div>
+
     <!-- Forest Type Options -->
     <div>
       <label class="text-neutral-400 text-sm">Skogstyp</label>
@@ -63,6 +54,8 @@
             v-for="option in enabledForestTypes"
             :key="option.value"
             class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
           >
             <label
               :for="'forestType-' + option.value"
@@ -88,6 +81,7 @@
         </div>
       </div>
     </div>
+
     <!-- Stand Age Options -->
     <div>
       <label class="text-neutral-400 text-sm">Beståndsålder</label>
@@ -99,6 +93,8 @@
             v-for="option in enabledStandAges"
             :key="option.value"
             class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
           >
             <label
               :for="'standAge-' + option.value"
@@ -124,6 +120,7 @@
         </div>
       </div>
     </div>
+
     <!-- Vegetation Type Options -->
     <div>
       <label class="text-neutral-400 text-sm">Markvegetation</label>
@@ -135,6 +132,8 @@
             v-for="option in enabledVegetationTypes"
             :key="option.value"
             class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
           >
             <label
               :for="'vegetationType-' + option.value"
@@ -161,29 +160,39 @@
       </div>
     </div>
   </div>
-  <!-- Navigation Buttons -->
-  <div class="absolute bottom-4 right-6">
-    <NuxtLink :to="generateParams()" v-if="!isButtonDisabled()">
-      <BaseIconBox
-        flavor="solid"
-        color="primary"
-        shape="full"
-        size="md"
-        class="opacity-90 hover:h-14 hover:w-14 transition-all duration-100"
-      >
-        <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-      </BaseIconBox>
-    </NuxtLink>
-    <div v-else>
-      <BaseIconBox
-        shape="full"
-        flavor="solid"
-        color="default"
-        class="opacity-80 cursor-not-allowed"
-        size="md"
-      >
-        <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-      </BaseIconBox>
+
+  <!-- Description Display in Bottom Left Corner -->
+  <div class="flex justify-between items-start">
+    <div
+      class="p-4 rounded bg-gray-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm max-w-md relative"
+    >
+      <div class="fixed w-1/2">{{ hoveredDescription }}</div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="">
+      <NuxtLink :to="generateParams()" v-if="!isButtonDisabled()">
+        <BaseIconBox
+          flavor="solid"
+          color="primary"
+          shape="full"
+          size="md"
+          class="opacity-90 hover:h-14 hover:w-14 transition-all duration-100"
+        >
+          <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
+        </BaseIconBox>
+      </NuxtLink>
+      <div v-else>
+        <BaseIconBox
+          shape="full"
+          flavor="solid"
+          color="default"
+          class="opacity-80 cursor-not-allowed"
+          size="md"
+        >
+          <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
+        </BaseIconBox>
+      </div>
     </div>
   </div>
 </template>
@@ -191,6 +200,19 @@
 <script setup>
 import { ref, watch, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
+
+// State to track hovered description
+const hoveredDescription = ref("");
+
+// Function to update hovered description
+const setHoveredDescription = (description) => {
+  hoveredDescription.value = description || "";
+};
+
+// Function to clear hovered description
+const clearHoveredDescription = () => {
+  hoveredDescription.value = "";
+};
 
 // Inside ListBoxRowMap component
 function handleSelectionChange(selectedGeography) {
@@ -232,17 +254,52 @@ const route = useRoute();
 
 // Options for the select fields
 const geographyOptions = [
-  { value: "Norr", label: "Norra Sverige" },
-  { value: "Söder", label: "Södra Sverige" },
+  {
+    value: "Norr",
+    label: "Norra Sverige",
+    description: "Norr om latitude 60°",
+  },
+  {
+    value: "Söder",
+    label: "Södra Sverige",
+    description: "Söder om latitude 60°",
+  },
 ];
 const forestTypeOptions = [
-  { value: "Granskog", label: "Granskog" },
-  { value: "Tallskog", label: "Tallskog" },
-  { value: "Barrblandskog", label: "Blandad barrskog" },
-  { value: "Lövblandskog", label: "Blandad lövskog" },
-  { value: "Lövskog", label: "Lövskog" },
-  { value: "EkBokskog", label: "Ek och Bokskog" },
-  { value: "Naturbete", label: "Naturbete" },
+  {
+    value: "Granskog",
+    label: "Granskog",
+    description: "Minst 70% barrträd och varav minst 70% av barrträden är gran",
+  },
+  {
+    value: "Tallskog",
+    label: "Tallskog",
+    description: "Minst 70% barrträd och varav minst 70% av barrträden är tall",
+  },
+  {
+    value: "Barrblandskog",
+    label: "Blandad barrskog",
+    description:
+      "Minst 70% barrträd varav varken tall eller gran utgör 70% av barrträden",
+  },
+  {
+    value: "Lövblandskog",
+    label: "Blandad lövskog",
+    description:
+      "31-69% lövträd respektive barrträd, samt hygge med jordslag mull",
+  },
+  { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
+  {
+    value: "EkBokskog",
+    label: "Ek och Bokskog",
+    description:
+      "Minst 70% lövträd varav minst 70% av lövträden är ek eller bok",
+  },
+  {
+    value: "Naturbete",
+    label: "Naturbete",
+    description: "Trädbevuxna gräsmarker för bestesdjur",
+  },
 ];
 const standAgeOptions = [
   { value: "1-40", label: "1-40 år" },
@@ -251,14 +308,49 @@ const standAgeOptions = [
   { value: "allaåldrar", label: "Alla åldrar" },
 ];
 const vegetationTypeOptions = [
-  { value: "Högört", label: "Högört" },
-  { value: "Lågört", label: "Lågört" },
+  {
+    value: "Högört",
+    label: "Högört",
+    description:
+      "Torvmark som karakteriseras av högörter. Typarterna är brudborste, högvuxna ormbunkar, kärrfibbla, kärrtistel, ormbär, stormhatt, strätta, älgört och ängssyra.",
+  },
+  {
+    value: "Lågört",
+    label: "Lågört",
+    description:
+      "Torvmark som karakteriseras av lågörter och bredbladiga gräs. Typarterna är blodrot, bredbladiga gräs, ekbräken, ekorrbär, harsyra, humleblomster, kärrfräken, orkidéer och violarter. ",
+  },
   { value: "Utan fältskikt", label: "Utan fältskikt" },
-  { value: "Bredblad gräs", label: "Bredblad gräs" },
-  { value: "Smalblad gräs", label: "Smalblad gräs" },
-  { value: "Blåbär", label: "Blåbär" },
-  { value: "Lingon", label: "Lingon" },
-  { value: "KråkbärLjung", label: "Kråkbär och Ljung" },
+  {
+    value: "Bredblad gräs",
+    label: "Bredblad gräs",
+    description:
+      "Fastmark där mer än 1/4 av befintligt fältskikt huvudsakligen består av gräsarter med breda och ofta saftrika blad, t.ex. hässlebrodd och tuvtåtel. Här kan också örnbräken och enstaka typarter för hög- och lågörttyperna förekomma.",
+  },
+  {
+    value: "Smalblad gräs",
+    label: "Smalblad gräs",
+    description:
+      "Fastmark där gräs, örnbräken och örter täcker mer än 1/4 av BF och där gräsarter med trådsmala blad, t.ex. kruståtel och fårsvingel dominerar. Här kan också örter som mjölkört, liljekonvalje, pyrolaarter och skogsstjärna förekomma.",
+  },
+  {
+    value: "Blåbär",
+    label: "Blåbär",
+    description:
+      "Vegetationstyp på fastmark som kännetecknas av att mer än 1/2 av befintligt fältskikt täcks av blåbär, ormbunkar och lummer. Även mark som till mer än 1/4 täcks av starr- och fräkenväxter, men där blåbärsriset dominerar över de lågvuxna halvgräsen räknas hit.",
+  },
+  {
+    value: "Lingon",
+    label: "Lingon",
+    description:
+      "Vegetationstyp enligt Skogshögskolans boniteringssystem på fastmark där mer än 1/2 av befintligt fältskikt (BF) täcks av lingon och mjölon samt örter, gräs, ormbunkar, lummer och blåbär.",
+  },
+  {
+    value: "KråkbärLjung",
+    label: "Kråkbär och Ljung",
+    description:
+      "vegetationstyp enligt Skogshögskolans boniteringssystem på fastmark där mer än 1/2 av befintligt fältskikt (BF) täcks av kråkbär, ljung och klockljung samt lingon, ormbunkar, lummer och blåbär.",
+  },
 ];
 
 // Reactive state based on route parameters
