@@ -1,326 +1,318 @@
 <template>
-  <div class="hidden">
-    <NuxtImg
-      v-for="imagePath in allImagePaths"
-      :key="imagePath"
-      :src="imagePath"
-      width="1200"
-      format="webp"
-      quality="70"
-      alt="Preload Image"
-    />
-  </div>
-  <div class="grid grid-cols-4 gap-5 mb-8 pt-10">
-    <div class="flex justify-between col-span-3 px-12">
-      <div
-        class="flex flex-col items-center hover:cursor-pointer group"
-        @click="selectedFrameworkIndex = 0"
-      >
-        <BaseIconBox
-          size="lg"
-          rounded="none"
-          mask="hexed"
-          :class="{
-            ' -translate-y-1 bg-violet-400 dark:bg-violet-400':
-              selectedFrameworkIndex === 0,
-          }"
-          class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-violet-400 dark:bg-neutral-500/20 dark:group-hover:bg-violet-400"
-        >
-          <BaseIconBox
-            size="lg"
-            rounded="none"
-            mask="hexed"
-            class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
-          >
-            <Icon
-              name="material-symbols:resize"
-              class="icon size-7 text-violet-400"
-            />
-          </BaseIconBox>
-        </BaseIconBox>
-        <BaseHeading
-          size="md"
-          weight="medium"
-          lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
-          :class="{
-            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 0,
-          }"
-        >
-          Trakthygge
-        </BaseHeading>
-      </div>
-      <div
-        class="flex flex-col items-center group hover:cursor-pointer"
-        @click="selectedFrameworkIndex = 3"
-      >
-        <BaseIconBox
-          size="lg"
-          rounded="none"
-          mask="hexed"
-          class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-sky-400 dark:bg-neutral-500/20 dark:group-hover:bg-sky-400"
-          :class="{
-            '  bg-sky-400 dark:bg-sky-400 -translate-y-1':
-              selectedFrameworkIndex === 3,
-          }"
-        >
-          <BaseIconBox
-            size="lg"
-            rounded="none"
-            mask="hexed"
-            class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
-          >
-            <Icon name="pixelarticons:chess" class="icon size-6 text-sky-400" />
-          </BaseIconBox>
-        </BaseIconBox>
-        <BaseHeading
-          size="md"
-          weight="medium"
-          lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
-          :class="{
-            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 3,
-          }"
-        >
-          Luckhuggning
-        </BaseHeading>
-      </div>
-
-      <div
-        class="flex flex-col items-center group hover:cursor-pointer"
-        @click="selectedFrameworkIndex = 4"
-      >
-        <BaseIconBox
-          size="lg"
-          rounded="none"
-          mask="hexed"
-          :class="{
-            ' -translate-y-1 bg-orange-400 dark:bg-orange-400':
-              selectedFrameworkIndex === 4,
-          }"
-          class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-orange-400 dark:bg-neutral-500/20 dark:group-hover:bg-orange-400"
-        >
-          <BaseIconBox
-            size="lg"
-            rounded="none"
-            mask="hexed"
-            class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
-          >
-            <Icon
-              name="catppuccin:redwood"
-              class="icon size-6 text-orange-400"
-            />
-          </BaseIconBox>
-        </BaseIconBox>
-        <BaseHeading
-          size="md"
-          weight="medium"
-          lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
-          :class="{
-            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 4,
-          }"
-        >
-          Skärmträd
-        </BaseHeading>
-      </div>
-      <div
-        class="flex flex-col items-center group hover:cursor-pointer"
-        @click="selectedFrameworkIndex = 2"
-      >
-        <BaseIconBox
-          size="lg"
-          rounded="none"
-          mask="hexed"
-          :class="{
-            ' -translate-y-1 bg-teal-400 dark:bg-teal-400':
-              selectedFrameworkIndex === 2,
-          }"
-          class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-teal-400 dark:bg-neutral-500/20 dark:group-hover:bg-teal-400"
-        >
-          <BaseIconBox
-            size="lg"
-            rounded="none"
-            mask="hexed"
-            class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
-          >
-            <Icon
-              name="tabler:christmas-tree-off"
-              class="icon size-6 text-teal-400"
-            />
-          </BaseIconBox>
-        </BaseIconBox>
-        <BaseHeading
-          size="md"
-          weight="medium"
-          lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
-          :class="{
-            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 2,
-          }"
-        >
-          Blädning
-        </BaseHeading>
-      </div>
-      <div
-        class="flex flex-col items-center group hover:cursor-pointer"
-        @click="selectedFrameworkIndex = 1"
-      >
-        <BaseIconBox
-          size="lg"
-          rounded="none"
-          mask="hexed"
-          class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-green-400 dark:bg-neutral-500/20 dark:group-hover:bg-green-400"
-          :class="{
-            ' -translate-y-1 bg-primary-400 dark:bg-primary-400 ':
-              selectedFrameworkIndex === 1,
-          }"
-        >
-          <BaseIconBox
-            size="lg"
-            rounded="none"
-            mask="hexed"
-            class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
-          >
-            <Icon
-              name="pepicons-pop:tree-circle"
-              class="icon size-6 text-green-400"
-            />
-          </BaseIconBox>
-        </BaseIconBox>
-        <BaseHeading
-          size="md"
-          weight="medium"
-          lead="tight"
-          class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
-          :class="{
-            ' text-muted-600 dark:text-muted-100': selectedFrameworkIndex === 1,
-          }"
-        >
-          Inga åtgärder
-        </BaseHeading>
-      </div>
+  <div>
+    <div class="hidden">
+      <NuxtImg
+        v-for="imagePath in allImagePaths"
+        :key="imagePath"
+        :src="imagePath"
+        width="1200"
+        format="webp"
+        quality="70"
+        alt="Preload Image"
+      />
     </div>
-    <div class="col-span-1 items-end flex relative">
-      <transition name="fade" mode="out-in">
-        <BaseHeading size="4xl" weight="light" :key="currentFramework">
-          {{ currentFramework.label }}
-        </BaseHeading>
-      </transition>
-      <transition name="fade" mode="out-in">
-        <BaseHeading
-          size="xl"
-          weight="light"
-          class="absolute -bottom-6"
-          :key="currentStartskog"
+    <div class="grid grid-cols-4 gap-5 mb-8 pt-10">
+      <div class="flex justify-between col-span-3 px-12">
+        <div
+          class="flex flex-col items-center hover:cursor-pointer group"
+          @click="selectedFrameworkIndex = 0"
         >
-          {{ currentStartskog.label }}
-        </BaseHeading>
-      </transition>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-4 gap-5">
-    <div class="col-span-3">
-      <div class="zoomable-image relative">
-        <div class="absolute top-4 left-4 z-50">
-          <BaseButtonGroup>
-            <BaseButton
-              @click="selectedStartskogIndex = 0"
-              color="default"
-              size="sm"
-              shape="full"
+          <BaseIconBox
+            size="lg"
+            rounded="none"
+            mask="hexed"
+            :class="{
+              ' -translate-y-1 bg-violet-400 dark:bg-violet-400':
+                selectedFrameworkIndex === 0,
+            }"
+            class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-violet-400 dark:bg-neutral-500/20 dark:group-hover:bg-violet-400"
+          >
+            <BaseIconBox
+              size="lg"
+              rounded="none"
+              mask="hexed"
+              class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
             >
               <Icon
-                name="fluent-emoji-high-contrast:owl"
-                class="-ms-1 siz-5"
-                :class="{
-                  ' text-primary-500': selectedStartskogIndex === 0,
-                }"
+                name="material-symbols:resize"
+                class="icon size-7 text-violet-400"
               />
-              <span
-                :class="{
-                  ' text-primary-500': selectedStartskogIndex === 0,
-                }"
-                >Naturskog</span
-              >
-            </BaseButton>
-
-            <BaseButton
-              @click="selectedStartskogIndex = 1"
-              color="default"
-              size="sm"
-              shape="full"
+            </BaseIconBox>
+          </BaseIconBox>
+          <BaseHeading
+            size="md"
+            weight="medium"
+            lead="tight"
+            class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
+            :class="{
+              ' text-muted-600 dark:text-muted-100':
+                selectedFrameworkIndex === 0,
+            }"
+          >
+            Trakthygge
+          </BaseHeading>
+        </div>
+        <div
+          class="flex flex-col items-center group hover:cursor-pointer"
+          @click="selectedFrameworkIndex = 3"
+        >
+          <BaseIconBox
+            size="lg"
+            rounded="none"
+            mask="hexed"
+            class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-sky-400 dark:bg-neutral-500/20 dark:group-hover:bg-sky-400"
+            :class="{
+              '  bg-sky-400 dark:bg-sky-400 -translate-y-1':
+                selectedFrameworkIndex === 3,
+            }"
+          >
+            <BaseIconBox
+              size="lg"
+              rounded="none"
+              mask="hexed"
+              class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
             >
               <Icon
-                :class="{
-                  ' text-primary-500': selectedStartskogIndex === 1,
-                }"
-                name="healthicons:plantation-worker-alt"
-                class="-ms-1 size-5"
+                name="pixelarticons:chess"
+                class="icon size-6 text-sky-400"
               />
-              <span
-                :class="{
-                  ' text-primary-500': selectedStartskogIndex === 1,
-                }"
-                >Produktionsskog</span
-              >
-            </BaseButton>
-          </BaseButtonGroup>
-        </div>
-        <div class="flex gap-2 absolute top-4 right-4 z-50">
-          <BaseButtonIcon shape="full" size="sm" @click="showTree = !showTree">
-            <Icon
-              name="lucide:trees"
-              class="size-5"
-              :class="{ ' text-primary-500': showTree }"
-            />
-          </BaseButtonIcon>
-
-          <BaseButtonIcon
-            shape="full"
-            size="sm"
-            @click="showFungi = !showFungi"
+            </BaseIconBox>
+          </BaseIconBox>
+          <BaseHeading
+            size="md"
+            weight="medium"
+            lead="tight"
+            class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
+            :class="{
+              ' text-muted-600 dark:text-muted-100':
+                selectedFrameworkIndex === 3,
+            }"
           >
-            <Icon
-              name="fluent:shape-organic-24-filled"
-              class="size-5"
-              :class="{ ' text-primary-500': showFungi }"
-            />
-          </BaseButtonIcon>
-
-          <!-- New Compare Button -->
-          <BaseButtonIcon shape="full" size="sm" @click="toggleCompare">
-            <Icon
-              name="mdi:compare"
-              class="size-5"
-              :class="{ ' text-primary-500': isCompare }"
-            />
-          </BaseButtonIcon>
+            Luckhuggning
+          </BaseHeading>
         </div>
-        <NuxtImg
-          v-if="!isCompare"
-          slot="second"
-          width="1200"
-          style="width: 100%"
-          :src="currentImagePath"
-          class="z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
-          format="webp"
-          quality="70"
-        />
-        <ImgComparisonSlider class="slider-example-focus z-0" v-else>
-          <!-- eslint-disable -->
 
+        <div
+          class="flex flex-col items-center group hover:cursor-pointer"
+          @click="selectedFrameworkIndex = 4"
+        >
+          <BaseIconBox
+            size="lg"
+            rounded="none"
+            mask="hexed"
+            :class="{
+              ' -translate-y-1 bg-orange-400 dark:bg-orange-400':
+                selectedFrameworkIndex === 4,
+            }"
+            class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-orange-400 dark:bg-neutral-500/20 dark:group-hover:bg-orange-400"
+          >
+            <BaseIconBox
+              size="lg"
+              rounded="none"
+              mask="hexed"
+              class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
+            >
+              <Icon
+                name="catppuccin:redwood"
+                class="icon size-6 text-orange-400"
+              />
+            </BaseIconBox>
+          </BaseIconBox>
+          <BaseHeading
+            size="md"
+            weight="medium"
+            lead="tight"
+            class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
+            :class="{
+              ' text-muted-600 dark:text-muted-100':
+                selectedFrameworkIndex === 4,
+            }"
+          >
+            Skärmträd
+          </BaseHeading>
+        </div>
+        <div
+          class="flex flex-col items-center group hover:cursor-pointer"
+          @click="selectedFrameworkIndex = 2"
+        >
+          <BaseIconBox
+            size="lg"
+            rounded="none"
+            mask="hexed"
+            :class="{
+              ' -translate-y-1 bg-teal-400 dark:bg-teal-400':
+                selectedFrameworkIndex === 2,
+            }"
+            class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-teal-400 dark:bg-neutral-500/20 dark:group-hover:bg-teal-400"
+          >
+            <BaseIconBox
+              size="lg"
+              rounded="none"
+              mask="hexed"
+              class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
+            >
+              <Icon
+                name="tabler:christmas-tree-off"
+                class="icon size-6 text-teal-400"
+              />
+            </BaseIconBox>
+          </BaseIconBox>
+          <BaseHeading
+            size="md"
+            weight="medium"
+            lead="tight"
+            class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
+            :class="{
+              ' text-muted-600 dark:text-muted-100':
+                selectedFrameworkIndex === 2,
+            }"
+          >
+            Blädning
+          </BaseHeading>
+        </div>
+        <div
+          class="flex flex-col items-center group hover:cursor-pointer"
+          @click="selectedFrameworkIndex = 1"
+        >
+          <BaseIconBox
+            size="lg"
+            rounded="none"
+            mask="hexed"
+            class="relative mx-auto flex items-center justify-center size-16 scale-90 bg-neutral-200 transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-90 group-hover:bg-green-400 dark:bg-neutral-500/20 dark:group-hover:bg-green-400"
+            :class="{
+              ' -translate-y-1 bg-primary-400 dark:bg-primary-400 ':
+                selectedFrameworkIndex === 1,
+            }"
+          >
+            <BaseIconBox
+              size="lg"
+              rounded="none"
+              mask="hexed"
+              class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
+            >
+              <Icon
+                name="pepicons-pop:tree-circle"
+                class="icon size-6 text-green-400"
+              />
+            </BaseIconBox>
+          </BaseIconBox>
+          <BaseHeading
+            size="md"
+            weight="medium"
+            lead="tight"
+            class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
+            :class="{
+              ' text-muted-600 dark:text-muted-100':
+                selectedFrameworkIndex === 1,
+            }"
+          >
+            Inga åtgärder
+          </BaseHeading>
+        </div>
+      </div>
+      <div class="col-span-1 items-end flex relative">
+        <transition name="fade" mode="out-in">
+          <BaseHeading size="4xl" weight="light" :key="currentFramework">
+            {{ currentFramework.label }}
+          </BaseHeading>
+        </transition>
+        <transition name="fade" mode="out-in">
+          <BaseHeading
+            size="xl"
+            weight="light"
+            class="absolute -bottom-6"
+            :key="currentStartskog"
+          >
+            {{ currentStartskog.label }}
+          </BaseHeading>
+        </transition>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-5">
+      <div class="col-span-3">
+        <div class="zoomable-image relative">
+          <div class="absolute top-4 left-4 z-50">
+            <BaseButtonGroup>
+              <BaseButton
+                @click="selectedStartskogIndex = 0"
+                color="default"
+                size="sm"
+                shape="full"
+              >
+                <Icon
+                  name="fluent-emoji-high-contrast:owl"
+                  class="-ms-1 siz-5"
+                  :class="{
+                    ' text-primary-500': selectedStartskogIndex === 0,
+                  }"
+                />
+                <span
+                  :class="{
+                    ' text-primary-500': selectedStartskogIndex === 0,
+                  }"
+                  >Naturskog</span
+                >
+              </BaseButton>
+
+              <BaseButton
+                @click="selectedStartskogIndex = 1"
+                color="default"
+                size="sm"
+                shape="full"
+              >
+                <Icon
+                  :class="{
+                    ' text-primary-500': selectedStartskogIndex === 1,
+                  }"
+                  name="healthicons:plantation-worker-alt"
+                  class="-ms-1 size-5"
+                />
+                <span
+                  :class="{
+                    ' text-primary-500': selectedStartskogIndex === 1,
+                  }"
+                  >Produktionsskog</span
+                >
+              </BaseButton>
+            </BaseButtonGroup>
+          </div>
+          <div class="flex gap-2 absolute top-4 right-4 z-50">
+            <BaseButtonIcon
+              shape="full"
+              size="sm"
+              @click="showTree = !showTree"
+            >
+              <Icon
+                name="lucide:trees"
+                class="size-5"
+                :class="{ ' text-primary-500': showTree }"
+              />
+            </BaseButtonIcon>
+
+            <BaseButtonIcon
+              shape="full"
+              size="sm"
+              @click="showFungi = !showFungi"
+            >
+              <Icon
+                name="fluent:shape-organic-24-filled"
+                class="size-5"
+                :class="{ ' text-primary-500': showFungi }"
+              />
+            </BaseButtonIcon>
+
+            <!-- New Compare Button -->
+            <BaseButtonIcon shape="full" size="sm" @click="toggleCompare">
+              <Icon
+                name="mdi:compare"
+                class="size-5"
+                :class="{ ' text-primary-500': isCompare }"
+              />
+            </BaseButtonIcon>
+          </div>
           <NuxtImg
-            slot="first"
-            width="1200"
-            style="width: 100%"
-            :src="comparisonImagePath1"
-            class="z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
-            format="webp"
-            quality="70"
-          />
-          <NuxtImg
+            v-if="!isCompare"
             slot="second"
             width="1200"
             style="width: 100%"
@@ -329,58 +321,81 @@
             format="webp"
             quality="70"
           />
+          <ImgComparisonSlider class="slider-example-focus z-0" v-else>
+            <!-- eslint-disable -->
 
-          <!-- eslint-enable -->
-        </ImgComparisonSlider>
+            <NuxtImg
+              slot="first"
+              width="1200"
+              style="width: 100%"
+              :src="comparisonImagePath1"
+              class="z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+              format="webp"
+              quality="70"
+            />
+            <NuxtImg
+              slot="second"
+              width="1200"
+              style="width: 100%"
+              :src="currentImagePath"
+              class="z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+              format="webp"
+              quality="70"
+            />
 
-        <div class="absolute bottom-0 w-full p-5">
-          <URange
-            :step="25"
-            v-model="time"
-            size="sm"
-            :ui="{
-              track: {
-                background:
-                  '[&::-webkit-slider-runnable-track]:bg-gray-200/40 [&::-moz-range-track]:bg-gray-200/40 [&::-webkit-slider-runnable-track]:dark:bg-gray-700/40 [&::-moz-range-track]:dark:bg-gray-700/40',
-              },
-            }"
-          />
+            <!-- eslint-enable -->
+          </ImgComparisonSlider>
+
+          <div class="absolute bottom-0 w-full p-5">
+            <URange
+              :step="25"
+              v-model="time"
+              size="sm"
+              :ui="{
+                track: {
+                  background:
+                    '[&::-webkit-slider-runnable-track]:bg-gray-200/40 [&::-moz-range-track]:bg-gray-200/40 [&::-webkit-slider-runnable-track]:dark:bg-gray-700/40 [&::-moz-range-track]:dark:bg-gray-700/40',
+                },
+              }"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="relative flex flex-col h-full">
-      <div
-        class="relative p-3 h-full backdrop-blur-3xl rounded-xl text-neutral-500 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200 flex flex-col justify-between"
-      >
-        Övergripande information om valt skogsbrukssätts påverkan på marksvampar
-      </div>
-
-      <transition name="fade" mode="out-in">
-        <BaseHeading size="xl" weight="light" :key="timeLabel" class="mt-2">
-          {{ timeLabel }}
-        </BaseHeading>
-      </transition>
-
-      <div
-        class="relative p-3 h-full backdrop-blur-3xl rounded-xl text-neutral-500 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200 flex flex-col justify-between"
-      >
-        <!-- Chart Section -->
+      <div class="relative flex flex-col h-full">
         <div
-          v-if="VueApexCharts && chartSeries.length"
-          class="text-neutral-500"
+          class="relative p-3 h-full backdrop-blur-3xl rounded-xl text-neutral-500 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200 flex flex-col justify-between"
         >
-          <VueApexCharts
-            :key="`${chartWidth}-${timeLabel}`"
-            height="280px"
-            width="100%"
-            type="bar"
-            :options="chartOptions"
-            :series="chartSeries"
-          />
+          Övergripande information om valt skogsbrukssätts påverkan på
+          marksvampar
         </div>
-        <div v-else class="flex justify-center">
-          <!-- Placeholder, styled with Tailwind CSS -->
-          <BasePlaceload class="h-[300px] w-full m-2" />
+
+        <transition name="fade" mode="out-in">
+          <BaseHeading size="xl" weight="light" :key="timeLabel" class="mt-2">
+            {{ timeLabel }}
+          </BaseHeading>
+        </transition>
+
+        <div
+          class="relative p-3 h-full backdrop-blur-3xl rounded-xl text-neutral-500 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200 flex flex-col justify-between"
+        >
+          <!-- Chart Section -->
+          <div
+            v-if="VueApexCharts && chartSeries.length"
+            class="text-neutral-500"
+          >
+            <VueApexCharts
+              :key="`${chartWidth}-${timeLabel}`"
+              height="280px"
+              width="100%"
+              type="bar"
+              :options="chartOptions"
+              :series="chartSeries"
+            />
+          </div>
+          <div v-else class="flex justify-center">
+            <!-- Placeholder, styled with Tailwind CSS -->
+            <BasePlaceload class="h-[300px] w-full m-2" />
+          </div>
         </div>
       </div>
     </div>
