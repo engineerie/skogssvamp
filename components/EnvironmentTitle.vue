@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative pt-8">
     <div class="grid grid-cols-4 gap-5">
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="geographyLabel">

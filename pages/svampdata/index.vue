@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full overflow-auto p-4 pr-2">
+  <div class="w-full h-screen overflow-x-hidden pl-10 pr-6 pt-16 flex flex-col">
     <!-- Modal -->
     <UModal v-model="isModalOpen" v-if="isModalOpen">
       <UCard
@@ -55,7 +55,9 @@
     </UModal>
 
     <!-- Map Container with rounded corners and margin -->
-    <div class="rounded-xl overflow-hidden shadow-lg">
+    <div
+      class="rounded-xl overflow-hidden shadow-lg grow min-h-[200px] max-h-[600px] relative"
+    >
       <MapboxMap
         map-id="myMap"
         :options="{
@@ -63,7 +65,7 @@
           center: [15.448, 60.255],
           zoom: 6,
         }"
-        style="position: relative; top: 0; bottom: 0; height: 400px"
+        style="position: absolute; top: 0; bottom: 0; width: 100%"
         @click="updateMarker"
         @onLoad="onMapLoad"
       >
@@ -98,12 +100,13 @@
         </MapboxDefaultPopup>
       </MapboxMap>
     </div>
-
-    <!-- ListBoxRowMap below the map -->
-    <ListBoxRowMap
-      :geographyFromMap="geographyOption"
-      @update:geographyFromMap="handleGeographyChange"
-    />
+    <div class="h-96 mb-6">
+      <!-- ListBoxRowMap below the map -->
+      <ListBoxRowMap
+        :geographyFromMap="geographyOption"
+        @update:geographyFromMap="handleGeographyChange"
+      />
+    </div>
   </div>
 </template>
 

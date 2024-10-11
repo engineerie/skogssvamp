@@ -1,27 +1,30 @@
 <template>
   <div class="relative">
     <ThinSideBar
-      :class="{ 'hidden w-0': isStartPage, 'w-20': !isStartPage }"
-      class="z-50 transition-all duration-300"
+      :class="{ '-ml-20': isStartPage, 'ml-0 w-20': !isStartPage }"
+      class="z-50 transition-all duration-300 sync-transition"
     />
     <SideBar
       :isSidebarOpen="isSidebarOpen"
       @toggleSidebar="toggleSidebar"
-      class="z-30"
+      class="z-30 sync-transition"
     />
-    <div class="container mx-auto flex justify-between items-center">
+
+    <div
+      :class="[
+        'fixed top-0 left-0 right-0 flex justify-between items-center z-20 transition-all duration-300',
+        {
+          'ml-0 hidden': isStartPage,
+          'ml-16': isSvampdataSubRoute && !isStartPage,
+          'ml-[400px]': isSidebarOpen && !isStartPage,
+          'ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
+          'ml-[20px]': isSidebarOpen && isDocumentation,
+        },
+      ]"
+      class="bg-neutral-100 dark:bg-neutral-800 py-2"
+    >
       <div
-        :class="[
-          'fixed top-0 left-0 right-0 flex justify-between items-center z-20 transition-all duration-300',
-          {
-            hidden: isStartPage,
-            'ml-16': isSvampdataSubRoute && !isStartPage,
-            'ml-[400px]': isSidebarOpen && !isStartPage,
-            'ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
-            'ml-[20px]': isSidebarOpen && isDocumentation,
-          },
-        ]"
-        class="bg-neutral-100 dark:bg-neutral-800 py-2 px-6"
+        class="px-6 container flex justify-between items-center mx-auto lg:max-w-full 2xl:max-w-screen-2xl"
       >
         <div class="flex gap-2">
           <button @click="toggleSidebar">
@@ -73,7 +76,7 @@
     </div>
     <div
       :class="{
-        'pt-12': !isStartPage,
+        '': !isStartPage,
 
         'pl-0': isStartPage,
         'ml-16 ': !isStartPage,
@@ -89,9 +92,8 @@
     >
       <div
         :class="{
-          'py-4 pt-2 pl-6 pr-4': !isStartPage,
-          'lg:max-w-full 2xl:max-w-screen-2xl mx-auto ':
-            !isStartPage && !isExactSvampdata,
+          'py-4 pt-2 pl-6 pr-4': !isStartPage && !isExactSvampdata,
+          'lg:max-w-full 2xl:max-w-screen-2xl mx-auto ': !isStartPage,
         }"
       >
         <div :class="{ 'p-4 pt-8': !isStartPage && !isExactSvampdata }">

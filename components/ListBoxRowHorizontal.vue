@@ -142,8 +142,17 @@
     </div>
   </div>
   <div class="text-neutral-400 text-sm relative overflow-visible">
-    <div class="absolute -bottom-2 left-0 w-3/4">
-      <div class="flex items-end">{{ hoveredDescription }}</div>
+    <div class="absolute bottom-4 left-0 w-3/4">
+      <Transition name="fade">
+        <BaseMessage
+          v-if="hoveredDescription"
+          type="primary"
+          icon="material-symbols:info-i-rounded"
+          shape="full"
+          class="fixed max-w-3xl"
+          >{{ hoveredDescription }}</BaseMessage
+        >
+      </Transition>
     </div>
   </div>
   <!-- Navigation Buttons -->
@@ -197,12 +206,12 @@ const geographyOptions = [
   {
     value: "Norr",
     label: "Norra Sverige",
-    description: "Norr om latitude 60°",
+    description: "Norr om latitud 60°",
   },
   {
     value: "Söder",
     label: "Södra Sverige",
-    description: "Söder om latitude 60°",
+    description: "Söder om latitud 60°",
   },
 ];
 const forestTypeOptions = [

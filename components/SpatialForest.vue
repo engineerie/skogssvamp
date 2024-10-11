@@ -5,7 +5,7 @@
     size="xs"
     variant="solid"
     color="muted"
-    class="fixed top-2 right-2 border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500"
+    class="z-50 fixed top-2 right-2 border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500"
     @mouseover="isHovered = true"
     @mouseleave="isHovered = false"
   >
@@ -16,30 +16,40 @@
   <Transition name="fade">
     <UCard
       v-show="isHovered"
-      class="fixed top-12 right-2 ml-12 bg-opacity-90 backdrop-blur-lg text-neutral-800 dark:text-neutral-300"
+      class="z-50 fixed top-12 right-2 ml-12 bg-opacity-90 backdrop-blur-lg text-neutral-800 dark:text-neutral-300"
       @mouseover="isHovered = true"
       @mouseleave="isHovered = false"
     >
-      <p>
+      <BaseHeading weight="medium" size="sm">
         Figuren illustrerar hur utbredningen av mykorrhizasvampars mycel kan se
         ut i 41-90 år gamla tallskogar med blåbärsris i norra Sverige. De olika
         färgerna representerar olika svampars frekvens: grått indikerar de
         vanligaste arterna (4 arter), grönt visar de mindre vanliga arterna (10
         arter), och lila representerar de ovanliga arterna (187 arter).
-      </p>
+      </BaseHeading>
     </UCard>
   </Transition>
 
   <!-- Image Section -->
   <div class="justify-center">
-    <NuxtImg
-      height="505"
-      width="805"
-      v-if="imageUrl"
-      :src="imageUrl"
-      class="image-fit border-b-[1px] dark:border-neutral-700 border-neutral-200"
-      format="webp"
-    />
+    <div v-if="imageUrl">
+      <div class="relative">
+        <NuxtImg
+          height="505"
+          width="805"
+          :src="imageUrl"
+          class="image-fit border-b-[1px] dark:border-neutral-700 border-neutral-200"
+          format="webp"
+        />
+        <BaseHeading
+          weight="medium"
+          size="sm"
+          class="text-neutral-400 absolute bottom-1 left-2"
+          >Figuren visar hur mykorrhizasvampars mycelutbredning kan se
+          ut.</BaseHeading
+        >
+      </div>
+    </div>
     <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />
     <div class="p-4 text-sm text-neutral-500"></div>
     <div class="hidden">

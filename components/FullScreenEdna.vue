@@ -221,7 +221,7 @@
             }"
             :ui="{
               td: {
-                base: 'max-w-52',
+                base: 'max-w-80',
                 size: 'text-md',
                 color: 'text-neutral-500 dark:text-neutral-300',
               },
@@ -255,7 +255,13 @@
                 </div>
               </div>
             </template>
-            <template #snamn-data="{ row }">
+            <template #snamn-data="{ row }" v-if="isNormalView">
+              <div class="truncate">
+                {{ capitalize(row.snamn) }}
+                <span class="italic">({{ capitalize(row.taxon) }})</span>
+              </div>
+            </template>
+            <template #snamn-data="{ row }" v-if="!isNormalView">
               <div>{{ capitalize(row.snamn) }}</div>
             </template>
             <template #taxon-data="{ row }">
@@ -290,7 +296,7 @@
 
                 <div
                   :class="getStatusColor(row.RL2020kat)"
-                  class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0"
+                  class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0 max-w-12"
                   data-nui-tooltip-position="left"
                   :data-nui-tooltip="
                     row['RL2020kat'] !== 'Saknas'
@@ -315,7 +321,7 @@
 
             <!-- Custom rendering for matsvamp column -->
             <template #matsvamp-data="{ row }">
-              <div v-if="row.matsvamp === 1">
+              <div v-if="row.matsvamp === 1" class="">
                 <Icon
                   name="icon-park-solid:knife-fork"
                   class="h-7 w-7 text-yellow-500 -my-2"
@@ -562,7 +568,6 @@ const getStatusTooltip = (status) => {
   return tooltips[status] || "Ej bedömd";
 };
 
-// Define columns for your table
 const columns = [
   {
     key: "sample_plot_count",
@@ -577,22 +582,25 @@ const columns = [
     label: "Namn",
     sortable: props.isNormalView ? false : true,
   },
-  {
-    key: "taxon",
-    label: "Latinskt namn",
-    sortable: props.isNormalView ? false : true,
-  },
+  // Conditionally include the taxon column
+  ...(props.isNormalView
+    ? []
+    : [
+        {
+          key: "taxon",
+          label: "Latinskt namn",
+          sortable: true,
+        },
+      ]),
   {
     key: "Svamp-grupp-släkte",
-    label: props.isNormalView ? "Grupp" : "Grupp",
+    label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
   {
     key: "matsvamp",
     label: "Matsvamp",
     sortable: props.isNormalView ? false : true,
-
-    render: (row) => (row.matsvamp ? "Yes" : "No"),
   },
   {
     key: "RL2020kat",
