@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EnvironmentTitle class="z-20" />
+    <EnvironmentTitle class="z-50" />
 
     <!-- Modal -->
     <UModal v-model="isModalOpen" v-if="isModalOpen">

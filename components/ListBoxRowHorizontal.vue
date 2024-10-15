@@ -1,162 +1,163 @@
 <template>
-  <!-- Geography Options -->
-  <div class="grid grid-cols-4 gap-5 overflow-visible">
-    <div
-      class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
-    >
-      <div>
-        <div
-          v-for="option in enabledGeographyOptions"
-          :key="option.value"
-          class="flex justify-between mb-2 text-neutral-500"
-          @mouseover="setHoveredDescription(option.description)"
-          @mouseleave="clearHoveredDescription"
-        >
-          <label
-            :for="'geography-' + option.value"
-            :class="{
-              'opacity-40 cursor-not-allowed': option.disabled,
-              'cursor-pointer': !option.disabled,
-            }"
-            class="text-sm"
+  <div class="overflow-visible z-50">
+    <!-- Geography Options -->
+    <div class="grid grid-cols-4 gap-5 overflow-visible">
+      <div
+        class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+      >
+        <div>
+          <div
+            v-for="option in enabledGeographyOptions"
+            :key="option.value"
+            class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
           >
-            {{ option.label }}
-          </label>
-          <BaseCheckbox
-            :id="'geography-' + option.value"
-            color="primary"
-            :model-value="selectedOptions.geography === option.value"
-            @update:model-value="
-              () => updateSelection(option.value, 'geography')
-            "
-            :disabled="option.disabled"
-            shape="full"
-          />
+            <label
+              :for="'geography-' + option.value"
+              :class="{
+                'opacity-40 cursor-not-allowed': option.disabled,
+                'cursor-pointer': !option.disabled,
+              }"
+              class="text-sm"
+            >
+              {{ option.label }}
+            </label>
+            <BaseCheckbox
+              :id="'geography-' + option.value"
+              color="primary"
+              :model-value="selectedOptions.geography === option.value"
+              @update:model-value="
+                () => updateSelection(option.value, 'geography')
+              "
+              :disabled="option.disabled"
+              shape="full"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Forest Type Options -->
+      <div
+        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+      >
+        <div>
+          <div
+            v-for="option in enabledForestTypes"
+            :key="option.value"
+            class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
+          >
+            <label
+              :for="'forestType-' + option.value"
+              :class="{
+                'opacity-40 cursor-not-allowed': option.disabled,
+                'cursor-pointer': !option.disabled,
+              }"
+              class="text-sm"
+            >
+              {{ option.label }}
+            </label>
+            <BaseCheckbox
+              :id="'forestType-' + option.value"
+              color="primary"
+              :model-value="selectedOptions.forestType === option.value"
+              @update:model-value="
+                () => updateSelection(option.value, 'forestType')
+              "
+              :disabled="option.disabled"
+              shape="full"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Stand Age Options -->
+      <div
+        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+      >
+        <div>
+          <div
+            v-for="option in enabledStandAges"
+            :key="option.value"
+            class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
+          >
+            <label
+              :for="'standAge-' + option.value"
+              :class="{
+                'opacity-40 cursor-not-allowed': option.disabled,
+                'cursor-pointer': !option.disabled,
+              }"
+              class="text-sm"
+            >
+              {{ option.label }}
+            </label>
+            <BaseCheckbox
+              :id="'standAge-' + option.value"
+              color="primary"
+              :model-value="selectedOptions.standAge === option.value"
+              @update:model-value="
+                () => updateSelection(option.value, 'standAge')
+              "
+              :disabled="option.disabled"
+              shape="full"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Vegetation Type Options -->
+      <div
+        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+      >
+        <div>
+          <div
+            v-for="option in enabledVegetationTypes"
+            :key="option.value"
+            class="flex justify-between mb-2 text-neutral-500"
+            @mouseover="setHoveredDescription(option.description)"
+            @mouseleave="clearHoveredDescription"
+          >
+            <label
+              :for="'vegetationType-' + option.value"
+              :class="{
+                'opacity-40 cursor-not-allowed': option.disabled,
+                'cursor-pointer': !option.disabled,
+              }"
+              class="text-sm"
+            >
+              {{ option.label }}
+            </label>
+            <BaseCheckbox
+              :id="'vegetationType-' + option.value"
+              color="primary"
+              :model-value="selectedOptions.vegetationType === option.value"
+              @update:model-value="
+                () => updateSelection(option.value, 'vegetationType')
+              "
+              :disabled="option.disabled"
+              shape="full"
+            />
+          </div>
         </div>
       </div>
     </div>
-    <!-- Forest Type Options -->
-    <div
-      class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
-    >
-      <div>
-        <div
-          v-for="option in enabledForestTypes"
-          :key="option.value"
-          class="flex justify-between mb-2 text-neutral-500"
-          @mouseover="setHoveredDescription(option.description)"
-          @mouseleave="clearHoveredDescription"
-        >
-          <label
-            :for="'forestType-' + option.value"
-            :class="{
-              'opacity-40 cursor-not-allowed': option.disabled,
-              'cursor-pointer': !option.disabled,
-            }"
-            class="text-sm"
-          >
-            {{ option.label }}
-          </label>
-          <BaseCheckbox
-            :id="'forestType-' + option.value"
-            color="primary"
-            :model-value="selectedOptions.forestType === option.value"
-            @update:model-value="
-              () => updateSelection(option.value, 'forestType')
-            "
-            :disabled="option.disabled"
+    <div class="text-neutral-400 text-sm relative overflow-visible">
+      <div class="absolute -bottom-8 left-0 w-3/4 z-50 overflow-visible">
+        <Transition name="fade">
+          <BaseMessage
+            v-if="hoveredDescription"
+            type="primary"
+            icon="material-symbols:info-i-rounded"
             shape="full"
-          />
-        </div>
+            class="max-w-3xl z-50"
+            >{{ hoveredDescription }}</BaseMessage
+          >
+        </Transition>
       </div>
     </div>
-    <!-- Stand Age Options -->
-    <div
-      class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
-    >
-      <div>
-        <div
-          v-for="option in enabledStandAges"
-          :key="option.value"
-          class="flex justify-between mb-2 text-neutral-500"
-          @mouseover="setHoveredDescription(option.description)"
-          @mouseleave="clearHoveredDescription"
-        >
-          <label
-            :for="'standAge-' + option.value"
-            :class="{
-              'opacity-40 cursor-not-allowed': option.disabled,
-              'cursor-pointer': !option.disabled,
-            }"
-            class="text-sm"
-          >
-            {{ option.label }}
-          </label>
-          <BaseCheckbox
-            :id="'standAge-' + option.value"
-            color="primary"
-            :model-value="selectedOptions.standAge === option.value"
-            @update:model-value="
-              () => updateSelection(option.value, 'standAge')
-            "
-            :disabled="option.disabled"
-            shape="full"
-          />
-        </div>
-      </div>
-    </div>
-    <!-- Vegetation Type Options -->
-    <div
-      class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
-    >
-      <div>
-        <div
-          v-for="option in enabledVegetationTypes"
-          :key="option.value"
-          class="flex justify-between mb-2 text-neutral-500"
-          @mouseover="setHoveredDescription(option.description)"
-          @mouseleave="clearHoveredDescription"
-        >
-          <label
-            :for="'vegetationType-' + option.value"
-            :class="{
-              'opacity-40 cursor-not-allowed': option.disabled,
-              'cursor-pointer': !option.disabled,
-            }"
-            class="text-sm"
-          >
-            {{ option.label }}
-          </label>
-          <BaseCheckbox
-            :id="'vegetationType-' + option.value"
-            color="primary"
-            :model-value="selectedOptions.vegetationType === option.value"
-            @update:model-value="
-              () => updateSelection(option.value, 'vegetationType')
-            "
-            :disabled="option.disabled"
-            shape="full"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="text-neutral-400 text-sm relative overflow-visible">
-    <div class="absolute bottom-4 left-0 w-3/4">
-      <Transition name="fade">
-        <BaseMessage
-          v-if="hoveredDescription"
-          type="primary"
-          icon="material-symbols:info-i-rounded"
-          shape="full"
-          class="fixed max-w-3xl"
-          >{{ hoveredDescription }}</BaseMessage
-        >
-      </Transition>
-    </div>
-  </div>
-  <!-- Navigation Buttons -->
-  <!-- <div class="flex justify-end">
+    <!-- Navigation Buttons -->
+    <!-- <div class="flex justify-end">
     <div class="mt-2">
       <div>
         <NuxtLink :to="generateParams()">
@@ -174,6 +175,7 @@
       </div>
     </div>
   </div> -->
+  </div>
 </template>
 
 <script setup>

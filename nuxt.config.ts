@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   },
 
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    // pageTransition: { name: "page", mode: "out-in" },
     ssr: false, // Disable Server-Side rendering
     target: "static", // Set the deployment target to static
     // baseURL: '/skogssvamp/', // baseURL: '/<repository>/'

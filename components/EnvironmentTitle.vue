@@ -78,9 +78,14 @@
   <!-- Apply dynamic style for height transition -->
   <div
     :style="{ height: listBoxRowHeight }"
-    class="overflow-hidden transition-height ease-in-out duration-500"
+    class="overflow-visible transition-height ease-in-out duration-500"
   >
-    <ListBoxRowHorizontal class="overflow-visible" />
+    <Transition name="fade">
+      <ListBoxRowHorizontal
+        class="overflow-visible z-50"
+        v-if="listBoxRowVisible"
+      />
+    </Transition>
   </div>
   <div class="flex justify-end">
     <BaseButtonAction @click="toggleHeight" shape="full" class="mb-2">

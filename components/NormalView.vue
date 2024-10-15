@@ -1,24 +1,5 @@
 <template>
   <div class="grid grid-cols-12 gap-5">
-    <!-- Normal grid layout -->
-    <!-- <div class="col-span-9 flex flex-col">
-      <EnvironmentImage
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        class="flex-grow"
-      />
-    </div>
-    <div class="col-span-3 flex flex-col">
-      <SpeciesCount
-        class="flex-grow"
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-      />
-    </div> -->
     <div class="col-span-12">
       <EdnaComponent @enlarge="emitEnlarge('FullScreenEdna')" />
     </div>

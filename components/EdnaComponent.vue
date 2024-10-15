@@ -1,91 +1,92 @@
 <template>
-  <!-- list view -->
-  <div class="grid grid-cols-12 gap-4 relative">
-    <transition name="fade" mode="out-in">
-      <div
-        v-if="activeTab === 'columnChart'"
-        class="flex gap-2 absolute right-0 top-3"
-      >
-        <div class="flex items-end h-10">
-          <div class="w-28">
-            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Dataunderlag</BaseHeading
-            >
+  <div>
+    <!-- list view -->
+    <div class="grid grid-cols-12 gap-4 relative">
+      <transition name="fade" mode="out-in">
+        <div
+          v-if="activeTab === 'columnChart'"
+          class="flex gap-2 absolute right-0 top-3"
+        >
+          <div class="flex items-end h-10">
+            <div class="w-28">
+              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+                >Dataunderlag</BaseHeading
+              >
 
-            <div class="flex items-end">
-              <UProgress
-                :color="color"
-                :indicator="false"
-                :value="sampleEnvCount"
-                :max="100"
-                size="2xl"
-                :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
-              />
+              <div class="flex items-end">
+                <UProgress
+                  :color="color"
+                  :indicator="false"
+                  :value="sampleEnvCount"
+                  :max="100"
+                  size="2xl"
+                  :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div
-          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
-        >
-          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-            >{{ data ? data.length : 0 }}
-          </BaseHeading>
-          <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
-        </div>
-
-        <div
-          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-        >
-          <div class="flex items-end">
-            <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
-            <BaseHeading
-              size="xl"
-              weight="medium"
-              class="-mb-1 mx-1.5 text-gray-500"
-              >{{ top4Percentage }}%
+          <div
+            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
+          >
+            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+              >{{ data ? data.length : 0 }}
             </BaseHeading>
-            <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-              >{{ top4Count }} Arter</BaseHeading
-            >
+            <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
           </div>
-        </div>
-        <div
-          class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-        >
-          <div class="flex items-end">
-            <!-- <div class="bg-green-500 rounded-full w-5 h-5 mr-1"></div> -->
-            <BaseHeading
-              size="xl"
-              weight="medium"
-              class="-mb-1 mx-1.5 text-green-500"
-              >{{ next10Percentage }}%
-            </BaseHeading>
-            <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-              >{{ next10Count }} Arter</BaseHeading
-            >
+
+          <div
+            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
+          >
+            <div class="flex items-end">
+              <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
+              <BaseHeading
+                size="xl"
+                weight="medium"
+                class="-mb-1 mx-1.5 text-gray-500"
+                >{{ top4Percentage }}%
+              </BaseHeading>
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+                >{{ top4Count }} Arter</BaseHeading
+              >
+            </div>
           </div>
-        </div>
-
-        <div
-          class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
-        >
-          <div class="flex items-end">
-            <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
-
-            <BaseHeading
-              size="xl"
-              weight="medium"
-              class="-mb-1 mx-1.5 text-violet-500"
-              >{{ remainingPercentage }}%
-            </BaseHeading>
-            <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-              >{{ remainingCount }} Arter</BaseHeading
-            >
+          <div
+            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
+          >
+            <div class="flex items-end">
+              <!-- <div class="bg-green-500 rounded-full w-5 h-5 mr-1"></div> -->
+              <BaseHeading
+                size="xl"
+                weight="medium"
+                class="-mb-1 mx-1.5 text-green-500"
+                >{{ next10Percentage }}%
+              </BaseHeading>
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+                >{{ next10Count }} Arter</BaseHeading
+              >
+            </div>
           </div>
-        </div>
 
-        <!-- <div
+          <div
+            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+          >
+            <div class="flex items-end">
+              <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
+
+              <BaseHeading
+                size="xl"
+                weight="medium"
+                class="-mb-1 mx-1.5 text-violet-500"
+                >{{ remainingPercentage }}%
+              </BaseHeading>
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+                >{{ remainingCount }} Arter</BaseHeading
+              >
+            </div>
+          </div>
+
+          <!-- <div
           class="flex items-end pl-2 pr-4 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
         >
           <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
@@ -94,70 +95,73 @@
           <BaseHeading weight="medium" size="xs">Provytor</BaseHeading>
         </div> -->
 
-        <BaseButtonIcon @click="handleZoomIn" shape="full">
-          <Icon name="heroicons:magnifying-glass-plus" class="h-5 w-5" />
-        </BaseButtonIcon>
-        <BaseButtonIcon @click="handleZoomOut" shape="full">
-          <Icon name="heroicons:magnifying-glass-minus-solid" class="h-5 w-5" />
-        </BaseButtonIcon>
-      </div>
-    </transition>
-    <div class="col-span-5">
-      <div class="flex justify between">
-        <div class="flex mb-3">
-          <div
-            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-          >
-            <Icon name="game-icons:plant-roots" class="h-10 w-10" />
-          </div>
-          <BaseHeading
-            size="3xl"
-            weight="medium"
-            class="text-neutral-800 dark:text-neutral-300"
-            >Mykorrhizasvampar</BaseHeading
-          >
-          <BaseTabs
-            class="ml-4 -mb-8"
-            v-model="activeTab"
-            :tabs="[
-              { icon: 'material-symbols:bar-chart', value: 'columnChart' },
-              {
-                icon: 'material-symbols:format-list-bulleted-rounded',
-                value: 'spatialForest',
-              },
-            ]"
-          >
-          </BaseTabs>
-        </div>
-      </div>
-
-      <transition name="fade" mode="out-in">
-        <div
-          v-if="activeTab === 'spatialForest'"
-          class="h-[505px] overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
-        >
-          <SpatialForest
-            :geography="geography"
-            :forestType="forestType"
-            :standAge="standAge"
-            :vegetationType="vegetationType"
-          />
+          <BaseButtonIcon @click="handleZoomIn" shape="full">
+            <Icon name="heroicons:magnifying-glass-plus" class="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon @click="handleZoomOut" shape="full">
+            <Icon
+              name="heroicons:magnifying-glass-minus-solid"
+              class="h-5 w-5"
+            />
+          </BaseButtonIcon>
         </div>
       </transition>
-    </div>
-    <transition name="fade">
-      <FullScreenEdna
-        v-if="activeTab === 'spatialForest'"
-        :isNormalView="true"
-        @enlarge="emitEnlarge('FullScreenEdna')"
-        class="col-span-7"
-      />
-    </transition>
-  </div>
+      <div class="col-span-5">
+        <div class="flex justify between">
+          <div class="flex mb-3">
+            <div
+              class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
+            >
+              <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+            </div>
+            <BaseHeading
+              size="3xl"
+              weight="medium"
+              class="text-neutral-800 dark:text-neutral-300"
+              >Mykorrhizasvampar</BaseHeading
+            >
+            <BaseTabs
+              class="ml-4 -mb-8"
+              v-model="activeTab"
+              :tabs="[
+                { icon: 'material-symbols:bar-chart', value: 'columnChart' },
+                {
+                  icon: 'material-symbols:format-list-bulleted-rounded',
+                  value: 'spatialForest',
+                },
+              ]"
+            >
+            </BaseTabs>
+          </div>
+        </div>
 
-  <!-- column chart view -->
-  <div>
-    <!-- <div class="flex">
+        <transition name="fade" mode="out-in">
+          <div
+            v-if="activeTab === 'spatialForest'"
+            class="h-[505px] overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
+          >
+            <SpatialForest
+              :geography="geography"
+              :forestType="forestType"
+              :standAge="standAge"
+              :vegetationType="vegetationType"
+            />
+          </div>
+        </transition>
+      </div>
+      <transition name="fade">
+        <FullScreenEdna
+          v-if="activeTab === 'spatialForest'"
+          :isNormalView="true"
+          @enlarge="emitEnlarge('FullScreenEdna')"
+          class="col-span-7"
+        />
+      </transition>
+    </div>
+
+    <!-- column chart view -->
+    <div>
+      <!-- <div class="flex">
       <div
         class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
       >
@@ -182,24 +186,24 @@
       >
       </BaseTabs>
     </div> -->
-    <transition name="fade" mode="out-in">
-      <div
-        v-if="activeTab === 'columnChart'"
-        class="p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
-      >
-        <BarChart
-          :geography="geography"
-          :forestType="forestType"
-          :standAge="standAge"
-          :vegetationType="vegetationType"
-          @updateInfo="handleInfoUpdate"
-          class="w-full h-full"
-          :chartWidth="chartWidth"
-          :key="`-${routeKey}`"
-        />
+      <transition name="fade" mode="out-in">
+        <div
+          v-if="activeTab === 'columnChart'"
+          class="p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+        >
+          <BarChart
+            :geography="geography"
+            :forestType="forestType"
+            :standAge="standAge"
+            :vegetationType="vegetationType"
+            @updateInfo="handleInfoUpdate"
+            class="w-full h-full"
+            :chartWidth="chartWidth"
+            :key="`-${routeKey}`"
+          />
 
-        <!-- Information section aligned to the bottom -->
-        <!-- <div class="-mb-6">
+          <!-- Information section aligned to the bottom -->
+          <!-- <div class="-mb-6">
           <hr class="border-stone-200 dark:border-stone-700 mb-4" />
           <div class="flex justify-between">
             <div class="flex"></div>
@@ -249,8 +253,9 @@
             </div>
           </div>
         </div> -->
-      </div>
-    </transition>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -282,7 +287,7 @@ const route = useRoute();
 
 const routeKey = computed(
   () =>
-    `${route.path}-${route.query.geography}-${route.query.forestType}-${route.query.standAge}-${route.query.vegetationType}`
+    `${route.path}-${route.params.geography}-${route.params.forestType}-${route.params.standAge}-${route.params.vegetationType}`
 );
 
 const chartWidth = ref("100%");

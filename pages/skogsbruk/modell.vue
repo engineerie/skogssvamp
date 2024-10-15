@@ -87,14 +87,15 @@
         </div>
         <div class="z-50">
           <template v-if="!isFrameworkCompareMode">
-            <BaseButtonIcon
-              shape="full"
+            <div
               v-if="isCompare"
-              disabled
-              @click="toggleFrameworkCompare"
+              @click.stop="handleDisabledToggleFrameworkCompareClick"
+              class="cursor-not-allowed"
             >
-              <Icon name="material-symbols:add-2-rounded" class="w-10 h-10" />
-            </BaseButtonIcon>
+              <BaseButtonIcon shape="full" disabled class="pointer-events-none">
+                <Icon name="material-symbols:add-2-rounded" class="w-10 h-10" />
+              </BaseButtonIcon>
+            </div>
             <BaseButtonIcon shape="full" v-else>
               <Icon
                 name="material-symbols:add-2-rounded"
@@ -103,6 +104,7 @@
               />
             </BaseButtonIcon>
           </template>
+
           <template v-else>
             <div class="flex gap-2 items-center mb-2 z-50">
               <!-- Second BaseDropdown -->
@@ -153,53 +155,6 @@
           </template>
         </div>
       </div>
-
-      <!-- <div v-else class="flex gap-4 items-center">
-          <div
-            v-for="(framework, index) in frameworks"
-            :key="framework.id"
-            class="flex flex-col items-center hover:cursor-pointer group"
-            @click="selectFramework(index)"
-          >
-            <BaseIconBox
-              size="lg"
-              rounded="none"
-              mask="hexed"
-              :class="[
-                'relative mx-auto flex items-center justify-center size-16 scale-90 transition-all duration-300',
-                framework.bgColor,
-                {
-                  '-translate-y-1': selectedFrameworkIndex === index,
-                  'opacity-50': selectedFrameworkIndex !== index,
-                },
-              ]"
-            >
-              <BaseIconBox
-                size="lg"
-                rounded="none"
-                mask="hexed"
-                class="absolute inset-0 flex items-center justify-center bg-white size-16 scale-95 dark:bg-muted-800"
-              >
-                <Icon
-                  :name="framework.icon"
-                  :class="['icon size-6', framework.iconColor]"
-                />
-              </BaseIconBox>
-            </BaseIconBox>
-            <BaseHeading
-              size="md"
-              weight="medium"
-              lead="tight"
-              class="text-muted-400 transition-colors duration-300 group-hover:text-muted-600 dark:group-hover:text-muted-300"
-              :class="{
-                'text-muted-600 dark:text-muted-100':
-                  selectedFrameworkIndex === index,
-              }"
-            >
-              {{ framework.label }}
-            </BaseHeading>
-          </div>
-        </div> -->
     </div>
 
     <!-- Icon boxes row -->
@@ -228,36 +183,68 @@
           </BaseButtonIcon>
 
           <!-- New Compare Button -->
-          <BaseButtonIcon
-            v-if="isFrameworkCompareMode"
-            shape="full"
-            size="sm"
-            @click="toggleCompare"
-            disabled
-          >
+          <div class="relative inline-block">
+            <!-- Ping effect -->
+            <span
+              v-if="showPingEffectCompareButton"
+              class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"
+            ></span>
+            <!-- Toggle Compare Button -->
+            <BaseButtonIcon
+              v-if="isFrameworkCompareMode"
+              shape="full"
+              size="sm"
+              @click="toggleCompare"
+              disabled
+            >
+              <Icon
+                name="iconamoon:compare"
+                class="size-5"
+                :class="{ ' text-primary-500': isCompare }"
+              />
+            </BaseButtonIcon>
+            <BaseButtonIcon
+              v-else
+              shape="full"
+              size="sm"
+              @click="toggleCompare"
+            >
+              <Icon
+                name="iconamoon:compare"
+                class="size-5"
+                :class="{ ' text-primary-500': isCompare }"
+              />
+            </BaseButtonIcon>
+          </div>
+          <BaseButtonIcon shape="full" size="sm" @click="toggleCloseup">
             <Icon
-              name="iconamoon:compare"
+              name="material-symbols:cameraswitch-rounded"
               class="size-5"
-              :class="{ ' text-primary-500': isCompare }"
+              :class="{ ' text-primary-500': isCloseup }"
             />
-          </BaseButtonIcon>
-          <BaseButtonIcon v-else shape="full" size="sm" @click="toggleCompare">
-            <Icon
-              name="iconamoon:compare"
-              class="size-5"
-              :class="{ ' text-primary-500': isCompare }"
-            />
-          </BaseButtonIcon>
-          <BaseButtonIcon shape="full" size="sm">
-            <Icon name="material-symbols:cameraswitch-rounded" class="size-5" />
           </BaseButtonIcon>
         </div>
+        <div v-if="isCloseup" class="relative w-full">
+          <NuxtImg
+            width="1200"
+            src="images/skogsbruk.png"
+            class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+            format="webp"
+            quality="70"
+          />
+          <UBadge
+            size="xs"
+            :label="currentTimeLabel"
+            color="white"
+            variant="solid"
+            class="absolute bottom-4 right-4"
+          />
+        </div>
         <div
-          v-if="!isCompare && !isFrameworkCompareMode"
+          v-if="!isCompare && !isFrameworkCompareMode && !isCloseup"
           class="relative w-full"
         >
           <NuxtImg
-            slot="second"
             width="1200"
             :src="currentImagePath"
             class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
@@ -313,7 +300,7 @@
         </div>
         <img-comparison-slider
           class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-          v-else-if="isCompare"
+          v-else-if="isCompare && !isCloseup"
         >
           <div class="relative w-full" slot="first">
             <NuxtImg
@@ -353,7 +340,7 @@
         <!-- Framework Comparison Mode -->
         <img-comparison-slider
           class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-          v-else-if="isFrameworkCompareMode"
+          v-else-if="isFrameworkCompareMode && !isCloseup"
         >
           <div class="relative w-full" slot="first">
             <NuxtImg
@@ -459,6 +446,14 @@
           </BaseProse>
         </div>
         <UModal v-model="Modal1">
+          <BaseButtonIcon
+            shape="full"
+            size="xs"
+            @click="Modal1 = false"
+            class="absolute top-4 right-4"
+          >
+            <Icon name="material-symbols:close" class="size-4 m-1" />
+          </BaseButtonIcon>
           <div class="p-4">
             <div class="flex items-center gap-2 mb-4">
               <Icon
@@ -473,6 +468,8 @@
               }}</BaseHeading>
             </div>
             <BaseProse class="text-sm font-neutral-500">
+              <b>Beskrivning skogsbrukssätt</b>
+              <br />
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
               rhoncus facilisis ornare. Donec ullamcorper fermentum sem rhoncus
               commodo. Phasellus convallis dapibus sodales. Proin placerat eros
@@ -487,6 +484,8 @@
               velit tristique nec. Class aptent taciti sociosqu ad litora
               torquent per conubia nostra, per inceptos himenaeos.
               <br />
+              <br />
+              <b>Skogsbrukssättetets påverkan på mykkorhizasvampar</b>
               <br />
 
               Duis fringilla non purus lobortis sollicitudin. Nunc pharetra
@@ -520,6 +519,14 @@
           </BaseProse>
         </div>
         <UModal v-model="Modal2">
+          <BaseButtonIcon
+            shape="full"
+            size="xs"
+            @click="Modal2 = false"
+            class="absolute top-4 right-4"
+          >
+            <Icon name="material-symbols:close" class="size-4 m-1" />
+          </BaseButtonIcon>
           <div class="p-4">
             <div class="flex items-center gap-2 mb-4">
               <Icon
@@ -597,6 +604,18 @@ import {
 import { useTitleStore } from "~/stores/titleStore";
 import { useOnboardingStore } from "~/stores/onboardingStore";
 
+const showPingEffectCompareButton = ref(false);
+
+const handleDisabledToggleFrameworkCompareClick = () => {
+  // Show the ping effect around the toggleCompare button
+  showPingEffectCompareButton.value = true;
+
+  // Hide the ping effect after a short delay
+  setTimeout(() => {
+    showPingEffectCompareButton.value = false;
+  }, 500);
+};
+
 const showInfoBox = ref(false);
 
 const handleCircleClick = () => {
@@ -657,6 +676,11 @@ const currentFramework2 = computed(
 const isCompare = ref(false);
 const toggleCompare = () => {
   isCompare.value = !isCompare.value;
+};
+
+const isCloseup = ref(false);
+const toggleCloseup = () => {
+  isCloseup.value = !isCloseup.value;
 };
 
 const comparisonImagePath1 = computed(() => {

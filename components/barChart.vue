@@ -18,9 +18,24 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, shallowRef } from "vue";
+import { computed, ref, onMounted, shallowRef, watch } from "vue";
+import { useRoute } from "vue-router";
+
+// Define props to receive data from the parent component
+const props = defineProps({
+  chartWidth: String,
+  geography: String,
+  forestType: String,
+  standAge: String,
+  vegetationType: String,
+});
 
 const route = useRoute();
+
+const routeKey = computed(
+  () =>
+    `${route.path}-${props.geography}-${props.forestType}-${props.standAge}-${props.vegetationType}`
+);
 
 const emits = defineEmits(["updateInfo"]);
 
@@ -61,14 +76,21 @@ const generateStatusMarkerSVG = (status) => {
   return "data:image/svg+xml;base64," + btoa(svg);
 };
 
-// Define props to receive data from the parent component
-const props = defineProps({
-  chartWidth: String,
-  geography: String,
-  forestType: String,
-  standAge: String,
-  vegetationType: String,
-});
+// Watch for changes in props and fetch data
+watch(
+  () => [
+    props.geography,
+    props.forestType,
+    props.standAge,
+    props.vegetationType,
+    route.path,
+  ],
+  async () => {
+    await fetchChartData();
+    updateParentWithInfo();
+  },
+  { immediate: true }
+);
 
 console.log("Received props:", props);
 
