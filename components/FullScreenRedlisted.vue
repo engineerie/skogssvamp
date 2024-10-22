@@ -41,12 +41,18 @@
         >
           <Icon name="material-symbols:award-star-outline" class="h-10 w-10" />
         </div>
-        <BaseHeading
-          size="3xl"
-          weight="medium"
-          class="text-neutral-800 dark:text-neutral-300 mr-4"
-          >Naturvårdsarter</BaseHeading
-        >
+
+        <div class="">
+          <BaseHeading
+            size="3xl"
+            weight="medium"
+            class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
+            >Naturvårdsarter</BaseHeading
+          >
+          <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+            >Enligt bedömning av samlad kunskap
+          </BaseHeading>
+        </div>
       </div>
 
       <div class="flex gap-2 items-end">
@@ -60,7 +66,22 @@
             label-float
           />
         </div>
+        <BaseListbox
+          class="w-36"
+          v-model="selectedMark"
+          :items="markOptions"
+          :properties="{
+            value: 'value',
+            label: 'name',
+            key: 'id',
+          }"
+          placeholder="Välj marktyp"
+          shape="full"
+          label="Marktyp"
+          label-float
+        />
         <BaseInput
+          v-if="!isNormalView"
           icon="i-heroicons-magnifying-glass-20-solid"
           v-model="searchQuery"
           shape="full"
@@ -101,14 +122,17 @@
               size: 'xl',
             }"
             :ui="computedUITable"
-            :columns="columns"
+            :columns="selectedColumns"
             :rows="paginatedData"
             @select="selectRow"
+            v-model:sort="sort"
+            sort-mode="manual"
+            :key="route.fullPath"
           >
             <template #empty-state>
               <div class="flex flex-col items-center justify-center py-6 gap-3">
                 <span class="italic text-sm"
-                  >Inga vanligt förekommande matsvampar i denna miljön</span
+                  >Inga naturvårdsarter att visa i denna miljön</span
                 >
               </div>
             </template>
@@ -122,7 +146,7 @@
                 </span>
               </div>
             </template> -->
-            <template #rating-data="{ row }">
+            <!-- <template #rating-data="{ row }">
               <div
                 data-nui-tooltip-position="right"
                 :data-nui-tooltip="
@@ -139,12 +163,72 @@
                   {{ getStatusAbbreviation(row.RL2020kat) }}
                 </div>
               </div>
+            </template> -->
+            <template #RL2020kat-data="{ row }">
+              <div class="flex items-center space-x-2">
+                <!-- Existing Status Circle -->
+
+                <div
+                  v-if="row.SIGNAL_art !== 'S'"
+                  :class="getStatusColor(row.RL2020kat)"
+                  class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0 max-w-12"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="
+                    row['RL2020kat'] !== 'Saknas'
+                      ? getStatusTooltip(row.RL2020kat)
+                      : 'Ej bedömd'
+                  "
+                >
+                  {{ getStatusAbbreviation(row.RL2020kat) }}
+                </div>
+
+                <!-- Conditional Blue 'S' Circle -->
+                <div v-if="row.SIGNAL_art === 'S'" class="relative">
+                  <div
+                    class="h-8 w-8 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10"
+                    data-nui-tooltip-position="right"
+                    :data-nui-tooltip="'Signalart'"
+                  >
+                    S
+                  </div>
+                </div>
+              </div>
             </template>
+
             <template #Commonname-data="{ row }">
-              <div class="">{{ capitalize(row.Commonname) }}</div>
+              <div class="truncate">
+                {{ capitalize(row.Commonname) }}
+                <span class="italic" v-if="isNormalView"
+                  >({{ capitalize(row.Scientificname) }})</span
+                >
+              </div>
             </template>
             <template #Scientificname-data="{ row }">
               <div class="italic font-thin">{{ row.Scientificname }}</div>
+            </template>
+            <template #Mark-data="{ row }">
+              <div class="flex items-center space-x-1">
+                <!-- 'K' for Kalkmark -->
+                <div v-if="row.KALKmark">
+                  <div
+                    class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-700"
+                    data-nui-tooltip-position="left"
+                    :data-nui-tooltip="'Kalkmark'"
+                  >
+                    K
+                  </div>
+                </div>
+                <!-- 'Ö' for Övrig mark -->
+                <div v-if="row.ANNANmark">
+                  <div
+                    class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-400"
+                    data-nui-tooltip-position="left"
+                    :data-nui-tooltip="'Övrig mark'"
+                  >
+                    Ö
+                  </div>
+                </div>
+              </div>
             </template>
             <template #Svamp-grupp-data="{ row }">
               <div
@@ -241,6 +325,25 @@ console.log("FullScreenEdible setup started");
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
+const markOptions = [
+  { id: "all", name: "Alla marker", value: null }, // Use null to represent 'all'
+  { id: "kalkmark", name: "Kalkmark", value: "KALKmark" },
+  { id: "annanmark", name: "Övrig mark", value: "ANNANmark" },
+];
+
+const selectedMark = ref(markOptions[0]); // Default to 'Alla marker'
+
+const searchMark = computed(() => {
+  if (selectedMark.value.length === 0) {
+    return "";
+  }
+
+  // Build the query string for multiple selections
+  return selectedMark.value
+    .map((mark) => `&mark=${encodeURIComponent(mark.value)}`)
+    .join("");
+});
+
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
     hattsvamp: "hattsvamp.png",
@@ -266,7 +369,7 @@ const computedUITable = computed(() => ({
   thead: props.isNormalView ? "" : "",
   td: {
     base: "",
-    padding: "py-6 pl-6",
+    padding: "py-5 pl-6",
     size: "text-md",
     color: "text-neutral-500 dark:text-neutral-400",
   },
@@ -342,7 +445,7 @@ function closeInfoBox() {
 
 const columns = [
   {
-    key: "rating",
+    key: "RL2020kat",
     label: "Status",
     sortable: props.isNormalView ? false : true,
   },
@@ -357,15 +460,32 @@ const columns = [
     sortable: props.isNormalView ? false : true,
   },
   {
+    key: "Mark",
+    label: "Mark",
+    sortable: props.isNormalView ? false : true,
+  },
+  {
     key: "Svamp-grupp",
-    label: props.isNormalView ? "Grupp" : "Grupp",
+    label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
 ];
 
+const sort = ref({ column: "", direction: "asc" });
+
+const selectedColumns = computed(() =>
+  [
+    columns[0], // "RL2020kat"
+    columns[1], // "Commonname"
+    !props.isNormalView ? columns[2] : null, // "Scientificname"
+    columns[3], // "Mark"
+    columns[4], // "Svamp-grupp"
+  ].filter((column) => column !== null)
+);
+
 const getStatusAbbreviation = (status) => {
   const abbreviations = {
-    LC: "NT",
+    LC: "LC",
     NT: "NT", // Near Threatened
     EN: "EN", // Endangered
     VU: "VU", // Vulnerable
@@ -373,22 +493,20 @@ const getStatusAbbreviation = (status) => {
     RE: "RE", // Regionally Extinct
     DD: "DD", // Data Deficient
   };
-  return abbreviations[status] || "EN"; // Default case
+  return abbreviations[status] || "NE"; // Default case
 };
 
 const getStatusColor = (status) => {
   const colors = {
-    // LC: "bg-[#CDD428]",
-    LC: "bg-[#D7838E]",
+    LC: "bg-green-500",
     NT: "bg-[#D7838E]",
-    EN: "bg-[#CC526B]",
+    EN: "bg-[#C4004F]",
     VU: "bg-[#D7838E]",
     CR: "bg-[#C4004F]",
     RE: "bg-[#421A31]",
     DD: "bg-[#E8E9E7]",
   };
-  // return colors[status] || "bg-[#EAB61F]";
-  return colors[status] || "bg-[#CC526B]";
+  return colors[status] || "bg-[#EAB61F]";
 };
 
 const getStatusTooltip = (status) => {
@@ -401,13 +519,8 @@ const getStatusTooltip = (status) => {
     RE: "Nationellt utdöd",
     DD: "Kunskapsbrist",
   };
-  return tooltips[status] || "Starkt hotad";
+  return tooltips[status] || "Ej bedömd";
 };
-
-const sortedData = computed(() => {
-  // Sort data based on your sorting logic
-  return data.value.sort(/* your sorting logic here */);
-});
 
 const geography = ref("");
 const forestType = ref("");
@@ -422,9 +535,9 @@ const capitalize = (str) => {
 };
 
 const fetchData = async (geography, forestType, standAge, vegetationType) => {
-  const filename = `edibledata-${geography}-${forestType}-${standAge}-${vegetationType}.json`;
+  const filename = `redlisted-${geography}-${forestType}-${standAge}-${vegetationType}.json`;
   try {
-    const response = await fetch(`/edible/${filename}`);
+    const response = await fetch(`/redlisted/${filename}`);
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
   } catch (error) {
@@ -432,10 +545,10 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
   }
 };
 
-const getValidRating = (rating) => {
-  const parsedRating = parseInt(rating);
-  return Number.isNaN(parsedRating) ? 0 : parsedRating;
-};
+// const getValidRating = (rating) => {
+//   const parsedRating = parseInt(rating);
+//   return Number.isNaN(parsedRating) ? 0 : parsedRating;
+// };
 
 // Watch for changes in route params and fetch data accordingly
 watch(
@@ -466,36 +579,68 @@ const rowsPerPageOptions = [5, 10, 20, 30, 40, 50]; // Options for rows per page
 const rowsPerPage = ref(props.isNormalView ? 5 : 10);
 const selectedRow = ref(null);
 
-// Computed property for filtered data
 const filteredData = computed(() => {
-  if (!searchQuery.value) {
-    return data.value;
+  let result = data.value;
+
+  // Apply 'Mark' filter only if selectedMark is not null and has a value
+  if (selectedMark.value && selectedMark.value.value !== null) {
+    result = result.filter((row) => row[selectedMark.value.value] != null);
   }
-  return data.value.filter((row) => {
-    return Object.values(row).some((value) =>
-      String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-  });
+
+  // Apply search query filter
+  if (searchQuery.value) {
+    result = result.filter((row) => {
+      return Object.values(row).some((value) =>
+        String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
+      );
+    });
+  }
+
+  return result;
+});
+
+const sortedData = computed(() => {
+  let result = filteredData.value.slice(); // Create a shallow copy to sort
+
+  if (sort.value && sort.value.column) {
+    const column = sort.value.column;
+    const direction = sort.value.direction;
+
+    result.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      // Handle null or undefined values
+      if (valueA == null && valueB != null) return 1;
+      if (valueA != null && valueB == null) return -1;
+      if (valueA == null && valueB == null) return 0;
+
+      // Compare values using Swedish locale
+      const comparison = String(valueA).localeCompare(String(valueB), "sv", {
+        numeric: true,
+        sensitivity: "base",
+      });
+
+      return direction === "asc" ? comparison : -comparison;
+    });
+  }
+
+  return result;
 });
 
 // Computed property for paginated data
 const paginatedData = computed(() => {
   const start = (page.value - 1) * rowsPerPage.value;
   const end = page.value * rowsPerPage.value;
-  return filteredData.value.slice(start, end);
+  return sortedData.value.slice(start, end);
 });
 
 const totalPages = computed(() => {
   return Math.ceil(filteredData.value.length / rowsPerPage.value);
 });
 
-// Computed property for total number of items
-const totalItems = computed(() => filteredData.value.length);
-
-// Computed property for the starting item number
+const totalItems = computed(() => sortedData.value.length);
 const startItem = computed(() => (page.value - 1) * rowsPerPage.value + 1);
-
-// Computed property for the ending item number
 const endItem = computed(() =>
   Math.min(page.value * rowsPerPage.value, totalItems.value)
 );

@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-visible z-50">
+  <div class="overflow-visible">
     <!-- Geography Options -->
     <div class="grid grid-cols-4 gap-5 overflow-visible">
       <div
@@ -20,6 +20,8 @@
                 'cursor-pointer': !option.disabled,
               }"
               class="text-sm"
+              data-nui-tooltip-position="right"
+              :data-nui-tooltip="hoveredDescription"
             >
               {{ option.label }}
             </label>
@@ -55,6 +57,8 @@
                 'cursor-pointer': !option.disabled,
               }"
               class="text-sm"
+              data-nui-tooltip-position="left"
+              :data-nui-tooltip="hoveredDescription"
             >
               {{ option.label }}
             </label>
@@ -90,6 +94,8 @@
                 'cursor-pointer': !option.disabled,
               }"
               class="text-sm"
+              data-nui-tooltip-position="left"
+              :data-nui-tooltip="hoveredDescription"
             >
               {{ option.label }}
             </label>
@@ -125,6 +131,8 @@
                 'cursor-pointer': !option.disabled,
               }"
               class="text-sm"
+              data-nui-tooltip-position="left"
+              :data-nui-tooltip="hoveredDescription"
             >
               {{ option.label }}
             </label>
@@ -142,7 +150,7 @@
         </div>
       </div>
     </div>
-    <div class="text-neutral-400 text-sm relative overflow-visible">
+    <!-- <div class="text-neutral-400 text-sm relative overflow-visible">
       <div class="absolute -bottom-8 left-0 w-3/4 z-50 overflow-visible">
         <Transition name="fade">
           <BaseMessage
@@ -155,7 +163,7 @@
           >
         </Transition>
       </div>
-    </div>
+    </div> -->
     <!-- Navigation Buttons -->
     <!-- <div class="flex justify-end">
     <div class="mt-2">
@@ -260,47 +268,19 @@ const standAgeOptions = [
 ];
 const vegetationTypeOptions = [
   {
-    value: "Högört",
-    label: "Högört",
-    description:
-      "Typarter är brudborste, högvuxna ormbunkar, kärrfibbla, kärrtistel, ormbär, stormhatt, strätta, älgört och ängssyra.",
+    value: "Örter_grupp",
+    label: "Örter",
+    description: "Högört, Lågört och Bredblad gräs",
   },
   {
-    value: "Lågört",
-    label: "Lågört",
-    description:
-      "Typarter är blodrot, bredbladiga gräs, ekbräken, ekorrbär, harsyra, humleblomster, kärrfräken, orkidéer och violarter. ",
-  },
-  { value: "Utan fältskikt", label: "Utan fältskikt" },
-  {
-    value: "Bredblad gräs",
-    label: "Bredblad gräs",
-    description:
-      "Gräsarter med breda och ofta saftrika blad, t.ex. hässlebrodd och tuvtåtel. Här kan också örnbräken och enstaka typarter för hög- och lågörttyperna förekomma.",
-  },
-  {
-    value: "Smalblad gräs",
-    label: "Smalblad gräs",
-    description:
-      "Där gräs, örnbräken och örter täcker mer än 1/4 av marken och där gräsarter med trådsmala blad, t.ex. kruståtel och fårsvingel dominerar.",
-  },
-  {
-    value: "Blåbär",
+    value: "Blåbär_grupp",
     label: "Blåbär",
-    description:
-      "Där mer än 1/2 av marken täcks av blåbär, ormbunkar och lummer.",
+    description: "Blåbär och Smalblad gräs",
   },
   {
-    value: "Lingon",
+    value: "Lingon_grupp",
     label: "Lingon",
-    description:
-      "Där mer än 1/2 av marken täcks av lingon och mjölon samt örter, gräs, ormbunkar, lummer och blåbär.",
-  },
-  {
-    value: "KråkbärLjung",
-    label: "Kråkbär och Ljung",
-    description:
-      "Där mer än 1/2 av marken täcks av kråkbär, ljung och klockljung samt lingon, ormbunkar, lummer och blåbär.",
+    description: "Lingon och Kråkbär/Ljung",
   },
 ];
 

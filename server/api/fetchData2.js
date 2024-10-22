@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const fetchDataFromDB = async ({
   geography,
   forestType,
-  vegetationType,
+  vegetationTypes, // Now an array
   standAge,
 }) => {
   const db = await open({
@@ -61,49 +61,71 @@ const fetchDataFromDB = async ({
     default:
       forestTypeCondition = "1=1"; // This will always be true, effectively ignoring this filter if no valid type is provided
   }
+
+  // Build the vegetation condition for the main query
+  const vegetationCondition = `m.Fältskikt IN (${vegetationTypes
+    .map((v) => `'${v}'`)
+    .join(", ")})`;
+
+  // Build the vegetation condition for the subquery
+  const subqueryVegetationCondition = `m1.Fältskikt IN (${vegetationTypes
+    .map((v) => `'${v}'`)
+    .join(", ")})`;
+
   // Ensure all identifiers, especially table names with special characters, are correctly quoted
   const query = `
-    SELECT 
-      mcv.SpeciesCode,
-      sd.Taxon_sp AS taxon,
-      COALESCE(ms.Commonname, 'Saknar svenskt namn') AS snamn,
-      CASE WHEN ms."Nya svamp-boken" = 'x' THEN 1 ELSE 0 END AS matsvamp,
-      SUM(mcv.Presence) AS total_presence,
-      COALESCE(ms.Artfakta, 'Information saknas') AS Artfakta,
-      COALESCE(ms.RL2020kat, '0') AS RL2020kat,
-      COALESCE(ms."Svamp-grupp", '0') AS "Svamp-grupp",
-      COALESCE(ms."Svamp-Undersvamp-grupp", '0') AS "Svamp-Undersvamp-grupp",
-      COALESCE(ms.SIGNAL_art, '0') AS "SIGNAL_art",
-      COALESCE(ms.Svampguiden, '0') AS Svampguiden,
-      COALESCE(ms."Nya svamp-boken", '0') AS "Nya svamp-boken",
-      COALESCE(sd.Genus, 'Information saknas') AS Genus,
-      COUNT(DISTINCT m.GropInventeringID) AS sample_plot_count,
-      (
-        SELECT COUNT(DISTINCT m1.GropInventeringID) 
-        FROM Metadata m1
-        WHERE 
-          m1.lat ${geography === "Norr" ? ">=" : "<"} 60 AND
-  ${ageCondition.replace("m.", "m1.")} AND
-          ${forestTypeCondition.replace("m.", "m1.")} AND
-          m1.Fältskikt = '${vegetationType}'
-      ) AS sample_env_count
-    FROM 
-      Melted_counts_vs_samples_ECM mcv
-    LEFT JOIN 
-      Metadata m ON mcv.GropInventeringID = m.GropInventeringID
-    LEFT JOIN 
-      Species_database sd ON mcv.SpeciesCode = sd."ID#"
-    LEFT JOIN 
-      "2024_matsvamp_rödlista_svampgrupp_2_april" ms ON sd.Taxon = ms.Scientificname
-    WHERE 
+  SELECT 
+    mcv.SpeciesCode,
+    sd.Taxon_sp AS taxon,
+ COALESCE(
+  ms.Commonname, 
+  ms.Nyttartnamn, 
+  ms.Släkte, 
+  ms.högrenivå,
+  ösn.Svensktnamn, 
+  ösn.släktesnamn, 
+  ösn.högrenivå, 
+  'Saknar svenskt namn'
+) AS snamn,
+    CASE WHEN ms."Nyasvamp-boken" = 'x' THEN 1 ELSE 0 END AS matsvamp,
+    SUM(mcv.Presence) AS total_presence,
+    COALESCE(ms.Artfakta, 'Information saknas') AS Artfakta,
+    COALESCE(ms.RL2020kat, '0') AS RL2020kat,
+    COALESCE(ms."Svamp-grupp", '0') AS "Svamp-grupp",
+    COALESCE(ms."Svamp-Undersvamp-grupp", '0') AS "Svamp-Undersvamp-grupp",
+    COALESCE(ms.SIGNAL_art, '0') AS "SIGNAL_art",
+    COALESCE(ms.Svampguiden, '0') AS Svampguiden,
+    COALESCE(ms."Nyasvamp-boken", '0') AS "Nya svamp-boken",
+    COALESCE(sd.Genus, 'Information saknas') AS Genus,
+    COUNT(DISTINCT m.GropInventeringID) AS sample_plot_count,
+    (
+      SELECT COUNT(DISTINCT m1.GropInventeringID) 
+      FROM Metadata m1
+      WHERE 
+        m1.lat ${geography === "Norr" ? ">=" : "<"} 60 AND
+        ${ageCondition.replace(/m\./g, "m1.")} AND
+        ${forestTypeCondition.replace(/m\./g, "m1.")} AND
+        ${subqueryVegetationCondition}
+    ) AS sample_env_count
+  FROM 
+    Melted_counts_vs_samples_ECM mcv
+  LEFT JOIN 
+    Metadata m ON mcv.GropInventeringID = m.GropInventeringID
+  LEFT JOIN 
+    Species_database sd ON mcv.SpeciesCode = sd."ID#"
+LEFT JOIN 
+  "Svampen_oktober_18" ms ON TRIM(REPLACE(sd.Taxon, '(coll.)', '')) = ms.Scientificname
+  LEFT JOIN 
+  "övriga_svenska_namn" ösn ON sd.Taxon = ösn.Taxon
+  WHERE 
     m.lat ${geography === "Norr" ? ">=" : "<"} 60
     AND ${ageCondition}
     AND ${forestTypeCondition}
-    AND m.Fältskikt = '${vegetationType}'
+    AND ${vegetationCondition}
   GROUP BY 
     mcv.SpeciesCode, sd.Taxon_sp
   ORDER BY 
-    sample_plot_count desc
+    sample_plot_count DESC
 `;
 
   console.log("Executing SQL Query:");
@@ -136,10 +158,10 @@ const fetchDataFromDB = async ({
 export async function fetchDataDirectly({
   geography,
   forestType,
-  vegetationType,
+  vegetationTypes,
   standAge,
 }) {
-  return fetchDataFromDB({ geography, forestType, vegetationType, standAge });
+  return fetchDataFromDB({ geography, forestType, vegetationTypes, standAge });
 }
 
 export default fetchDataDirectly;

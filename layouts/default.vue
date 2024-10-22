@@ -41,6 +41,13 @@
             </BaseHeading>
           </slot>
         </div>
+        <transition name="slide-down">
+          <EnvironmentTitleSmall
+            v-if="isDashboard && showEnvironmentTitleSmall"
+            class="z-50 pointer-events-none"
+          />
+        </transition>
+
         <div class="flex justify-end gap-4 items-center">
           <BaseButtonIcon
             shape="full"
@@ -110,6 +117,20 @@ import { Bars3CenterLeftIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { useTitleStore } from "~/stores/titleStore";
 import { useRoute } from "vue-router";
 import { useSidebarStore } from "~/stores/sidebarStore";
+
+const showEnvironmentTitleSmall = ref(false);
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
+function handleScroll() {
+  showEnvironmentTitleSmall.value = window.scrollY > 100; // Adjust '100' to the desired scroll threshold
+}
 
 const toast = useToast();
 
@@ -192,5 +213,22 @@ function determineTitle(path) {
 /* Add this to your styles */
 .transition-all {
   transition: all 0.3s ease-in-out;
+}
+</style>
+
+<style scoped>
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.slide-down-enter-to,
+.slide-down-leave-from {
+  transform: translateY(0);
+  opacity: 1;
 }
 </style>

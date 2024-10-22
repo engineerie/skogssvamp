@@ -44,18 +44,17 @@
                 size="xl"
                 weight="medium"
                 class="-mb-1 mx-1.5 text-gray-500"
-                >{{ top4Percentage }}%
+                >{{ topPercentage }}%
               </BaseHeading>
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ top4Count }} Arter</BaseHeading
+                >{{ topCount }} Arter</BaseHeading
               >
             </div>
           </div>
-          <div
+          <!-- <div
             class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
           >
             <div class="flex items-end">
-              <!-- <div class="bg-green-500 rounded-full w-5 h-5 mr-1"></div> -->
               <BaseHeading
                 size="xl"
                 weight="medium"
@@ -66,7 +65,7 @@
                 >{{ next10Count }} Arter</BaseHeading
               >
             </div>
-          </div>
+          </div> -->
 
           <div
             class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
@@ -108,20 +107,25 @@
       </transition>
       <div class="col-span-5">
         <div class="flex justify between">
-          <div class="flex mb-3">
+          <div class="flex mb-3 items-end">
             <div
               class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
             >
               <Icon name="game-icons:plant-roots" class="h-10 w-10" />
             </div>
-            <BaseHeading
-              size="3xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-300"
-              >Mykorrhizasvampar</BaseHeading
-            >
+            <div class="">
+              <BaseHeading
+                size="3xl"
+                weight="medium"
+                class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
+                >Mykorrhizasvampar</BaseHeading
+              >
+              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+                >Enligt markinventeringens provytor
+              </BaseHeading>
+            </div>
             <BaseTabs
-              class="ml-4 -mb-8"
+              class="ml-4 -mb-4"
               v-model="activeTab"
               :tabs="[
                 { icon: 'material-symbols:bar-chart', value: 'columnChart' },
@@ -138,7 +142,7 @@
         <transition name="fade" mode="out-in">
           <div
             v-if="activeTab === 'spatialForest'"
-            class="h-[505px] overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
+            class="h-[505px] -mt-1 overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
           >
             <SpatialForest
               :geography="geography"
@@ -322,18 +326,18 @@ const forestType = ref("");
 const standAge = ref("");
 const vegetationType = ref("");
 
-const top4Count = ref(0);
+const topCount = ref(0);
 const next10Count = ref(0);
 const remainingCount = ref(0);
-const top4Percentage = ref(0);
+const topPercentage = ref(0);
 const next10Percentage = ref(0);
 const remainingPercentage = ref(0);
 
 const handleInfoUpdate = (info) => {
-  top4Count.value = info.top4Count;
+  topCount.value = info.topCount;
   next10Count.value = info.next10Count;
   remainingCount.value = info.remainingCount;
-  top4Percentage.value = info.top4Percentage;
+  topPercentage.value = info.topPercentage;
   next10Percentage.value = info.next10Percentage;
   remainingPercentage.value = info.remainingPercentage;
 };
@@ -369,7 +373,7 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     data.value = await response.json();
 
     // Generate colors after data is fetched
-    const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
+    const topColors = generateColors([82, 82, 82], [212, 212, 212], 4);
     const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
     const otherColors = generateColors(
       [46, 16, 101],

@@ -1,16 +1,21 @@
 // server/api/edibleFetchData.js
 
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
+import sqlite3 from "sqlite3";
+import { open } from "sqlite";
 
-const fetchEdibleDataFromDB = async ({ geography, forestType, vegetationType, standAge }) => {
+const fetchEdibleDataFromDB = async ({
+  geography,
+  forestType,
+  vegetationType,
+  standAge,
+}) => {
   const db = await open({
-    filename: './server/EDNAData.db',
-    driver: sqlite3.Database
+    filename: "./server/EDNAData.db",
+    driver: sqlite3.Database,
   });
 
   // Updated query with additional WHERE conditions
-const query = `
+  const query = `
   SELECT 
     m.Scientificname,
     m.Commonname,
@@ -22,31 +27,30 @@ const query = `
     m."Svamp-Undersvamp-grupp",
     m."SIGNAL_art",
     m.Svampguiden,
-    m."Nya svamp-boken",
+    m."Nyasvamp-boken",
     m."Norra Sverige",
     m."Södra Sverige",
     m.Gran,
     m.Tall,
     m."Blandad barrskog",
     m."Blandad lövskog",
+    m.Lövskog,
+    m.EkochBokskog,
+    m.Naturbete,
     m."11-20 år",
     m."1-40 år",
     m."41-90 år",
     m."91 år och äldre",
-    m.högört,
-    m.lågört,
-    m."bredbladigt gräs",
-    m."smalbladigt gräs",
-    m.blåbär,
-    m.lingon,
-    m."kråkbär ljung",
+    m."ÖRTER_grupp",
+    m."BLÅBÄR_grupp",
+    m."LINGON_grupp",
     s.rating,
     s.ekologi
   FROM 
-    "2024_matsvamp_rödlista_svampgrupp_2_april" m
+    "Svampen_oktober_18" m
   LEFT JOIN svampguiden s ON m.taxon = s.taxonid
   WHERE 
-    m."Nya svamp-boken" IS NOT NULL
+    m."Nyasvamp-boken" IS NOT NULL
   `;
 
   const data = await db.all(query);
@@ -56,8 +60,18 @@ const query = `
   return data;
 };
 
-export async function fetchEdibleDataDirectly({ geography, forestType, vegetationType, standAge }) {
-  return fetchEdibleDataFromDB({ geography, forestType, vegetationType, standAge });
+export async function fetchEdibleDataDirectly({
+  geography,
+  forestType,
+  vegetationType,
+  standAge,
+}) {
+  return fetchEdibleDataFromDB({
+    geography,
+    forestType,
+    vegetationType,
+    standAge,
+  });
 }
 
 export default fetchEdibleDataDirectly;

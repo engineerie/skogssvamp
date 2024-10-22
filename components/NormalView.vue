@@ -3,19 +3,8 @@
     <div class="col-span-12">
       <EdnaComponent @enlarge="emitEnlarge('FullScreenEdna')" />
     </div>
-    <div class="col-span-6 flex flex-col">
-      <FullScreenEdible
-        class="flex-grow"
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        :isNormalView="true"
-        @enlarge="emitEnlarge('FullScreenEdible')"
-        :key="route.fullPath"
-      />
-    </div>
-    <div class="col-span-6 flex flex-col">
+
+    <div class="col-span-7 flex flex-col">
       <FullScreenRedlisted
         class="flex-grow"
         :geography="geography"
@@ -24,6 +13,18 @@
         :vegetationType="vegetationType"
         :isNormalView="true"
         @enlarge="emitEnlarge('FullScreenRedlisted')"
+        :key="route.fullPath"
+      />
+    </div>
+    <div class="col-span-5 flex flex-col">
+      <FullScreenEdible
+        class="flex-grow"
+        :geography="geography"
+        :forestType="forestType"
+        :standAge="standAge"
+        :vegetationType="vegetationType"
+        :isNormalView="true"
+        @enlarge="emitEnlarge('FullScreenEdible')"
         :key="route.fullPath"
       />
     </div>

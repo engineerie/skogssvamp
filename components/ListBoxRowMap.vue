@@ -318,47 +318,19 @@ const standAgeOptions = [
 ];
 const vegetationTypeOptions = [
   {
-    value: "Högört",
-    label: "Högört",
-    description:
-      "Torvmark som karakteriseras av högörter. Typarterna är brudborste, högvuxna ormbunkar, kärrfibbla, kärrtistel, ormbär, stormhatt, strätta, älgört och ängssyra.",
+    value: "Örter_grupp",
+    label: "Örter",
+    description: "Högört, Lågört och Bredblad gräs",
   },
   {
-    value: "Lågört",
-    label: "Lågört",
-    description:
-      "Torvmark som karakteriseras av lågörter och bredbladiga gräs. Typarterna är blodrot, bredbladiga gräs, ekbräken, ekorrbär, harsyra, humleblomster, kärrfräken, orkidéer och violarter. ",
-  },
-  { value: "Utan fältskikt", label: "Utan fältskikt" },
-  {
-    value: "Bredblad gräs",
-    label: "Bredblad gräs",
-    description:
-      "Fastmark där mer än 1/4 av befintligt fältskikt huvudsakligen består av gräsarter med breda och ofta saftrika blad, t.ex. hässlebrodd och tuvtåtel. Här kan också örnbräken och enstaka typarter för hög- och lågörttyperna förekomma.",
-  },
-  {
-    value: "Smalblad gräs",
-    label: "Smalblad gräs",
-    description:
-      "Fastmark där gräs, örnbräken och örter täcker mer än 1/4 av BF och där gräsarter med trådsmala blad, t.ex. kruståtel och fårsvingel dominerar. Här kan också örter som mjölkört, liljekonvalje, pyrolaarter och skogsstjärna förekomma.",
-  },
-  {
-    value: "Blåbär",
+    value: "Blåbär_grupp",
     label: "Blåbär",
-    description:
-      "Vegetationstyp på fastmark som kännetecknas av att mer än 1/2 av befintligt fältskikt täcks av blåbär, ormbunkar och lummer. Även mark som till mer än 1/4 täcks av starr- och fräkenväxter, men där blåbärsriset dominerar över de lågvuxna halvgräsen räknas hit.",
+    description: "Blåbär och Smalblad gräs",
   },
   {
-    value: "Lingon",
+    value: "Lingon_grupp",
     label: "Lingon",
-    description:
-      "Vegetationstyp enligt Skogshögskolans boniteringssystem på fastmark där mer än 1/2 av befintligt fältskikt (BF) täcks av lingon och mjölon samt örter, gräs, ormbunkar, lummer och blåbär.",
-  },
-  {
-    value: "KråkbärLjung",
-    label: "Kråkbär och Ljung",
-    description:
-      "vegetationstyp enligt Skogshögskolans boniteringssystem på fastmark där mer än 1/2 av befintligt fältskikt (BF) täcks av kråkbär, ljung och klockljung samt lingon, ormbunkar, lummer och blåbär.",
+    description: "Lingon och Kråkbär/Ljung",
   },
 ];
 

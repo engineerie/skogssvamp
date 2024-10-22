@@ -41,12 +41,18 @@
         >
           <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
         </div>
-        <BaseHeading
-          size="3xl"
-          weight="medium"
-          class="text-neutral-800 dark:text-neutral-300 mr-4"
-          >Matsvampar</BaseHeading
-        >
+
+        <div class="">
+          <BaseHeading
+            size="3xl"
+            weight="medium"
+            class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
+            >Matsvampar</BaseHeading
+          >
+          <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+            >Enligt bedömning av samlad kunskap
+          </BaseHeading>
+        </div>
       </div>
 
       <div class="flex gap-2 items-end">
@@ -61,6 +67,7 @@
           />
         </div>
         <BaseInput
+          v-if="!isNormalView"
           icon="i-heroicons-magnifying-glass-20-solid"
           v-model="searchQuery"
           shape="full"
@@ -104,6 +111,8 @@
             :columns="selectedColumns"
             :rows="paginatedData"
             @select="selectRow"
+            v-model:sort="sort"
+            sort-mode="manual"
             :key="route.fullPath"
           >
             <template #empty-state>
@@ -120,7 +129,7 @@
                 }}
               </div>
             </template> -->
-            <template #rating-data="{ row }">
+            <!-- <template #rating-data="{ row }">
               <div class="flex">
                 <span v-for="n in getValidRating(row.rating)" :key="n">
                   <Icon
@@ -132,18 +141,16 @@
             </template>
             <template #förekomst_ung-data="{ row }">
               <div>
-                <!-- If value is 1, show the mushroom icon -->
                 <div v-if="row.förekomst_ung === 1">
                   <Icon name="tabler:mushroom" class="h-4 w-4" />
                 </div>
-                <!-- If value is 0, show the leaf icon -->
                 <div v-else-if="row.förekomst_ung === 0">
                   <Icon name="heroicons:x-mark-16-solid" class="h-4 w-4" />
                 </div>
               </div>
-            </template>
+            </template> -->
 
-            <template #förekomst_skog_ålder-data="{ row }">
+            <!-- <template #förekomst_skog_ålder-data="{ row }">
               <div class="flex">
                 <span
                   v-for="n in getValidFörekomst(row.förekomst_skog_ålder)"
@@ -152,20 +159,23 @@
                   <Icon name="tabler:mushroom" class="h-4 w-4" />
                 </span>
               </div>
-            </template>
+            </template> -->
             <!-- <template #förekomst_ung-data="{ row }">
               <div class="text-ellipsis overflow-hidden">
                 {{ capitalize(row.förekomst_ung) }}
               </div>
             </template> -->
             <template #Commonname-data="{ row }">
-              <div class="text-ellipsis overflow-hidden">
+              <div class="truncate max-w-96">
                 {{ capitalize(row.Commonname) }}
+                <span class="italic" v-if="isNormalView"
+                  >({{ capitalize(row.Scientificname) }})</span
+                >
               </div>
             </template>
             <template #Scientificname-data="{ row }">
               <div
-                class="italic font-thin overflow-hidden text-ellipsis truncate"
+                class="italic font-thin overflow-hidden text-ellipsis max-w-40 truncate"
               >
                 {{ row.Scientificname }}
               </div>
@@ -366,18 +376,8 @@ function closeInfoBox() {
 
 const columns = [
   {
-    key: "förekomst_ung",
-    label: "Ungskog",
-    sortable: props.isNormalView ? false : true,
-  },
-  {
-    key: "förekomst_skog_ålder",
-    label: "Förekomst",
-    sortable: props.isNormalView ? false : true,
-  },
-  {
     key: "Commonname",
-    label: "Namn      ",
+    label: "Namn",
     sortable: props.isNormalView ? false : true,
   },
   {
@@ -387,30 +387,48 @@ const columns = [
   },
   {
     key: "Svamp-grupp",
-    label: props.isNormalView ? "Grupp" : "Grupp",
-    sortable: props.isNormalView ? false : true,
-  },
-  {
-    key: "rating",
-    label: "Betyg",
+    label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
 ];
 
+const sort = ref({ column: "", direction: "asc" });
+
 const selectedColumns = computed(() =>
   [
-    standAge.value == "1-40" ? columns[0] : null, // Always include
-    columns[1], // Always include
-    columns[2], // Include based on isNormalView
-    !props.isNormalView ? columns[3] : null, // Always include
-    columns[4], // Always include
-    columns[5], // Always include
+    columns[0], // "Commonname"
+    !props.isNormalView ? columns[1] : null, // "Scientificname"
+    columns[2], // "Svamp-grupp"
   ].filter((column) => column !== null)
 );
 
 const sortedData = computed(() => {
-  // Sort data based on your sorting logic
-  return data.value.sort(/* your sorting logic here */);
+  let result = filteredData.value.slice(); // Create a shallow copy to sort
+
+  if (sort.value && sort.value.column) {
+    const column = sort.value.column;
+    const direction = sort.value.direction;
+
+    result.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      // Handle null or undefined values
+      if (valueA == null && valueB != null) return 1;
+      if (valueA != null && valueB == null) return -1;
+      if (valueA == null && valueB == null) return 0;
+
+      // Compare values using Swedish locale
+      const comparison = String(valueA).localeCompare(String(valueB), "sv", {
+        numeric: true,
+        sensitivity: "base",
+      });
+
+      return direction === "asc" ? comparison : -comparison;
+    });
+  }
+
+  return result;
 });
 
 const geography = ref("");
@@ -436,16 +454,16 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
   }
 };
 
-const getValidRating = (rating) => {
-  const parsedRating = parseInt(rating);
-  return Number.isNaN(parsedRating) ? 0 : parsedRating;
-};
+// const getValidRating = (rating) => {
+//   const parsedRating = parseInt(rating);
+//   return Number.isNaN(parsedRating) ? 0 : parsedRating;
+// };
 
-const getValidFörekomst = (förekomst_skog_ålder) => {
-  const parsedFörekomst = parseInt(förekomst_skog_ålder);
-  // Subtract 1 from the parsed value but ensure it doesn't go below 0
-  return Math.max(0, Number.isNaN(parsedFörekomst) ? 0 : parsedFörekomst - 1);
-};
+// const getValidFörekomst = (förekomst_skog_ålder) => {
+//   const parsedFörekomst = parseInt(förekomst_skog_ålder);
+//   // Subtract 1 from the parsed value but ensure it doesn't go below 0
+//   return Math.max(0, Number.isNaN(parsedFörekomst) ? 0 : parsedFörekomst - 1);
+// };
 
 // Watch for changes in route params and fetch data accordingly
 watch(
@@ -478,34 +496,33 @@ const selectedRow = ref(null);
 
 // Computed property for filtered data
 const filteredData = computed(() => {
-  if (!searchQuery.value) {
-    return data.value;
+  let result = data.value;
+
+  // Apply search query filter
+  if (searchQuery.value) {
+    result = result.filter((row) => {
+      return Object.values(row).some((value) =>
+        String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
+      );
+    });
   }
-  return data.value.filter((row) => {
-    return Object.values(row).some((value) =>
-      String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-  });
+
+  return result;
 });
 
-// Computed property for paginated data
 const paginatedData = computed(() => {
   const start = (page.value - 1) * rowsPerPage.value;
   const end = page.value * rowsPerPage.value;
-  return filteredData.value.slice(start, end);
+  return sortedData.value.slice(start, end);
 });
 
 const totalPages = computed(() => {
   return Math.ceil(filteredData.value.length / rowsPerPage.value);
 });
 
-// Computed property for total number of items
-const totalItems = computed(() => filteredData.value.length);
+const totalItems = computed(() => sortedData.value.length);
 
-// Computed property for the starting item number
 const startItem = computed(() => (page.value - 1) * rowsPerPage.value + 1);
-
-// Computed property for the ending item number
 const endItem = computed(() =>
   Math.min(page.value * rowsPerPage.value, totalItems.value)
 );

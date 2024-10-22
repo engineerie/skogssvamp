@@ -129,12 +129,17 @@
           >
             <Icon name="game-icons:plant-roots" class="h-10 w-10" />
           </div>
-          <BaseHeading
-            size="3xl"
-            weight="medium"
-            class="text-neutral-800 dark:text-neutral-200"
-            >Mykorrhizasvampar</BaseHeading
-          >
+          <div>
+            <BaseHeading
+              size="3xl"
+              weight="medium"
+              class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
+              >Mykorrhizasvampar</BaseHeading
+            >
+            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+              >Enligt markinventeringens provytor
+            </BaseHeading>
+          </div>
         </div>
         <div v-else></div>
 
@@ -172,14 +177,64 @@
           <!-- display the  "sample_env_count" here  -->
 
           <div
-            class="flex items-end px-3 pb-1.5 bg-white dark:bg-neutral-800 border-[0.5px] border-neutral-300 dark:border-neutral-600 rounded-full text-neutral-400"
+            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
           >
             <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-              >{{ totalItems }}
+              >{{ data ? data.length : 0 }}
             </BaseHeading>
             <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
           </div>
+
+          <div
+            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
+            :data-nui-tooltip="'Få arter täcker majoriteten av marken'"
+          >
+            <div class="flex items-end">
+              <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                :class="'h-7 w-7 mt-1 mr-2 text-gray-500'"
+              />
+
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+                >{{ topCount }} Arter</BaseHeading
+              >
+            </div>
+          </div>
+          <!-- <div
+            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
+          >
+            <div class="flex items-end">
+              <BaseHeading
+                size="xl"
+                weight="medium"
+                class="-mb-1 mx-1.5 text-green-500"
+                >{{ next10Percentage }}%
+              </BaseHeading>
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+                >{{ next10Count }} Arter</BaseHeading
+              >
+            </div>
+          </div> -->
+
+          <div
+            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+            :data-nui-tooltip="'Många arter täcker en mindre del av marken'"
+          >
+            <div class="flex items-end">
+              <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                :class="'h-7 w-7 mt-1 mr-2 text-violet-500'"
+              />
+
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
+                >{{ remainingCount }} Arter</BaseHeading
+              >
+            </div>
+          </div>
           <BaseInput
+            v-if="!isNormalView"
             icon="i-heroicons-magnifying-glass-20-solid"
             v-model="searchQuery"
             shape="full"
@@ -205,7 +260,7 @@
     </div>
     <div
       :class="{ 'rounded-xl': !isNormalView }"
-      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
+      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5"
     >
       <div v-if="filteredData" class="col-span-6">
         <div class="">
@@ -237,6 +292,9 @@
             :columns="columns"
             :rows="paginatedData"
             @select="selectRow"
+            v-model:sort="sort"
+            sort-mode="manual"
+            :key="route.fullPath"
           >
             <template
               v-if="isNormalView"
@@ -296,7 +354,7 @@
 
                 <div
                   :class="getStatusColor(row.RL2020kat)"
-                  class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0 max-w-12"
+                  class="h-5 w-5 rounded-full flex items-center justify-center text-white z-0 max-w-12"
                   data-nui-tooltip-position="left"
                   :data-nui-tooltip="
                     row['RL2020kat'] !== 'Saknas'
@@ -304,16 +362,16 @@
                       : 'Ej bedömd'
                   "
                 >
-                  {{ getStatusAbbreviation(row.RL2020kat) }}
+                  <!-- {{ getStatusAbbreviation(row.RL2020kat) }} -->
                 </div>
 
                 <!-- Conditional Blue 'S' Circle -->
                 <div v-if="row.SIGNAL_art === 'S'" class="relative">
                   <div
-                    class="h-8 w-8 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10"
+                    class="h-5 w-5 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10 text-sm"
                     :data-nui-tooltip="'Signalart'"
                   >
-                    S
+                    <!-- S -->
                   </div>
                 </div>
               </div>
@@ -419,7 +477,7 @@
 </style>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const color = computed(() => {
@@ -439,7 +497,6 @@ const stripDetailsFromURL = (url) => {
   return url.replace("/detaljer", "");
 };
 
-// Example selectedRows data
 const selectedRows = ref([]);
 function selectRow(row) {
   selectedRows.value = [row]; // Store the selected row in the array
@@ -456,7 +513,6 @@ const capitalize = (str) => {
 };
 
 const sampleEnvCount = computed(() => {
-  // Check if data is not empty and return the sample_env_count of the first item
   return data.value.length > 0 ? data.value[0].sample_env_count : 0;
 });
 
@@ -487,17 +543,6 @@ const isInfoBoxVisible = ref(false);
 
 const isDragging = ref(false);
 
-// function getCenterPosition() {
-//   const boxWidth = 200;
-//   const boxHeight = 400;
-
-//   const centerX = (window.innerWidth - boxWidth) / 2;
-//   const centerY = (window.innerHeight - boxHeight) / 2;
-
-//   return { top: centerY, left: centerX };
-// }
-
-// const boxPosition = reactive(getCenterPosition());
 const dragOffset = reactive({ x: 0, y: 0 });
 
 function startDrag(event) {
@@ -542,7 +587,6 @@ const getStatusAbbreviation = (status) => {
 
 const getStatusColor = (status) => {
   const colors = {
-    // LC: "bg-[#CDD428]",
     LC: "bg-green-500",
     NT: "bg-[#D7838E]",
     EN: "bg-[#CC526B]",
@@ -551,7 +595,6 @@ const getStatusColor = (status) => {
     RE: "bg-[#421A31]",
     DD: "bg-[#E8E9E7]",
   };
-  // return colors[status] || "bg-[#EAB61F]";
   return colors[status] || "bg-yellow-500";
 };
 
@@ -568,6 +611,8 @@ const getStatusTooltip = (status) => {
   return tooltips[status] || "Ej bedömd";
 };
 
+const sort = ref({ column: "", direction: "asc" });
+
 const columns = [
   {
     key: "sample_plot_count",
@@ -582,7 +627,6 @@ const columns = [
     label: "Namn",
     sortable: props.isNormalView ? false : true,
   },
-  // Conditionally include the taxon column
   ...(props.isNormalView
     ? []
     : [
@@ -615,29 +659,20 @@ const columns = [
   },
 ];
 
-const sortedData = computed(() => {
-  // Sort data based on your sorting logic
-  return data.value.sort(/* your sorting logic here */);
-});
-
 const geography = ref("");
 const forestType = ref("");
 const standAge = ref("");
 const vegetationType = ref("");
 
-const top4Count = ref(0);
-const next10Count = ref(0);
+const topCount = ref(0);
 const remainingCount = ref(0);
-const top4Percentage = ref(0);
-const next10Percentage = ref(0);
+const topPercentage = ref(0);
 const remainingPercentage = ref(0);
 
 const handleInfoUpdate = (info) => {
-  top4Count.value = info.top4Count;
-  next10Count.value = info.next10Count;
+  topCount.value = info.topCount;
   remainingCount.value = info.remainingCount;
-  top4Percentage.value = info.top4Percentage;
-  next10Percentage.value = info.next10Percentage;
+  topPercentage.value = info.topPercentage;
   remainingPercentage.value = info.remainingPercentage;
 };
 
@@ -666,15 +701,37 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
 
-    // Generate colors after data is fetched
-    const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
-    const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-    const otherColors = generateColors(
+    const totalSum = data.value.reduce(
+      (acc, row) => acc + row.sample_plot_count,
+      0
+    );
+
+    let cumulativeSum = 0;
+    const totalDataPoints = data.value.length;
+    let index = 0;
+
+    // Calculate topCount
+    while (cumulativeSum / totalSum < 0.8 && index < totalDataPoints) {
+      cumulativeSum += data.value[index].sample_plot_count;
+      index++;
+    }
+
+    // Update topCount and remainingCount
+    topCount.value = index;
+    remainingCount.value = totalDataPoints - index;
+
+    const grayColors = generateColors(
+      [82, 82, 82],
+      [212, 212, 212],
+      topCount.value
+    );
+    const purpleColors = generateColors(
       [46, 16, 101],
       [232, 121, 249],
-      Math.max(data.value.length - 14, 0)
+      remainingCount.value
     );
-    allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
+
+    allColors.value = [...grayColors, ...purpleColors];
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -708,23 +765,54 @@ const page = ref(1);
 const rowsPerPageOptions = [5, 10, 20, 30, 40, 50]; // Options for rows per page
 const rowsPerPage = ref(props.isNormalView ? 500 : 10);
 
-// Computed property for filtered data
 const filteredData = computed(() => {
-  if (!searchQuery.value) {
-    return data.value;
+  let result = data.value;
+
+  // Apply any filters you have
+  if (searchQuery.value) {
+    result = result.filter((row) => {
+      return Object.values(row).some((value) =>
+        String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
+      );
+    });
   }
-  return data.value.filter((row) => {
-    return Object.values(row).some((value) =>
-      String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-  });
+
+  return result;
 });
 
-// Computed property for paginated data
+const sortedData = computed(() => {
+  let result = filteredData.value.slice(); // Create a shallow copy to sort
+
+  if (sort.value && sort.value.column) {
+    const column = sort.value.column;
+    const direction = sort.value.direction;
+
+    result.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      // Handle null or undefined values
+      if (valueA == null && valueB != null) return 1;
+      if (valueA != null && valueB == null) return -1;
+      if (valueA == null && valueB == null) return 0;
+
+      // Compare values using Swedish locale
+      const comparison = String(valueA).localeCompare(String(valueB), "sv", {
+        numeric: true,
+        sensitivity: "base",
+      });
+
+      return direction === "asc" ? comparison : -comparison;
+    });
+  }
+
+  return result;
+});
+
 const paginatedData = computed(() => {
   const start = (page.value - 1) * rowsPerPage.value;
   const end = page.value * rowsPerPage.value;
-  return filteredData.value.slice(start, end);
+  return sortedData.value.slice(start, end);
 });
 
 const totalPages = computed(() => {

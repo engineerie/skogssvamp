@@ -8,19 +8,17 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const geographyOptions = ["Norr", "Söder"];
-const forestTypeOptions = ["Granskog", "Tallskog", "Barrblandskog", "Lövskog"];
-const vegetationTypeOptions = [
-  "Blåbär",
-  "Bredblad gräs",
-  "Högört",
-  "KråkbärLjung",
-  "Lingon",
-  "Lågört",
-  "Smalblad gräs",
-  "Utan fältskikt",
+const forestTypeOptions = [
+  "Granskog",
+  "Tallskog",
+  "Barrblandskog",
+  "Lövblandskog",
+  "Lövskog",
+  "EkBokskog",
+  "Naturbete",
 ];
-const standAgeOptions = ["1-40", "41-90", "91"];
-
+const vegetationTypeOptions = ["Örter_grupp", "Blåbär_grupp", "Lingon_grupp"];
+const standAgeOptions = ["1-40", "41-90", "91", "allaåldrar"];
 let allCombinations = [];
 
 for (let geo of geographyOptions) {
@@ -42,24 +40,23 @@ const mapForestTypeToColumn = {
   Granskog: "Gran",
   Tallskog: "Tall",
   Barrblandskog: "Blandad barrskog",
-  Lövskog: "Blandad lövskog",
+  Lövblandskog: "Blandad lövskog",
+  Lövskog: "Lövskog",
+  EkBokskog: "EkochBokskog",
+  Naturbete: "Naturbete",
 };
 
 const mapVegetationTypeToColumn = {
-  Högört: "högört",
-  Lågört: "lågört",
-  "Utan fältskikt": null, // Adjust if there's a corresponding column
-  "Bredblad gräs": "bredbladigt gräs",
-  "Smalblad gräs": "bmalbladigt gräs",
-  Blåbär: "blåbär",
-  Lingon: "lingon",
-  KråkbärLjung: "kråkbär ljung",
+  Örter_grupp: "ÖRTER_grupp",
+  Blåbär_grupp: "BLÅBÄR_grupp",
+  Lingon_grupp: "LINGON_grupp",
 };
 
 const mapStandAgeToColumn = {
   "1-40": "1-40 år",
   "41-90": "41-90 år",
   91: "91 år och äldre",
+  allaåldrar: null,
 };
 
 async function prefetchEdibleData() {
@@ -89,12 +86,23 @@ async function prefetchEdibleData() {
             (forestTypeColumn === null || item[forestTypeColumn] !== null) &&
             vegetationTypeColumn !== null &&
             item[vegetationTypeColumn] !== null &&
-            (standAgeColumn === null || item[standAgeColumn] !== null)
+            (standAgeColumn === null
+              ? item["1-40 år"] !== null ||
+                item["41-90 år"] !== null ||
+                item["91 år och äldre"] !== null
+              : item[standAgeColumn] !== null)
         )
         .map((item) => {
           const youngValue = item["11-20 år"] || 0;
           const forestValue = item[forestTypeColumn] || 0;
-          const ageValue = item[standAgeColumn] || 0;
+
+          const ageValue =
+            standAgeColumn === null
+              ? (item["1-40 år"] || 0) +
+                (item["41-90 år"] || 0) +
+                (item["91 år och äldre"] || 0)
+              : item[standAgeColumn] || 0;
+
           let förekomstSkogÅlder = forestValue + ageValue;
           let förekomstSum = forestValue + ageValue;
 
@@ -114,7 +122,12 @@ async function prefetchEdibleData() {
         });
 
       // Sort data by förekomst_sum in descending order
-      enhancedData.sort((a, b) => b.förekomst_sum - a.förekomst_sum);
+      enhancedData.sort((a, b) =>
+        (a.Commonname || a.Scientificname || "").localeCompare(
+          b.Commonname || b.Scientificname || "",
+          "sv"
+        )
+      );
 
       const filename = `edibledata-${geo}-${forest}-${age}-${veg}.json`;
       fs.writeFileSync(

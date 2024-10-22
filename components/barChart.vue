@@ -63,6 +63,7 @@ const getStatusColor = (status) => {
     EN: "#fd8d3c", // bg-rose-600
     VU: "#f16913", // bg-rose-500
     CR: "#d94801", // bg-rose-800
+    NT: "#D7838E",
   };
   return colors[status] || "#cccccc"; // Default color for unknown status
 };
@@ -76,23 +77,11 @@ const generateStatusMarkerSVG = (status) => {
   return "data:image/svg+xml;base64," + btoa(svg);
 };
 
-// Watch for changes in props and fetch data
-watch(
-  () => [
-    props.geography,
-    props.forestType,
-    props.standAge,
-    props.vegetationType,
-    route.path,
-  ],
-  async () => {
-    await fetchChartData();
-    updateParentWithInfo();
-  },
-  { immediate: true }
-);
-
-console.log("Received props:", props);
+// Reactive variables for counts and percentages
+const topPercentage = ref(0);
+const remainingPercentage = ref(0);
+const topCount = ref(0);
+const remainingCount = ref(0);
 
 const VueApexCharts = shallowRef(null);
 const data = ref(null);
@@ -103,13 +92,10 @@ const chartOptions = ref({
     toolbar: {
       show: false, // This line hides the toolbar
     },
-    // offsetY: 10,
   },
   plotOptions: {
     bar: {
       horizontal: false,
-
-      // columnWidth: "80%",
     },
   },
   dataLabels: {
@@ -121,7 +107,6 @@ const chartOptions = ref({
     colors: ["transparent"],
   },
   xaxis: {
-    // tickPlacement: "on",
     axisTicks: {
       show: false,
     },
@@ -134,7 +119,6 @@ const chartOptions = ref({
     },
   },
   yaxis: {
-    // reversed: true,
     title: {
       show: false,
     },
@@ -145,25 +129,23 @@ const chartOptions = ref({
   grid: {
     show: true,
     padding: {
-      left: 30, // or whatever value that works
-      right: 30, // or whatever value that works
-    }, // Other grid configurations
+      left: 30,
+      right: 30,
+    },
   },
 });
 
-const top4Percentage = ref(0);
-const next10Percentage = ref(0);
-const remainingPercentage = ref(0);
-const top4Count = ref(0);
-const next10Count = ref(0);
-const remainingCount = ref(0);
-
 const chartSeries = ref([]);
 
+// Variables to hold the number of bars in each group
+let numberOfGrayBars = 0;
+let numberOfPurpleBars = 0;
+
 const generateColors = (start, end, steps) => {
-  const stepR = (end[0] - start[0]) / (steps - 1);
-  const stepG = (end[1] - start[1]) / (steps - 1);
-  const stepB = (end[2] - start[2]) / (steps - 1);
+  if (steps <= 0) return [];
+  const stepR = (end[0] - start[0]) / (steps - 1 || 1);
+  const stepG = (end[1] - start[1]) / (steps - 1 || 1);
+  const stepB = (end[2] - start[2]) / (steps - 1 || 1);
   const colors = [];
 
   for (let i = 0; i < steps; i++) {
@@ -281,20 +263,51 @@ const fetchChartData = async () => {
         annotations: { points: annotationsPoints },
       };
 
-      // Generate colors and update series data
-      const top4Colors = generateColors([82, 82, 82], [212, 212, 212], 4);
-      const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-      const otherColors = generateColors(
-        [46, 16, 101],
-        [232, 121, 249],
-        Math.max(data.value.length - 14, 1)
-      );
-      const individualBarColors = [
-        ...top4Colors,
-        ...next10Colors,
-        ...otherColors.slice(0, data.value.length - 14),
-      ];
+      // Calculate cumulative sum to determine number of gray bars
+      let cumulativeSum = 0;
+      const threshold = 0.8 * totalSum.value;
+      numberOfGrayBars = 0;
 
+      for (let i = 0; i < data.value.length; i++) {
+        cumulativeSum += data.value[i].sample_plot_count;
+        numberOfGrayBars++;
+        if (cumulativeSum >= threshold) {
+          break;
+        }
+      }
+
+      numberOfPurpleBars = data.value.length - numberOfGrayBars;
+
+      // Generate colors for each group
+      const grayColors = generateColors(
+        [82, 82, 82],
+        [212, 212, 212],
+        numberOfGrayBars
+      );
+      // const purpleColors =
+      //   numberOfPurpleBars > 0
+      //     ? generateColors([46, 16, 101], [232, 121, 249], numberOfPurpleBars)
+      //     : [];
+
+      // Combine the colors
+      // const individualBarColors = [...grayColors, ...purpleColors];
+
+      const rainbowColors = generateRainbowColors(numberOfPurpleBars);
+
+      function generateRainbowColors(steps) {
+        const colors = [];
+        const saturation = 70; // You can adjust this value (0-100)
+        const lightness = 50; // You can adjust this value (0-100)
+
+        for (let i = 0; i < steps; i++) {
+          const hue = Math.round((360 / steps) * i);
+          colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+        }
+        return colors;
+      }
+
+      const individualBarColors = [...grayColors, ...rainbowColors];
+      // Assign colors to chart data
       chartSeries.value = [
         {
           name: "Förekomst",
@@ -317,22 +330,18 @@ const fetchChartData = async () => {
 };
 
 function updateCountsAndPercentages() {
-  const top4Sum = data.value
-    .slice(0, 4)
+  const graySum = data.value
+    .slice(0, numberOfGrayBars)
     .reduce((acc, row) => acc + row.sample_plot_count, 0);
-  const next10Sum = data.value
-    .slice(4, 14)
-    .reduce((acc, row) => acc + row.sample_plot_count, 0);
-  const remainingSum = totalSum.value - top4Sum - next10Sum;
 
-  top4Percentage.value = ((top4Sum / totalSum.value) * 100).toFixed(0);
-  next10Percentage.value = ((next10Sum / totalSum.value) * 100).toFixed(0);
-  remainingPercentage.value = ((remainingSum / totalSum.value) * 100).toFixed(
-    0
-  );
-  top4Count.value = 4;
-  next10Count.value = 10;
-  remainingCount.value = data.value.length - 14;
+  const purpleSum = data.value
+    .slice(numberOfGrayBars)
+    .reduce((acc, row) => acc + row.sample_plot_count, 0);
+
+  topPercentage.value = ((graySum / totalSum.value) * 100).toFixed(0);
+  remainingPercentage.value = ((purpleSum / totalSum.value) * 100).toFixed(0);
+  topCount.value = numberOfGrayBars;
+  remainingCount.value = numberOfPurpleBars;
 
   updateParentWithInfo();
 }
@@ -374,14 +383,28 @@ chartOptions.value.tooltip = {
 
 const updateParentWithInfo = () => {
   emits("updateInfo", {
-    top4Count: top4Count.value,
-    next10Count: next10Count.value,
+    topCount: topCount.value,
     remainingCount: remainingCount.value,
-    top4Percentage: top4Percentage.value,
-    next10Percentage: next10Percentage.value,
+    topPercentage: topPercentage.value,
     remainingPercentage: remainingPercentage.value,
   });
 };
+
+// Watch for changes in props and fetch data
+watch(
+  () => [
+    props.geography,
+    props.forestType,
+    props.standAge,
+    props.vegetationType,
+    route.path,
+  ],
+  async () => {
+    await fetchChartData();
+    updateParentWithInfo();
+  },
+  { immediate: true }
+);
 
 onMounted(async () => {
   await fetchChartData();

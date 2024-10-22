@@ -17,25 +17,20 @@ const forestTypeOptions = [
   "Naturbete",
   "EkBokskog",
 ];
-const vegetationTypeOptions = [
-  "Blåbär",
-  "Bredblad gräs",
-  "Högört",
-  "Kråkbär/Ljung", // Keep the actual database value here
-  "Lingon",
-  "Lågört",
-  "Smalblad gräs",
-  "Utan fältskikt",
-];
+const vegetationGroups = {
+  Örter_grupp: ["Högört", "Lågört", "Bredblad gräs"],
+  Blåbär_grupp: ["Blåbär", "Smalblad gräs"],
+  Lingon_grupp: ["Lingon", "Kråkbär/Ljung"],
+};
 const standAgeOptions = ["1-40", "41-90", "91", "allaåldrar"];
 let allCombinations = [];
 
-// Generating all combinations of parameters
 for (let geo of geographyOptions) {
   for (let forest of forestTypeOptions) {
-    for (let veg of vegetationTypeOptions) {
+    for (let vegGroupName in vegetationGroups) {
+      const vegGroupList = vegetationGroups[vegGroupName];
       for (let age of standAgeOptions) {
-        allCombinations.push({ geo, forest, veg, age });
+        allCombinations.push({ geo, forest, vegGroupName, vegGroupList, age });
       }
     }
   }
@@ -111,8 +106,14 @@ function logToFile(data) {
 }
 
 async function prefetchData() {
-  for (const { geo, forest, veg, age } of allCombinations) {
-    const startMessage = `Starting fetch for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}`;
+  for (const {
+    geo,
+    forest,
+    vegGroupName,
+    vegGroupList,
+    age,
+  } of allCombinations) {
+    const startMessage = `Starting fetch for combination: geo=${geo}, forest=${forest}, vegGroup=${vegGroupName}, age=${age}`;
     console.log(startMessage);
     logToFile(startMessage); // Log to file
 
@@ -120,11 +121,11 @@ async function prefetchData() {
       const data = await fetchDataDirectly({
         geography: geo,
         forestType: forest,
-        vegetationType: veg,
+        vegetationTypes: vegGroupList, // Pass the array of vegetation types
         standAge: age,
       });
 
-      const fetchCompleteMessage = `Fetch complete for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}`;
+      const fetchCompleteMessage = `Fetch complete for combination: geo=${geo}, forest=${forest}, vegGroup=${vegGroupName}, age=${age}`;
       console.log(fetchCompleteMessage);
       logToFile(fetchCompleteMessage); // Log to file
 
@@ -132,7 +133,7 @@ async function prefetchData() {
       logToFile(`Fetched data length: ${data.length}`); // Log to file
 
       if (!data || data.length === 0) {
-        const noDataMessage = `No data fetched for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}`;
+        const noDataMessage = `No data fetched for combination: geo=${geo}, forest=${forest}, vegGroup=${vegGroupName}, age=${age}`;
         console.log(noDataMessage);
         logToFile(noDataMessage); // Log to file
         continue;
@@ -147,8 +148,8 @@ async function prefetchData() {
         };
       });
 
-      const safeVeg = veg.replace("/", "");
-      const filename = `data-${geo}-${forest}-${age}-${safeVeg}.json`;
+      const safeVegGroupName = vegGroupName.replace(/\//g, ""); // Remove slashes
+      const filename = `data-${geo}-${forest}-${age}-${safeVegGroupName}.json`;
       const filePath = path.join(__dirname, `../static/${filename}`);
 
       fs.writeFileSync(filePath, JSON.stringify(enrichedData, null, 2));
@@ -158,34 +159,39 @@ async function prefetchData() {
       console.log(writtenMessage);
       logToFile(writtenMessage); // Log to file
     } catch (error) {
-      const errorMessage = `Error during data fetch for combination: geo=${geo}, forest=${forest}, veg=${veg}, age=${age}: ${error}`;
+      const errorMessage = `Error during data fetch for combination: geo=${geo}, forest=${forest}, vegGroup=${vegGroupName}, age=${age}: ${error}`;
       console.error(errorMessage);
       logToFile(errorMessage); // Log to file
     }
   }
 }
 
-// Execute the prefetch function
 prefetchData();
 
 // Assuming allCombinations is already defined as in your script
 async function generateValidCombinations() {
   let validCombinations = [];
-  for (const { geo, forest, veg, age } of allCombinations) {
-    const safeVeg = veg.replace("/", ""); // Normalize the vegetation type here
+  for (const {
+    geo,
+    forest,
+    vegGroupName,
+    vegGroupList,
+    age,
+  } of allCombinations) {
+    const safeVegGroupName = vegGroupName.replace(/\//g, ""); // Normalize the vegetation group name
     try {
       const data = await fetchDataDirectly({
         geography: geo,
         forestType: forest,
-        vegetationType: veg,
+        vegetationTypes: vegGroupList, // Pass the array of vegetation types
         standAge: age,
       });
       if (data && data.length > 0) {
-        validCombinations.push({ geo, forest, veg: safeVeg, age }); // Store using normalized veg
+        validCombinations.push({ geo, forest, veg: safeVegGroupName, age }); // Store using normalized veg group name
       }
     } catch (error) {
       console.error(
-        `Failed to fetch data for combination ${geo}, ${forest}, ${veg}, ${age}: ${error}`
+        `Failed to fetch data for combination ${geo}, ${forest}, ${vegGroupName}, ${age}: ${error}`
       );
     }
   }
@@ -195,4 +201,5 @@ async function generateValidCombinations() {
   );
   console.log("Valid combinations have been saved.");
 }
+
 generateValidCombinations();
