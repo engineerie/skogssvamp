@@ -1,6 +1,6 @@
 <template>
   <!-- Info Button -->
-  <BaseIconBox
+  <!-- <BaseIconBox
     shape="full"
     size="xs"
     variant="solid"
@@ -12,7 +12,6 @@
     <Icon name="material-symbols:info-i-rounded" class="size-4" />
   </BaseIconBox>
 
-  <!-- UCard that shows on hover -->
   <Transition name="fade">
     <UCard
       v-show="isHovered"
@@ -28,7 +27,7 @@
         arter), och lila representerar de ovanliga arterna (187 arter).
       </BaseHeading>
     </UCard>
-  </Transition>
+  </Transition> -->
 
   <!-- Image Section -->
   <div class="justify-center">

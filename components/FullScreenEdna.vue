@@ -123,24 +123,37 @@
         class="flex justify-between mb-2 items-end"
         :class="{ 'mt-3': isNormalView }"
       >
-        <div class="flex items-end" v-if="props.isNormalView == false">
-          <div
-            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-          >
-            <Icon name="game-icons:plant-roots" class="h-10 w-10" />
-          </div>
-          <div>
-            <BaseHeading
-              size="3xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
-              >Mykorrhizasvampar</BaseHeading
+        <UPopover
+          mode="hover"
+          v-if="props.isNormalView == false"
+          class="flex items-end cursor-default"
+        >
+          <div class="items-end flex cursor-default">
+            <div
+              class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
             >
-            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Enligt markinventeringens provytor
-            </BaseHeading>
+              <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+            </div>
+            <div>
+              <BaseHeading
+                size="3xl"
+                weight="medium"
+                class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
+                >Mykorrhizasvampar</BaseHeading
+              >
+              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+                >Enligt markinventeringens provytor
+              </BaseHeading>
+            </div>
           </div>
-        </div>
+          <template #panel>
+            <div class="p-4 w-96 text-sm text-neutral-500">
+              Visar mykorrhizasvampar i svensk skogsmark baserat på DNA-analys
+              av svampmycel från jordprover.
+            </div>
+          </template>
+        </UPopover>
+
         <div v-else></div>
 
         <div class="flex gap-2 items-end">
@@ -711,7 +724,7 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     let index = 0;
 
     // Calculate topCount
-    while (cumulativeSum / totalSum < 0.8 && index < totalDataPoints) {
+    while (cumulativeSum / totalSum < 0.5 && index < totalDataPoints) {
       cumulativeSum += data.value[index].sample_plot_count;
       index++;
     }

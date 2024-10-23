@@ -265,7 +265,7 @@ const fetchChartData = async () => {
 
       // Calculate cumulative sum to determine number of gray bars
       let cumulativeSum = 0;
-      const threshold = 0.8 * totalSum.value;
+      const threshold = 0.5 * totalSum.value;
       numberOfGrayBars = 0;
 
       for (let i = 0; i < data.value.length; i++) {

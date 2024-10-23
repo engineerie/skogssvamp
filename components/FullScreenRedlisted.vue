@@ -35,27 +35,53 @@
       </div>
     </transition>
     <div class="flex justify-between mb-2 items-end">
-      <div class="flex items-end">
-        <div
-          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-teal-500 flex justify-center items-center"
-        >
-          <Icon name="material-symbols:award-star-outline" class="h-10 w-10" />
+      <UPopover mode="hover" class="flex items-end cursor-default">
+        <div class="items-end flex cursor-default">
+          <div
+            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-teal-500 flex justify-center items-center"
+          >
+            <Icon
+              name="material-symbols:award-star-outline"
+              class="h-10 w-10"
+            />
+          </div>
+
+          <div class="">
+            <BaseHeading
+              size="3xl"
+              weight="medium"
+              class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
+              >Naturvårdsarter</BaseHeading
+            >
+            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+              >Enligt bedömning av samlad kunskap
+            </BaseHeading>
+          </div>
         </div>
 
-        <div class="">
-          <BaseHeading
-            size="3xl"
-            weight="medium"
-            class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
-            >Naturvårdsarter</BaseHeading
-          >
-          <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-            >Enligt bedömning av samlad kunskap
-          </BaseHeading>
-        </div>
-      </div>
+        <template #panel>
+          <div class="p-4 w-96 text-sm text-neutral-500">
+            Visar signalarter och rödlistade arter som kan förekomma i miljön,
+            baserat på observationer av fruktkroppar.
+          </div>
+        </template>
+      </UPopover>
 
       <div class="flex gap-2 items-end">
+        <div
+          :data-nui-tooltip="'Visa extra sällsynta arter'"
+          data-nui-tooltip-position="left"
+        >
+          <Icon
+            @click="toggleRare"
+            name="material-symbols:star-rounded"
+            class="w-10 h-10 hover:text-teal-500 text-neutral-300 hover:cursor-pointer transition-all"
+            :class="{
+              'text-teal-500': isRare,
+            }"
+          />
+        </div>
+
         <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
             v-model="rowsPerPage"
@@ -229,6 +255,20 @@
                   </div>
                 </div>
               </div>
+            </template>
+            <template #OVANLIGHET-data="{ row }">
+              <div
+                v-if="row.OVANLIGHET == 2"
+                data-nui-tooltip-position="left"
+                :data-nui-tooltip="'Väldigt sällsynt'"
+                class="ml-2"
+              >
+                <Icon
+                  name="material-symbols:star-rounded"
+                  class="w-8 h-8 text-teal-500"
+                />
+              </div>
+              <div v-else></div>
             </template>
             <template #Svamp-grupp-data="{ row }">
               <div
@@ -465,11 +505,24 @@ const columns = [
     sortable: props.isNormalView ? false : true,
   },
   {
+    key: "OVANLIGHET",
+    label: "Extra ovanlig",
+    sortable: props.isNormalView ? false : true,
+  },
+  {
     key: "Svamp-grupp",
     label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
 ];
+
+// Reactive state for toggling rarity
+const isRare = ref(false); // Initially set to false
+
+// Function to toggle the isRare state
+const toggleRare = () => {
+  isRare.value = !isRare.value;
+};
 
 const sort = ref({ column: "", direction: "asc" });
 
@@ -479,7 +532,8 @@ const selectedColumns = computed(() =>
     columns[1], // "Commonname"
     !props.isNormalView ? columns[2] : null, // "Scientificname"
     columns[3], // "Mark"
-    columns[4], // "Svamp-grupp"
+    isRare.value ? columns[4] : null, // Conditionally show "Ovanlighet"
+    columns[5], // "Svamp-grupp"
   ].filter((column) => column !== null)
 );
 
@@ -586,6 +640,13 @@ const filteredData = computed(() => {
   if (selectedMark.value && selectedMark.value.value !== null) {
     result = result.filter((row) => row[selectedMark.value.value] != null);
   }
+
+  // **Apply 'isRare' filter**
+  if (!isRare.value) {
+    // When isRare is false, exclude rows where OVANLIGHET is 2
+    result = result.filter((row) => row.OVANLIGHET !== 2);
+  }
+  // When isRare is true, include all rows (no additional filtering needed)
 
   // Apply search query filter
   if (searchQuery.value) {

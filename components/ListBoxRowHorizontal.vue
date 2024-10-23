@@ -228,59 +228,72 @@ const forestTypeOptions = [
   {
     value: "Granskog",
     label: "Granskog",
-    description: "Minst 70% barrträd och varav minst 70% av barrträden är gran",
+    description: "Minst 70% barrträd, och minst 70% av dessa är gran",
   },
   {
     value: "Tallskog",
     label: "Tallskog",
-    description: "Minst 70% barrträd och varav minst 70% av barrträden är tall",
+    description: "Minst 70% barrträd, och minst 70% av dessa är tall",
   },
   {
     value: "Barrblandskog",
-    label: "Blandad barrskog",
-    description:
-      "Minst 70% barrträd varav varken tall eller gran utgör 70% av barrträden",
+    label: "Barrblandskog",
+    description: "Minst 70% barrträd, men varken tall eller gran uppnår 70%",
   },
   {
     value: "Lövblandskog",
-    label: "Blandad lövskog",
-    description:
-      "31-69% lövträd respektive barrträd, samt hygge med jordslag mull",
+    label: "Blandskog",
+    description: "31-69% lövträd respektive barrträd",
   },
   { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
   {
     value: "EkBokskog",
     label: "Ek och Bokskog",
-    description:
-      "Minst 70% lövträd varav minst 70% av lövträden är ek eller bok",
+    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok.",
   },
   {
     value: "Naturbete",
     label: "Naturbete",
-    description: "Trädbevuxna gräsmarker för bestesdjur",
+    description: "Trädbevuxna gräsmarker som används för betesdjur.",
   },
 ];
 const standAgeOptions = [
-  { value: "1-40", label: "1-40 år" },
-  { value: "41-90", label: "41-90 år" },
-  { value: "91", label: "91 år och äldre" },
-  { value: "allaåldrar", label: "Alla åldrar" },
+  {
+    value: "1-40",
+    label: "1-40 år",
+    description: "Yngre träd mellan 1 och 40 år.",
+  },
+  {
+    value: "41-90",
+    label: "41-90 år",
+    description: "Träd mellan 41 och 90 år.",
+  },
+  {
+    value: "91",
+    label: "91 år och äldre",
+    description: "Äldre träd som är 91 år eller mer.",
+  },
+  {
+    value: "allaåldrar",
+    label: "Alla åldrar",
+    description: "Inkluderar alla åldersgrupper av träd.",
+  },
 ];
 const vegetationTypeOptions = [
   {
     value: "Örter_grupp",
     label: "Örter",
-    description: "Högört, Lågört och Bredblad gräs",
+    description: "Består av högörter, lågörter och bredbladiga gräs.",
   },
   {
     value: "Blåbär_grupp",
     label: "Blåbär",
-    description: "Blåbär och Smalblad gräs",
+    description: "Innehåller blåbär och smalbladiga gräs.",
   },
   {
     value: "Lingon_grupp",
     label: "Lingon",
-    description: "Lingon och Kråkbär/Ljung",
+    description: "Täcker områden med lingon och kråkbär eller ljung.",
   },
 ];
 

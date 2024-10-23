@@ -91,11 +91,10 @@
             >
           </div>
           <BaseProse class="ml-2 my-4">
-            Denna del visar ätbara svampar som kan förekomma i miljön, baserat
-            på observationer av fruktkroppar som rapporterats till
-            Artdatabanken. Informationen har sammanställts för hand av
-            sakkunniga vid SLU och kompletterar DNA-undersökningen som missar
-            många arter.
+            Visar ätbara svampar som kan förekomma i miljön, baserat på
+            observationer av fruktkroppar som rapporterats till Artdatabanken.
+            Informationen har sammanställts för hand av sakkunniga vid SLU och
+            kompletterar DNA-undersökningen som missar många arter.
           </BaseProse>
         </UCard>
         <UCard class="relative">
@@ -126,8 +125,8 @@
             >
           </div>
           <BaseProse class="ml-2 my-4">
-            Denna del visar signalarter och rödlistade arter som kan förekomma i
-            miljön, baserat på observationer av fruktkroppar. Informationen har
+            Visar signalarter och rödlistade arter som kan förekomma i miljön,
+            baserat på observationer av fruktkroppar. Informationen har
             sammanställts för hand av sakkunniga vid SLU och kompletterar
             DNA-undersökningen som missar ovanliga arter.
           </BaseProse>

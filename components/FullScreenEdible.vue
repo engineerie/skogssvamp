@@ -35,25 +35,34 @@
       </div>
     </transition>
     <div class="flex justify-between mb-2 items-end">
-      <div class="flex items-end">
-        <div
-          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
-        >
-          <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
+      <UPopover mode="hover" class="flex items-end cursor-default" :ui="{}">
+        <div class="items-end flex cursor-default">
+          <div
+            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
+          >
+            <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
+          </div>
+
+          <div class="">
+            <BaseHeading
+              size="3xl"
+              weight="medium"
+              class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
+              >Matsvampar</BaseHeading
+            >
+            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+              >Enligt bedömning av samlad kunskap
+            </BaseHeading>
+          </div>
         </div>
 
-        <div class="">
-          <BaseHeading
-            size="3xl"
-            weight="medium"
-            class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
-            >Matsvampar</BaseHeading
-          >
-          <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-            >Enligt bedömning av samlad kunskap
-          </BaseHeading>
-        </div>
-      </div>
+        <template #panel>
+          <div class="p-4 w-96 text-sm text-neutral-500">
+            Visar matsvampar som kan förekomma i miljön, baserat på
+            observationer av fruktkroppar.
+          </div>
+        </template>
+      </UPopover>
 
       <div class="flex gap-2 items-end">
         <div v-if="!props.isNormalView" class="w-20">

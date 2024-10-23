@@ -108,22 +108,35 @@
       <div class="col-span-5">
         <div class="flex justify between">
           <div class="flex mb-3 items-end">
-            <div
-              class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-            >
-              <Icon name="game-icons:plant-roots" class="h-10 w-10" />
-            </div>
-            <div class="">
-              <BaseHeading
-                size="3xl"
-                weight="medium"
-                class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
-                >Mykorrhizasvampar</BaseHeading
-              >
-              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-                >Enligt markinventeringens provytor
-              </BaseHeading>
-            </div>
+            <UPopover mode="hover" class="flex items-end cursor-default">
+              <div class="items-end flex cursor-default">
+                <div
+                  class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center"
+                >
+                  <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+                </div>
+                <div class="">
+                  <BaseHeading
+                    size="3xl"
+                    weight="medium"
+                    class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
+                    >Mykorrhizasvampar</BaseHeading
+                  >
+                  <BaseHeading
+                    weight="medium"
+                    size="xs"
+                    class="text-neutral-400"
+                    >Enligt markinventeringens provytor
+                  </BaseHeading>
+                </div>
+              </div>
+              <template #panel>
+                <div class="p-4 w-96 text-sm text-neutral-500">
+                  Visar mykorrhizasvampar i svensk skogsmark baserat på
+                  DNA-analys av svampmycel från jordprover.
+                </div>
+              </template>
+            </UPopover>
             <BaseTabs
               class="ml-4 -mb-4"
               v-model="activeTab"
