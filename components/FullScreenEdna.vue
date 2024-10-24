@@ -531,7 +531,7 @@ const sampleEnvCount = computed(() => {
 
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
-    övrigt: "default-icon.png",
+    övrigt: "BasilOther1Solid.png",
     hattsvamp: "hattsvamp.png",
     kantarell: "kantarell.webp",
     sopp: "sopp.png",

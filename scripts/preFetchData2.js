@@ -44,6 +44,7 @@ const genusToSvampGrupp = {
   Amphinema: "skinnsvamp",
   Boletus: "sopp",
   Byssocorticium: "skinnsvamp",
+  Calonarius: "hattsvamp",
   Cenococcum: "övrigt",
   Chalciporus: "sopp",
   Chamonixia: "sopp",
@@ -54,38 +55,53 @@ const genusToSvampGrupp = {
   Elaphomyces: "tryffel",
   Entoloma: "hattsvamp",
   Gautieria: "tryffel",
+  Genabea: "tryffel",
   Genea: "tryffel",
   Geopora: "tryffel",
+  Gomphidius: "hattsvamp",
+  Gyrodon: "sopp",
   Hebeloma: "hattsvamp",
   Helvellosebacina: "övrigt",
   Humaria: "skålsvamp",
   Hyaloscypha: "skålsvamp",
+  Hydnellum: "taggsvamp",
   Hydnotrya: "tryffel",
   Hydnum: "taggsvamp",
+  Hygronarius: "hattsvamp",
   Hygrophorus: "hattsvamp",
   Hymenogaster: "tryffel",
   Hysterangium: "tryffel",
   Imleria: "sopp",
   Inocybe: "hattsvamp",
+  Inosperma: "hattsvamp",
   Laccaria: "hattsvamp",
   Lactarius: "hattsvamp",
+  Lactifluus: "hattsvamp",
   Leccinum: "sopp",
   Melanogaster: "tryffel",
   Naucoria: "hattsvamp",
   Otidea: "skålsvamp",
   Paxillus: "hattsvamp",
+  Phaeocollybia: "hattsvamp",
   Phellodon: "taggsvamp",
+  Phlegmacium: "hattsvamp",
   Piloderma: "skinnsvamp",
+  Polyozellus: "skinnsvamp",
+  Pseudosperma: "hattsvamp",
   Pseudotomentella: "skinnsvamp",
   Ramaria: "fingersvamp",
   Rhizopogon: "tryffel",
   Russula: "hattsvamp",
+  Sarcodon: "taggsvamp",
   Scleroderma: "tryffel",
   Sebacina: "övrigt",
   Serendipita: "övrigt",
-  Sistotrema: "övrigt",
+  Sistotrema: "skinnsvamp",
+  Sistotremella: "skinnsvamp",
   Suillus: "sopp",
+  Sutorius: "sopp",
   Tarzetta: "skålsvamp",
+  Thaxterogaster: "hattsvamp",
   Thelephora: "skinnsvamp",
   Tomentella: "skinnsvamp",
   Tomentellopsis: "skinnsvamp",
@@ -99,6 +115,24 @@ const genusToSvampGrupp = {
   Xerocomellus: "sopp",
   Xerocomus: "sopp",
 };
+
+const taxonToSvampGrupp = {
+  Albatrellaceae: "övrigt",
+  Atheliaceae: "skinnsvamp",
+  Cantharellales: "övrigt",
+  Eurotiomycetes: "övrigt",
+  Hydnaceae: "övrigt",
+  Pyronemataceae: "skålsvamp",
+  Thelephoraceae: "skinnsvamp",
+};
+
+// Function to clean taxon and remove "sp.1", "sp.2", etc.
+function cleanTaxon(taxon) {
+  if (!taxon) return null;
+  // Regex to remove " sp.X" (e.g., "sp.1", "sp.2") from taxon
+  return taxon.replace(/ sp\.\d+$/, "").trim();
+}
+
 // Function to log data
 function logToFile(data) {
   const logFilePath = path.join(__dirname, "app.log");
@@ -139,12 +173,23 @@ async function prefetchData() {
         continue;
       }
 
+      // Enrich data with the appropriate 'Svamp-grupp-släkte'
       const enrichedData = data.map((entry) => {
         const genus = entry.Genus;
-        const svampGruppSlakte = genusToSvampGrupp[genus] || "Saknas";
+        const rawTaxon = entry.taxon;
+        const cleanedTaxon = cleanTaxon(rawTaxon); // Clean the taxon
+
+        // Decide Svamp-grupp-släkte
+        let svampGruppSlakte = genusToSvampGrupp[genus]; // Try to assign based on genus
+
+        if (!svampGruppSlakte && cleanedTaxon) {
+          // Fallback to taxon-based assignment if genus is null or not in the mapping
+          svampGruppSlakte = taxonToSvampGrupp[cleanedTaxon] || "Saknas"; // Use cleaned taxon
+        }
+
         return {
           ...entry,
-          "Svamp-grupp-släkte": svampGruppSlakte,
+          "Svamp-grupp-släkte": svampGruppSlakte, // Add the determined Svamp-grupp-släkte
         };
       });
 

@@ -286,6 +286,7 @@ import { useRoute } from "vue-router";
 
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
+    övrigt: "BasilOther1Solid.png",
     hattsvamp: "hattsvamp.png",
     kantarell: "kantarell.webp",
     sopp: "sopp.png",
