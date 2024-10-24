@@ -120,7 +120,7 @@ const chartOptions = ref({
   },
   yaxis: {
     title: {
-      show: false,
+      text: "Vanlighet",
     },
   },
   fill: {

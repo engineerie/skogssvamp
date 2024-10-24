@@ -195,7 +195,7 @@
     "Genus": "Polyozellus",
     "sample_plot_count": 7,
     "sample_env_count": 16,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-10",
@@ -825,7 +825,7 @@
     "Genus": "Thaxterogaster",
     "sample_plot_count": 2,
     "sample_env_count": 16,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI18-74",
@@ -1095,7 +1095,7 @@
     "Genus": "Polyozellus",
     "sample_plot_count": 1,
     "sample_env_count": 16,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-223",
@@ -1239,7 +1239,7 @@
     "Genus": "Polyozellus",
     "sample_plot_count": 1,
     "sample_env_count": 16,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-374",
@@ -1635,7 +1635,7 @@
     "Genus": "Information saknas",
     "sample_plot_count": 1,
     "sample_env_count": 16,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-914",
@@ -1689,7 +1689,7 @@
     "Genus": "Information saknas",
     "sample_plot_count": 1,
     "sample_env_count": 16,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "övrigt"
   },
   {
     "SpeciesCode": "SI18-996",

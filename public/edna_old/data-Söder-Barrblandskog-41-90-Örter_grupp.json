@@ -321,7 +321,7 @@
     "Genus": "Inosperma",
     "sample_plot_count": 2,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI18-1096",
@@ -609,7 +609,7 @@
     "Genus": "Information saknas",
     "sample_plot_count": 2,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-85",
@@ -645,7 +645,7 @@
     "Genus": "Information saknas",
     "sample_plot_count": 2,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-90",
@@ -663,7 +663,7 @@
     "Genus": "Polyozellus",
     "sample_plot_count": 2,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-909",
@@ -753,7 +753,7 @@
     "Genus": "Pseudosperma",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI18-1080",
@@ -843,7 +843,7 @@
     "Genus": "Information saknas",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-1386",
@@ -1257,7 +1257,7 @@
     "Genus": "Sistotrema",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "övrigt"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-374",
@@ -1653,7 +1653,7 @@
     "Genus": "Thaxterogaster",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI18-6603",
@@ -1779,7 +1779,7 @@
     "Genus": "Information saknas",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "skinnsvamp"
   },
   {
     "SpeciesCode": "SI18-899",
@@ -2499,7 +2499,7 @@
     "Genus": "Gomphidius",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI21-6635",
@@ -2607,7 +2607,7 @@
     "Genus": "Pseudosperma",
     "sample_plot_count": 1,
     "sample_env_count": 10,
-    "Svamp-grupp-släkte": "Saknas"
+    "Svamp-grupp-släkte": "hattsvamp"
   },
   {
     "SpeciesCode": "SI21-9263",

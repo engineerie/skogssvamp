@@ -54,7 +54,7 @@
               >Naturvårdsarter</BaseHeading
             >
             <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Enligt bedömning av samlad kunskap
+              >Bedömning baserad på fruktkroppar
             </BaseHeading>
           </div>
         </div>
@@ -93,7 +93,7 @@
           />
         </div>
         <BaseListbox
-          class="w-36"
+          class="w-44"
           v-model="selectedMark"
           :items="markOptions"
           :properties="{
@@ -249,9 +249,9 @@
                   <div
                     class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-400"
                     data-nui-tooltip-position="left"
-                    :data-nui-tooltip="'Övrig mark'"
+                    :data-nui-tooltip="'Vanlig skogsmark'"
                   >
-                    Ö
+                    V
                   </div>
                 </div>
               </div>
@@ -364,11 +364,18 @@ console.log("FullScreenEdible setup started");
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+import { useSpeciesStore } from "~/stores/speciesStore";
+
+const speciesStore = useSpeciesStore();
+
+function selectRow(row) {
+  speciesStore.selectSpecies(row, "redlisted");
+}
 
 const markOptions = [
   { id: "all", name: "Alla marker", value: null }, // Use null to represent 'all'
   { id: "kalkmark", name: "Kalkmark", value: "KALKmark" },
-  { id: "annanmark", name: "Övrig mark", value: "ANNANmark" },
+  { id: "annanmark", name: "Vanlig skogsmark", value: "ANNANmark" },
 ];
 
 const selectedMark = ref(markOptions[0]); // Default to 'Alla marker'
@@ -476,9 +483,9 @@ onUnmounted(() => {
   document.removeEventListener("mouseup", stopDrag);
 });
 
-function selectRow(row) {
-  selectedRows.value = [row];
-}
+// function selectRow(row) {
+//   selectedRows.value = [row];
+// }
 
 function closeInfoBox() {
   selectedRows.value = [];

@@ -77,6 +77,14 @@ const fetchDataFromDB = async ({
   SELECT 
     mcv.SpeciesCode,
     sd.Taxon_sp AS taxon,
+      ms.Svampguiden,
+  ms.Kriteriedokumentation,
+  ms.OVANLIGHET,
+  ms.KALKmark,
+  ms.ANNANmark,
+  ms."Värdtaxa:VedochBark",
+  ms."VärdTaxa:Finarerötterochrottrådar",
+  s.ekologi,
  COALESCE(
   ms.Commonname, 
   ms.Nyttartnamn, 
@@ -115,6 +123,8 @@ const fetchDataFromDB = async ({
     Species_database sd ON mcv.SpeciesCode = sd."ID#"
 LEFT JOIN 
   "Svampen_oktober_18" ms ON TRIM(REPLACE(sd.Taxon, '(coll.)', '')) = ms.Scientificname
+  LEFT JOIN svampguiden s ON ms.taxon = s.taxonid
+
   LEFT JOIN 
   "övriga_svenska_namn" ösn ON sd.Taxon = ösn.Taxon
   WHERE 

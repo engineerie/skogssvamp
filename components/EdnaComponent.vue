@@ -37,6 +37,7 @@
 
           <div
             class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
+            :data-nui-tooltip="'Vanliga arter som står för 50% av svampmängden'"
           >
             <div class="flex items-end">
               <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
@@ -69,6 +70,7 @@
 
           <div
             class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
+            :data-nui-tooltip="'Ovanliga arter som står för resterande 50%'"
           >
             <div class="flex items-end">
               <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
@@ -111,22 +113,22 @@
             <UPopover mode="hover" class="flex items-end cursor-default">
               <div class="items-end flex cursor-default">
                 <div
-                  class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center"
+                  class="dark:opacity-90 w-12 h-12 ml-2 mr-2 rounded-lg text-violet-500 flex justify-center"
                 >
-                  <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+                  <Icon name="solar:dna-linear" class="h-10 w-10" />
                 </div>
                 <div class="">
                   <BaseHeading
                     size="3xl"
                     weight="medium"
                     class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
-                    >Mykorrhizasvampar</BaseHeading
+                    >Alla&nbsp;mykorrhizasvampar</BaseHeading
                   >
                   <BaseHeading
                     weight="medium"
                     size="xs"
                     class="text-neutral-400"
-                    >Enligt markinventeringens provytor
+                    >Enligt DNA från Markinventeringens provytor
                   </BaseHeading>
                 </div>
               </div>

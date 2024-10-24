@@ -10,7 +10,7 @@
           </div>
           <div>
             <BaseHeading size="md" weight="light" class="text-neutral-500"
-              >Plats</BaseHeading
+              >Var i Sverige</BaseHeading
             >
 
             <BaseHeading size="2xl" weight="light">
@@ -90,7 +90,7 @@
   <div class="flex justify-end">
     <BaseButtonAction @click="toggleHeight" shape="full" class="mb-2">
       <span class="ml-2">
-        {{ listBoxRowVisible ? "Ny miljö" : "Ny miljö" }}
+        {{ listBoxRowVisible ? "Byt miljö" : "Byt miljö" }}
       </span>
       <Icon
         :name="listBoxRowVisible ? 'mdi:chevron-up' : 'mdi:chevron-down'"

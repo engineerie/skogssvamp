@@ -6,7 +6,7 @@
   >
     <!-- Geography Selection -->
     <div>
-      <label class="text-neutral-400 text-sm">Geografi</label>
+      <label class="text-neutral-400 text-sm">Var I Sverige</label>
       <div
         class="p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
@@ -129,7 +129,7 @@
 
     <!-- Vegetation Type Options -->
     <div>
-      <label class="text-neutral-400 text-sm">Markvegetation</label>
+      <label class="text-neutral-400 text-sm">Fältskikt</label>
       <div
         class="relative p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
@@ -274,12 +274,12 @@ const geographyOptions = [
   {
     value: "Norr",
     label: "Norra Sverige",
-    description: "Norr om latitud 60°",
+    description: "Norr om breddgrad 60°",
   },
   {
     value: "Söder",
     label: "Södra Sverige",
-    description: "Söder om latitud 60°",
+    description: "Söder om breddgrad 60°",
   },
 ];
 const forestTypeOptions = [
@@ -301,57 +301,59 @@ const forestTypeOptions = [
   {
     value: "Lövblandskog",
     label: "Blandskog",
-    description: "31-69% lövträd respektive barrträd",
+    description: "31-69% lövträd eller barrträd",
   },
   { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
   {
     value: "EkBokskog",
     label: "Ek och Bokskog",
-    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok.",
+    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok",
   },
   {
     value: "Naturbete",
     label: "Naturbete",
-    description: "Trädbevuxna gräsmarker som används för betesdjur.",
+    description: "Trädbevuxna gräsmarker som används för betesdjur",
   },
 ];
 const standAgeOptions = [
   {
     value: "1-40",
     label: "1-40 år",
-    description: "Yngre träd mellan 1 och 40 år.",
+    description: "Trädbeståndets medelålder är mellan 1 och 40 år",
   },
   {
     value: "41-90",
     label: "41-90 år",
-    description: "Träd mellan 41 och 90 år.",
+    description: "Trädbeståndets medelålder är mellan 41 och 90 år",
   },
   {
     value: "91",
     label: "91 år och äldre",
-    description: "Äldre träd som är 91 år eller mer.",
+    description: "Trädbeståndets medelålder är äldre än 90 år ",
   },
   {
     value: "allaåldrar",
     label: "Alla åldrar",
-    description: "Inkluderar alla åldersgrupper av träd.",
+    description: "Inkluderar trädbestånds med alla trädmedelåldrar",
   },
 ];
 const vegetationTypeOptions = [
   {
     value: "Örter_grupp",
-    label: "Örter",
-    description: "Består av högörter, lågörter och bredbladiga gräs.",
+    label: "Örttyper",
+    description:
+      "Näringsrik mark med fältskikt som innehåller högörter, lågörter och bredbladiga gräs",
   },
   {
     value: "Blåbär_grupp",
-    label: "Blåbär",
-    description: "Innehåller blåbär och smalbladiga gräs.",
+    label: "Blåbärstyper",
+    description: "Fältskikt som domineras av blåbär och smalbladiga gräs",
   },
   {
     value: "Lingon_grupp",
-    label: "Lingon",
-    description: "Täcker områden med lingon och kråkbär eller ljung.",
+    label: "Lingon-fattigristyper",
+    description:
+      "Näringsfattig mark med fältskikt som domineras av lingon, kråkbär, ljung, eller andra  fattigris",
   },
 ];
 

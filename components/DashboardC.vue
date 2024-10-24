@@ -1,6 +1,13 @@
 <template>
   <div>
     <EnvironmentTitle class="z-40" />
+    <transition name="slide">
+      <SpeciesInfo
+        v-if="speciesStore.selectedSpecies"
+        :species="speciesStore.selectedSpecies"
+        :source="speciesStore.sourceComponent"
+        @close="speciesStore.clearSelection"
+    /></transition>
 
     <!-- Modal -->
     <UModal v-model="isModalOpen" v-if="isModalOpen">
@@ -169,6 +176,8 @@ import FullScreenEdna from "./FullScreenEdna.vue";
 import FullScreenEdible from "./FullScreenEdible.vue";
 import FullScreenRedlisted from "./FullScreenRedlisted.vue";
 import NormalView from "./NormalView.vue"; // Component for the normal view
+import { useSpeciesStore } from "~/stores/speciesStore";
+const speciesStore = useSpeciesStore();
 
 const route = useRoute();
 const titleStore = useTitleStore();
@@ -225,5 +234,18 @@ onMounted(() => {
 .fade-leave-from {
   opacity: 1;
   transform: scale(1);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
 }
 </style>

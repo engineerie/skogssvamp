@@ -51,7 +51,7 @@
               >Matsvampar</BaseHeading
             >
             <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Enligt bedömning av samlad kunskap
+              >Bedömning baserad på fruktkroppar
             </BaseHeading>
           </div>
         </div>
@@ -183,9 +183,7 @@
               </div>
             </template>
             <template #Scientificname-data="{ row }">
-              <div
-                class="italic font-thin overflow-hidden text-ellipsis max-w-40 truncate"
-              >
+              <div class="italic font-thin overflow-hidden text-ellipsis">
                 {{ row.Scientificname }}
               </div>
             </template>
@@ -283,6 +281,13 @@ console.log("FullScreenEdible setup started");
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+import { useSpeciesStore } from "~/stores/speciesStore";
+
+const speciesStore = useSpeciesStore();
+
+function selectRow(row) {
+  speciesStore.selectSpecies(row, "edible");
+}
 
 const getIconPath = (svampGrupp) => {
   const iconMapping = {
@@ -376,9 +381,9 @@ onUnmounted(() => {
   document.removeEventListener("mouseup", stopDrag);
 });
 
-function selectRow(row) {
-  selectedRows.value = [row];
-}
+// function selectRow(row) {
+//   selectedRows.value = [row];
+// }
 
 function closeInfoBox() {
   selectedRows.value = [];

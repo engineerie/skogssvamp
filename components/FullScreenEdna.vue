@@ -200,7 +200,7 @@
 
           <div
             class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-            :data-nui-tooltip="'Få arter täcker majoriteten av marken'"
+            :data-nui-tooltip="'Mycel från få arter dominerar i marken'"
           >
             <div class="flex items-end">
               <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
@@ -232,7 +232,7 @@
 
           <div
             class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
-            :data-nui-tooltip="'Många arter täcker en mindre del av marken'"
+            :data-nui-tooltip="'De flesta arterna och deras mycel är ovanliga i marken'"
           >
             <div class="flex items-end">
               <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
@@ -492,6 +492,13 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useSpeciesStore } from "~/stores/speciesStore";
+
+const speciesStore = useSpeciesStore();
+
+function selectRow(row) {
+  speciesStore.selectSpecies(row, "edna");
+}
 
 const color = computed(() => {
   switch (true) {
@@ -511,9 +518,9 @@ const stripDetailsFromURL = (url) => {
 };
 
 const selectedRows = ref([]);
-function selectRow(row) {
-  selectedRows.value = [row]; // Store the selected row in the array
-}
+// function selectRow(row) {
+//   selectedRows.value = [row]; // Store the selected row in the array
+// }
 
 function closeInfoBox() {
   selectedRows.value = []; // Clear the selection to hide the sidebar
