@@ -65,7 +65,7 @@
           </div>
           <div>
             <BaseHeading size="md" weight="light" class="text-neutral-500"
-              >Markvegetation</BaseHeading
+              >Fältskikt</BaseHeading
             >
             <BaseHeading size="2xl" weight="light">{{
               vegetationTypeLabel

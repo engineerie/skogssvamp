@@ -87,39 +87,26 @@ const imageUrl = computed(() => {
     props.vegetationType &&
     props.standAge
   ) {
-    const imageName =
-      `${props.geography}-${props.forestType}-${props.vegetationType}-${props.standAge}`
-        .toLowerCase()
-        .replace(/\s+/g, "_") // Replace spaces with underscores
-        .replace(/-+/g, "_") // Replace hyphens with underscores
-        .replace(/[<>]+/g, "_"); // Remove any < or > characters
-    const finalUrl = `/images/bilderDNASkog/${imageName}.png`;
+    const imageName = `${props.geography}_${props.forestType}_${props.standAge}_${props.vegetationType}`;
+
+    const finalUrl = `/images/EDNA_bilder_skog/${imageName}.png`;
     console.log("Returning dynamic URL:", finalUrl);
     return finalUrl;
   }
 });
 
 // List of possible values for each prop
-const geographies = ["norr", "söder"];
+const geographies = ["Norr", "Söder"];
 const forestTypes = [
-  "granskog",
-  "tallskog",
-  "barrblandskog",
-  "lövblandskog",
-  "lövskog",
-  "naturbete",
+  "Granskog",
+  "Tallskog",
+  "Barrblandskog",
+  "Lövblandskog",
+  "Lövskog",
+  "Naturbete",
   "EkBokskog",
 ];
-const vegetationTypes = [
-  "Högört",
-  "Lågört",
-  "Utan fältskikt",
-  "Bredblad gräs",
-  "Smalblad gräs",
-  "Blåbär",
-  "Lingon",
-  "KråkbärLjung",
-];
+const vegetationTypes = ["Örter_grupp", "Blåbär_grupp", "Lingon_grupp"];
 const standAges = ["1-40", "41-90", "91", "allaåldrar"];
 
 // Generate all possible image URLs
@@ -129,13 +116,9 @@ const allImageUrls = computed(() => {
     for (const forestType of forestTypes) {
       for (const vegetationType of vegetationTypes) {
         for (const standAge of standAges) {
-          const imageName =
-            `${geography}-${forestType}-${vegetationType}-${standAge}`
-              .toLowerCase()
-              .replace(/\s+/g, "_") // Replace spaces with underscores
-              .replace(/-+/g, "_") // Replace hyphens with underscores
-              .replace(/[<>]+/g, "_"); // Remove any < or > characters
-          urls.push(`/images/bilderDNASkog/${imageName}.png`);
+          const imageName = `${geography}_${forestType}_${standAge}_${vegetationType}`;
+
+          urls.push(`/images/EDNA_bilder_skog/${imageName}.png`);
         }
       }
     }

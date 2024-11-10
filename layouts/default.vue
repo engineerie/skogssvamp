@@ -197,7 +197,7 @@ function determineTitle(path) {
     return "Skogssbruk";
   }
   if (path.includes("svampdata")) {
-    return "Vilka mykorrhizasvampar?";
+    return "Artlistor";
   }
   if (path.includes("/guide")) {
     return "Dokumentation";

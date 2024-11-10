@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 right-0 h-full w-80 border-l dark:border-neutral-700 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-800"
+    class="fixed top-0 right-0 h-full w-80 border-l dark:border-neutral-700 border-neutral-300 z-50 shadow-lg shadow-neutral-300 dark:shadow-neutral-800"
   >
     <!-- Transparent Top Section -->
     <!-- <div class="h-14 bg-transparent pointer-events-none"></div> -->

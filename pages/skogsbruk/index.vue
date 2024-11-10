@@ -31,7 +31,7 @@
                   class="peer-checked:!border-primary-500 peer-checked:!bg-primary-500/10 relative border-2 p-9 opacity-60 grayscale peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:[&_.child]:!opacity-100"
                 >
                   <div class="flex flex-col items-center text-center">
-                    <NuxtImg
+                    <Img
                       class="mx-auto mt-12 mb-8 max-w-[120px]"
                       src="images/SkogsbrukIcons/InteKalavverkad.svg"
                     />
@@ -67,7 +67,7 @@
                   class="peer-checked:!border-primary-500 peer-checked:!bg-primary-500/10 relative border-2 p-9 opacity-60 grayscale peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:[&_.child]:!opacity-100"
                 >
                   <div class="flex flex-col items-center text-center">
-                    <NuxtImg
+                    <Img
                       src="images/SkogsbrukIcons/Kalavverkad.svg"
                       class="mx-auto mt-12 mb-8 max-w-[120px]"
                     />

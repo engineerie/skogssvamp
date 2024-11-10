@@ -296,16 +296,16 @@ const fetchChartData = async () => {
 
       function generateRainbowColors(steps) {
         const colors = [];
-        const saturation = 70; // You can adjust this value (0-100)
-        const lightness = 50; // You can adjust this value (0-100)
+        const saturation = 70; // Adjust for vibrancy
+        const lightness = 50; // Adjust for brightness
 
         for (let i = 0; i < steps; i++) {
-          const hue = Math.round((360 / steps) * i);
-          colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+          // Calculate hue from 30° (orange) to 330° (red)
+          const hue = 45 + (300 / (steps - 1)) * i;
+          colors.push(`hsl(${hue % 360}, ${saturation}%, ${lightness}%)`);
         }
         return colors;
       }
-
       const individualBarColors = [...grayColors, ...rainbowColors];
       // Assign colors to chart data
       chartSeries.value = [

@@ -132,17 +132,17 @@
             <div
               class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
             >
-              <Icon name="game-icons:plant-roots" class="h-10 w-10" />
+              <Icon name="solar:dna-linear" class="h-11 w-11" />
             </div>
             <div>
               <BaseHeading
                 size="3xl"
                 weight="medium"
                 class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
-                >Mykorrhizasvampar</BaseHeading
+                >Alla mykorrhizasvampar</BaseHeading
               >
               <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-                >Enligt markinventeringens provytor
+                >Enligt DNA från markinventeringens provytor
               </BaseHeading>
             </div>
           </div>
@@ -204,9 +204,18 @@
           >
             <div class="flex items-end">
               <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
+
               <Icon
                 name="fluent:shape-organic-16-filled"
-                :class="'h-7 w-7 mt-1 mr-2 text-gray-500'"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-40"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-30"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-20"
               />
 
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
@@ -238,7 +247,19 @@
               <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
               <Icon
                 name="fluent:shape-organic-16-filled"
-                :class="'h-7 w-7 mt-1 mr-2 text-violet-500'"
+                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-30"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-20"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-10"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 mr-2 text-rose-400 z-0"
               />
 
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
@@ -745,13 +766,28 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
       [212, 212, 212],
       topCount.value
     );
-    const purpleColors = generateColors(
-      [46, 16, 101],
-      [232, 121, 249],
-      remainingCount.value
-    );
+    // const purpleColors = generateColors(
+    //   [46, 16, 101],
+    //   [232, 121, 249],
+    //   remainingCount.value
+    // );
 
-    allColors.value = [...grayColors, ...purpleColors];
+    const rainbowColors = generateRainbowColors(remainingCount.value);
+
+    function generateRainbowColors(steps) {
+      const colors = [];
+      const saturation = 70; // Adjust for vibrancy
+      const lightness = 50; // Adjust for brightness
+
+      for (let i = 0; i < steps; i++) {
+        // Calculate hue from 30° (orange) to 330° (red)
+        const hue = 45 + (300 / (steps - 1)) * i;
+        colors.push(`hsl(${hue % 360}, ${saturation}%, ${lightness}%)`);
+      }
+      return colors;
+    }
+
+    allColors.value = [...grayColors, ...rainbowColors];
   } catch (error) {
     console.error("Error fetching data:", error);
   }

@@ -42,9 +42,9 @@
             <div class="flex items-end">
               <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
               <BaseHeading
-                size="xl"
+                size="2xl"
                 weight="medium"
-                class="-mb-1 mx-1.5 text-gray-500"
+                class="-mb-1 mx-1.5 text-transparent bg-gradient-to-r from-gray-500 from-0% to-gray-400 to-100% inline-block bg-clip-text"
                 >{{ topPercentage }}%
               </BaseHeading>
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
@@ -76,9 +76,9 @@
               <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
 
               <BaseHeading
-                size="xl"
+                size="2xl"
                 weight="medium"
-                class="-mb-1 mx-1.5 text-violet-500"
+                class="-mb-1 mx-1.5 text-transparent bg-gradient-to-r from-yellow-500 from-0% via-teal-500 via-60% to-rose-500 to-100% inline-block bg-clip-text"
                 >{{ remainingPercentage }}%
               </BaseHeading>
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
@@ -115,7 +115,7 @@
                 <div
                   class="dark:opacity-90 w-12 h-12 ml-2 mr-2 rounded-lg text-violet-500 flex justify-center"
                 >
-                  <Icon name="solar:dna-linear" class="h-10 w-10" />
+                  <Icon name="solar:dna-linear" class="h-11 w-11" />
                 </div>
                 <div class="">
                   <BaseHeading

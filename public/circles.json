@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "position": { "top": "45%", "left": "25%" },
+    "info": {
+      "title": "Grupp av hänsynsträd",
+      "text": "Mykorrhizasvamparnas mycel lever vidare i rötterna av hänsynsträdens rötter efter avverkning.",
+      "image": "/images/3Trees.png"
+    },
+    "images": [
+      "trakthygge_efter",
+      "trakthygge_20",
+      "trakthygge_50",
+      "trakthygge_80"
+    ]
+  },
+  {
+    "id": 2,
+    "position": { "top": "60%", "left": "40%" },
+    "info": {
+      "title": "Another Feature",
+      "text": "Description of the second feature.",
+      "image": "/images/feature2.png"
+    },
+    "images": ["blädning_efter"]
+  }
+]

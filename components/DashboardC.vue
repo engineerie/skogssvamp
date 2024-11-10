@@ -10,7 +10,7 @@
     /></transition>
 
     <!-- Modal -->
-    <UModal v-model="isModalOpen" v-if="isModalOpen">
+    <!-- <UModal v-model="isModalOpen" v-if="isModalOpen">
       <UCard
         :ui="{
           ring: '',
@@ -148,7 +148,7 @@
           </BaseProse>
         </template>
       </UCard>
-    </UModal>
+    </UModal> -->
 
     <!-- Normal view and fullscreen components -->
     <div class="">

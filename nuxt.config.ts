@@ -1,6 +1,12 @@
 import { resolve } from "path";
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      geeClientId: process.env.GEE_CLIENT_ID,
+    },
+    geeClientSecret: process.env.GEE_CLIENT_SECRET,
+  },
   image: {
     // provider: 'netlify'
   },

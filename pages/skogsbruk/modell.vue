@@ -5,9 +5,8 @@
         v-for="imagePath in allImagePaths"
         :key="imagePath"
         :src="imagePath"
-        width="1200"
+        width="2000"
         format="webp"
-        quality="70"
         alt="Preload Image"
       />
     </div>
@@ -160,238 +159,345 @@
     <!-- Icon boxes row -->
 
     <div class="grid grid-cols-4 gap-5">
-      <div class="col-span-3 relative">
-        <div class="flex gap-2 absolute top-4 right-4 z-20">
-          <BaseButtonIcon shape="full" size="sm" @click="showTree = !showTree">
-            <Icon
-              name="lucide:trees"
-              class="size-5"
-              :class="{ ' text-primary-500': showTree }"
-            />
-          </BaseButtonIcon>
-
-          <BaseButtonIcon
-            shape="full"
-            size="sm"
-            @click="showFungi = !showFungi"
+      <div class="col-span-3">
+        <div class="relative">
+          <Transition name="fade">
+            <div
+              v-if="showCloseupOverlay && !isCloseup"
+              class="absolute inset-0 pointer-events-none z-50"
+            >
+              <div
+                class="absolute rounded-lg ring-1 ring-neutral-100"
+                :style="{
+                  top: '23.5%', // Adjust this value to move up or down
+                  left: '32%', // Adjust this value to move left or right
+                  width: '28.5%', // Adjust the size as needed
+                  height: '28.5%', // Adjust the size as needed
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)', // Semi-transparent background
+                }"
+              ></div>
+            </div>
+          </Transition>
+          <div
+            class="flex gap-2 absolute bottom-2 left-1/2 transform -translate-x-1/2 z-20 bg-neutral-100 ring-neutral-400 ring-1 rounded-full p-1.5"
           >
-            <Icon
-              name="fluent:shape-organic-24-filled"
-              class="size-5"
-              :class="{ ' text-primary-500': showFungi }"
-            />
-          </BaseButtonIcon>
-
-          <!-- New Compare Button -->
-          <div class="relative inline-block">
-            <!-- Ping effect -->
-            <span
-              v-if="showPingEffectCompareButton"
-              class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"
-            ></span>
-            <!-- Toggle Compare Button -->
             <BaseButtonIcon
-              v-if="isFrameworkCompareMode"
               shape="full"
               size="sm"
-              @click="toggleCompare"
-              disabled
+              @click="showTree = !showTree"
             >
               <Icon
-                name="iconamoon:compare"
+                name="lucide:trees"
                 class="size-5"
-                :class="{ ' text-primary-500': isCompare }"
+                :class="{ ' text-primary-500': showTree }"
               />
             </BaseButtonIcon>
+
             <BaseButtonIcon
-              v-else
               shape="full"
               size="sm"
-              @click="toggleCompare"
+              @click="showFungi = !showFungi"
             >
               <Icon
-                name="iconamoon:compare"
+                name="fluent:shape-organic-24-filled"
                 class="size-5"
-                :class="{ ' text-primary-500': isCompare }"
+                :class="{ ' text-primary-500': showFungi }"
+              />
+            </BaseButtonIcon>
+
+            <!-- New Compare Button -->
+            <div class="relative inline-block">
+              <!-- Ping effect -->
+              <span
+                v-if="showPingEffectCompareButton"
+                class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"
+              ></span>
+              <!-- Toggle Compare Button -->
+              <BaseButtonIcon
+                v-if="isFrameworkCompareMode"
+                shape="full"
+                size="sm"
+                @click="toggleCompare"
+                disabled
+              >
+                <Icon
+                  name="iconamoon:compare"
+                  class="size-5"
+                  :class="{ ' text-primary-500': isCompare }"
+                />
+              </BaseButtonIcon>
+              <BaseButtonIcon
+                v-else
+                shape="full"
+                size="sm"
+                @click="toggleCompare"
+              >
+                <Icon
+                  name="iconamoon:compare"
+                  class="size-5"
+                  :class="{ ' text-primary-500': isCompare }"
+                />
+              </BaseButtonIcon>
+            </div>
+            <BaseButtonIcon
+              shape="full"
+              size="sm"
+              @click="toggleCloseup"
+              @mouseenter="showCloseupOverlay = true"
+              @mouseleave="showCloseupOverlay = false"
+            >
+              <Icon
+                name="heroicons:magnifying-glass-plus"
+                class="size-5"
+                :class="{ ' text-primary-500': isCloseup }"
               />
             </BaseButtonIcon>
           </div>
-          <BaseButtonIcon shape="full" size="sm" @click="toggleCloseup">
-            <Icon
-              name="material-symbols:cameraswitch-rounded"
-              class="size-5"
-              :class="{ ' text-primary-500': isCloseup }"
-            />
-          </BaseButtonIcon>
-        </div>
-        <div v-if="isCloseup" class="relative w-full">
-          <NuxtImg
-            width="1200"
-            src="images/skogsbruk.png"
-            class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
-            format="webp"
-            quality="70"
-          />
-          <UBadge
-            size="xs"
-            :label="currentTimeLabel"
-            color="white"
-            variant="solid"
-            class="absolute bottom-4 right-4"
-          />
-        </div>
-        <div
-          v-if="!isCompare && !isFrameworkCompareMode && !isCloseup"
-          class="relative w-full"
-        >
-          <NuxtImg
-            width="1200"
-            :src="currentImagePath"
-            class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
-            format="webp"
-            quality="70"
-          />
-          <UBadge
-            size="xs"
-            :label="currentTimeLabel"
-            color="white"
-            variant="solid"
-            class="absolute bottom-4 right-4"
-          />
 
-          <!-- Conditionally render the circle for Trakthygge -->
-          <div
-            v-if="currentFramework.label === 'Trakthygge'"
-            class="absolute"
-            :style="{
-              top: '70%', // Adjust the top percentage as needed
-              left: '30%', // Adjust the left percentage as needed
-              transform: 'translate(-50%, -50%)',
-            }"
+          <img-comparison-slider
+            class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+            v-if="isCloseup && isFrameworkCompareMode"
           >
-            <!-- The Circle -->
-            <div
-              class="circle w-6 h-6 hover:w-8 hover:h-8 transition-all bg-green-500 rounded-full cursor-pointer border-white border-2"
-              @click="handleCircleClick"
-            ></div>
+            <!-- First Image (First Framework Closeup) -->
+            <div class="relative w-full" slot="first">
+              <NuxtImg
+                width="2000"
+                :src="currentImagePathCloseup"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                :label="currentFramework.label"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 left-4"
+              />
+            </div>
+            <!-- Second Image (Second Framework Closeup) -->
+            <div class="relative w-full" slot="second">
+              <NuxtImg
+                width="2000"
+                :src="currentImagePath2Closeup"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                :label="currentFramework2.label"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 right-4"
+              />
+            </div>
+          </img-comparison-slider>
+          <img-comparison-slider
+            class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+            v-if="isCloseup && isCompare"
+          >
+            <!-- First Image (Before) -->
+            <div class="relative w-full" slot="first">
+              <NuxtImg
+                width="2000"
+                :src="comparisonImagePath1Closeup"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                label="Innan avverkning"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 left-4"
+              />
+            </div>
+            <!-- Second Image (After) -->
+            <div class="relative w-full" slot="second">
+              <NuxtImg
+                width="2000"
+                :src="currentImagePathCloseup"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                :label="currentTimeLabel"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 right-4"
+              />
+            </div>
+          </img-comparison-slider>
 
-            <!-- Info Box -->
-            <div
-              v-if="showInfoBox"
-              class="info-box absolute"
+          <!-- Single Closeup Image -->
+          <div
+            v-else-if="isCloseup && !isFrameworkCompareMode"
+            class="relative w-full"
+          >
+            <NuxtImg
+              width="2000"
+              :src="currentImagePathCloseup"
+              class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+              format="webp"
+            />
+            <UBadge
+              size="xs"
+              :label="currentTimeLabel"
+              color="white"
+              variant="solid"
+              class="absolute bottom-4 right-4"
+            />
+          </div>
+          <div
+            v-if="!isCompare && !isFrameworkCompareMode && !isCloseup"
+            class="relative w-full"
+          >
+            <NuxtImg
+              width="2000"
+              :src="currentImagePath"
+              class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800"
+              format="webp"
+            />
+            <UBadge
+              size="xs"
+              :label="currentTimeLabel"
+              color="white"
+              variant="solid"
+              class="absolute bottom-4 right-4"
+            />
+
+            <!-- Conditionally render the circle for Trakthygge -->
+            <!-- <div
+              v-if="currentFramework.label === 'Trakthygge'"
+              class="absolute"
               :style="{
-                top: '50%', // Adjust as needed
-                left: '110%', // Position the box to the right of the circle
-                transform: 'translateY(-50%)',
+                top: '45%', // Adjust the top percentage as needed
+                left: '25%', // Adjust the left percentage as needed
+                transform: 'translate(-50%, -50%)',
               }"
             >
+             
+              <div
+                class="circle w-6 h-6 hover:w-8 hover:h-8 transition-all bg-green-500 rounded-full cursor-pointer border-white border-2"
+                @click="handleCircleClick"
+              ></div>
+
+              
               <Transition name="fade">
                 <div
-                  class="bg-white border border-gray-300 rounded-lg p-3 shadow-md w-64"
+                  v-if="showInfoBox"
+                  class="info-box absolute"
+                  :style="{
+                    top: '50%',
+                    left: '120%', 
+                    transform: 'translateY(-50%)',
+                  }"
                 >
-                  <!-- Content of the info box -->
-                  <p class="text-sm text-gray-700">
-                    Information om gruppstälda hänsynsträd.
-                  </p>
+                  <div
+                    class="bg-white border border-gray-300 rounded-lg shadow-md w-80 overflow-hidden"
+                  >
+                    <NuxtImg
+                      width="400"
+                      src="/images/3Trees.png"
+                      class="w-full border-b-[0.5px] border-neutral-300"
+                      format="webp"
+                    />
+                    <div class="p-3">
+                      <BaseHeading size="md">Grupp av hänsynsträd </BaseHeading>
+                      <p class="text-sm text-gray-700">
+                        Mykorrhizasvamparnas mycel lever vidare i rötterna av
+                        hänsynsträdens rötter efter avverkning.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </Transition>
+            </div> -->
+            <Circle
+              v-for="circle in filteredCircles"
+              :key="circle.id"
+              :position="circle.position"
+              :info="circle.info"
+            />
+          </div>
+          <img-comparison-slider
+            class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+            v-else-if="isCompare && !isCloseup"
+          >
+            <div class="relative w-full" slot="first">
+              <NuxtImg
+                width="2000"
+                :src="comparisonImagePath1"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                label="Innan avverkning"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 left-4"
+              />
             </div>
-          </div>
+
+            <div class="relative w-full" slot="second">
+              <NuxtImg
+                width="2000"
+                :src="currentImagePath"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                :label="currentTimeLabel"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 right-4"
+              />
+            </div>
+          </img-comparison-slider>
+
+          <!-- Framework Comparison Mode -->
+          <img-comparison-slider
+            class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+            v-else-if="isFrameworkCompareMode && !isCloseup"
+          >
+            <div class="relative w-full" slot="first">
+              <NuxtImg
+                width="2000"
+                :src="currentImagePath"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                :label="currentTimeLabel"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 left-4"
+              />
+            </div>
+            <div class="relative w-full" slot="second">
+              <NuxtImg
+                width="2000"
+                :src="currentImagePath2"
+                class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
+                format="webp"
+              />
+              <UBadge
+                size="xs"
+                :label="currentTimeLabel"
+                color="white"
+                variant="solid"
+                class="absolute bottom-4 right-4"
+              />
+            </div>
+          </img-comparison-slider>
         </div>
-        <img-comparison-slider
-          class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-          v-else-if="isCompare && !isCloseup"
-        >
-          <div class="relative w-full" slot="first">
-            <NuxtImg
-              width="1200"
-              :src="comparisonImagePath1"
-              class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
-              format="webp"
-              quality="70"
-            />
-            <UBadge
-              size="xs"
-              label="Innan avverkning"
-              color="white"
-              variant="solid"
-              class="absolute bottom-4 left-4"
-            />
-          </div>
-
-          <div class="relative w-full" slot="second">
-            <NuxtImg
-              width="1200"
-              :src="currentImagePath"
-              class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
-              format="webp"
-              quality="70"
-            />
-            <UBadge
-              size="xs"
-              :label="currentTimeLabel"
-              color="white"
-              variant="solid"
-              class="absolute bottom-4 right-4"
-            />
-          </div>
-        </img-comparison-slider>
-
-        <!-- Framework Comparison Mode -->
-        <img-comparison-slider
-          class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-          v-else-if="isFrameworkCompareMode && !isCloseup"
-        >
-          <div class="relative w-full" slot="first">
-            <NuxtImg
-              width="1200"
-              :src="currentImagePath"
-              class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
-              format="webp"
-              quality="70"
-            />
-            <UBadge
-              size="xs"
-              :label="currentTimeLabel"
-              color="white"
-              variant="solid"
-              class="absolute bottom-4 left-4"
-            />
-          </div>
-          <div class="relative w-full" slot="second">
-            <NuxtImg
-              width="1200"
-              :src="currentImagePath2"
-              class="w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 m-0 p-0"
-              format="webp"
-              quality="70"
-            />
-            <UBadge
-              size="xs"
-              :label="currentTimeLabel"
-              color="white"
-              variant="solid"
-              class="absolute bottom-4 right-4"
-            />
-          </div>
-        </img-comparison-slider>
 
         <!-- Slider Container -->
         <div class="w-full p-5">
           <div class="slider-container flex flex-col items-center w-full">
-            <!-- URange Slider -->
-            <!-- <URange
-              :step="20"
-              v-model="time"
-              size="sm"
-              :ui="{
-                track: {
-                  background:
-                    '[&::-webkit-slider-runnable-track]:bg-gray-200/40 [&::-moz-range-track]:bg-gray-200/40 [&::-webkit-slider-runnable-track]:dark:bg-gray-700/40 [&::-moz-range-track]:dark:bg-gray-700/40',
-                },
-              }"
-              class="w-full"
-            /> -->
             <BaseProgress
               title="Default progress bar"
               size="sm"
@@ -425,157 +531,177 @@
         </div>
       </div>
       <div class="h-full p-4 bg-white bg-opacity-50 rounded-xl">
-        <div
-          class="cursor-pointer transition-all bg-white p-4 rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
-          @click="Modal1 = true"
-        >
-          <div class="flex items-center gap-2 mb-4">
-            <Icon
-              :name="currentFramework.icon"
-              :class="[
-                'icon size-5 transition-all duration-300',
-                currentFramework.iconColor,
-              ]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">{{
-              currentFramework.label
-            }}</BaseHeading>
-          </div>
-          <BaseProse class="text-sm font-neutral-500">
-            Text om valt skogsbrukssätt...
-          </BaseProse>
-        </div>
-        <UModal v-model="Modal1">
-          <BaseButtonIcon
-            shape="full"
-            size="xs"
-            @click="Modal1 = false"
-            class="absolute top-4 right-4"
+        <div class="flex gap-3">
+          <div
+            class="cursor-pointer transition-all bg-white p-4 w-full rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
+            @click="Modal1 = true"
           >
-            <Icon name="material-symbols:close" class="size-4 m-1" />
-          </BaseButtonIcon>
-          <div class="p-4">
             <div class="flex items-center gap-2 mb-4">
               <Icon
                 :name="currentFramework.icon"
                 :class="[
-                  'icon size-8 transition-all duration-300',
+                  'icon size-5 transition-all duration-300',
                   currentFramework.iconColor,
                 ]"
               />
-              <BaseHeading size="2xl" weight="thin" class="text-neutral-600">{{
+              <BaseHeading size="md" weight="thin" class="text-neutral-600">{{
                 currentFramework.label
               }}</BaseHeading>
             </div>
             <BaseProse class="text-sm font-neutral-500">
-              <b>Beskrivning skogsbrukssätt</b>
-              <br />
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              rhoncus facilisis ornare. Donec ullamcorper fermentum sem rhoncus
-              commodo. Phasellus convallis dapibus sodales. Proin placerat eros
-              sed ligula dignissim ullamcorper. Vivamus faucibus imperdiet arcu,
-              non ullamcorper nunc varius iaculis. Phasellus et lorem eu lacus
-              scelerisque porta non elementum turpis. Sed bibendum interdum
-              pretium.
-              <br /><br />
-
-              Vestibulum vestibulum in ante at gravida. Curabitur nec leo eget
-              odio feugiat gravida. Suspendisse iaculis nibh mauris, at interdum
-              velit tristique nec. Class aptent taciti sociosqu ad litora
-              torquent per conubia nostra, per inceptos himenaeos.
-              <br />
-              <br />
-              <b>Skogsbrukssättetets påverkan på mykkorhizasvampar</b>
-              <br />
-
-              Duis fringilla non purus lobortis sollicitudin. Nunc pharetra
-              fermentum tincidunt. Donec interdum dolor lectus, ac ultricies
-              lorem lobortis quis. Mauris aliquet vel nulla vitae viverra. Etiam
-              ut quam vel eros consectetur lobortis. Proin rutrum justo erat,
-              vitae laoreet dui rutrum eu. Proin elementum malesuada volutpat.
-              In condimentum sem risus, vitae varius massa euismod ut.
+              Text om valt skogsbrukssätt...
             </BaseProse>
           </div>
-        </UModal>
-        <div
-          class="cursor-pointer transition-all bg-white p-4 rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
-          v-if="isFrameworkCompareMode"
-          @click="Modal2 = true"
-        >
-          <div class="flex items-center gap-2 mb-4">
-            <Icon
-              :name="currentFramework2.icon"
-              :class="[
-                'icon size-5 transition-all duration-300',
-                currentFramework2.iconColor,
-              ]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">{{
-              currentFramework2.label
-            }}</BaseHeading>
-          </div>
-          <BaseProse class="text-sm font-neutral-500">
-            Text om valt skogsbrukssätt...
-          </BaseProse>
-        </div>
-        <UModal v-model="Modal2">
-          <BaseButtonIcon
-            shape="full"
-            size="xs"
-            @click="Modal2 = false"
-            class="absolute top-4 right-4"
+          <UModal v-model="Modal1">
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="Modal1 = false"
+              class="absolute top-4 right-4"
+            >
+              <Icon name="material-symbols:close" class="size-4 m-1" />
+            </BaseButtonIcon>
+            <div class="p-4">
+              <div class="flex items-center gap-2 mb-4">
+                <Icon
+                  :name="currentFramework.icon"
+                  :class="[
+                    'icon size-8 transition-all duration-300',
+                    currentFramework.iconColor,
+                  ]"
+                />
+                <BaseHeading
+                  size="2xl"
+                  weight="thin"
+                  class="text-neutral-600"
+                  >{{ currentFramework.label }}</BaseHeading
+                >
+              </div>
+              <BaseProse class="text-sm font-neutral-500">
+                <b>Beskrivning skogsbrukssätt</b>
+                <br />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus rhoncus facilisis ornare. Donec ullamcorper fermentum
+                sem rhoncus commodo. Phasellus convallis dapibus sodales. Proin
+                placerat eros sed ligula dignissim ullamcorper. Vivamus faucibus
+                imperdiet arcu, non ullamcorper nunc varius iaculis. Phasellus
+                et lorem eu lacus scelerisque porta non elementum turpis. Sed
+                bibendum interdum pretium.
+                <br /><br />
+
+                Vestibulum vestibulum in ante at gravida. Curabitur nec leo eget
+                odio feugiat gravida. Suspendisse iaculis nibh mauris, at
+                interdum velit tristique nec. Class aptent taciti sociosqu ad
+                litora torquent per conubia nostra, per inceptos himenaeos.
+                <br />
+                <br />
+                <b>Skogsbrukssättetets påverkan på mykkorhizasvampar</b>
+                <br />
+
+                Duis fringilla non purus lobortis sollicitudin. Nunc pharetra
+                fermentum tincidunt. Donec interdum dolor lectus, ac ultricies
+                lorem lobortis quis. Mauris aliquet vel nulla vitae viverra.
+                Etiam ut quam vel eros consectetur lobortis. Proin rutrum justo
+                erat, vitae laoreet dui rutrum eu. Proin elementum malesuada
+                volutpat. In condimentum sem risus, vitae varius massa euismod
+                ut.
+              </BaseProse>
+            </div>
+          </UModal>
+          <div
+            class="cursor-pointer transition-all bg-white w-full p-4 rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
+            v-if="isFrameworkCompareMode"
+            @click="Modal2 = true"
           >
-            <Icon name="material-symbols:close" class="size-4 m-1" />
-          </BaseButtonIcon>
-          <div class="p-4">
             <div class="flex items-center gap-2 mb-4">
               <Icon
                 :name="currentFramework2.icon"
                 :class="[
-                  'icon size-8 transition-all duration-300',
+                  'icon size-5 transition-all duration-300',
                   currentFramework2.iconColor,
                 ]"
               />
-              <BaseHeading size="2xl" weight="thin" class="text-neutral-600">{{
+              <BaseHeading size="md" weight="thin" class="text-neutral-600">{{
                 currentFramework2.label
               }}</BaseHeading>
             </div>
             <BaseProse class="text-sm font-neutral-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              rhoncus facilisis ornare. Donec ullamcorper fermentum sem rhoncus
-              commodo. Phasellus convallis dapibus sodales. Proin placerat eros
-              sed ligula dignissim ullamcorper. Vivamus faucibus imperdiet arcu,
-              non ullamcorper nunc varius iaculis. Phasellus et lorem eu lacus
-              scelerisque porta non elementum turpis. Sed bibendum interdum
-              pretium.
-              <br /><br />
-
-              Vestibulum vestibulum in ante at gravida. Curabitur nec leo eget
-              odio feugiat gravida. Suspendisse iaculis nibh mauris, at interdum
-              velit tristique nec. Class aptent taciti sociosqu ad litora
-              torquent per conubia nostra, per inceptos himenaeos.
-              <br />
-              <br />
-
-              Duis fringilla non purus lobortis sollicitudin. Nunc pharetra
-              fermentum tincidunt. Donec interdum dolor lectus, ac ultricies
-              lorem lobortis quis. Mauris aliquet vel nulla vitae viverra. Etiam
-              ut quam vel eros consectetur lobortis. Proin rutrum justo erat,
-              vitae laoreet dui rutrum eu. Proin elementum malesuada volutpat.
-              In condimentum sem risus, vitae varius massa euismod ut.
+              Text om valt skogsbrukssätt...
             </BaseProse>
           </div>
-        </UModal>
-        <div v-if="VueApexCharts" class="text-neutral-500 justify-end">
-          <VueApexCharts
-            :key="`${timeLabel}`"
-            height="280px"
-            width="100%"
-            type="bar"
-            :options="chartOptions"
-            :series="chartSeries"
-          />
+          <UModal v-model="Modal2">
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="Modal2 = false"
+              class="absolute top-4 right-4"
+            >
+              <Icon name="material-symbols:close" class="size-4 m-1" />
+            </BaseButtonIcon>
+            <div class="p-4">
+              <div class="flex items-center gap-2 mb-4">
+                <Icon
+                  :name="currentFramework2.icon"
+                  :class="[
+                    'icon size-8 transition-all duration-300',
+                    currentFramework2.iconColor,
+                  ]"
+                />
+                <BaseHeading
+                  size="2xl"
+                  weight="thin"
+                  class="text-neutral-600"
+                  >{{ currentFramework2.label }}</BaseHeading
+                >
+              </div>
+              <BaseProse class="text-sm font-neutral-500">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus rhoncus facilisis ornare. Donec ullamcorper fermentum
+                sem rhoncus commodo. Phasellus convallis dapibus sodales. Proin
+                placerat eros sed ligula dignissim ullamcorper. Vivamus faucibus
+                imperdiet arcu, non ullamcorper nunc varius iaculis. Phasellus
+                et lorem eu lacus scelerisque porta non elementum turpis. Sed
+                bibendum interdum pretium.
+                <br /><br />
+
+                Vestibulum vestibulum in ante at gravida. Curabitur nec leo eget
+                odio feugiat gravida. Suspendisse iaculis nibh mauris, at
+                interdum velit tristique nec. Class aptent taciti sociosqu ad
+                litora torquent per conubia nostra, per inceptos himenaeos.
+                <br />
+                <br />
+
+                Duis fringilla non purus lobortis sollicitudin. Nunc pharetra
+                fermentum tincidunt. Donec interdum dolor lectus, ac ultricies
+                lorem lobortis quis. Mauris aliquet vel nulla vitae viverra.
+                Etiam ut quam vel eros consectetur lobortis. Proin rutrum justo
+                erat, vitae laoreet dui rutrum eu. Proin elementum malesuada
+                volutpat. In condimentum sem risus, vitae varius massa euismod
+                ut.
+              </BaseProse>
+            </div>
+          </UModal>
         </div>
+        <BarChartSkogsbruk
+          :currentFramework="currentFramework"
+          :currentFramework2="isFrameworkCompareMode ? currentFramework2 : null"
+          :currentStartskog="currentStartskog"
+          :timeLabel="timeLabelForDataFiltering"
+          :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+          :currentTimeLabel="currentTimeLabel"
+          :isCompareMode="isCompare"
+          :isFrameworkCompareMode="isFrameworkCompareMode"
+        />
+        <BarChartSkogsbrukRödMat
+          :currentFramework="currentFramework"
+          :currentFramework2="isFrameworkCompareMode ? currentFramework2 : null"
+          :currentStartskog="currentStartskog"
+          :timeLabel="timeLabelForDataFiltering"
+          :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+          :currentTimeLabel="currentTimeLabel"
+          :isCompareMode="isCompare"
+          :isFrameworkCompareMode="isFrameworkCompareMode"
+        />
       </div>
     </div>
   </div>
@@ -583,10 +709,14 @@
 
 <script>
 import { ImgComparisonSlider } from "@img-comparison-slider/vue";
+import Circle from "~/components/Circle.vue";
+import BarChart from "~/components/BarChartSkogsbruk.vue";
 
 export default {
   name: "ExampleComponent",
   components: {
+    Circle,
+    BarChart,
     ImgComparisonSlider,
   },
 };
@@ -603,6 +733,16 @@ import {
 } from "vue";
 import { useTitleStore } from "~/stores/titleStore";
 import { useOnboardingStore } from "~/stores/onboardingStore";
+import circleDataJson from "public/circles.json";
+
+// Define time2 for "Before" state when in comparison mode
+const time2 = computed(() => (isCompare.value ? 3 : null)); // 3 corresponds to "Innan avverkning"
+
+const timeLabelForDataFiltering2 = computed(() =>
+  time2.value !== null ? mapTimeValueToDataAlder(time2.value) : null
+);
+
+const circleData = ref(circleDataJson);
 
 const showPingEffectCompareButton = ref(false);
 
@@ -615,33 +755,6 @@ const handleDisabledToggleFrameworkCompareClick = () => {
     showPingEffectCompareButton.value = false;
   }, 500);
 };
-
-const showInfoBox = ref(false);
-
-const handleCircleClick = () => {
-  showInfoBox.value = !showInfoBox.value;
-};
-
-const handleOutsideClick = (event) => {
-  const circleElement = document.querySelector(".circle");
-  const infoBoxElement = document.querySelector(".info-box");
-
-  if (
-    showInfoBox.value &&
-    !circleElement.contains(event.target) &&
-    !infoBoxElement.contains(event.target)
-  ) {
-    showInfoBox.value = false;
-  }
-};
-
-onMounted(() => {
-  document.addEventListener("click", handleOutsideClick);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener("click", handleOutsideClick);
-});
 
 const Modal1 = ref(false);
 const Modal2 = ref(false);
@@ -685,7 +798,7 @@ const toggleCloseup = () => {
 
 const comparisonImagePath1 = computed(() => {
   // Image path for "before" state
-  const framework = currentFramework.value.label.toLowerCase();
+  const framework = currentFramework.value.value.toLowerCase();
   const timeLabel = "före"; // "Before"
   const treeVisibility = showTree.value ? "visa" : "dölj";
   const fungiVisibility = showFungi.value ? "visa" : "dölj";
@@ -696,13 +809,23 @@ const comparisonImagePath1 = computed(() => {
 
 // Computed property for the second current image path
 const currentImagePath2 = computed(() => {
-  const framework = currentFramework2.value.label.toLowerCase();
+  const framework = currentFramework2.value.value.toLowerCase();
   const timeLabel = mapTimeToLabel(time.value);
   const treeVisibility = showTree.value ? "visa" : "dölj";
   const fungiVisibility = showFungi.value ? "visa" : "dölj";
   const startskogValue = currentStartskog.value.value;
 
   return `/images/Skogsbruksbilder/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+});
+
+const currentImagePath2Closeup = computed(() => {
+  const framework = currentFramework2.value.value.toLowerCase();
+  const timeLabel = mapTimeToLabel(time.value);
+  const treeVisibility = showTree.value ? "visa" : "dölj";
+  const fungiVisibility = showFungi.value ? "visa" : "dölj";
+  const startskogValue = currentStartskog.value.value;
+
+  return `/images/Skogsbruksbilder_nära/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
 
 const selectedStartskogIndex = computed({
@@ -712,6 +835,18 @@ const selectedStartskogIndex = computed({
   set(value) {
     onboardingStore.selectedStartskog = value;
   },
+});
+
+const currentImageKey = computed(() => {
+  const framework = currentFramework.value.value.toLowerCase();
+  const timeLabel = mapTimeToLabel(time.value);
+  return `${framework}_${timeLabel}`;
+});
+
+const filteredCircles = computed(() => {
+  return circleData.value.filter((circle) =>
+    circle.images.includes(currentImageKey.value)
+  );
 });
 
 watch(
@@ -739,100 +874,6 @@ startskogModel.value =
 watch(startskogModel, (newValue) => {
   selectedStartskogIndex.value = newValue.includes("produktionsskog") ? 1 : 0;
 });
-const VueApexCharts = shallowRef(null);
-
-onMounted(async () => {
-  if (process.client) {
-    const module = await import("vue3-apexcharts");
-    VueApexCharts.value = module.default;
-  }
-});
-
-const chartSeries = computed(() => {
-  const valuesMap = {
-    före: {
-      white: 20,
-      gray: 30,
-      black: 20,
-      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 2,
-    },
-    efter: { white: 1, gray: 1, black: 1, red: 0 },
-    20: {
-      white: 35,
-      gray: 8,
-      black: 1,
-      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 0,
-    },
-    50: {
-      white: 30,
-      gray: 10,
-      black: 3,
-      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 0,
-    },
-    80: {
-      white: 15,
-      gray: 18,
-      black: 20,
-      red: currentStartskog.value.value === "produktionsskog_" ? 0 : 0,
-    },
-  };
-
-  const timeValues = valuesMap[timeLabel.value] || valuesMap["före"];
-
-  return [
-    {
-      name: "Series 1",
-      data: [
-        { x: "Skinnsvampar", y: timeValues.white, fillColor: "#e5e5e5" },
-        { x: "Soppar", y: timeValues.gray, fillColor: "#737373" },
-        { x: "Spindlingar", y: timeValues.black, fillColor: "#0a0a0a" },
-        { x: "Rödlistade", y: timeValues.red, fillColor: "#ef4444" },
-      ],
-    },
-  ];
-});
-const chartOptions = ref({
-  chart: {
-    toolbar: {
-      show: false,
-    },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      distributed: true,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    categories: ["Skinnsvampar", "Soppar", "Spindlingar", "Rödlistade"],
-    labels: {
-      show: false, // Hide labels on the x-axis
-    },
-  },
-  yaxis: {
-    min: 0, // Set the minimum value of the y-axis
-    max: 40, // Set the maximum value of the y-axis
-    labels: {
-      show: false, // Hide labels on the y-axis
-    },
-  },
-  grid: {
-    show: false, // Hide the grid lines behind the bars
-  },
-  fill: {
-    opacity: 1,
-    colors: undefined,
-  },
-  legend: {
-    show: true,
-    markers: {
-      fillColors: ["#e5e5e5", "#737373", "#0a0a0a", "#ef4444"], // Match colors with the columns
-    },
-  },
-});
 
 // Reactive references for state management
 const time = ref(3);
@@ -842,11 +883,11 @@ const showFungi = ref(true); // State for fungi visibility switch
 const selectedTimeIndex = ref(0); // Index of selected time from times array
 
 const frameworksVisible = ref(false);
-
 const frameworks = [
   {
     id: 0,
-    label: "Trakthygge",
+    label: "Trakthygge", // Display label
+    value: "trakthygge", // Value used for image paths
     text: "Kalavverkning med hänsyn",
     icon: "material-symbols:resize",
     iconColor: "text-violet-400",
@@ -854,7 +895,8 @@ const frameworks = [
   },
   {
     id: 1,
-    label: "Naturskydd",
+    label: "Ingen åtgärd", // Display label changed from "Naturskydd" to "Ingen åtgärd"
+    value: "naturskydd", // Value remains "naturskydd" for consistency in image paths
     text: "Orörd skog",
     icon: "pepicons-pop:tree-circle",
     iconColor: "text-green-400",
@@ -863,6 +905,7 @@ const frameworks = [
   {
     id: 2,
     label: "Blädning",
+    value: "blädning",
     text: "Stora träd gallras",
     icon: "tabler:christmas-tree-off",
     iconColor: "text-teal-400",
@@ -871,6 +914,7 @@ const frameworks = [
   {
     id: 3,
     label: "Luckhuggning",
+    value: "luckhuggning",
     text: "Mindre ytor kalavverkas",
     icon: "pixelarticons:chess",
     iconColor: "text-sky-400",
@@ -879,29 +923,48 @@ const frameworks = [
   {
     id: 4,
     label: "Skärmträd",
-    text: "Fröträd lämnas",
+    value: "skärmträd",
+    text: "Överhållen skärm",
     icon: "catppuccin:redwood",
     iconColor: "text-orange-400",
     bgColor: "bg-orange-400",
   },
 ];
 
-onMounted(async () => {
-  if (process.client) {
-    const module = await import("vue3-apexcharts");
-    VueApexCharts.value = module.default;
-    // Optionally, load data here or elsewhere
-  }
-});
+function mapFrameworkLabelToDataValue(value) {
+  const mapping = {
+    trakthygge: "trakthygge",
+    naturskydd: "inga åtgärder",
+    blädning: "blädning",
+    luckhuggning: "luckhuggning",
+    Skärmträd: "skärmträd",
+  };
+  return mapping[label] || label.toLowerCase();
+}
 
 // Define the slider steps
-const sliderSteps = [
-  { value: 3, label: "Innan avverkning" },
-  { value: 15, label: "Efter avverkning" },
-  { value: 45, label: "20 år efter avverkning" },
-  { value: 70, label: "50 år efter avverkning" },
-  { value: 99, label: "80 år efter avverkning" },
-];
+const sliderSteps = computed(() => {
+  const steps = [
+    { value: 3, label: "Innan avverkning", timeLabel: "före" },
+    { value: 15, label: "Efter avverkning", timeLabel: "efter" },
+  ];
+
+  // Add the 10-year step when the framework is "Skärmträd" and not in framework comparison mode
+  if (
+    currentFramework.value.value === "skärmträd" &&
+    !isFrameworkCompareMode.value
+  ) {
+    steps.push({ value: 30, label: "10 år efter avverkning", timeLabel: "10" });
+  }
+
+  steps.push(
+    { value: 45, label: "20 år efter avverkning", timeLabel: "20" },
+    { value: 70, label: "50 år efter avverkning", timeLabel: "50" },
+    { value: 99, label: "80 år efter avverkning", timeLabel: "80" }
+  );
+
+  return steps;
+});
 
 const timesLabels = [
   "Innan avverkning",
@@ -912,12 +975,11 @@ const timesLabels = [
 ];
 
 const currentTimeLabel = computed(() => {
-  const step = sliderSteps.find((s) => s.value === time.value);
+  const step = sliderSteps.value.find((s) => s.value === time.value);
   return step ? step.label : "";
 });
 
-const times = ["före", "efter", "20", "50", "80"];
-
+const times = computed(() => sliderSteps.value.map((s) => s.timeLabel));
 const startskog = [
   {
     label: "I äldre skog som inte kalavverkats",
@@ -947,18 +1009,32 @@ const currentStartskog = computed(
   () => startskog[selectedStartskogIndex.value]
 ); // Use value for filename
 
-const currentTime = computed(() => times[selectedTimeIndex.value]);
+const currentTime = computed(() => times.value[selectedTimeIndex.value]);
 
 // Map slider values to time labels for filenames
 function mapTimeToLabel(value) {
-  const labels = [3, 15, 45, 70, 99]; // Slider values
-  const index = labels.indexOf(value);
-  return times[index] || times[0]; // Default to 'före' if not found
+  const step = sliderSteps.value.find((s) => s.value === value);
+  return step ? step.timeLabel : times.value[0]; // Default to 'före' if not found
 }
 
+function mapTimeValueToDataAlder(value) {
+  const mapping = {
+    3: "innan",
+    15: "efter",
+    30: "10 år",
+    45: "20 år",
+    70: "50 år",
+    99: "80 år",
+  };
+  return mapping[value] || "innan"; // Default to 'innan' if not found
+}
+
+const timeLabelForDataFiltering = computed(() =>
+  mapTimeValueToDataAlder(time.value)
+);
 // Current image path computed with mapped time label
 const currentImagePath = computed(() => {
-  const framework = currentFramework.value.label.toLowerCase(); // Get the label of the selected framework and convert to lowercase
+  const framework = currentFramework.value.value.toLowerCase(); // Get the label of the selected framework and convert to lowercase
   const timeLabel = mapTimeToLabel(time.value); // Map the current time to the appropriate label
   const treeVisibility = showTree.value ? "visa" : "dölj"; // Determine tree visibility
   const fungiVisibility = showFungi.value ? "visa" : "dölj"; // Determine fungi visibility
@@ -966,12 +1042,27 @@ const currentImagePath = computed(() => {
 
   return `/images/Skogsbruksbilder/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
-// Computed property to convert numeric time value to index
-const timeIndex = computed({
-  get: () => time.value / 25,
-  set: (index) => {
-    time.value = index * 25; // Ensure this triggers updates to both URange and USelectMenu
-  },
+
+// Current image path computed with mapped time label
+const currentImagePathCloseup = computed(() => {
+  const framework = currentFramework.value.value.toLowerCase(); // Get the label of the selected framework and convert to lowercase
+  const timeLabel = mapTimeToLabel(time.value); // Map the current time to the appropriate label
+  const treeVisibility = showTree.value ? "visa" : "dölj"; // Determine tree visibility
+  const fungiVisibility = showFungi.value ? "visa" : "dölj"; // Determine fungi visibility
+  const startskogValue = currentStartskog.value.value; // Access the value property of the selected startskog
+
+  return `/images/Skogsbruksbilder_nära/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+});
+
+const comparisonImagePath1Closeup = computed(() => {
+  // Image path for "before" state closeup
+  const framework = currentFramework.value.value.toLowerCase();
+  const timeLabel = "före"; // "Before"
+  const treeVisibility = showTree.value ? "visa" : "dölj";
+  const fungiVisibility = showFungi.value ? "visa" : "dölj";
+  const startskogValue = currentStartskog.value.value;
+
+  return `/images/Skogsbruksbilder_nära/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
 
 const timeLabel = computed(() => mapTimeToLabel(time.value));
@@ -988,20 +1079,33 @@ const time_value = computed({
 // const titleStore = useTitleStore();
 // onMounted(() => titleStore.setTitle("Skogsbruk"));
 
-// Compute all possible image paths
 const allImagePaths = computed(() => {
   const paths = [];
 
-  frameworks.forEach(({ label }) => {
-    times.forEach((timeLabel) => {
+  frameworks.forEach(({ value }) => {
+    let frameworkTimes = ["före", "efter", "20", "50", "80"];
+    if (
+      value === "skärmträd" &&
+      !isCompare.value &&
+      !isFrameworkCompareMode.value
+    ) {
+      frameworkTimes = ["före", "efter", "10", "20", "50", "80"];
+    }
+    frameworkTimes.forEach((timeLabel) => {
       [true, false].forEach((showTree) => {
         [true, false].forEach((showFungi) => {
           startskog.forEach(({ value: startskogValue }) => {
-            const framework = label.toLowerCase();
+            const framework = value.toLowerCase();
             const treeVisibility = showTree ? "visa" : "dölj";
             const fungiVisibility = showFungi ? "visa" : "dölj";
+
+            // Normal image path
             const path = `/images/Skogsbruksbilder/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
             paths.push(path);
+
+            // Closeup image path
+            const closeupPath = `/images/Skogsbruksbilder_nära/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+            paths.push(closeupPath);
           });
         });
       });
@@ -1010,6 +1114,21 @@ const allImagePaths = computed(() => {
 
   return paths;
 });
+
+const ensureValidTimeValue = () => {
+  const validValues = sliderSteps.value.map((s) => s.value);
+  if (!validValues.includes(time.value)) {
+    // Reset time to a default valid value, such as "Efter avverkning"
+    time.value = 15;
+  }
+};
+
+watch(
+  [currentFramework, isCompare, isFrameworkCompareMode],
+  ensureValidTimeValue
+);
+
+const showCloseupOverlay = ref(false);
 </script>
 
 <style scoped>
