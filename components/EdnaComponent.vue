@@ -37,50 +37,53 @@
 
           <div
             class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-            :data-nui-tooltip="'Vanliga arter som står för 50% av svampmängden'"
+            :data-nui-tooltip="'Mycel från få arter dominerar i marken'"
           >
             <div class="flex items-end">
               <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
-              <BaseHeading
-                size="2xl"
-                weight="medium"
-                class="-mb-1 mx-1.5 text-transparent bg-gradient-to-r from-gray-500 from-0% to-gray-400 to-100% inline-block bg-clip-text"
-                >{{ topPercentage }}%
-              </BaseHeading>
+
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-40"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-30"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-20"
+              />
+
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
                 >{{ topCount }} Arter</BaseHeading
               >
             </div>
           </div>
-          <!-- <div
-            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-          >
-            <div class="flex items-end">
-              <BaseHeading
-                size="xl"
-                weight="medium"
-                class="-mb-1 mx-1.5 text-green-500"
-                >{{ next10Percentage }}%
-              </BaseHeading>
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ next10Count }} Arter</BaseHeading
-              >
-            </div>
-          </div> -->
 
           <div
             class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
-            :data-nui-tooltip="'Ovanliga arter som står för resterande 50%'"
+            :data-nui-tooltip="'De flesta arterna och deras mycel är ovanliga i marken'"
           >
             <div class="flex items-end">
               <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-30"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-20"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-10"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-7 w-7 mt-1 mr-2 text-rose-400 z-0"
+              />
 
-              <BaseHeading
-                size="2xl"
-                weight="medium"
-                class="-mb-1 mx-1.5 text-transparent bg-gradient-to-r from-yellow-500 from-0% via-teal-500 via-60% to-rose-500 to-100% inline-block bg-clip-text"
-                >{{ remainingPercentage }}%
-              </BaseHeading>
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
                 >{{ remainingCount }} Arter</BaseHeading
               >

@@ -54,7 +54,7 @@ const getIconPath = (svampGrupp) => {
     skinnsvamp: "/images/svampgrupp/skinnsvamp.webp",
     skålsvamp: "/images/svampgrupp/skalsvamp.webp",
   };
-  return iconMapping[svampGrupp] || "/images/svampgrupp/default-icon.png"; // Fallback to a default icon
+  return iconMapping[svampGrupp] || "/images/svampgrupp/BasilOther1Solid.png"; // Fallback to a default icon
 };
 
 const getStatusColor = (status) => {
@@ -86,6 +86,13 @@ const remainingCount = ref(0);
 const VueApexCharts = shallowRef(null);
 const data = ref(null);
 const totalSum = ref(0);
+
+// Define `sampleEnvCount` computed property
+const sampleEnvCount = computed(() => {
+  return data.value && data.value.length > 0
+    ? data.value[0].sample_env_count
+    : 0;
+});
 
 const chartOptions = ref({
   chart: {
@@ -120,7 +127,7 @@ const chartOptions = ref({
   },
   yaxis: {
     title: {
-      text: "Vanlighet",
+      text: `Antal skogar där arten påträffats av ${sampleEnvCount.value}`,
     },
   },
   fill: {
@@ -131,6 +138,36 @@ const chartOptions = ref({
     padding: {
       left: 30,
       right: 30,
+    },
+  },
+  tooltip: {
+    marker: {
+      show: false,
+    },
+    intersect: false,
+    shared: true,
+    followCursor: true,
+    y: {
+      formatter: function (val) {
+        return val;
+      },
+    },
+    theme: isDarkMode.value ? "dark" : "light",
+    style: {
+      backgroundColor: isDarkMode.value ? "#333" : "#fff",
+    },
+    x: {
+      formatter: function (val, { seriesIndex, dataPointIndex, w }) {
+        const dataPoint = w.config.series[seriesIndex].data[dataPointIndex];
+        let snamn = dataPoint.snamn;
+        if (!snamn) {
+          snamn = "Saknar svenskt namn";
+        } else {
+          snamn = capitalizeFirstLetter(snamn);
+        }
+        const taxon = dataPoint.x;
+        return `${snamn} (${taxon})`;
+      },
     },
   },
 });
@@ -162,12 +199,12 @@ const fetchChartData = async () => {
   const filename = `data-${props.geography}-${props.forestType}-${props.standAge}-${props.vegetationType}.json`;
 
   try {
-    // Fetch data from the local JSON file
+    // Fetch data från den lokala JSON-filen
     const response = await fetch(`/edna/${filename}`);
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     const newData = await response.json();
 
-    // Check if data is available
+    // Kontrollera om data finns
     if (newData && newData.length > 0) {
       data.value = newData;
       totalSum.value = data.value.reduce(
@@ -188,7 +225,7 @@ const fetchChartData = async () => {
           shape: "circle",
         },
         image: {
-          path: getIconPath(row["Svamp-grupp-släkte"]), // Use the correct property key
+          path: getIconPath(row["Svamp-grupp-släkte"]), // Använd rätt egenskapsnyckel
           offsetY: -15,
           width: 18,
           height: 18,
@@ -227,7 +264,7 @@ const fetchChartData = async () => {
           },
           image: {
             path: generateStatusMarkerSVG(row.RL2020kat),
-            offsetY: -40, // Adjust this as needed
+            offsetY: -40, // Justera vid behov
             width: 24,
             height: 24,
           },
@@ -239,7 +276,7 @@ const fetchChartData = async () => {
         ...newAnnotationsPoints,
       ];
 
-      // Map for taxon to snamn
+      // Kartlägg taxon till svenska namn
       const taxonToSnamnMap = new Map();
       data.value.forEach((row) => {
         taxonToSnamnMap.set(
@@ -248,9 +285,45 @@ const fetchChartData = async () => {
         );
       });
 
-      // Update chart options
+      // **Ny Logik Börjar Här**
+      // Beräkna antalet grå staplar baserat på 20% av det totala antalet arter
+      const totalSpecies = data.value.length;
+      numberOfGrayBars = Math.floor(totalSpecies * 0.1); // Använd Math.ceil(totalSpecies * 0.2) om du föredrar avrundning uppåt
+      numberOfPurpleBars = totalSpecies - numberOfGrayBars;
+
+      // Generera färger för varje grupp
+      const grayColors = generateColors(
+        [82, 82, 82], // Startfärg (mörkgrå)
+        [212, 212, 212], // Slutfärg (ljusgrå)
+        numberOfGrayBars
+      );
+
+      const rainbowColors = generateRainbowColors(numberOfPurpleBars);
+
+      const individualBarColors = [...grayColors, ...rainbowColors];
+
+      // Tilldela färger till diagramdata
+      chartSeries.value = [
+        {
+          name: "",
+          data: data.value.map((row, index) => ({
+            x: row.taxon,
+            y: row.sample_plot_count,
+            fillColor: individualBarColors[index],
+            color: individualBarColors[index],
+            snamn: row.snamn,
+          })),
+        },
+      ];
+
+      // Uppdatera chartOptions med y-axelns titel och x-axelns etiketter
       chartOptions.value = {
         ...chartOptions.value,
+        yaxis: {
+          title: {
+            text: `Antal skogar där arten påträffats`,
+          },
+        },
         xaxis: {
           ...chartOptions.value.xaxis,
           categories: newCategories,
@@ -263,66 +336,14 @@ const fetchChartData = async () => {
         annotations: { points: annotationsPoints },
       };
 
-      // Calculate cumulative sum to determine number of gray bars
-      let cumulativeSum = 0;
-      const threshold = 0.5 * totalSum.value;
-      numberOfGrayBars = 0;
+      // **Uppdatera Tooltipens Y-Formatteringsfunktion**
+      chartOptions.value.tooltip.y.formatter = function (val) {
+        return `Påträffad i ${val} av ${sampleEnvCount.value} skogar`;
+      };
 
-      for (let i = 0; i < data.value.length; i++) {
-        cumulativeSum += data.value[i].sample_plot_count;
-        numberOfGrayBars++;
-        if (cumulativeSum >= threshold) {
-          break;
-        }
-      }
-
-      numberOfPurpleBars = data.value.length - numberOfGrayBars;
-
-      // Generate colors for each group
-      const grayColors = generateColors(
-        [82, 82, 82],
-        [212, 212, 212],
-        numberOfGrayBars
-      );
-      // const purpleColors =
-      //   numberOfPurpleBars > 0
-      //     ? generateColors([46, 16, 101], [232, 121, 249], numberOfPurpleBars)
-      //     : [];
-
-      // Combine the colors
-      // const individualBarColors = [...grayColors, ...purpleColors];
-
-      const rainbowColors = generateRainbowColors(numberOfPurpleBars);
-
-      function generateRainbowColors(steps) {
-        const colors = [];
-        const saturation = 70; // Adjust for vibrancy
-        const lightness = 50; // Adjust for brightness
-
-        for (let i = 0; i < steps; i++) {
-          // Calculate hue from 30° (orange) to 330° (red)
-          const hue = 45 + (300 / (steps - 1)) * i;
-          colors.push(`hsl(${hue % 360}, ${saturation}%, ${lightness}%)`);
-        }
-        return colors;
-      }
-      const individualBarColors = [...grayColors, ...rainbowColors];
-      // Assign colors to chart data
-      chartSeries.value = [
-        {
-          name: "Förekomst",
-          data: data.value.map((row, index) => ({
-            x: row.taxon,
-            y: row.sample_plot_count,
-            fillColor: individualBarColors[index],
-            color: individualBarColors[index],
-            snamn: row.snamn,
-          })),
-        },
-      ];
-
-      // Update percentages and counts
+      // Uppdatera procentsatser och antal
       updateCountsAndPercentages();
+      // **Ny Logik Slutar Här**
     }
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -330,16 +351,14 @@ const fetchChartData = async () => {
 };
 
 function updateCountsAndPercentages() {
-  const graySum = data.value
-    .slice(0, numberOfGrayBars)
-    .reduce((acc, row) => acc + row.sample_plot_count, 0);
-
-  const purpleSum = data.value
-    .slice(numberOfGrayBars)
-    .reduce((acc, row) => acc + row.sample_plot_count, 0);
-
-  topPercentage.value = ((graySum / totalSum.value) * 100).toFixed(0);
-  remainingPercentage.value = ((purpleSum / totalSum.value) * 100).toFixed(0);
+  // Baserat på antalet arter, inte den kumulativa summan
+  topPercentage.value = ((numberOfGrayBars / data.value.length) * 100).toFixed(
+    0
+  );
+  remainingPercentage.value = (
+    (numberOfPurpleBars / data.value.length) *
+    100
+  ).toFixed(0);
   topCount.value = numberOfGrayBars;
   remainingCount.value = numberOfPurpleBars;
 
@@ -415,33 +434,47 @@ onMounted(async () => {
   }
   updateParentWithInfo();
 });
+
+// Helper function to generate rainbow colors
+function generateRainbowColors(steps) {
+  const colors = [];
+  const saturation = 70; // Justera för livlighet
+  const lightness = 50; // Justera för ljusstyrka
+
+  for (let i = 0; i < steps; i++) {
+    // Beräkna hue från 30° (orange) till 330° (röd)
+    const hue = 45 + (300 / (steps - 1 || 1)) * i;
+    colors.push(`hsl(${hue % 360}, ${saturation}%, ${lightness}%)`);
+  }
+  return colors;
+}
 </script>
 
 <style scoped>
-/* For Webkit browsers like Chrome, Safari */
+/* För Webkit-baserade webbläsare som Chrome, Safari */
 #scrollbar::-webkit-scrollbar {
-  height: 8px; /* width of the entire scrollbar */
+  height: 8px; /* Bredd på hela scrollbar */
 }
 
 #scrollbar::-webkit-scrollbar-track {
-  display: none; /* color of the tracking area */
+  display: none; /* Färg på spårområdet */
 }
 
 #scrollbar::-webkit-scrollbar-thumb {
   display: block;
-  background-color: #88888833; /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
+  background-color: #88888833; /* Färg på scrollthumb */
+  border-radius: 20px; /* Rundning på scrollthumb */
 }
 
 #scrollbar:hover::-webkit-scrollbar-thumb {
   display: block;
 }
 
-/* For Firefox */
+/* För Firefox */
 #scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #888 #f2f3f500;
-  transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
+  transition: scrollbar-color 1s ease-in-out; /* Övergångseffekt för Firefox */
 }
 /* 
 #scrollbar:hover {

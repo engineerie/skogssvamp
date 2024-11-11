@@ -300,7 +300,7 @@ onMounted(async () => {
 function mapFrameworkLabelToDataValue(label) {
   const mapping = {
     Trakthygge: "trakthygge",
-    Naturskydd: "inga åtgärder",
+    "Ingen åtgärd": "inga åtgärder",
     Blädning: "blädning",
     Luckhuggning: "luckhuggning",
     Skärmträd: "skärmträd",

@@ -5,6 +5,10 @@
       src="/images/filtskinn.jpg"
       class="rounded-xl mb-2 hidden"
     />
+    <NuxtImg
+      src="/images/svampgrupp/BasilOther1Solid.png"
+      class="w-6 mr-2 hidden"
+    />
     <!-- <transition name="fade" mode="out-in">
       <div
         v-if="selectedRows.length > 0"
@@ -223,21 +227,6 @@
               >
             </div>
           </div>
-          <!-- <div
-            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-          >
-            <div class="flex items-end">
-              <BaseHeading
-                size="xl"
-                weight="medium"
-                class="-mb-1 mx-1.5 text-green-500"
-                >{{ next10Percentage }}%
-              </BaseHeading>
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ next10Count }} Arter</BaseHeading
-              >
-            </div>
-          </div> -->
 
           <div
             class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
@@ -509,7 +498,6 @@
   transform: translateX(100%);
 }
 </style>
-
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -742,56 +730,49 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
 
-    const totalSum = data.value.reduce(
-      (acc, row) => acc + row.sample_plot_count,
-      0
-    );
+    // **New Logic Starts Here**
+    const totalSpecies = data.value.length;
+    topCount.value = Math.floor(totalSpecies * 0.1); // 20% of total species
+    remainingCount.value = totalSpecies - topCount.value;
 
-    let cumulativeSum = 0;
-    const totalDataPoints = data.value.length;
-    let index = 0;
-
-    // Calculate topCount
-    while (cumulativeSum / totalSum < 0.5 && index < totalDataPoints) {
-      cumulativeSum += data.value[index].sample_plot_count;
-      index++;
-    }
-
-    // Update topCount and remainingCount
-    topCount.value = index;
-    remainingCount.value = totalDataPoints - index;
-
+    // Generate gray colors for the first 20%
     const grayColors = generateColors(
       [82, 82, 82],
       [212, 212, 212],
       topCount.value
     );
-    // const purpleColors = generateColors(
-    //   [46, 16, 101],
-    //   [232, 121, 249],
-    //   remainingCount.value
-    // );
 
+    // Generate rainbow colors for the remaining 80%
     const rainbowColors = generateRainbowColors(remainingCount.value);
 
-    function generateRainbowColors(steps) {
-      const colors = [];
-      const saturation = 70; // Adjust for vibrancy
-      const lightness = 50; // Adjust for brightness
-
-      for (let i = 0; i < steps; i++) {
-        // Calculate hue from 30° (orange) to 330° (red)
-        const hue = 45 + (300 / (steps - 1)) * i;
-        colors.push(`hsl(${hue % 360}, ${saturation}%, ${lightness}%)`);
-      }
-      return colors;
-    }
-
+    // Combine the colors
     allColors.value = [...grayColors, ...rainbowColors];
+
+    // **Optional:** Handle edge cases where totalSpecies < 5
+    // If you prefer at least one gray bar, use Math.ceil instead of Math.floor
+    /*
+    topCount.value = Math.max(1, Math.floor(totalSpecies * 0.2));
+    remainingCount.value = totalSpecies - topCount.value;
+    */
+    // **New Logic Ends Here**
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 };
+
+// Helper function to generate rainbow colors
+function generateRainbowColors(steps) {
+  const colors = [];
+  const saturation = 70; // Adjust for vibrancy
+  const lightness = 50; // Adjust for brightness
+
+  for (let i = 0; i < steps; i++) {
+    // Calculate hue from 30° (orange) to 330° (red)
+    const hue = 45 + (300 / (steps - 1 || 1)) * i;
+    colors.push(`hsl(${hue % 360}, ${saturation}%, ${lightness}%)`);
+  }
+  return colors;
+}
 
 // Watch for changes in route params and fetch data accordingly
 watch(
