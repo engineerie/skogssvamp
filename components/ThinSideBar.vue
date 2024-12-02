@@ -11,7 +11,7 @@
         data-nui-tooltip-position="right"
         data-nui-tooltip="Tillbaka till startsida"
       >
-        <NuxtImg src="/images/LogoSmile2.svg" class="h-9" />
+        <Img src="/images/LogoSmile2.svg" class="h-9" />
         <!-- <icon name="hugeicons:mushroom" class="size-9 text-green-500" /> -->
       </NuxtLink>
       <!-- <BaseButtonIcon
