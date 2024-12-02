@@ -17,7 +17,7 @@
       <div class="container mx-auto max-w-screen-xl px-6 flex items-center">
         <!-- Left Side: Logo -->
         <div class="flex items-center">
-          <NuxtImg src="/images/LogoSmile2.svg" class="h-10 mr-2" />
+          <Img src="/images/LogoSmile2.svg" class="h-10 mr-2" />
         </div>
 
         <!-- Center: Navigation Links -->

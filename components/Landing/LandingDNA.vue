@@ -57,7 +57,7 @@
         <Icon name="solar:dna-linear" class="h-16 w-16" />
       </div> -->
       <div class="absolute -bottom-12 -left-28 w-11/12">
-        <NuxtImg src="/images/Markinventering.svg" class="" />
+        <Img src="/images/Markinventering.svg" class="" />
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@
       </div>
 
       <!-- Image -->
-      <NuxtImg src="/images/Skogssbruk.svg" class="rounded-b-3xl" />
+      <Img src="/images/Skogssbruk.svg" class="rounded-b-3xl" />
 
       <!-- <div
         class="relative w-full pb-[56.25%] bg-transparent border border-neutral-300 rounded-2xl cursor-pointer"

@@ -11,7 +11,7 @@
         <Icon name="solar:dna-linear" class="h-16 w-16" />
       </div> -->
       <div class="absolute -bottom-12 -right-20 w-11/12">
-        <NuxtImg src="/images/SamladKunskap.svg" />
+        <Img src="/images/SamladKunskap.svg" />
       </div>
     </div>
     <div>

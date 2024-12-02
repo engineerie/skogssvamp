@@ -59,7 +59,7 @@
             som kan finnas i marken.
           </p>
         </div>
-        <NuxtImg src="/images/SvamparSverige4.svg" class="z-10 rounded-b-3xl" />
+        <Img src="/images/SvamparSverige4.svg" class="z-10 rounded-b-3xl" />
       </div>
       <!-- <LandingListBoxRowLanding class="" /> -->
     </div>
