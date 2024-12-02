@@ -20,7 +20,7 @@
             Se vilka arter som kan finnas olika i skogsmiljöer.
           </BaseHeading>
         </div>
-        <NuxtImg src="/images/SvamparSverige4.svg" class="" />
+        <Img src="/images/SvamparSverige4.svg" class="" />
       </div>
     </NuxtLink>
 
@@ -45,7 +45,7 @@
             Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
           </BaseHeading>
         </div>
-        <NuxtImg src="/images/Skogssbruk.svg" class="" />
+        <Img src="/images/Skogssbruk.svg" class="" />
       </div>
     </NuxtLink>
   </div>
@@ -68,7 +68,7 @@
           </BaseHeading>
         </div>
         <div class="flex justify-center">
-          <NuxtImg src="/images/Svampkunskap3.svg" class="mt-4" />
+          <Img src="/images/Svampkunskap3.svg" class="mt-4" />
         </div>
       </div>
     </NuxtLink>
@@ -93,7 +93,7 @@
           </BaseHeading>
         </div>
         <div class="flex justify-center">
-          <NuxtImg src="/images/Dokumentation.svg" class="mt-4" />
+          <Img src="/images/Dokumentation.svg" class="mt-4" />
         </div>
       </div>
     </NuxtLink>
@@ -112,7 +112,7 @@
           </BaseHeading>
         </div>
         <div class="flex justify-center">
-          <NuxtImg src="/images/Projektet.svg" class="mt-4" />
+          <Img src="/images/Projektet.svg" class="mt-4" />
         </div>
       </div>
     </NuxtLink>
