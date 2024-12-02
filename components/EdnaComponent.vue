@@ -146,10 +146,15 @@
               class="ml-4 -mb-4"
               v-model="activeTab"
               :tabs="[
-                { icon: 'material-symbols:bar-chart', value: 'columnChart' },
                 {
+                  label: 'Lista',
                   icon: 'material-symbols:format-list-bulleted-rounded',
                   value: 'spatialForest',
+                },
+                {
+                  label: 'Diagram',
+                  icon: 'material-symbols:bar-chart',
+                  value: 'columnChart',
                 },
               ]"
             >
@@ -167,6 +172,9 @@
               :forestType="forestType"
               :standAge="standAge"
               :vegetationType="vegetationType"
+              :data="data"
+              :topCount="topCount"
+              :remainingCount="remainingCount"
             />
           </div>
         </transition>

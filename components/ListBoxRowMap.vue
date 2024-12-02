@@ -6,7 +6,7 @@
   >
     <!-- Geography Selection -->
     <div>
-      <label class="text-neutral-400 text-sm">Var I Sverige</label>
+      <label class="text-neutral-400 text-sm">Var i Sverige</label>
       <div
         class="p-6 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-10 border-[1px] dark:border-neutral-700 dark:border-opacity-30 border-stone-200 h-fit"
       >
@@ -303,15 +303,20 @@ const forestTypeOptions = [
     label: "Blandskog",
     description: "31-69% lövträd eller barrträd",
   },
-  { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
   {
     value: "EkBokskog",
     label: "Ek och Bokskog",
     description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok",
   },
   {
+    value: "Lövskog",
+    label: "Övrig lövskog",
+    description: "Minst 70% lövträd",
+  },
+
+  {
     value: "Naturbete",
-    label: "Naturbete",
+    label: "Trädklädd betesmark",
     description: "Trädbevuxna gräsmarker som används för betesdjur",
   },
 ];

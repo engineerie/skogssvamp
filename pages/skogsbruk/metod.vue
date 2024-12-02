@@ -1,4 +1,17 @@
 <template>
+  <div class="grid grid-cols-2 gap-4 mt-12">
+    <div>
+      <BaseHeading size="xl" weight="light">
+        Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
+      </BaseHeading>
+      <BaseHeading size="lg" weight="light" class="text-neutral-500">
+        Välj först om skogen har varit kalavverkad tidigare eller är
+        nyetablerad. I nästa steg väljer du skogsbruksätt innan du kommer till
+        en interaktiv model. Valen av skogshistorik och skogsbrukssätt går att
+        ändra i modellen.
+      </BaseHeading>
+    </div>
+  </div>
   <div class="w-full h-full overflow-auto p-4 pr-2">
     <form class="mx-auto w-full max-w-7xl px-4 pt-12">
       <!-- Header -->

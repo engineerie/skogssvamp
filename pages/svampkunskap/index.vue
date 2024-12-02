@@ -1,6 +1,6 @@
 <template></template>
 
-<script setup>
+<!-- <script setup>
 import { useTitleStore } from '~/stores/titleStore';
 import { onMounted } from 'vue';
 
@@ -15,4 +15,4 @@ onMounted(() => {
 export default {
   layout: 'sidebarLayout'
 };
-</script>
+</script> -->

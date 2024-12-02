@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full h-screen overflow-x-hidden pl-10 pr-6 pt-16 flex flex-col">
+  <div class="w-full h-screen overflow-x-hidden pl-10 pr-6 pt-14 flex flex-col">
     <!-- Modal -->
-    <UModal v-model="isModalOpen" v-if="isModalOpen">
+    <!-- <UModal v-model="isModalOpen" v-if="isModalOpen">
       <UCard
         :ui="{
           ring: '',
@@ -52,11 +52,40 @@
           </BaseProse>
         </template>
       </UCard>
-    </UModal>
+    </UModal> -->
+    <div class="mt-8">
+      <div class="flex">
+        <!-- <NuxtImg src="/images/SvamparSverige4.svg" class="w-56" /> -->
+        <div
+          class="ring-1 ring-neutral-200 rounded-xl flex justify-between overflow-hidden"
+        >
+          <div class="grid grid-cols-4 bg-neutral-100">
+            <div class="p-6 col-span-3">
+              <BaseHeading size="xl" weight="light">
+                Se vilka arter som kan finnas olika i skogsmiljöer.
+              </BaseHeading>
+              <BaseHeading size="lg" weight="light" class="text-neutral-500">
+                Sök och klicka på kartan för att hämta information om var i
+                Sverige samt skogstyp från nationell marktäckedata. Du kan även
+                välja manuellt i kategorierna nedanför. Observera att
+                beståndsålder och fältskikt alltid måste anges manuellt.
+              </BaseHeading>
+            </div>
+          </div>
+          <NuxtImg
+            src="/images/SvamparSverige4.svg"
+            class="w-80 pt-2 border-l-[1px] border-neutral-200"
+          />
+        </div>
+      </div>
 
+      <!-- <div class="ring-1 ring-neutral-200 rounded-xl px-6 py-4"> -->
+
+      <!-- </div> -->
+    </div>
     <!-- Map Container with rounded corners and margin -->
     <div
-      class="rounded-xl overflow-hidden shadow-lg grow min-h-[200px] max-h-[600px] relative"
+      class="rounded-xl overflow-hidden shadow-lg grow min-h-[200px] max-h-[600px] relative mt-6"
     >
       <MapboxMap
         map-id="myMap"

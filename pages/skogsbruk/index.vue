@@ -1,4 +1,29 @@
 <template>
+  <div class="flex mt-12">
+    <!-- <NuxtImg src="/images/SvamparSverige4.svg" class="w-56" /> -->
+    <div
+      class="ring-1 ring-neutral-200 rounded-xl flex justify-between overflow-hidden"
+    >
+      <div class="grid grid-cols-4 bg-neutral-100">
+        <div class="p-6 col-span-3">
+          <BaseHeading size="xl" weight="light">
+            Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
+          </BaseHeading>
+          <BaseHeading size="lg" weight="light" class="text-neutral-500">
+            Välj först om skogen har varit kalavverkad tidigare eller är
+            nyetablerad. I nästa steg väljer du skogsbruksätt innan du kommer
+            till en interaktiv model. Valen av skogshistorik och skogsbrukssätt
+            går också att justera inne i modellen.
+          </BaseHeading>
+        </div>
+      </div>
+      <NuxtImg
+        src="/images/Skogssbruk.svg"
+        class="w-80 pt-2 border-l-[1px] border-neutral-200"
+      />
+    </div>
+  </div>
+
   <div class="w-full h-full overflow-auto p-4 pr-2">
     <form class="mx-auto w-full max-w-7xl px-4 pt-12">
       <!-- Header -->

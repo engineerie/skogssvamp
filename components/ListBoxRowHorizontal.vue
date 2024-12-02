@@ -245,15 +245,20 @@ const forestTypeOptions = [
     label: "Blandskog",
     description: "31-69% lövträd eller barrträd",
   },
-  { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
   {
     value: "EkBokskog",
     label: "Ek och Bokskog",
     description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok",
   },
   {
+    value: "Lövskog",
+    label: "Övrig lövskog",
+    description: "Minst 70% lövträd",
+  },
+
+  {
     value: "Naturbete",
-    label: "Naturbete",
+    label: "Trädklädd betesmark",
     description: "Trädbevuxna gräsmarker som används för betesdjur",
   },
 ];

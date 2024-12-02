@@ -5,18 +5,17 @@
       tag="div"
       class="mushroom-container pointer-events-none -z-10"
     >
-      <Icon
+      <!-- <Icon
         v-for="(mushroom, index) in mushrooms"
         :key="mushroom.id"
         :style="{
           top: mushroom.y + 'px',
           left: mushroom.x + 'px',
           transform: mushroom.scale,
-          // Ensure they appear on top
         }"
         name="hugeicons:mushroom"
         class="size-5 text-green-500 mushroom -z-10"
-      />
+      /> -->
     </transition-group>
     <!-- <DynamicDivsLanding /> -->
     <Landing clas="z-10" />

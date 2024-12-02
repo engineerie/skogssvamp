@@ -9,119 +9,7 @@
       src="/images/svampgrupp/BasilOther1Solid.png"
       class="w-6 mr-2 hidden"
     />
-    <!-- <transition name="fade" mode="out-in">
-      <div
-        v-if="selectedRows.length > 0"
-        class="fixed w-80 h-72 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-900 cursor-grab active:cursor-grabbing"
-        :style="{ top: boxPosition.top + 'px', left: boxPosition.left + 'px' }"
-        @mousedown="startDrag($event)"
-        @mouseup="stopDrag"
-        @mousemove="drag($event)"
-      >
-        <NuxtImg
-          height="270"
-          src="/images/filtskinn.jpg"
-          class="rounded-t-xl mb-2 pointer-events-none"
-        />
 
-        <BaseButtonIcon
-          shape="full"
-          size="sm"
-          @click="closeInfoBox"
-          class="absolute top-2 right-2"
-        >
-          <Icon name="material-symbols:close" class="size-4" />
-        </BaseButtonIcon>
-
-        <div class="px-3 pt-1 pointer-events-none">
-          <BaseHeading size="lg" class="pointer-events-none">{{
-            capitalize(selectedRows[0].snamn)
-          }}</BaseHeading>
-          <BaseHeading weight="light" size="sm" class="pointer-events-none">{{
-            selectedRows[0].taxon
-          }}</BaseHeading>
-        </div>
-      </div>
-    </transition> -->
-
-    <transition name="slide">
-      <div
-        v-if="selectedRows.length > 0"
-        class="fixed pointer-events-none top-0 right-0 h-full w-80 border-l dark:border-neutral-700 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-800"
-      >
-        <!-- Transparent Top Section -->
-        <div class="h-14 bg-transparent pointer-events-none"></div>
-
-        <!-- Sidebar Content with Background -->
-        <div
-          class="relative bg-neutral-100 dark:bg-neutral-800 h-full pointer-events-auto"
-        >
-          <div class="p-5">
-            <div class="flex justify-between items-end mb-2">
-              <BaseHeading size="xl" weight="thin" class="-mb-1.5"
-                >Artinformation</BaseHeading
-              >
-              <BaseButtonIcon
-                shape="full"
-                size="sm"
-                @click="closeInfoBox"
-                class=""
-              >
-                <Icon name="material-symbols:close" class="size-4" />
-              </BaseButtonIcon>
-            </div>
-            <NuxtImg
-              height="270"
-              src="/images/filtskinn.jpg"
-              class="rounded-xl mb-2"
-            />
-            <BaseHeading size="lg">{{
-              capitalize(selectedRows[0].snamn)
-            }}</BaseHeading>
-            <BaseHeading weight="light" size="sm" class="mb-2">{{
-              selectedRows[0].taxon
-            }}</BaseHeading>
-            <NuxtLink
-              :to="stripDetailsFromURL(selectedRows[0].Artfakta)"
-              target="blank"
-              class="text-md font-thin mb-3"
-            >
-              Artfakta.se
-            </NuxtLink>
-            <div class="flex mt-3 items-center">
-              <div
-                :class="getStatusColor(selectedRows[0].RL2020kat)"
-                class="h-7 w-7 rounded-full flex items-center justify-center text-white text-sm mr-2"
-              >
-                {{ getStatusAbbreviation(selectedRows[0].RL2020kat) }}
-              </div>
-              <BaseHeading weight="light" size="sm">{{
-                getStatusTooltip(selectedRows[0].RL2020kat)
-              }}</BaseHeading>
-            </div>
-
-            <div class="flex my-2">
-              <NuxtImg
-                v-if="selectedRows['Svamp-grupp-släkte'] !== 'Saknas'"
-                :src="getIconPath(selectedRows[0]['Svamp-grupp-släkte'])"
-                class="w-6 mr-2"
-                alt="Svamp Icon"
-              />
-              <BaseHeading weight="light" size="sm">{{
-                capitalize(selectedRows[0]["Svamp-grupp-släkte"])
-              }}</BaseHeading>
-            </div>
-            <div v-if="selectedRows[0].matsvamp === 1" class="flex">
-              <Icon
-                name="icon-park-solid:knife-fork"
-                class="h-7 w-7 text-yellow-500 mr-2"
-              />
-              <BaseHeading weight="light" size="sm"> Matsvamp </BaseHeading>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
     <div class="">
       <div
         class="flex justify-between mb-2 items-end"
@@ -476,28 +364,6 @@
   </div>
 </template>
 
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0;
-}
-
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s ease-in-out;
-}
-
-.slide-enter-from {
-  transform: translateX(100%);
-}
-
-.slide-leave-to {
-  transform: translateX(100%);
-}
-</style>
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -525,15 +391,6 @@ const stripDetailsFromURL = (url) => {
   if (!url) return "";
   return url.replace("/detaljer", "");
 };
-
-const selectedRows = ref([]);
-// function selectRow(row) {
-//   selectedRows.value = [row]; // Store the selected row in the array
-// }
-
-function closeInfoBox() {
-  selectedRows.value = []; // Clear the selection to hide the sidebar
-}
 
 // Capitalize function for displaying the species name
 const capitalize = (str) => {
@@ -567,39 +424,6 @@ const props = defineProps({
 
 const route = useRoute();
 const activeTab = ref("spatialForest");
-
-const isInfoBoxVisible = ref(false);
-
-const isDragging = ref(false);
-
-const dragOffset = reactive({ x: 0, y: 0 });
-
-function startDrag(event) {
-  isDragging.value = true;
-  const boxRect = event.target.getBoundingClientRect();
-  dragOffset.x = event.clientX - boxRect.left;
-  dragOffset.y = event.clientY - boxRect.top;
-}
-
-function stopDrag() {
-  isDragging.value = false;
-}
-
-function drag(event) {
-  if (isDragging.value) {
-    boxPosition.left = event.clientX - dragOffset.x;
-    boxPosition.top = event.clientY - dragOffset.y;
-  }
-}
-onMounted(() => {
-  document.addEventListener("mousemove", drag);
-  document.addEventListener("mouseup", stopDrag);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("mousemove", drag);
-  document.removeEventListener("mouseup", stopDrag);
-});
 
 const getStatusAbbreviation = (status) => {
   const abbreviations = {
@@ -645,7 +469,7 @@ const sort = ref({ column: "", direction: "asc" });
 const columns = [
   {
     key: "sample_plot_count",
-    label: props.isNormalView ? "" : "Förekomst",
+    label: props.isNormalView ? "Mycel" : "Förekomst",
     sortable: props.isNormalView ? false : true,
     render: (row, index) => ({
       template: `<Icon name="fluent:shape-organic-16-filled" :style="{ color: allColors[${index}] }" class="h-8 w-8"/>`,

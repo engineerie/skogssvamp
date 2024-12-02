@@ -34,6 +34,7 @@
     "mapbox-gl": "^2.15.0",
     "nuxt-icons": "^3.2.1",
     "nuxt-swiper": "^1.2.2",
+    "openseadragon": "^5.0.0",
     "papaparse": "^5.4.1",
     "pinia": "^2.1.6",
     "sqlite": "^5.0.1",

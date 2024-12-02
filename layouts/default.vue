@@ -194,10 +194,16 @@ watch(
 function determineTitle(path) {
   // Implement your logic to return the title based on the route
   if (path.includes("/skogsbruk")) {
-    return "Skogssbruk";
+    return "Skogsskötsel";
   }
-  if (path.includes("svampdata")) {
-    return "Artlistor";
+  if (path.includes("/svampdata")) {
+    return "Sveriges mykorrhiza";
+  }
+  if (path.includes("/start")) {
+    return "Skogssvamp";
+  }
+  if (path.includes("/svampkunskap")) {
+    return "Svampkunskap";
   }
   if (path.includes("/guide")) {
     return "Dokumentation";
