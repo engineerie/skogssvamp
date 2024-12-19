@@ -158,7 +158,8 @@ dist
 
 
 # Ignore large image directories
-public/images/skogsbruksbilder/
+# public/images/skogsbruksbilder/
+public/images/Old skogsbilder png/
 public/images/skogsbruksbilder_nära/
 public/images/EDNA_bilder_skog/
 public/images/SvampBilder/
