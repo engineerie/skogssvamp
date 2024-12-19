@@ -1,6 +1,6 @@
 <template>
   <div class="landing-section relative">
-    <div>
+    <!-- <div>
       <NuxtImg
         v-for="(imagePath, index) in allImages"
         :key="index"
@@ -9,7 +9,7 @@
         width="450"
         format="webp"
       />
-    </div>
+    </div> -->
     <Landing class="z-10" />
   </div>
 </template>
