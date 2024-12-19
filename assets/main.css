@@ -9,6 +9,7 @@ html {
 }
 
 body {
+  width: 100vw;
   @apply bg-neutral-100 dark:bg-neutral-800;
   /* background: linear-gradient(to bottom, transparent 20%, #10B981 300%); */
 }

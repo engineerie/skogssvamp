@@ -117,7 +117,13 @@
       </div>
     </div>
     <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />
-    <p>test</p>
+    <p class="p-3 text-neutral-500">
+      I [medelgammal] [granskog] i [norra Sverige] med markvegeation
+      [blåbärsgrupp] är underlaget från markinventeringen [gott] och visar
+      [många] arter, så som [art1, art2]. I den här miljön finns det [få]
+      Naturvårdsarter t.ex. [art3], [Många] matsvampar kan också finnas här,
+      t.ex [art4].
+    </p>
     <div class="p-4 text-sm text-neutral-500"></div>
     <div class="hidden">
       <NuxtImg

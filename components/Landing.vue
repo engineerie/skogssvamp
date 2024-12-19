@@ -7,11 +7,10 @@
 
     <LandingEdnaOchFruktkropp />
     <div class="mx-24"><LandingDNA /> <LandingSamladKunskap /></div>
-    <LandingListBoxRowLanding class="" />
+    <LandingListBoxRowLanding />
 
     <LandingForestryImpactSection />
     <LandingInfoSection />
-    <LandningNyheter />
     <LandingDokumentation />
     <LandingFooter class="w-full" />
   </div>

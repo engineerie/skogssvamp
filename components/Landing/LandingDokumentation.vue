@@ -6,24 +6,9 @@
         Läs mer om hur vi definierar skogsmiljöer, DNA-analys, och mer.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-6">
-        <NuxtLink
-          to="/dokumentation/miljoindelningar"
-          class="text-blue-500 underline"
-        >
-          Miljöindelningar
-        </NuxtLink>
-        <NuxtLink
-          to="/dokumentation/dna-analys"
-          class="text-blue-500 underline"
-        >
-          DNA-analys
-        </NuxtLink>
-        <NuxtLink
-          to="/dokumentation/artrikedom"
-          class="text-blue-500 underline"
-        >
-          Artrikedom
-        </NuxtLink>
+        <NuxtLink class="text-blue-500 underline"> Miljöindelningar </NuxtLink>
+        <NuxtLink class="text-blue-500 underline"> DNA-analys </NuxtLink>
+        <NuxtLink class="text-blue-500 underline"> Artrikedom </NuxtLink>
         <!-- Add more links as needed -->
       </div>
     </div>

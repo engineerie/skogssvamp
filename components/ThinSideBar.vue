@@ -11,7 +11,7 @@
         data-nui-tooltip-position="right"
         data-nui-tooltip="Tillbaka till startsida"
       >
-        <Img src="/images/LogoSmile2.svg" class="h-9" />
+        <img src="/images/LogoSmile2.svg" class="h-9" />
         <!-- <icon name="hugeicons:mushroom" class="size-9 text-green-500" /> -->
       </NuxtLink>
       <!-- <BaseButtonIcon
@@ -43,7 +43,6 @@
       ></div>
       <BaseButtonIcon
         :color="isInSvampData ? 'primary' : 'default'"
-        @click="openSidebar"
         shape="full"
         to="/svampdata"
         class="h-5 w-5 my-5"

@@ -71,7 +71,7 @@
           <div v-if="!props.isNormalView" class="w-20">
             <BaseListbox
               v-model="rowsPerPage"
-              :items="[5, 10, 20, 30, 40, 50]"
+              :items="[10, 20, 30, 40, 50, 'Alla']"
               placeholder="Rader per sida"
               shape="full"
               label="Rader"
@@ -99,15 +99,15 @@
 
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-40"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-[2]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-30"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-[1]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-20"
+                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-0"
               />
 
               <BaseHeading size="xs" weight="medium" class="text-neutral-400"
@@ -124,15 +124,15 @@
               <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-30"
+                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-[3]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-20"
+                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-[2]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-10"
+                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-[1]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
@@ -179,8 +179,16 @@
 
           <!-- UTable with Filtered Data -->
           <UTable
-            id="scrollbar"
-            :class="{ 'h-[420px]': isNormalView }"
+            :loading="isLoading"
+            :loading-state="{
+              icon: 'i-heroicons-arrow-path-20-solid',
+              label: 'Laddar',
+            }"
+            :progress="{ color: 'primary', animation: 'carousel' }"
+            :class="{
+              'h-[442px]': isNormalView,
+              'max-h-[calc(100vh-400px)]': !isNormalView,
+            }"
             :sort-button="{
               color: 'text-neutral-700 dark:text-neutral-200',
               size: 'xl',
@@ -312,42 +320,44 @@
             </div>
             <div>
               <!-- Pagination component -->
-              <UPagination
-                :max="2"
-                v-model="page"
-                :page-count="rowsPerPage"
-                :total="totalItems"
-                :ui="{
-                  wrapper: 'flex items-center gap-1',
-                  rounded: '!rounded-full min-w-[32px] justify-center px-4',
-                  default: {},
-                }"
-                size="lg"
-              >
-                <!-- Custom previous button -->
-                <template #prev="{ onClick }">
-                  <UButton
-                    icon="i-heroicons-chevron-left-20-solid"
-                    size="lg"
-                    color="white"
-                    :ui="{ rounded: 'rounded-full dark:border-neutral-700' }"
-                    class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-800 border-[0.5px]"
-                    @click="onClick"
-                  />
-                </template>
+              <div v-if="!isNormalView && rowsPerPage !== 'Alla'">
+                <UPagination
+                  :max="2"
+                  v-model="page"
+                  :page-count="rowsPerPage"
+                  :total="totalItems"
+                  :ui="{
+                    wrapper: 'flex items-center gap-1',
+                    rounded: '!rounded-full min-w-[32px] justify-center px-4',
+                    default: {},
+                  }"
+                  size="lg"
+                >
+                  <!-- Custom previous button -->
+                  <template #prev="{ onClick }">
+                    <UButton
+                      icon="i-heroicons-chevron-left-20-solid"
+                      size="lg"
+                      color="white"
+                      :ui="{ rounded: 'rounded-full dark:border-neutral-700' }"
+                      class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-800 border-[0.5px]"
+                      @click="onClick"
+                    />
+                  </template>
 
-                <!-- Custom next button -->
-                <template #next="{ onClick }">
-                  <UButton
-                    icon="i-heroicons-chevron-right-20-solid"
-                    size="lg"
-                    color="white"
-                    :ui="{ rounded: 'rounded-full dark:border-neutral-700' }"
-                    class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-800 border-[0.5px]"
-                    @click="onClick"
-                  />
-                </template>
-              </UPagination>
+                  <!-- Custom next button -->
+                  <template #next="{ onClick }">
+                    <UButton
+                      icon="i-heroicons-chevron-right-20-solid"
+                      size="lg"
+                      color="white"
+                      :ui="{ rounded: 'rounded-full dark:border-neutral-700' }"
+                      class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-800 border-[0.5px]"
+                      @click="onClick"
+                    />
+                  </template>
+                </UPagination>
+              </div>
             </div>
           </div>
         </div>
@@ -448,7 +458,7 @@ const getStatusColor = (status) => {
     RE: "bg-[#421A31]",
     DD: "bg-[#E8E9E7]",
   };
-  return colors[status] || "bg-yellow-500";
+  return colors[status] || "bg-neutral-300";
 };
 
 const getStatusTooltip = (status) => {
@@ -507,7 +517,7 @@ const columns = [
       const statusAbbr = getStatusAbbreviation(row.RL2020kat);
       const statusColor = getStatusColor(row.RL2020kat);
       const tooltip = getStatusTooltip(row.RL2020kat);
-      return `<div class="flex items-center justify-center w-6 h-6 rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
+      return `<div class="flex items-center justify-center w-6 h-6  rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
     },
   },
 ];
@@ -530,6 +540,7 @@ const handleInfoUpdate = (info) => {
 };
 
 const data = ref([]);
+const isLoading = ref(true);
 const allColors = ref([]);
 
 const generateColors = (start, end, steps) => {
@@ -553,6 +564,9 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     const response = await fetch(`/edna/${filename}`);
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
+
+    // Once data is fetched, turn off loading
+    isLoading.value = false;
 
     // **New Logic Starts Here**
     const totalSpecies = data.value.length;
@@ -602,8 +616,11 @@ function generateRainbowColors(steps) {
 watch(
   () => route.params,
   (params) => {
+    isLoading.value = true;
     const { geography, forestType, standAge, vegetationType } = params;
     if (geography && forestType && standAge && vegetationType) {
+      // Set loading to true before fetching new data
+
       fetchData(geography, forestType, standAge, vegetationType);
     }
   },
@@ -669,27 +686,41 @@ const sortedData = computed(() => {
 
   return result;
 });
-
-const paginatedData = computed(() => {
-  const start = (page.value - 1) * rowsPerPage.value;
-  const end = page.value * rowsPerPage.value;
-  return sortedData.value.slice(start, end);
-});
-
-const totalPages = computed(() => {
-  return Math.ceil(filteredData.value.length / rowsPerPage.value);
-});
-
-// Computed property for total number of items
 const totalItems = computed(() => filteredData.value.length);
 
-// Computed property for the starting item number
-const startItem = computed(() => (page.value - 1) * rowsPerPage.value + 1);
+const paginatedData = computed(() => {
+  // If "All" is selected, show all rows
+  if (rowsPerPage.value === "Alla") {
+    return sortedData.value;
+  } else {
+    const start = (page.value - 1) * rowsPerPage.value;
+    const end = page.value * rowsPerPage.value;
+    return sortedData.value.slice(start, end);
+  }
+});
 
-// Computed property for the ending item number
-const endItem = computed(() =>
-  Math.min(page.value * rowsPerPage.value, totalItems.value)
-);
+// Calculate totalPages only if rowsPerPage is a number
+const totalPages = computed(() => {
+  if (rowsPerPage.value === "Alla") {
+    return 1;
+  }
+  return Math.ceil(totalItems.value / rowsPerPage.value);
+});
+
+// Start and end items
+const startItem = computed(() => {
+  if (rowsPerPage.value === "Alla") {
+    return totalItems.value > 0 ? 1 : 0;
+  }
+  return (page.value - 1) * rowsPerPage.value + 1;
+});
+
+const endItem = computed(() => {
+  if (rowsPerPage.value === "Alla") {
+    return totalItems.value;
+  }
+  return Math.min(page.value * rowsPerPage.value, totalItems.value);
+});
 </script>
 
 <style scoped>
@@ -716,9 +747,5 @@ const endItem = computed(() =>
   scrollbar-width: medium;
   scrollbar-color: #88888800 #f2f3f500;
   transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
-}
-
-#scrollbar:hover {
-  scrollbar-color: #ff0000 #f2f3f5;
 }
 </style>

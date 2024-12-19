@@ -1,157 +1,53 @@
 <template>
   <div>
-    <EnvironmentTitle class="z-40" />
-    <transition name="slide">
-      <SpeciesInfo
-        v-if="speciesStore.selectedSpecies"
-        :species="speciesStore.selectedSpecies"
-        :source="speciesStore.sourceComponent"
-        @close="speciesStore.clearSelection"
-    /></transition>
+    <EnvironmentTitle />
 
-    <!-- Modal -->
-    <!-- <UModal v-model="isModalOpen" v-if="isModalOpen">
+    <!-- USlideover for SpeciesInfo -->
+    <USlideover
+      v-model="isOpen"
+      :ui="{
+        width: 'w-screen max-w-md',
+      }"
+    >
       <UCard
+        class="flex flex-col flex-1 overflow-y-scroll"
+        id="scrollbar"
         :ui="{
+          body: {
+            base: 'flex-1',
+            background: '',
+            padding: 'px-0 py-0 sm:p-0',
+          },
+          header: {
+            base: '',
+            background: '',
+            padding: 'px-4 py-3 sm:px-6',
+          },
+
           ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
         }"
       >
-        <template #header>
-          <div class="flex justify-between">
-            <div class="flex items-end">
-              <Icon
-                name="material-symbols:info-rounded"
-                class="h-9 w-9 text-green-500 mr-4"
-              />
-              <BaseHeading
-                size="2xl"
-                weight="thin"
-                class="text-neutral-800 dark:text-neutral-200"
-                >DNA och fruktkroppsobservationer</BaseHeading
-              >
-            </div>
-            <BaseButtonIcon
-              shape="full"
-              size="sm"
-              @click="isModalOpen = false"
-              class=""
-            >
-              <Icon name="material-symbols:close" class="size-4" />
-            </BaseButtonIcon>
-          </div>
-        </template>
-        <UCard class="mb-4 relative">
-          <BaseIconBox
-            size="md"
-            rounded="none"
-            variant="pastel"
-            color="muted"
-            mask="blob"
-            class="absolute right-2 top-2"
-          >
-            <Icon name="solar:dna-bold-duotone" class="size-6" />
-          </BaseIconBox>
-          <div class="flex items-end">
-            <div
-              class="dark:opacity-90 w-9 h-9 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-            >
-              <Icon name="game-icons:plant-roots" class="h-10 w-10" />
-            </div>
-            <BaseHeading
-              size="2xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-200"
-              >Mykorrhizasvampar</BaseHeading
-            >
-          </div>
-          <BaseProse class="ml-2 my-4">
-            Denna del visar vilka mykorrhizasvampar som finns i svensk
-            skogsmark, baserat på DNA-analyser av svampmycel från jordprover.
-            Resultaten är baserade på prover från 2500 skogar som samlades in
-            mellan 2015 och 2022.
-          </BaseProse>
-        </UCard>
+        <!-- SpeciesInfo Component -->
+        <SpeciesInfo
+          :species="speciesStore.selectedSpecies"
+          :source="speciesStore.sourceComponent"
+          @close="isOpen = false"
+        />
 
-        <UCard class="mb-4 relative">
-          <BaseIconBox
-            size="md"
-            rounded="none"
-            variant="pastel"
-            color="muted"
-            mask="blob"
-            class="absolute right-2 top-2"
-          >
-            <Icon name="hugeicons:mushroom" class="size-6" />
-          </BaseIconBox>
-          <div class="flex items-end">
-            <div
-              class="dark:opacity-90 w-9 h-9 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
-            >
-              <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
-            </div>
-            <BaseHeading
-              size="2xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-300 mr-4"
-              >Matsvampar</BaseHeading
-            >
-          </div>
-          <BaseProse class="ml-2 my-4">
-            Visar ätbara svampar som kan förekomma i miljön, baserat på
-            observationer av fruktkroppar som rapporterats till Artdatabanken.
-            Informationen har sammanställts för hand av sakkunniga vid SLU och
-            kompletterar DNA-undersökningen som missar många arter.
-          </BaseProse>
-        </UCard>
-        <UCard class="relative">
-          <BaseIconBox
-            size="md"
-            rounded="none"
-            variant="pastel"
-            color="muted"
-            mask="blob"
-            class="absolute right-2 top-2"
-          >
-            <Icon name="hugeicons:mushroom" class="size-6" />
-          </BaseIconBox>
-          <div class="flex items-end">
-            <div
-              class="dark:opacity-90 w-9 h-9 ml-2 mr-3 rounded-lg text-teal-500 flex justify-center items-center"
-            >
-              <Icon
-                name="material-symbols:award-star-outline"
-                class="h-10 w-10"
-              />
-            </div>
-            <BaseHeading
-              size="2xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-300 mr-4"
-              >Naturvårdsarter</BaseHeading
-            >
-          </div>
-          <BaseProse class="ml-2 my-4">
-            Visar signalarter och rödlistade arter som kan förekomma i miljön,
-            baserat på observationer av fruktkroppar. Informationen har
-            sammanställts för hand av sakkunniga vid SLU och kompletterar
-            DNA-undersökningen som missar ovanliga arter.
-          </BaseProse>
-        </UCard>
-        <template #footer>
+        <!-- <template #footer>
           <BaseProse class="text-neutral-500">
             Se
-            <NuxtLink to="/guide" class="underline" @click="isModalOpen = false"
+            <NuxtLink to="/guide" class="underline" @click="isOpen = false"
               >dokumentationen</NuxtLink
             >
             för mer information.
           </BaseProse>
-        </template>
+        </template> -->
       </UCard>
-    </UModal> -->
+    </USlideover>
 
-    <!-- Normal view and fullscreen components -->
-    <div class="">
+    <!-- Other Components -->
+    <div>
       <transition name="fade" mode="out-in">
         <component
           :is="activeComponent"
@@ -169,14 +65,16 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { computed, onMounted, onBeforeUnmount, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useTitleStore } from "~/stores/titleStore";
 import FullScreenEdna from "./FullScreenEdna.vue";
 import FullScreenEdible from "./FullScreenEdible.vue";
 import FullScreenRedlisted from "./FullScreenRedlisted.vue";
 import NormalView from "./NormalView.vue"; // Component for the normal view
+
 import { useSpeciesStore } from "~/stores/speciesStore";
+
 const speciesStore = useSpeciesStore();
 
 const route = useRoute();
@@ -185,6 +83,9 @@ const { geography, forestType, standAge, vegetationType } = route.params;
 
 const activeFullScreenComponent = ref(null);
 const isModalOpen = ref(false);
+
+// Reference for SpeciesInfo panel (optional for focus trapping)
+const panelRef = ref(null);
 
 // Computed to select the active component based on fullscreen state
 const activeComponent = computed(() => {
@@ -200,6 +101,14 @@ const activeComponent = computed(() => {
   }
 });
 
+// Computed property to bind USlideover's isOpen state
+const isOpen = computed({
+  get: () => !!speciesStore.selectedSpecies,
+  set: (val) => {
+    if (!val) speciesStore.clearSelection();
+  },
+});
+
 // Functions to manage fullscreen and modal states
 const handleFullScreen = (componentName) => {
   activeFullScreenComponent.value = componentName;
@@ -209,43 +118,84 @@ const handleCloseFullScreen = () => {
   activeFullScreenComponent.value = null;
 };
 
+// Function to handle 'Esc' key press
+const handleKeydown = (event) => {
+  if (event.key === "Escape" && speciesStore.selectedSpecies) {
+    speciesStore.clearSelection();
+  }
+};
+
+// Watch for changes in selectedSpecies to toggle body overflow
+watch(
+  () => speciesStore.selectedSpecies,
+  (newVal) => {
+    if (newVal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }
+);
+
+// Add event listener on mount
 onMounted(() => {
+  window.addEventListener("keydown", handleKeydown);
+
+  // Initialize focus trap if SpeciesInfo is open
+  if (speciesStore.selectedSpecies && panelRef.value) {
+    useFocusTrap(panelRef.value);
+  }
+
   // Open the modal every time the page is loaded
   if (route.path.startsWith("/svampdata/dashboard/")) {
     isModalOpen.value = true;
   }
 });
+
+// Remove event listener before unmounting
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeydown);
+});
 </script>
 
 <style scoped>
+/* Fade Transition for Other Components */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s, transform 0.5s;
-  transform-origin: center;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: scale(0.7);
 }
 
 .fade-enter-to,
 .fade-leave-from {
   opacity: 1;
-  transform: scale(1);
 }
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s ease-in-out;
+/* Additional styling if necessary */
+
+#scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.slide-enter-from {
-  transform: translateX(100%);
+#scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+  background-color: #6f202033; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
 }
 
-.slide-leave-to {
-  transform: translateX(100%);
+#scrollbar:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+/* For Firefox */
+#scrollbar {
+  scrollbar-width: medium;
+  scrollbar-color: #88888800 #f2f3f500;
+  transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
 }
 </style>

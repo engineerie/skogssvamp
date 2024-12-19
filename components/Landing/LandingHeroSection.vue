@@ -67,7 +67,6 @@
           de reagerar vid skogsbruksåtgärder.
         </p>
         <NuxtLink
-          @click="openSidebar"
           to="/start"
           class="inline-flex items-center justify-center mt-8"
         >

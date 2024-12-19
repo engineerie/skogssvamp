@@ -17,7 +17,7 @@
       <div class="container mx-auto max-w-screen-xl px-6 flex items-center">
         <!-- Left Side: Logo -->
         <div class="flex items-center">
-          <Img src="/images/LogoSmile2.svg" class="h-10 mr-2" />
+          <img src="/images/LogoSmile2.svg" class="h-10 mr-2" />
         </div>
 
         <!-- Center: Navigation Links -->
@@ -197,14 +197,12 @@
                 Sveriges mykorrhizasvampar
               </BaseHeading>
               <NuxtLink
-                to="/svampdata"
                 @click="closeMenu"
                 class="flex items-center text-lg w-fit text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded"
               >
                 Markinventeringen
               </NuxtLink>
               <NuxtLink
-                to="/skogsbruk"
                 @click="closeMenu"
                 class="flex items-center text-lg text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded"
               >
@@ -220,7 +218,6 @@
                 Skogsbruk
               </BaseHeading>
               <NuxtLink
-                to="/skogsbruk/skogshistorik"
                 @click="closeMenu"
                 class="flex items-center text-lg w-fit text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded"
               >
@@ -247,14 +244,12 @@
                 Bakgrund
               </BaseHeading>
               <NuxtLink
-                to="/om-projektet/syfte"
                 @click="closeMenu"
                 class="flex items-center text-lg w-fit text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded"
               >
                 Syfte med projektet
               </NuxtLink>
               <NuxtLink
-                to="/om-projektet/finansiering"
                 @click="closeMenu"
                 class="flex items-center text-lg text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded"
               >
@@ -270,7 +265,6 @@
                 Hör av dig
               </BaseHeading>
               <NuxtLink
-                to="/om-projektet/kontakt"
                 @click="closeMenu"
                 class="flex items-center text-lg w-fit text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded"
               >

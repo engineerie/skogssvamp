@@ -103,7 +103,6 @@
           En webbapplikation för skogsägare och svampintresserade.
         </p>
         <NuxtLink
-          @click="openSidebar"
           to="/svampdata"
           class="inline-flex items-center justify-center"
         >
@@ -114,11 +113,7 @@
             <span>Kom igång</span>
           </div>
         </NuxtLink>
-        <NuxtLink
-          @click="openSidebar"
-          to="/guide"
-          class="inline-flex items-center justify-center"
-        >
+        <NuxtLink to="/guide" class="inline-flex items-center justify-center">
           <div
             class="rounded-full text-md dark:bg-neutral-700 dark:border-neutral-600 bg-neutral-100 border-neutral-300 border-[1px] mr-2 p-2.5 px-5 dark:hover:bg-neutral-800 hover:bg-neutral-50"
           >
@@ -197,7 +192,7 @@
         >
 
         <div class="flex">
-          <NuxtLink @click="openSidebar" to="/svampdata">
+          <NuxtLink to="/svampdata">
             <div
               class="-rotate-6 bg-neutral-100 backdrop-blur-2xl bg-opacity-40 shadow-xl hover:bg-green-100 hover:bg-opacity-20 hover:dark:brightness-110 dark:bg-neutral-900 p-6 w-72 rounded-xl border-neutral-300 dark:border-neutral-700 border-[0.5px]"
             >
@@ -220,7 +215,7 @@
               <Icon name="lucide:arrow-right" class="h-5 w-5" />
             </div>
           </NuxtLink>
-          <NuxtLink @click="openSidebar" to="/skogsbruk">
+          <NuxtLink to="/skogsbruk">
             <div
               class="rotate-6 bg-neutral-100 backdrop-blur-2xl bg-opacity-40 shadow-xl hover:bg-green-100 hover:bg-opacity-20 hover:dark:brightness-110 dark:bg-neutral-900 p-6 w-72 rounded-xl border-neutral-300 dark:border-neutral-700 border-[0.5px]"
             >

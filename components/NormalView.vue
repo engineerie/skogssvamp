@@ -3,7 +3,17 @@
     <div class="col-span-12">
       <EdnaComponent @enlarge="emitEnlarge('FullScreenEdna')" />
     </div>
-
+    <div class="col-span-12 flex flex-col">
+      <UDivider
+        label="Listorna för naturvårdsarter och matsvampar bygger på samlad expertkunskap och inte på DNA-analyser."
+        class="my-0"
+        :ui="{
+          container: {
+            base: 'font-medium text-neutral-500 dark:text-neutral-200 flex',
+          },
+        }"
+      />
+    </div>
     <div class="col-span-7 flex flex-col">
       <FullScreenRedlisted
         class="flex-grow"

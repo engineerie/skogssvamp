@@ -56,9 +56,9 @@
                   class="peer-checked:!border-primary-500 peer-checked:!bg-primary-500/10 relative border-2 p-9 opacity-60 grayscale peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:[&_.child]:!opacity-100"
                 >
                   <div class="flex flex-col items-center text-center">
-                    <Img
+                    <img
                       class="mx-auto mt-12 mb-8 max-w-[120px]"
-                      src="images/SkogsbrukIcons/InteKalavverkad.svg"
+                      src="public/images/SkogsbrukIcons/InteKalavverkad.png"
                     />
                     <BaseHeading
                       size="md"
@@ -92,8 +92,8 @@
                   class="peer-checked:!border-primary-500 peer-checked:!bg-primary-500/10 relative border-2 p-9 opacity-60 grayscale peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:[&_.child]:!opacity-100"
                 >
                   <div class="flex flex-col items-center text-center">
-                    <Img
-                      src="images/SkogsbrukIcons/Kalavverkad.svg"
+                    <img
+                      src="public/images/SkogsbrukIcons/Kalavverkad.png"
                       class="mx-auto mt-12 mb-8 max-w-[120px]"
                     />
                     <BaseHeading
@@ -124,7 +124,7 @@
 
         <!-- Confirmation Button -->
         <div class="mx-auto flex flex-col items-center">
-          <NuxtLink to="skogsbruk/metod">
+          <NuxtLink to="/skogsbruk/metod">
             <BaseButton
               shape=""
               size="lg"

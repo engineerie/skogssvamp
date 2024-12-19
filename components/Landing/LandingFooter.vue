@@ -24,23 +24,17 @@
         <h3 class="font-bold mb-4">Dokumentation</h3>
         <ul>
           <li class="mb-2">
-            <NuxtLink
-              to="/dokumentation/miljoindelningar"
-              class="text-gray-600 dark:text-gray-300"
+            <NuxtLink class="text-gray-600 dark:text-gray-300"
               >Miljöindelningar</NuxtLink
             >
           </li>
           <li class="mb-2">
-            <NuxtLink
-              to="/dokumentation/dna-analys"
-              class="text-gray-600 dark:text-gray-300"
+            <NuxtLink class="text-gray-600 dark:text-gray-300"
               >DNA-analys</NuxtLink
             >
           </li>
           <li class="mb-2">
-            <NuxtLink
-              to="/dokumentation/artrikedom"
-              class="text-gray-600 dark:text-gray-300"
+            <NuxtLink class="text-gray-600 dark:text-gray-300"
               >Artrikedom</NuxtLink
             >
           </li>
@@ -52,14 +46,12 @@
         <h3 class="font-bold mb-4">Om Projektet</h3>
         <ul>
           <li class="mb-2">
-            <NuxtLink
-              to="/om/motivation"
-              class="text-gray-600 dark:text-gray-300"
+            <NuxtLink class="text-gray-600 dark:text-gray-300"
               >Motivation</NuxtLink
             >
           </li>
           <li class="mb-2">
-            <NuxtLink to="/om/kontakt" class="text-gray-600 dark:text-gray-300"
+            <NuxtLink class="text-gray-600 dark:text-gray-300"
               >Kontakt</NuxtLink
             >
           </li>

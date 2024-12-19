@@ -1,37 +1,14 @@
 <template>
-  <div
-    class="fixed top-0 right-0 h-full w-80 border-l dark:border-neutral-700 border-neutral-300 z-50 shadow-lg shadow-neutral-300 dark:shadow-neutral-800"
-  >
-    <!-- Transparent Top Section -->
-    <!-- <div class="h-14 bg-transparent pointer-events-none"></div> -->
+  <div class="flex flex-col h-full" @click.stop ref="panelRef">
+    <!-- Display species information based on source -->
+    <component :is="infoComponent" :species="species" />
 
-    <!-- Sidebar Content with Background -->
-    <div
-      class="relative bg-neutral-100 dark:bg-neutral-800 h-full pointer-events-auto overflow-y-auto pb-14"
-    >
-      <div class="p-5">
-        <div class="flex justify-between items-end mb-2">
-          <BaseHeading size="3xl" weight="thin" class="-mb-1.5"
-            >Artinformation</BaseHeading
-          >
-          <BaseButtonIcon
-            shape="full"
-            size="md"
-            @click="$emit('close')"
-            class=""
-          >
-            <Icon name="mdi:chevron-right" class="size-6" />
-          </BaseButtonIcon>
-        </div>
-        <!-- Display species information based on source -->
-        <component :is="infoComponent" :species="species" />
-      </div>
-    </div>
+    <!-- Hidden loop to preload all images from manifest.json -->
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from "vue";
+import { ref, onMounted } from "vue";
 
 import EdnaSpeciesInfo from "~/components/EdnaSpeciesInfo.vue";
 import EdibleSpeciesInfo from "~/components/EdibleSpeciesInfo.vue";
@@ -58,3 +35,27 @@ const infoComponent = computed(() => {
   }
 });
 </script>
+
+<style scoped>
+#scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+  background-color: #6f202033; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+#scrollbar:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+/* For Firefox */
+#scrollbar {
+  scrollbar-width: medium;
+  scrollbar-color: #88888800 #f2f3f500;
+  transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
+}
+</style>

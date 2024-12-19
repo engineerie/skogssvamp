@@ -68,7 +68,7 @@
         <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
             v-model="rowsPerPage"
-            :items="[5, 10, 20, 30, 40, 50]"
+            :items="[10, 20, 30, 40, 50, 'Alla']"
             placeholder="Rader per sida"
             shape="full"
             label="Rader"
@@ -102,7 +102,7 @@
     </div>
 
     <div
-      class="relative pt-3 backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      class="relative pt-3 backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
       <div class="grid grid-cols-2 mb-8"></div>
 
@@ -112,10 +112,17 @@
 
           <!-- UTable with Filtered Data -->
           <UTable
+            :loading="isLoading"
+            :loading-state="{
+              icon: 'i-heroicons-arrow-path-20-solid',
+              label: 'Laddar',
+            }"
+            class="max-h-[calc(100vh-400px)]"
             :sort-button="{
               color: 'text-neutral-700 dark:text-neutral-300',
               size: 'xl',
             }"
+            id="scrollbar"
             :ui="computedUITable"
             :columns="selectedColumns"
             :rows="paginatedData"
@@ -214,42 +221,44 @@
             </div>
             <div>
               <!-- Pagination component -->
-              <UPagination
-                :max="2"
-                v-model="page"
-                :page-count="rowsPerPage"
-                :total="totalItems"
-                :ui="{
-                  wrapper: 'flex items-center gap-1',
-                  rounded: '!rounded-full min-w-[32px] justify-center px-4',
-                  default: {},
-                }"
-                size="lg"
-              >
-                <!-- Custom previous button -->
-                <template #prev="{ onClick }">
-                  <UButton
-                    icon="i-heroicons-chevron-left-20-solid"
-                    size="lg"
-                    color="white"
-                    :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                    class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
-                    @click="onClick"
-                  />
-                </template>
+              <div v-if="rowsPerPage !== 'Alla'">
+                <UPagination
+                  :max="2"
+                  v-model="page"
+                  :page-count="rowsPerPage"
+                  :total="totalItems"
+                  :ui="{
+                    wrapper: 'flex items-center gap-1',
+                    rounded: '!rounded-full min-w-[32px] justify-center px-4',
+                    default: {},
+                  }"
+                  size="lg"
+                >
+                  <!-- Custom previous button -->
+                  <template #prev="{ onClick }">
+                    <UButton
+                      icon="i-heroicons-chevron-left-20-solid"
+                      size="lg"
+                      color="white"
+                      :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                      class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                      @click="onClick"
+                    />
+                  </template>
 
-                <!-- Custom next button -->
-                <template #next="{ onClick }">
-                  <UButton
-                    icon="i-heroicons-chevron-right-20-solid"
-                    size="lg"
-                    color="white"
-                    :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                    class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
-                    @click="onClick"
-                  />
-                </template>
-              </UPagination>
+                  <!-- Custom next button -->
+                  <template #next="{ onClick }">
+                    <UButton
+                      icon="i-heroicons-chevron-right-20-solid"
+                      size="lg"
+                      color="white"
+                      :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                      class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                      @click="onClick"
+                    />
+                  </template>
+                </UPagination>
+              </div>
             </div>
           </div>
         </div>
@@ -312,7 +321,8 @@ const props = defineProps({
 console.log("isNormalView in FullScreenEdible:", props.isNormalView);
 
 const computedUITable = computed(() => ({
-  thead: props.isNormalView ? "" : "",
+  thead:
+    "sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-50",
   td: {
     base: "",
     padding: "py-6 pl-6",
@@ -452,6 +462,7 @@ const standAge = ref("");
 const vegetationType = ref("");
 
 const data = ref([]);
+const isLoading = ref(true);
 
 const capitalize = (str) => {
   if (!str) return "";
@@ -464,6 +475,7 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     const response = await fetch(`/edible/${filename}`);
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
+    isLoading.value = false;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -484,6 +496,8 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
 watch(
   () => route.params,
   (params) => {
+    isLoading.value = true;
+
     const { geography, forestType, standAge, vegetationType } = params;
     if (geography && forestType && standAge && vegetationType) {
       fetchData(geography, forestType, standAge, vegetationType);
@@ -526,19 +540,34 @@ const filteredData = computed(() => {
 });
 
 const paginatedData = computed(() => {
-  const start = (page.value - 1) * rowsPerPage.value;
-  const end = page.value * rowsPerPage.value;
-  return sortedData.value.slice(start, end);
+  if (rowsPerPage.value === "Alla") {
+    // Show all rows
+    return sortedData.value;
+  } else {
+    const start = (page.value - 1) * rowsPerPage.value;
+    const end = page.value * rowsPerPage.value;
+    return sortedData.value.slice(start, end);
+  }
 });
 
 const totalPages = computed(() => {
+  if (rowsPerPage.value === "Alla") {
+    return 1; // Only one "page" when showing all
+  }
   return Math.ceil(filteredData.value.length / rowsPerPage.value);
 });
-
 const totalItems = computed(() => sortedData.value.length);
+const startItem = computed(() => {
+  if (rowsPerPage.value === "Alla") {
+    return totalItems.value > 0 ? 1 : 0;
+  }
+  return (page.value - 1) * rowsPerPage.value + 1;
+});
 
-const startItem = computed(() => (page.value - 1) * rowsPerPage.value + 1);
-const endItem = computed(() =>
-  Math.min(page.value * rowsPerPage.value, totalItems.value)
-);
+const endItem = computed(() => {
+  if (rowsPerPage.value === "Alla") {
+    return totalItems.value;
+  }
+  return Math.min(page.value * rowsPerPage.value, totalItems.value);
+});
 </script>

@@ -32,7 +32,6 @@
           Ta reda på vilka svampar som finns och hur de trivs i din skog.
         </p>
         <NuxtLink
-          @click="openSidebar"
           to="/svampdata"
           class="inline-flex items-center justify-center mt-8"
         >
@@ -44,7 +43,6 @@
           </div>
         </NuxtLink>
         <NuxtLink
-          @click="openSidebar"
           to="/skogsbruk"
           class="inline-flex items-center justify-center"
         >
