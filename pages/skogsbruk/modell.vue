@@ -6,6 +6,7 @@
         v-if="!frameworksVisible"
       >
         <div class="flex gap-2 items-center mb-2">
+          <!-- Existing Framework Selection Dropdown -->
           <Icon
             :name="currentFramework.icon"
             :class="[
@@ -19,6 +20,7 @@
               class="text-xl font-thin text-neutral-800"
               :label="currentFramework.label"
               placement="bottom-start"
+              shape="full"
             >
               <BaseDropdownItem
                 v-for="(framework, index) in frameworks"
@@ -26,7 +28,9 @@
                 @click="selectedFrameworkIndex = index"
                 :title="framework.label"
                 :text="framework.text"
-                rounded="sm"
+                shape="md"
+                rounded="md"
+                class="rounded-md overflow-hidden"
               >
                 <template #start>
                   <Icon
@@ -47,7 +51,7 @@
                     to="#"
                     title="Tidigare kalavverkad"
                     text="Skogens historik"
-                    rounded="sm"
+                    shape="sm"
                     class="pointer-events-none"
                   >
                     <template #start>
@@ -65,26 +69,58 @@
             <p class="text-md text-gray-400">{{ currentStartskog.label }}</p>
           </div>
         </div>
+
         <div class="z-50">
-          <template v-if="!isFrameworkCompareMode">
-            <div
-              v-if="isCompare"
-              @click.stop="handleDisabledToggleFrameworkCompareClick"
-              class="cursor-not-allowed"
+          <!-- If NOT in framework compare mode AND NOT in before/after compare mode -->
+          <template v-if="!isFrameworkCompareMode && !isCompare">
+            <BaseDropdown
+              flavor="button"
+              class="inline-block text-neural-400 rounded-full"
+              placement="bottom-end"
+              label="Jämför"
+              shape="full"
             >
-              <BaseButtonIcon shape="full" disabled class="pointer-events-none">
-                <Icon name="material-symbols:add-2-rounded" class="w-10 h-10" />
-              </BaseButtonIcon>
-            </div>
-            <BaseButtonIcon shape="full" v-else>
-              <Icon
-                name="material-symbols:add-2-rounded"
-                class="w-10 h-10"
-                @click="toggleFrameworkCompare"
-              />
-            </BaseButtonIcon>
+              <template #activator>
+                <BaseButtonIcon shape="full" @click.stop="toggle">
+                  <Icon
+                    name="material-symbols:add-2-rounded"
+                    class="w-10 h-10"
+                  />
+                </BaseButtonIcon>
+              </template>
+
+              <BaseDropdownItem
+                @click="onClickFrameworkCompare"
+                title="Skogsskötsel"
+                text="Jämför två olika metoder"
+                class="rounded-md overflow-hidden"
+              >
+                <template #start>
+                  <Icon
+                    name="simple-icons:forestry"
+                    class="icon size-6 mr-1 text-primary-500"
+                  />
+                </template>
+              </BaseDropdownItem>
+
+              <BaseDropdownItem
+                @click="onClickBeforeAfterCompare"
+                title="Innan / efter avverkning"
+                text="Jämför utveckling över tid"
+                class="rounded-md overflow-hidden"
+              >
+                <template #start>
+                  <Icon
+                    name="material-symbols:clock-loader-40"
+                    class="icon size-7 mr-1 text-primary-500"
+                  />
+                </template>
+              </BaseDropdownItem>
+            </BaseDropdown>
           </template>
-          <template v-else>
+
+          <!-- If in framework compare mode -->
+          <template v-else-if="isFrameworkCompareMode">
             <div class="flex gap-2 items-center mb-2 z-50">
               <div>
                 <BaseDropdown
@@ -114,7 +150,7 @@
                 <BaseButtonIcon
                   shape="full"
                   size="xs"
-                  @click="toggleFrameworkCompare"
+                  @click="onClickFrameworkCompare"
                   class="absolute -top-6 -right-6"
                 >
                   <Icon name="material-symbols:close" class="size-4 m-1" />
@@ -125,6 +161,66 @@
                     'icon size-10 transition-all duration-300',
                     currentFramework2.iconColor,
                   ]"
+                />
+              </div>
+            </div>
+          </template>
+
+          <!-- If in before/after compare mode -->
+          <template v-else-if="isCompare">
+            <div
+              class="flex items-center gap-2 text-xl font-thin text-neutral-400 relative"
+            >
+              <!-- <span>Innan avverkning / </span> -->
+
+              <!-- Time selection dropdown -->
+              <BaseDropdown
+                flavor="text"
+                class="text-xl font-thin text-neutral-400"
+                :label="currentTimeLabel"
+                placement="bottom-start"
+              >
+                <!-- <template #activator="{ toggle }">
+                  <div
+                    class="inline-flex items-center cursor-pointer"
+                    @click.stop="toggle"
+                  >
+                    <Icon
+                      :name="currentTimeIcon"
+                      class="icon size-6 mr-1 text-neutral-600"
+                    />
+                    {{ currentTimeLabel }}
+                  </div>
+                </template> -->
+
+                <BaseDropdownItem
+                  v-for="(stepItem, idx) in availableTimeSteps"
+                  :key="idx"
+                  @click="time = stepItem.value"
+                  :title="stepItem.label"
+                  :text="stepItem.label"
+                  rounded="sm"
+                >
+                  <template #start>
+                    <Icon
+                      :name="timeIconMap[stepItem.timeLabel]"
+                      class="icon size-6 mr-1 text-primary-500"
+                    />
+                  </template>
+                </BaseDropdownItem>
+              </BaseDropdown>
+              <div class="relative">
+                <BaseButtonIcon
+                  shape="full"
+                  size="xs"
+                  @click="onClickBeforeAfterCompare"
+                  class="absolute -top-6 -right-6"
+                >
+                  <Icon name="material-symbols:close" class="size-4 m-1" />
+                </BaseButtonIcon>
+                <Icon
+                  :name="currentTimeIcon"
+                  class="icon size-10 text-primary-500"
                 />
               </div>
             </div>
@@ -161,37 +257,6 @@
                 :class="{ ' text-primary-500': showFungi }"
               />
             </BaseButtonIcon>
-            <div class="relative inline-block">
-              <span
-                v-if="showPingEffectCompareButton"
-                class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"
-              ></span>
-              <BaseButtonIcon
-                v-if="isFrameworkCompareMode"
-                shape="full"
-                size="sm"
-                @click="toggleCompare"
-                disabled
-              >
-                <Icon
-                  name="iconamoon:compare"
-                  class="size-5"
-                  :class="{ ' text-primary-500': isCompare }"
-                />
-              </BaseButtonIcon>
-              <BaseButtonIcon
-                v-else
-                shape="full"
-                size="sm"
-                @click="toggleCompare"
-              >
-                <Icon
-                  name="iconamoon:compare"
-                  class="size-5"
-                  :class="{ ' text-primary-500': isCompare }"
-                />
-              </BaseButtonIcon>
-            </div>
           </div>
 
           <!-- External zoom controls -->
@@ -346,7 +411,7 @@
               <div
                 v-for="step in sliderSteps"
                 :key="step.value"
-                @click="time = step.value"
+                @click="handleTimeSelection(step)"
                 class="flex flex-col items-center cursor-pointer"
               >
                 <BaseButtonAction
@@ -355,6 +420,7 @@
                     time === step.value &&
                     '!border-primary-500 !text-primary-500'
                   "
+                  :disabled="isCompare && step.value === 3"
                 >
                   {{ step.label }}
                 </BaseButtonAction>
@@ -554,6 +620,29 @@ export default {
     OpenSeadragonViewer,
   },
   setup() {
+    const timeIconMap = {
+      efter: "material-symbols:clock-loader-10",
+      10: "material-symbols:clock-loader-30",
+      20: "material-symbols:clock-loader-40",
+      50: "material-symbols:clock-loader-60",
+      80: "material-symbols:clock-loader-90",
+    };
+
+    // availableTimeSteps exclude the "Innan avverkning" step (which is time=3)
+    const availableTimeSteps = computed(() =>
+      sliderSteps.value.filter((s) => s.timeLabel !== "före")
+    );
+
+    // currentTimeIcon finds the icon corresponding to the currentTimeLabel’s timeLabel
+    // First find the step data:
+    const currentTimeIcon = computed(() => {
+      const step = sliderSteps.value.find((s) => s.value === time.value);
+      if (!step) return "";
+      // step.timeLabel could be 'före', 'efter', '10', '20', '50', '80'
+      // If it's 'före' (Innan avverkning), we might not show an icon (or you can choose another icon).
+      return timeIconMap[step.timeLabel] || "";
+    });
+
     const onboardingStore = useOnboardingStore();
 
     const Modal1 = ref(false);
@@ -652,6 +741,22 @@ export default {
       isCompare.value = !isCompare.value;
     };
 
+    const onClickFrameworkCompare = () => {
+      if (!isFrameworkCompareMode.value) {
+        isCompare.value = false;
+      }
+      toggleFrameworkCompare();
+    };
+
+    const onClickBeforeAfterCompare = () => {
+      if (!isCompare.value) {
+        // Turning compare mode on
+        isFrameworkCompareMode.value = false;
+        time.value = 15; // Set to "Efter avverkning"
+      }
+      toggleCompare();
+    };
+
     const showTree = ref(true);
     const showFungi = ref(true);
 
@@ -663,6 +768,14 @@ export default {
     });
 
     const time = ref(3);
+
+    function handleTimeSelection(step) {
+      // If in compare mode, do not allow selecting 'innan avverkning' (3)
+      if (isCompare.value && step.value === 3) {
+        return; // do nothing
+      }
+      time.value = step.value;
+    }
 
     function mapTimeValueToDataAlder(value) {
       const mapping = {
@@ -875,6 +988,12 @@ export default {
     }
 
     return {
+      handleTimeSelection,
+      timeIconMap,
+      availableTimeSteps,
+      currentTimeIcon,
+      onClickFrameworkCompare,
+      onClickBeforeAfterCompare,
       frameworksVisible,
       currentFramework,
       currentFramework2,
