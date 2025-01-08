@@ -45,13 +45,16 @@ const fetchEdibleDataFromDB = async ({
     m."BLÅBÄR_grupp",
     m."LINGON_grupp",
     s.rating,
-    s.ekologi
+    s.ekologi,
+    m."Giftsvamp",
+    m."Rank matsvamp",
+    m."Rank giftsvamp"
   FROM 
-    "Svampen_oktober_18" m
+    "Mat_Naturvård_Gift_Jan_3" m
   LEFT JOIN svampguiden s ON m.taxon = s.taxonid
   WHERE 
     m."Nyasvamp-boken" IS NOT NULL
-  `;
+    OR m."Giftsvamp" IS NOT NULL  `;
 
   const data = await db.all(query);
 

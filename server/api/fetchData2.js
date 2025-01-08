@@ -104,6 +104,7 @@ const fetchDataFromDB = async ({
     COALESCE(ms.SIGNAL_art, '0') AS "SIGNAL_art",
     COALESCE(ms.Svampguiden, '0') AS Svampguiden,
     COALESCE(ms."Nyasvamp-boken", '0') AS "Nya svamp-boken",
+    COALESCE(ms."Giftsvamp", '0') AS "Giftsvamp",
     COALESCE(sd.Genus, 'Information saknas') AS Genus,
     COUNT(DISTINCT m.GropInventeringID) AS sample_plot_count,
     (
@@ -122,7 +123,7 @@ const fetchDataFromDB = async ({
   LEFT JOIN 
     Species_database sd ON mcv.SpeciesCode = sd."ID#"
 LEFT JOIN 
-  "Svampen_oktober_18" ms ON TRIM(REPLACE(sd.Taxon, '(coll.)', '')) = ms.Scientificname
+  "Mat_Naturvård_Gift_Jan_3" ms ON TRIM(REPLACE(sd.Taxon, '(coll.)', '')) = ms.Scientificname
   LEFT JOIN svampguiden s ON ms.taxon = s.taxonid
 
   LEFT JOIN 

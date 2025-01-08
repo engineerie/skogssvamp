@@ -532,6 +532,12 @@ const columns = [
     label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
+  {
+    key: "Rank rödlist o signal",
+    label: "Rank",
+    // Make it sortable as well:
+    sortable: props.isNormalView ? false : true,
+  },
 ];
 
 // Reactive state for toggling rarity
@@ -546,12 +552,15 @@ const sort = ref({ column: "", direction: "asc" });
 
 const selectedColumns = computed(() =>
   [
-    columns[0], // "RL2020kat"
-    columns[1], // "Commonname"
-    !props.isNormalView ? columns[2] : null, // "Scientificname"
-    columns[3], // "Mark"
-    isRare.value ? columns[4] : null, // Conditionally show "Ovanlighet"
-    columns[5], // "Svamp-grupp"
+    columns[0], // RL2020kat
+    columns[1], // Commonname
+    !props.isNormalView ? columns[2] : null, // Scientificname (conditional)
+    columns[3], // Mark
+    isRare.value ? columns[4] : null, // OVANLIGHET (only if isRare is true)
+    columns[5], // Svamp-grupp
+
+    // ADD the new column here
+    !props.isNormalView ? columns[6] : null, // "Rank rödlist o signal"
   ].filter((column) => column !== null)
 );
 
@@ -683,28 +692,47 @@ const filteredData = computed(() => {
 });
 
 const sortedData = computed(() => {
-  let result = filteredData.value.slice(); // Create a shallow copy to sort
+  let result = filteredData.value.slice(); // shallow copy
 
-  if (sort.value && sort.value.column) {
-    const column = sort.value.column;
-    const direction = sort.value.direction;
-
+  // If the user has clicked on a column to sort, do that
+  if (sort.value?.column) {
+    const { column, direction } = sort.value;
     result.sort((a, b) => {
       const valueA = a[column];
       const valueB = b[column];
 
-      // Handle null or undefined values
+      // Handle null or undefined
       if (valueA == null && valueB != null) return 1;
       if (valueA != null && valueB == null) return -1;
       if (valueA == null && valueB == null) return 0;
 
-      // Compare values using Swedish locale
+      // Compare as strings (or numbers)
       const comparison = String(valueA).localeCompare(String(valueB), "sv", {
         numeric: true,
         sensitivity: "base",
       });
 
       return direction === "asc" ? comparison : -comparison;
+    });
+  } else {
+    // >>> DEFAULT TWO-LEVEL SORT <<<
+    // 1) By "Rank rödlist o signal" ascending
+    // 2) If same rank, sort by Commonname ascending
+    result.sort((a, b) => {
+      const rankA = a["Rank rödlist o signal"] ?? 99999; // if null
+      const rankB = b["Rank rödlist o signal"] ?? 99999;
+
+      // Compare rank first
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
+      // If ranks are equal, compare alphabetical by Commonname
+      const nameA = a.Commonname?.toString().toLowerCase() || "";
+      const nameB = b.Commonname?.toString().toLowerCase() || "";
+      return nameA.localeCompare(nameB, "sv", {
+        numeric: true,
+        sensitivity: "base",
+      });
     });
   }
 

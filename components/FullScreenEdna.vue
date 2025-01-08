@@ -232,6 +232,19 @@
                 </div>
               </div>
             </template>
+            <template #sample_plot_count-data="{ row }" v-else>
+              <div class="px-2 w-32">
+                <UProgress
+                  :max="sampleEnvCount"
+                  :value="row.sample_plot_count"
+                  size="md"
+                  :color="''"
+                  :style="{ color: allColors[row.colorIndex] }"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="`Förekommer i ${row.sample_plot_count} av ${sampleEnvCount} skogar`"
+                />
+              </div>
+            </template>
             <template #snamn-data="{ row }" v-if="isNormalView">
               <div class="truncate">
                 {{ capitalize(row.snamn) }}
@@ -304,7 +317,10 @@
                   class="h-7 w-7 text-yellow-500 -my-2"
                 />
               </div>
-              <div v-if="row.matsvamp === 0"></div>
+              <div v-else-if="row.Giftsvamp === 'x'">
+                <Icon name="hugeicons:danger" class="text-violet-500 w-7 h-7" />
+              </div>
+              <div v-else></div>
             </template>
             <!-- ...other columns... -->
           </UTable>
@@ -568,31 +584,28 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     // Once data is fetched, turn off loading
     isLoading.value = false;
 
-    // **New Logic Starts Here**
+    // 1) Assign each row a stable colorIndex based on its original position
+    data.value.forEach((row, i) => {
+      row.colorIndex = i;
+    });
+
+    // 2) Figure out how many total species we have
     const totalSpecies = data.value.length;
-    topCount.value = Math.floor(totalSpecies * 0.1); // 20% of total species
+
+    // 3) Use your existing logic for topCount (10% in your case)
+    topCount.value = Math.floor(totalSpecies * 0.1);
     remainingCount.value = totalSpecies - topCount.value;
 
-    // Generate gray colors for the first 20%
+    // 4) Generate the color arrays
     const grayColors = generateColors(
       [82, 82, 82],
       [212, 212, 212],
       topCount.value
     );
-
-    // Generate rainbow colors for the remaining 80%
     const rainbowColors = generateRainbowColors(remainingCount.value);
 
-    // Combine the colors
+    // 5) Combine them into one big array
     allColors.value = [...grayColors, ...rainbowColors];
-
-    // **Optional:** Handle edge cases where totalSpecies < 5
-    // If you prefer at least one gray bar, use Math.ceil instead of Math.floor
-    /*
-    topCount.value = Math.max(1, Math.floor(totalSpecies * 0.2));
-    remainingCount.value = totalSpecies - topCount.value;
-    */
-    // **New Logic Ends Here**
   } catch (error) {
     console.error("Error fetching data:", error);
   }

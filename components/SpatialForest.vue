@@ -37,13 +37,13 @@
           height="505"
           width="805"
           :src="imageUrl"
-          class="image-fit border-b-[1px] dark:border-neutral-700 border-neutral-200"
+          class="image-fit border-[1px] dark:border-neutral-700 border-neutral-200 rounded-xl"
           format="webp"
         />
         <div
           class="flex absolute bottom-0 justify-between w-full p-2 items-end"
         >
-          <BaseHeading weight="medium" size="sm" class="text-neutral-400"
+          <BaseHeading weight="medium" size="xs" class="text-neutral-400"
             >Figuren visar hur mycelutbredningar kan se ut. <br />Ofta täcker ca
             10% av arterna ca 80% av marken.</BaseHeading
           >
@@ -117,14 +117,7 @@
       </div>
     </div>
     <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />
-    <p class="p-3 text-neutral-500">
-      I [medelgammal] [granskog] i [norra Sverige] med markvegeation
-      [blåbärsgrupp] är underlaget från markinventeringen [gott] och visar
-      [många] arter, så som [art1, art2]. I den här miljön finns det [få]
-      Naturvårdsarter t.ex. [art3], [Många] matsvampar kan också finnas här,
-      t.ex [art4].
-    </p>
-    <div class="p-4 text-sm text-neutral-500"></div>
+
     <div class="hidden">
       <NuxtImg
         v-for="(src, index) in allImageUrls"

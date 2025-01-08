@@ -121,6 +121,14 @@
       </div>
 
       <div
+        v-if="species.Giftsvamp === 'x'"
+        class="flex items-center space-x-2 mt-3"
+      >
+        <Icon name="hugeicons:danger" class="h-7 w-7 text-violet-500 -my-2" />
+        <BaseHeading size="md" weight="light"> Giftsvamp </BaseHeading>
+      </div>
+
+      <div
         v-if="species.SIGNAL_art === 'S'"
         class="flex items-center space-x-2 mt-3"
       >

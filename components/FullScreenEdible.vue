@@ -65,6 +65,19 @@
       </UPopover>
 
       <div class="flex gap-2 items-end">
+        <div
+          :data-nui-tooltip="'Visa giftiga svampar'"
+          data-nui-tooltip-position="left"
+        >
+          <Icon
+            @click="togglePoisonous"
+            name="hugeicons:danger"
+            class="w-10 h-10 hover:text-violet-500 text-neutral-300 hover:cursor-pointer transition-all"
+            :class="{
+              'text-violet-500': showPoisonous,
+            }"
+          />
+        </div>
         <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
             v-model="rowsPerPage"
@@ -194,6 +207,30 @@
                 {{ row.Scientificname }}
               </div>
             </template>
+            <template #FoodType-data="{ row }">
+              <div class="flex justify-center max-w-8">
+                <!-- Danger icon if poisonous -->
+                <Icon
+                  v-if="row.Giftsvamp"
+                  name="hugeicons:danger"
+                  class="text-violet-500 w-6 h-6"
+                />
+
+                <!-- Knife-fork icon if not poisonous but is edible -->
+                <Icon
+                  v-else-if="row['Nyasvamp-boken']"
+                  name="icon-park-solid:knife-fork"
+                  class="text-yellow-500 w-6 h-6"
+                />
+
+                <!-- Or show nothing / neutral icon if neither applies -->
+                <Icon
+                  v-else
+                  name="material-symbols:help-outline-rounded"
+                  class="text-neutral-400 w-6 h-6"
+                />
+              </div>
+            </template>
             <template #Svamp-grupp-data="{ row }">
               <div
                 data-nui-tooltip-position="left"
@@ -207,6 +244,35 @@
                 />
               </div>
             </template>
+            <template #RL2020kat-data="{ row }">
+              <div class="flex items-center space-x-2">
+                <!-- Existing Status Circle -->
+
+                <div
+                  :class="getStatusColor(row.RL2020kat)"
+                  class="h-5 w-5 rounded-full flex items-center justify-center text-white z-0 max-w-12"
+                  data-nui-tooltip-position="left"
+                  :data-nui-tooltip="
+                    row['RL2020kat'] !== 'Saknas'
+                      ? getStatusTooltip(row.RL2020kat)
+                      : 'Ej bedömd'
+                  "
+                >
+                  <!-- {{ getStatusAbbreviation(row.RL2020kat) }} -->
+                </div>
+
+                <!-- Conditional Blue 'S' Circle -->
+                <div v-if="row.SIGNAL_art === 'S'" class="relative">
+                  <div
+                    class="h-5 w-5 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10 text-sm"
+                    :data-nui-tooltip="'Signalart'"
+                  >
+                    <!-- S -->
+                  </div>
+                </div>
+              </div>
+            </template>
+
             <!-- ...other columns... -->
           </UTable>
           <div
@@ -314,6 +380,45 @@ const getIconPath = (svampGrupp) => {
   return `/images/svampgrupp/${iconMapping[svampGrupp] || "default-icon.webp"}`;
 };
 
+const getStatusAbbreviation = (status) => {
+  const abbreviations = {
+    LC: "LC",
+    NT: "NT", // Near Threatened
+    EN: "EN", // Endangered
+    VU: "VU", // Vulnerable
+    CR: "CR", // Critically Endangered
+    RE: "RE", // Regionally Extinct
+    DD: "DD", // Data Deficient
+  };
+  return abbreviations[status] || "NE"; // Default case
+};
+
+const getStatusColor = (status) => {
+  const colors = {
+    LC: "bg-green-500",
+    NT: "bg-[#D7838E]",
+    EN: "bg-[#CC526B]",
+    VU: "bg-[#D7838E]",
+    CR: "bg-[#C4004F]",
+    RE: "bg-[#421A31]",
+    DD: "bg-[#E8E9E7]",
+  };
+  return colors[status] || "bg-neutral-300";
+};
+
+const getStatusTooltip = (status) => {
+  const tooltips = {
+    LC: "Livskraftig",
+    NT: "Nära hotad",
+    EN: "Starkt hotad",
+    VU: "Sårbar",
+    CR: "Akut hotad",
+    RE: "Nationellt utdöd",
+    DD: "Kunskapsbrist",
+  };
+  return tooltips[status] || "Ej bedömd";
+};
+
 const props = defineProps({
   isNormalView: Boolean,
 });
@@ -399,6 +504,13 @@ function closeInfoBox() {
   selectedRows.value = [];
 }
 
+// Reactive state for toggling giftsvampar
+const showPoisonous = ref(false); // Hidden by default
+
+function togglePoisonous() {
+  showPoisonous.value = !showPoisonous.value;
+}
+
 const columns = [
   {
     key: "Commonname",
@@ -415,41 +527,73 @@ const columns = [
     label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
+  {
+    key: "FoodType", // or "Type"
+    label: "",
+    sortable: false, // probably no need to sort by this
+  },
+  {
+    key: "RL2020kat",
+    label: "Status",
+    sortable: props.isNormalView ? false : true,
+    render: (row) => {
+      const statusAbbr = getStatusAbbreviation(row.RL2020kat);
+      const statusColor = getStatusColor(row.RL2020kat);
+      const tooltip = getStatusTooltip(row.RL2020kat);
+      return `<div class="flex items-center justify-center w-6 h-6  rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
+    },
+  },
+  {
+    key: "Rank",
+    label: "Rank",
+    sortable: props.isNormalView ? false : true,
+  },
 ];
 
 const sort = ref({ column: "", direction: "asc" });
 
 const selectedColumns = computed(() =>
   [
-    columns[0], // "Commonname"
-    !props.isNormalView ? columns[1] : null, // "Scientificname"
-    columns[2], // "Svamp-grupp"
+    showPoisonous.value ? columns[3] : null,
+    columns[0], // Commonname
+    !props.isNormalView ? columns[1] : null, // Scientificname
+    columns[2], // Svamp-grupp
+
+    // NEW: show the FoodType column only if showPoisonous is TRUE
+
+    !props.isNormalView ? columns[4] : null,
+    !props.isNormalView ? columns[5] : null, // Rank
   ].filter((column) => column !== null)
 );
 
 const sortedData = computed(() => {
-  let result = filteredData.value.slice(); // Create a shallow copy to sort
+  let result = filteredData.value.slice();
 
-  if (sort.value && sort.value.column) {
-    const column = sort.value.column;
-    const direction = sort.value.direction;
-
+  // If user clicked a column to sort, do single-column logic
+  if (sort.value?.column) {
+    // same as before
+    const { column, direction } = sort.value;
     result.sort((a, b) => {
-      const valueA = a[column];
-      const valueB = b[column];
+      // ...
+    });
+  } else {
+    // Default 2-level sort:
+    //  1) By "Rank" ascending
+    //  2) By "Commonname" ascending
+    result.sort((a, b) => {
+      const rankA = a.Rank ?? 99999;
+      const rankB = b.Rank ?? 99999;
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
 
-      // Handle null or undefined values
-      if (valueA == null && valueB != null) return 1;
-      if (valueA != null && valueB == null) return -1;
-      if (valueA == null && valueB == null) return 0;
-
-      // Compare values using Swedish locale
-      const comparison = String(valueA).localeCompare(String(valueB), "sv", {
+      // If same rank, compare name
+      const nameA = (a.Commonname || "").toLowerCase();
+      const nameB = (b.Commonname || "").toLowerCase();
+      return nameA.localeCompare(nameB, "sv", {
         numeric: true,
         sensitivity: "base",
       });
-
-      return direction === "asc" ? comparison : -comparison;
     });
   }
 
@@ -475,6 +619,12 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
     const response = await fetch(`/edible/${filename}`);
     if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
     data.value = await response.json();
+    data.value = data.value.map((row) => {
+      return {
+        ...row,
+        Rank: row["Rank matsvamp"] ?? row["Rank giftsvamp"] ?? null,
+      };
+    });
     isLoading.value = false;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -527,13 +677,19 @@ const selectedRow = ref(null);
 const filteredData = computed(() => {
   let result = data.value;
 
-  // Apply search query filter
+  // 1) Hide giftsvamp if showPoisonous = false
+  if (!showPoisonous.value) {
+    // Keep only items that are NOT giftsvamp
+    result = result.filter((row) => !row.Giftsvamp);
+  }
+
+  // 2) Apply search filter if any
   if (searchQuery.value) {
-    result = result.filter((row) => {
-      return Object.values(row).some((value) =>
+    result = result.filter((row) =>
+      Object.values(row).some((value) =>
         String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
-      );
-    });
+      )
+    );
   }
 
   return result;

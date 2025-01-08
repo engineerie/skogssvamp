@@ -4,7 +4,7 @@
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="geographyLabel">
           <div
-            class="my-2 w-5 h-5 rounded-lg text-fuchsia-500 flex justify-center items-center"
+            class="my-2 mx-1 w-5 h-5 rounded-lg text-fuchsia-500 flex justify-center items-center"
           >
             <Icon name="material-symbols:location-on-outline" class="h-8 w-8" />
           </div>
@@ -18,7 +18,7 @@
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="forestTypeLabel">
           <div
-            class="my-2 w-5 h-5 rounded-lg text-green-500 flex justify-center items-center"
+            class="my-2 mx-1 w-5 h-5 rounded-lg text-green-500 flex justify-center items-center"
           >
             <Icon name="lucide:trees" class="h-8 w-8" />
           </div>
@@ -32,7 +32,7 @@
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="standAgeLabel">
           <div
-            class="my-2 w-5 h-5 rounded-lg text-violet-500 flex justify-center items-center"
+            class="my-2 mx-1 w-5 h-5 rounded-lg text-violet-500 flex justify-center items-center"
           >
             <Icon name="carbon:crop-growth" class="h-8 w-8" />
           </div>
@@ -49,7 +49,7 @@
           :key="vegetationTypeLabel"
         >
           <div
-            class="my-2 w-5 h-5 rounded-lg text-teal-500 flex justify-center items-center"
+            class="my-2 mx-1 w-5 h-5 rounded-lg text-teal-500 flex justify-center items-center"
           >
             <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
           </div>
@@ -86,6 +86,7 @@ const geographyOptions = [
     description: "Söder om latitud 60°",
   },
 ];
+
 const forestTypeOptions = [
   {
     value: "Granskog",
@@ -107,7 +108,11 @@ const forestTypeOptions = [
     label: "Blandskog",
     description: "31-69% lövträd respektive barrträd",
   },
-  { value: "Lövskog", label: "Lövskog", description: "Minst 70% lövträd" },
+  {
+    value: "Lövskog",
+    label: "Övrig lövskog",
+    description: "Minst 70% lövträd",
+  },
   {
     value: "EkBokskog",
     label: "Ek och Bokskog",
@@ -115,10 +120,11 @@ const forestTypeOptions = [
   },
   {
     value: "Naturbete",
-    label: "Naturbete",
+    label: "Trädklädd betesmark",
     description: "Trädbevuxna gräsmarker som används för betesdjur.",
   },
 ];
+
 const standAgeOptions = [
   {
     value: "1-40",
@@ -141,21 +147,22 @@ const standAgeOptions = [
     description: "Inkluderar alla åldersgrupper av träd.",
   },
 ];
+
 const vegetationTypeOptions = [
   {
     value: "Örter_grupp",
-    label: "Örter",
-    description: "Högört, Lågört och Bredblad gräs",
+    label: "Örttyper",
+    description: "Består av högörter, lågörter och bredbladiga gräs.",
   },
   {
     value: "Blåbär_grupp",
-    label: "Blåbär",
-    description: "Blåbär och Smalblad gräs",
+    label: "Blåbärstyper",
+    description: "Innehåller blåbär och smalbladiga gräs.",
   },
   {
     value: "Lingon_grupp",
-    label: "Lingon",
-    description: "Lingon och Kråkbär/Ljung",
+    label: "Lingon-fattigristyper",
+    description: "Täcker områden med lingon och kråkbär eller ljung.",
   },
 ];
 

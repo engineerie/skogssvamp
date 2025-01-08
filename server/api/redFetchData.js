@@ -56,9 +56,11 @@ const fetchEdibleDataFromDB = async ({
     m."ANNANmark",
     m."RLochS",
     s.rating,
-    s.ekologi
+    s.ekologi,
+    m."Rank rödlist o signal",
+    m."Giftsvamp" 
   FROM 
-    "Svampen_oktober_18" m
+    "Mat_Naturvård_Gift_Jan_3" m
   LEFT JOIN svampguiden s ON m.taxon = s.taxonid
   WHERE 
     m."RLochS" IS NOT NULL

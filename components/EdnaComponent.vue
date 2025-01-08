@@ -163,10 +163,7 @@
         </div>
 
         <transition name="fade" mode="out-in">
-          <div
-            v-if="activeTab === 'spatialForest'"
-            class="h-[505px] -mt-1 overflow-hidden backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
-          >
+          <div v-if="activeTab === 'spatialForest'" class="h-[505px] -mt-1">
             <SpatialForest
               :geography="geography"
               :forestType="forestType"
@@ -176,6 +173,66 @@
               :topCount="topCount"
               :remainingCount="remainingCount"
             />
+            <div class="">
+              <div class="flex gap-2 w-full p-2">
+                <UBadge
+                  icon="i-material-symbols-location-on-outline"
+                  size="sm"
+                  color="white"
+                  variant="solid"
+                  :ui="{ rounded: 'rounded-full' }"
+                  class="flex gap-1"
+                  ><Icon
+                    name="material-symbols:location-on-outline"
+                    class="text-fuchsia-500"
+                  />{{ geographyLabel }}</UBadge
+                >
+
+                <UBadge
+                  icon="i-material-symbols-location-on-outline"
+                  size="sm"
+                  color="white"
+                  variant="solid"
+                  :ui="{ rounded: 'rounded-full' }"
+                  class="flex gap-1"
+                  ><Icon name="lucide:trees" class="text-green-500" />{{
+                    forestTypeLabel
+                  }}</UBadge
+                ><UBadge
+                  icon="i-material-symbols-location-on-outline"
+                  size="sm"
+                  color="white"
+                  variant="solid"
+                  :ui="{ rounded: 'rounded-full' }"
+                  class="flex gap-1"
+                  ><Icon name="carbon:crop-growth" class="text-violet-500" />{{
+                    standAgeLabel
+                  }}</UBadge
+                >
+                <UBadge
+                  icon="i-material-symbols-location-on-outline"
+                  size="sm"
+                  color="white"
+                  variant="solid"
+                  :ui="{ rounded: 'rounded-full' }"
+                  class="flex gap-1"
+                  ><Icon
+                    name="fluent-emoji-high-contrast:herb"
+                    class="text-teal-500"
+                  />{{ vegetationTypeLabel }}</UBadge
+                >
+              </div>
+              <div
+                class="rounded-xl p-3 bg-white border-[1px] overflow-hidden border-neutral-200 h-full"
+              >
+                <p class="text-neutral-500 text-sm">
+                  Här är underlaget från markinventeringen [gott] och visar
+                  [många] arter, så som [art1, art2]. I den här miljön finns det
+                  [få] Naturvårdsarter t.ex. [art3], [Många] matsvampar kan
+                  också finnas här, t.ex [art4].
+                </p>
+              </div>
+            </div>
           </div>
         </transition>
       </div>
@@ -290,7 +347,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, computed } from "vue";
 import { useRoute } from "vue-router";
 
 const sampleEnvCount = computed(() => {
@@ -313,7 +370,124 @@ const props = defineProps({
   isNormalView: Boolean,
 });
 
+// EdnaComponent.vue (script setup)
+const geographyOptions = [
+  {
+    value: "Norr",
+    label: "Norra Sverige",
+    description: "Norr om latitud 60°",
+  },
+  {
+    value: "Söder",
+    label: "Södra Sverige",
+    description: "Söder om latitud 60°",
+  },
+];
+
+const forestTypeOptions = [
+  {
+    value: "Granskog",
+    label: "Granskog",
+    description: "Minst 70% barrträd, och minst 70% av dessa är gran",
+  },
+  {
+    value: "Tallskog",
+    label: "Tallskog",
+    description: "Minst 70% barrträd, och minst 70% av dessa är tall",
+  },
+  {
+    value: "Barrblandskog",
+    label: "Barrblandskog",
+    description: "Minst 70% barrträd, men varken tall eller gran uppnår 70%",
+  },
+  {
+    value: "Lövblandskog",
+    label: "Blandskog",
+    description: "31-69% lövträd respektive barrträd",
+  },
+  {
+    value: "Lövskog",
+    label: "Övrig lövskog",
+    description: "Minst 70% lövträd",
+  },
+  {
+    value: "EkBokskog",
+    label: "Ek och Bokskog",
+    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok.",
+  },
+  {
+    value: "Naturbete",
+    label: "Trädklädd betesmark",
+    description: "Trädbevuxna gräsmarker som används för betesdjur.",
+  },
+];
+
+const standAgeOptions = [
+  {
+    value: "1-40",
+    label: "1-40 år",
+    description: "Yngre träd mellan 1 och 40 år.",
+  },
+  {
+    value: "41-90",
+    label: "41-90 år",
+    description: "Träd mellan 41 och 90 år.",
+  },
+  {
+    value: "91",
+    label: "91 år och äldre",
+    description: "Äldre träd som är 91 år eller mer.",
+  },
+  {
+    value: "allaåldrar",
+    label: "Alla åldrar",
+    description: "Inkluderar alla åldersgrupper av träd.",
+  },
+];
+
+const vegetationTypeOptions = [
+  {
+    value: "Örter_grupp",
+    label: "Örttyper",
+    description: "Består av högörter, lågörter och bredbladiga gräs.",
+  },
+  {
+    value: "Blåbär_grupp",
+    label: "Blåbärstyper",
+    description: "Innehåller blåbär och smalbladiga gräs.",
+  },
+  {
+    value: "Lingon_grupp",
+    label: "Lingon-fattigristyper",
+    description: "Täcker områden med lingon och kråkbär eller ljung.",
+  },
+];
+
 const route = useRoute();
+
+const geographyLabel = computed(() => {
+  const param = decodeURIComponent(route.params.geography || "");
+  const option = geographyOptions.find((o) => o.value === param);
+  return option ? option.label : param; // Fallback to raw param if not found
+});
+
+const forestTypeLabel = computed(() => {
+  const param = decodeURIComponent(route.params.forestType || "");
+  const option = forestTypeOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
+
+const standAgeLabel = computed(() => {
+  const param = decodeURIComponent(route.params.standAge || "");
+  const option = standAgeOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
+
+const vegetationTypeLabel = computed(() => {
+  const param = decodeURIComponent(route.params.vegetationType || "");
+  const option = vegetationTypeOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
 
 const routeKey = computed(
   () =>
