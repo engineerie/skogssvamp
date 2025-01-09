@@ -54,7 +54,7 @@
               >Naturvårdsarter</BaseHeading
             >
             <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Bedömning baserad på fruktkroppar
+              >Bedömning baserad på samlad kunskap
             </BaseHeading>
           </div>
         </div>
@@ -68,7 +68,7 @@
       </UPopover>
 
       <div class="flex gap-2 items-end">
-        <div
+        <!-- <div
           :data-nui-tooltip="'Visa extra sällsynta arter'"
           data-nui-tooltip-position="left"
         >
@@ -80,7 +80,7 @@
               'text-teal-500': isRare,
             }"
           />
-        </div>
+        </div> -->
 
         <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
@@ -242,23 +242,29 @@
               <div class="flex items-center space-x-1">
                 <!-- 'K' for Kalkmark -->
                 <div v-if="row.KALKmark">
-                  <div
+                  <UBadge color="amber" variant="subtle">Kalkmark</UBadge>
+
+                  <!-- <div
                     class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-700"
                     data-nui-tooltip-position="left"
                     :data-nui-tooltip="'Kalkmark'"
                   >
                     K
-                  </div>
+                  </div> -->
                 </div>
                 <!-- 'Ö' for Övrig mark -->
                 <div v-if="row.ANNANmark">
-                  <div
+                  <UBadge color="emerald" variant="subtle"
+                    >Vanlig skogsmark</UBadge
+                  >
+
+                  <!-- <div
                     class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-400"
                     data-nui-tooltip-position="left"
                     :data-nui-tooltip="'Vanlig skogsmark'"
                   >
                     V
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </template>
@@ -286,6 +292,18 @@
                   :src="getIconPath(row['Svamp-grupp'])"
                   class="w-5"
                   alt="Svamp Icon"
+                />
+              </div>
+            </template>
+            <template #RankRed-data="{ row }">
+              <div class="px-2 w-32">
+                <UProgress
+                  max="3"
+                  :value="getInvertedRankValue(row.RankRed)"
+                  :color="getColorForRank(row.RankRed)"
+                  size="md"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="getRankTooltip(row.RankRed)"
                 />
               </div>
             </template>
@@ -373,6 +391,42 @@ console.log("FullScreenEdible setup started");
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
+
+function getInvertedRankValue(rank) {
+  // Fallback to 0 if rank is missing or invalid
+  if (!rank) return 0;
+  return 4 - rank; // Invert so rank=1 -> 3, rank=2 -> 2, rank=3 -> 1
+}
+
+function getRankTooltip(rank) {
+  switch (rank) {
+    case 1:
+      return "Många fynd";
+    case 2:
+      return "Färre fynd";
+    case 3:
+      return "Få fynd";
+    default:
+      return "";
+  }
+}
+
+function getColorForRank(rank) {
+  switch (rank) {
+    case 1:
+      // Rank = 1 (full bar) => color “blue”, for example
+      return "yellow";
+    case 2:
+      // Rank = 2 (half bar) => color “amber”
+      return "amber";
+    case 3:
+      // Rank = 3 (almost empty) => color “orange”
+      return "orange";
+    default:
+      // Fallback color
+      return "neutral";
+  }
+}
 
 const speciesStore = useSpeciesStore();
 
@@ -533,10 +587,10 @@ const columns = [
     sortable: props.isNormalView ? false : true,
   },
   {
-    key: "Rank rödlist o signal",
-    label: "Rank",
+    key: "RankRed",
+    label: "Antal fynd",
     // Make it sortable as well:
-    sortable: props.isNormalView ? false : true,
+    sortable: false,
   },
 ];
 
@@ -719,8 +773,8 @@ const sortedData = computed(() => {
     // 1) By "Rank rödlist o signal" ascending
     // 2) If same rank, sort by Commonname ascending
     result.sort((a, b) => {
-      const rankA = a["Rank rödlist o signal"] ?? 99999; // if null
-      const rankB = b["Rank rödlist o signal"] ?? 99999;
+      const rankA = a.RankRed ?? 99999; // if null
+      const rankB = b.RankRed ?? 99999;
 
       // Compare rank first
       if (rankA !== rankB) {

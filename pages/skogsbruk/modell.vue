@@ -1508,7 +1508,7 @@ const timeLabelForDataFiltering = computed(() =>
 
 const timeIconMap = {
   efter: "material-symbols:clock-loader-10",
-  10: "material-symbols:clock-loader-30",
+  10: "material-symbols:clock-loader-20",
   20: "material-symbols:clock-loader-40",
   50: "material-symbols:clock-loader-60",
   80: "material-symbols:clock-loader-90",

@@ -44,6 +44,8 @@ const fetchEdibleDataFromDB = async ({
     m."ÖRTER_grupp",
     m."BLÅBÄR_grupp",
     m."LINGON_grupp",
+    m."KALKmark",
+    m."ANNANmark",
     s.rating,
     s.ekologi,
     m."Giftsvamp",

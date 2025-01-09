@@ -251,6 +251,25 @@ const fetchChartData = async () => {
           },
         }));
 
+      const giftAnnotationsPoints = data.value
+        .filter((row) => row.Giftsvamp === "x")
+        .map((row) => ({
+          x: row.taxon,
+          y: row.sample_plot_count,
+          marker: {
+            size: 10,
+            fillColor: "transparent",
+            strokeWidth: 0,
+            shape: "circle",
+          },
+          image: {
+            path: "/images/danger_lime.png",
+            offsetY: -40,
+            width: 18,
+            height: 18,
+          },
+        }));
+
       const redAnnotationsPoints = data.value
         .filter((row) => ["NT", "EN", "VU", "CR"].includes(row.RL2020kat))
         .map((row) => ({
@@ -274,6 +293,7 @@ const fetchChartData = async () => {
         ...redAnnotationsPoints,
         ...currentAnnotationsPoints,
         ...newAnnotationsPoints,
+        ...giftAnnotationsPoints,
       ];
 
       // Kartlägg taxon till svenska namn

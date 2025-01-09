@@ -51,7 +51,7 @@
               >Matsvampar</BaseHeading
             >
             <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Bedömning baserad på fruktkroppar
+              >Bedömning baserad på samlad kunskap
             </BaseHeading>
           </div>
         </div>
@@ -72,9 +72,9 @@
           <Icon
             @click="togglePoisonous"
             name="hugeicons:danger"
-            class="w-10 h-10 hover:text-violet-500 text-neutral-300 hover:cursor-pointer transition-all"
+            class="w-10 h-10 hover:text-lime-500 text-lime-500 hover:cursor-pointer transition-all"
             :class="{
-              'text-violet-500': showPoisonous,
+              'text-neutral-300': !showPoisonous,
             }"
           />
         </div>
@@ -213,7 +213,7 @@
                 <Icon
                   v-if="row.Giftsvamp"
                   name="hugeicons:danger"
-                  class="text-violet-500 w-6 h-6"
+                  class="text-lime-500 w-6 h-6"
                 />
 
                 <!-- Knife-fork icon if not poisonous but is edible -->
@@ -270,6 +270,18 @@
                     <!-- S -->
                   </div>
                 </div>
+              </div>
+            </template>
+            <template #Rank-data="{ row }">
+              <div class="px-2 w-32">
+                <UProgress
+                  max="3"
+                  :value="getInvertedRankValue(row.Rank)"
+                  :color="getColorForRank(row.Rank)"
+                  size="md"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="getRankTooltip(row.Rank)"
+                />
               </div>
             </template>
 
@@ -354,9 +366,45 @@
 <script setup>
 console.log("FullScreenEdible setup started");
 
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, reactive, onMounted, onUnmounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
+
+function getInvertedRankValue(rank) {
+  // Fallback to 0 if rank is missing or invalid
+  if (!rank) return 0;
+  return 4 - rank; // Invert so rank=1 -> 3, rank=2 -> 2, rank=3 -> 1
+}
+
+function getRankTooltip(rank) {
+  switch (rank) {
+    case 1:
+      return "Många fynd";
+    case 2:
+      return "Färre fynd";
+    case 3:
+      return "Få fynd";
+    default:
+      return "";
+  }
+}
+
+function getColorForRank(rank) {
+  switch (rank) {
+    case 1:
+      // Rank = 1 (full bar) => color “blue”, for example
+      return "yellow";
+    case 2:
+      // Rank = 2 (half bar) => color “amber”
+      return "amber";
+    case 3:
+      // Rank = 3 (almost empty) => color “orange”
+      return "orange";
+    default:
+      // Fallback color
+      return "neutral";
+  }
+}
 
 const speciesStore = useSpeciesStore();
 
@@ -545,8 +593,8 @@ const columns = [
   },
   {
     key: "Rank",
-    label: "Rank",
-    sortable: props.isNormalView ? false : true,
+    label: "Antal fynd",
+    sortable: false,
   },
 ];
 

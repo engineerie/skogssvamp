@@ -130,7 +130,7 @@
         v-if="species.Giftsvamp === 'x'"
         class="flex items-center space-x-2 mt-3"
       >
-        <Icon name="hugeicons:danger" class="h-7 w-7 text-violet-500 -my-2" />
+        <Icon name="hugeicons:danger" class="h-7 w-7 text-lime-500 -my-2" />
         <BaseHeading size="md" weight="light"> Giftsvamp </BaseHeading>
       </div>
       <div
@@ -155,7 +155,7 @@
           {{ getStatusTooltip(species.RL2020kat) }}
         </BaseHeading>
       </div>
-      <div
+      <!-- <div
         v-if="species.OVANLIGHET == 2"
         class="flex items-center space-x-2 mt-3"
       >
@@ -164,10 +164,16 @@
           class="w-8 h-8 text-teal-500"
         />
         <BaseHeading size="md" weight="light"> Väldigt sällsynt </BaseHeading>
+      </div> -->
+      <div class="flex items-center space-x-2 mt-3">
+        <div v-if="species.KALKmark">
+          <UBadge color="amber" variant="subtle">Kalkmark</UBadge>
+        </div>
+        <div v-if="species.ANNANmark">
+          <UBadge color="emerald" variant="subtle">Vanlig skogsmark</UBadge>
+        </div>
       </div>
-
-      <!-- 'K' for Kalkmark -->
-      <div v-if="species.KALKmark" class="flex items-center space-x-2 mt-3">
+      <!-- <div v-if="species.KALKmark" class="flex items-center space-x-2 mt-3">
         <div
           class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-700"
           data-nui-tooltip-position="left"
@@ -177,7 +183,6 @@
         </div>
         <BaseHeading size="md" weight="light">Kalkmark</BaseHeading>
       </div>
-      <!-- 'Ö' for Övrig mark -->
       <div v-if="species.ANNANmark" class="flex items-center space-x-2 mt-3">
         <div
           class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-400"
@@ -187,7 +192,7 @@
           V
         </div>
         <BaseHeading size="md" weight="light"> Vanlig skogsmark </BaseHeading>
-      </div>
+      </div> -->
       <hr class="my-2" />
 
       <div
@@ -226,7 +231,7 @@
         @click="toggleExpand"
       >
         <BaseHeading size="lg" weight="medium">
-          Kriteriedokumentation
+          Dokumentation i rödlistan
         </BaseHeading>
 
         <Icon

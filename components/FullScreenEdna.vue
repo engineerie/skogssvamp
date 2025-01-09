@@ -318,7 +318,7 @@
                 />
               </div>
               <div v-else-if="row.Giftsvamp === 'x'">
-                <Icon name="hugeicons:danger" class="text-violet-500 w-7 h-7" />
+                <Icon name="hugeicons:danger" class="text-lime-500 w-7 h-7" />
               </div>
               <div v-else></div>
             </template>

@@ -57,7 +57,7 @@ const fetchEdibleDataFromDB = async ({
     m."RLochS",
     s.rating,
     s.ekologi,
-    m."Rank rödlist o signal",
+    m."Rank rödlist o signal" AS RankRed,
     m."Giftsvamp" 
   FROM 
     "Mat_Naturvård_Gift_Jan_3" m

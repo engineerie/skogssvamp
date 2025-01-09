@@ -5,14 +5,60 @@
     </div>
     <div class="col-span-12 flex flex-col">
       <UDivider
-        label="Listorna för naturvårdsarter och matsvampar bygger på samlad expertkunskap och inte på DNA-analyser."
-        class="my-0"
+        type="solid"
+        size="xl"
+        class="text-lg my-4"
         :ui="{
           container: {
-            base: 'font-medium text-neutral-500 dark:text-neutral-200 flex',
+            base: ' flex rounded-xl',
+          },
+          border: {
+            horizontal: 'border-t-[2px] rounded-xl',
           },
         }"
-      />
+      >
+        <BaseHeading
+          size="md"
+          weight="thin"
+          class="text-neutral-500 dark:text-neutral-200"
+          >Listorna för
+          <span class="inline-block align-top"
+            ><Icon
+              name="material-symbols:award-star-outline"
+              class="text-teal-500 mb-1"
+          /></span>
+          naturvårdsarter,
+          <span class="inline-block align-top"
+            ><Icon
+              name="icon-park-solid:knife-fork"
+              class="text-yellow-500 mb-1"
+          /></span>
+          mat- och
+          <span class="inline-block align-top"
+            ><Icon name="hugeicons:danger" class="text-lime-500 mb-1"
+          /></span>
+          giftsvampar bygger på samlad kunskap, framförallt var svamparnas
+          fruktkroppar förekommer.
+        </BaseHeading>
+      </UDivider>
+      <!-- <BaseMessage type="primary" class="flex justify-center align-bottom">
+        Listorna för
+        <span class="inline-block align-top"
+          ><Icon
+            name="material-symbols:award-star-outline"
+            class="text-teal-500 mb-1"
+        /></span>
+        naturvårdsarter,
+        <span class="inline-block align-top"
+          ><Icon name="icon-park-solid:knife-fork" class="text-yellow-500 mb-1"
+        /></span>
+        mat- och
+        <span class="inline-block align-top"
+          ><Icon name="hugeicons:danger" class="text-lime-500 mb-1"
+        /></span>
+        giftsvampar bygger på samlad kunskap, framförallt var svamparnas
+        fruktkroppar förekommer.
+      </BaseMessage> -->
     </div>
     <div class="col-span-7 flex flex-col">
       <FullScreenRedlisted

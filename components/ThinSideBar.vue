@@ -47,7 +47,7 @@
         to="/svampdata"
         class="h-5 w-5 my-5"
         data-nui-tooltip-position="right"
-        data-nui-tooltip="Sveriges mykorrhiza"
+        data-nui-tooltip="Sveriges mykorrhizasvampar"
       >
         <icon name="material-symbols:map-outline-rounded" class="h-5 w-5" />
       </BaseButtonIcon>

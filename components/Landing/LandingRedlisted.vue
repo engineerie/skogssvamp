@@ -17,7 +17,7 @@
             Naturvårdsarter
           </BaseHeading>
           <BaseHeading weight="medium" size="xs" class="text-neutral-400">
-            Bedömning baserad på fruktkroppar
+            Bedömning baserad på samlad kunskap
           </BaseHeading>
         </div>
       </div>

@@ -12,7 +12,7 @@
             <icon name="material-symbols:map-outline-rounded" class="h-6 w-6" />
 
             <BaseHeading size="lg" weight="thin">
-              Sveriges mykorrhiza
+              Sveriges mykorrhizasvampar
             </BaseHeading>
           </div>
 

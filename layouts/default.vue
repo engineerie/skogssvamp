@@ -197,7 +197,7 @@ function determineTitle(path) {
     return "Skogsskötsel";
   }
   if (path.includes("/svampdata")) {
-    return "Sveriges mykorrhiza";
+    return "Sveriges mykorrhizasvampar";
   }
   if (path.includes("/start")) {
     return "Skogssvamp";
