@@ -12,7 +12,6 @@
               <BaseHeading weight="medium" size="xs" class="text-neutral-400"
                 >Dataunderlag</BaseHeading
               >
-
               <div class="flex items-end">
                 <UProgress
                   :color="color"
@@ -29,8 +28,8 @@
           <div
             class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
           >
-            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-              >{{ data ? data.length : 0 }}
+            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5">
+              {{ data ? data.length : 0 }}
             </BaseHeading>
             <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
           </div>
@@ -40,8 +39,6 @@
             :data-nui-tooltip="'Mycel från få arter dominerar i marken'"
           >
             <div class="flex items-end">
-              <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
-
               <Icon
                 name="fluent:shape-organic-16-filled"
                 class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-40"
@@ -54,10 +51,9 @@
                 name="fluent:shape-organic-16-filled"
                 class="h-7 w-7 mt-1 mr-2 text-gray-300 z-20"
               />
-
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ topCount }} Arter</BaseHeading
-              >
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400">
+                {{ topCount }} Arter
+              </BaseHeading>
             </div>
           </div>
 
@@ -66,7 +62,6 @@
             :data-nui-tooltip="'De flesta arterna och deras mycel är ovanliga i marken'"
           >
             <div class="flex items-end">
-              <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
               <Icon
                 name="fluent:shape-organic-16-filled"
                 class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-30"
@@ -83,21 +78,11 @@
                 name="fluent:shape-organic-16-filled"
                 class="h-7 w-7 mt-1 mr-2 text-rose-400 z-0"
               />
-
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ remainingCount }} Arter</BaseHeading
-              >
+              <BaseHeading size="xs" weight="medium" class="text-neutral-400">
+                {{ remainingCount }} Arter
+              </BaseHeading>
             </div>
           </div>
-
-          <!-- <div
-          class="flex items-end pl-2 pr-4 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
-        >
-          <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-            >{{ sampleEnvCount }}
-          </BaseHeading>
-          <BaseHeading weight="medium" size="xs">Provytor</BaseHeading>
-        </div> -->
 
           <BaseButtonIcon @click="handleZoomIn" shape="full">
             <Icon name="heroicons:magnifying-glass-plus" class="h-5 w-5" />
@@ -110,6 +95,7 @@
           </BaseButtonIcon>
         </div>
       </transition>
+
       <div class="col-span-5">
         <div class="flex justify between">
           <div class="flex mb-3 items-end">
@@ -120,18 +106,20 @@
                 >
                   <Icon name="solar:dna-linear" class="h-11 w-11" />
                 </div>
-                <div class="">
+                <div>
                   <BaseHeading
                     size="3xl"
                     weight="medium"
                     class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
-                    >Alla&nbsp;mykorrhizasvampar</BaseHeading
                   >
+                    Alla&nbsp;mykorrhizasvampar
+                  </BaseHeading>
                   <BaseHeading
                     weight="medium"
                     size="xs"
                     class="text-neutral-400"
-                    >Enligt DNA från Markinventeringens provytor
+                  >
+                    Enligt DNA från Markinventeringens provytor
                   </BaseHeading>
                 </div>
               </div>
@@ -142,6 +130,7 @@
                 </div>
               </template>
             </UPopover>
+
             <BaseTabs
               class="ml-4 -mb-4"
               v-model="activeTab"
@@ -157,8 +146,7 @@
                   value: 'columnChart',
                 },
               ]"
-            >
-            </BaseTabs>
+            />
           </div>
         </div>
 
@@ -178,24 +166,15 @@
                 class="flex absolute bottom-0 justify-between w-full p-2 items-end"
               >
                 <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-                  >Figuren visar hur mycelutbredningar kan se ut. <br />Ofta
-                  täcker ca 10% av arterna ca 80% av marken.</BaseHeading
+                  >Figuren visar hur mycelutbredningar kan se ut.<br />
+                  Ofta täcker ca 10% av arterna ca 80% av marken.</BaseHeading
                 >
-                <!-- <div
-            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
-          >
-            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
-              >{{ data ? data.length : 0 }}
-            </BaseHeading>
-            <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
-          </div> -->
                 <div class="flex h-fit shrink-0">
+                  <!-- Left mini-legend -->
                   <div
                     class="rounded-l-full flex items-end px-3 -mr-2 py-1 bg-white border-[0.5px] border-r-0 border-neutral-300 text-neutral-400"
                   >
                     <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
-                      <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
-
                       <Icon
                         name="fluent:shape-organic-16-filled"
                         class="h-6 w-6 -mr-5 text-gray-500 z-40"
@@ -208,22 +187,21 @@
                         name="fluent:shape-organic-16-filled"
                         class="h-6 w-6 mr-2 text-gray-300 z-20"
                       />
-
                       <BaseHeading
                         size="xs"
                         weight="medium"
                         class="text-neutral-400"
-                        :key="imageUrl"
-                        >{{ topCount }} Arter</BaseHeading
                       >
+                        {{ topCount }} Arter
+                      </BaseHeading>
                     </div>
                   </div>
 
+                  <!-- Right mini-legend -->
                   <div
                     class="flex items-end px-3 py-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400 border-l-0"
                   >
                     <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
-                      <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
                       <Icon
                         name="fluent:shape-organic-16-filled"
                         class="h-6 w-6 -mr-5 text-yellow-400 z-30"
@@ -240,20 +218,20 @@
                         name="fluent:shape-organic-16-filled"
                         class="h-6 w-6 mr-2 text-rose-400 z-0"
                       />
-
                       <BaseHeading
                         size="xs"
                         weight="medium"
                         class="text-neutral-400"
-                        >{{ remainingCount }} Arter</BaseHeading
                       >
+                        {{ remainingCount }} Arter
+                      </BaseHeading>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="">
+            <div>
               <div class="flex gap-2 w-full p-2">
                 <UBadge
                   icon="i-material-symbols-location-on-outline"
@@ -262,12 +240,13 @@
                   variant="solid"
                   :ui="{ rounded: 'rounded-full' }"
                   class="flex gap-1"
-                  ><Icon
+                >
+                  <Icon
                     name="material-symbols:location-on-outline"
                     class="text-fuchsia-500"
-                  />{{ geographyLabel }}</UBadge
-                >
-
+                  />
+                  {{ geographyLabel }}
+                </UBadge>
                 <UBadge
                   icon="i-material-symbols-location-on-outline"
                   size="sm"
@@ -275,20 +254,10 @@
                   variant="solid"
                   :ui="{ rounded: 'rounded-full' }"
                   class="flex gap-1"
-                  ><Icon name="lucide:trees" class="text-green-500" />{{
-                    forestTypeLabel
-                  }}</UBadge
-                ><UBadge
-                  icon="i-material-symbols-location-on-outline"
-                  size="sm"
-                  color="white"
-                  variant="solid"
-                  :ui="{ rounded: 'rounded-full' }"
-                  class="flex gap-1"
-                  ><Icon name="carbon:crop-growth" class="text-violet-500" />{{
-                    standAgeLabel
-                  }}</UBadge
                 >
+                  <Icon name="lucide:trees" class="text-green-500" />
+                  {{ forestTypeLabel }}
+                </UBadge>
                 <UBadge
                   icon="i-material-symbols-location-on-outline"
                   size="sm"
@@ -296,11 +265,24 @@
                   variant="solid"
                   :ui="{ rounded: 'rounded-full' }"
                   class="flex gap-1"
-                  ><Icon
+                >
+                  <Icon name="carbon:crop-growth" class="text-violet-500" />
+                  {{ standAgeLabel }}
+                </UBadge>
+                <UBadge
+                  icon="i-material-symbols-location-on-outline"
+                  size="sm"
+                  color="white"
+                  variant="solid"
+                  :ui="{ rounded: 'rounded-full' }"
+                  class="flex gap-1"
+                >
+                  <Icon
                     name="fluent-emoji-high-contrast:herb"
                     class="text-teal-500"
-                  />{{ vegetationTypeLabel }}</UBadge
-                >
+                  />
+                  {{ vegetationTypeLabel }}
+                </UBadge>
               </div>
               <div
                 class="rounded-xl p-3 bg-white border-[1px] overflow-hidden border-neutral-200 h-full"
@@ -316,6 +298,7 @@
           </div>
         </transition>
       </div>
+
       <transition name="fade">
         <FullScreenEdna
           v-if="activeTab === 'spatialForest'"
@@ -328,98 +311,21 @@
 
     <!-- column chart view -->
     <div>
-      <!-- <div class="flex">
-      <div
-        class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-      >
-        <Icon name="game-icons:plant-roots" class="h-10 w-10" />
-      </div>
-      <BaseHeading
-        size="3xl"
-        weight="medium"
-        class="text-neutral-800 dark:text-neutral-300"
-        >Mykorrhizasvampar</BaseHeading
-      >
-      <BaseTabs
-        class="ml-4"
-        v-model="activeTab"
-        :tabs="[
-          { icon: 'material-symbols:bar-chart', value: 'columnChart' },
-          {
-            icon: 'material-symbols:format-list-bulleted-rounded',
-            value: 'spatialForest',
-          },
-        ]"
-      >
-      </BaseTabs>
-    </div> -->
       <transition name="fade" mode="out-in">
         <div
           v-if="activeTab === 'columnChart'"
           class="p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
         >
           <BarChart
+            :chartData="data"
             :geography="geography"
             :forestType="forestType"
             :standAge="standAge"
             :vegetationType="vegetationType"
-            @updateInfo="handleInfoUpdate"
             class="w-full h-full"
             :chartWidth="chartWidth"
             :key="`-${routeKey}`"
           />
-
-          <!-- Information section aligned to the bottom -->
-          <!-- <div class="-mb-6">
-          <hr class="border-stone-200 dark:border-stone-700 mb-4" />
-          <div class="flex justify-between">
-            <div class="flex"></div>
-            <div class="flex">
-              <div
-                class="border-r-[1px] dark:border-neutral-800 border-stone-300 mb-6 mr-4 pr-4 mt-3 pl-8 flex"
-              >
-                <BaseParagraph size="md" class="text-neutral-500">
-                  {{ data ? data.length : 0 }} arter
-                </BaseParagraph>
-              </div>
-              <div v-if="activeTab === 'columnChart'" class="flex gap-8">
-                <div>
-                  <BaseParagraph size="md" class="text-neutral-500"
-                    >{{ top4Count }} arter</BaseParagraph
-                  >
-                  <div class="flex items-center">
-                    <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div>
-                    <BaseParagraph size="md" class="text-neutral-500"
-                      >{{ top4Percentage }}%</BaseParagraph
-                    >
-                  </div>
-                </div>
-                <div>
-                  <BaseParagraph size="md" class="text-neutral-500"
-                    >{{ next10Count }} arter</BaseParagraph
-                  >
-                  <div class="flex items-center">
-                    <div class="bg-green-500 rounded-full w-2 h-2 mr-1"></div>
-                    <BaseParagraph size="md" class="text-neutral-500"
-                      >{{ next10Percentage }}%</BaseParagraph
-                    >
-                  </div>
-                </div>
-                <div>
-                  <BaseParagraph size="md" class="text-neutral-500"
-                    >{{ remainingCount }} arter</BaseParagraph
-                  >
-                  <div class="flex items-center">
-                    <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div>
-                    <BaseParagraph size="md" class="text-neutral-500"
-                      >{{ remainingPercentage }}%</BaseParagraph
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
         </div>
       </transition>
     </div>
@@ -427,11 +333,107 @@
 </template>
 
 <script setup>
-import { ref, watchEffect, computed } from "vue";
+import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 
+// -- PROPS --
+const props = defineProps({
+  isNormalView: Boolean,
+});
+
+// -- EMITS --
+const emit = defineEmits(["zoomIn", "zoomOut", "enlarge"]);
+const emitEnlarge = (componentName) => {
+  emit("enlarge", componentName);
+};
+
+// -- ROUTE --
+const route = useRoute();
+
+// -- TABS, CHART WIDTH, ZOOM --
+const activeTab = ref("spatialForest");
+const chartWidth = ref("100%");
+
+const handleZoomIn = () => {
+  let currentWidth = parseInt(chartWidth.value);
+  if (currentWidth < 600) {
+    chartWidth.value = `${currentWidth + 250}%`;
+  }
+};
+
+const handleZoomOut = () => {
+  let currentWidth = parseInt(chartWidth.value);
+  if (currentWidth > 100) {
+    chartWidth.value = `${currentWidth - 250}%`;
+  }
+};
+
+// -- LABELS (Computed) --
+const geographyOptions = [
+  { value: "Norr", label: "Norra Sverige" },
+  { value: "Söder", label: "Södra Sverige" },
+];
+const forestTypeOptions = [
+  { value: "Granskog", label: "Granskog" },
+  { value: "Tallskog", label: "Tallskog" },
+  { value: "Barrblandskog", label: "Barrblandskog" },
+  { value: "Lövblandskog", label: "Blandskog" },
+  { value: "Lövskog", label: "Övrig lövskog" },
+  { value: "EkBokskog", label: "Ek och Bokskog" },
+  { value: "Naturbete", label: "Trädklädd betesmark" },
+];
+const standAgeOptions = [
+  { value: "1-40", label: "1-40 år" },
+  { value: "41-90", label: "41-90 år" },
+  { value: "91", label: "91 år och äldre" },
+  { value: "allaåldrar", label: "Alla åldrar" },
+];
+const vegetationTypeOptions = [
+  { value: "Örter_grupp", label: "Örttyper" },
+  { value: "Blåbär_grupp", label: "Blåbärstyper" },
+  { value: "Lingon_grupp", label: "Lingon-fattigristyper" },
+];
+
+const geographyLabel = computed(() => {
+  const param = decodeURIComponent(route.params.geography || "");
+  const option = geographyOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
+const forestTypeLabel = computed(() => {
+  const param = decodeURIComponent(route.params.forestType || "");
+  const option = forestTypeOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
+const standAgeLabel = computed(() => {
+  const param = decodeURIComponent(route.params.standAge || "");
+  const option = standAgeOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
+const vegetationTypeLabel = computed(() => {
+  const param = decodeURIComponent(route.params.vegetationType || "");
+  const option = vegetationTypeOptions.find((o) => o.value === param);
+  return option ? option.label : param;
+});
+
+const routeKey = computed(() => {
+  return `${route.path}-${route.params.geography}-${route.params.forestType}-${route.params.standAge}-${route.params.vegetationType}`;
+});
+
+// -- REFS FOR SELECTED PARAMS --
+const geography = ref("");
+const forestType = ref("");
+const standAge = ref("");
+const vegetationType = ref("");
+
+// -- DATA REFS --
+const data = ref([]);
+
+// We want to see topCount / remainingCount in Edna
+const topCount = ref(0);
+const remainingCount = ref(0);
+
+// EXAMPLE for coloring a progress bar
 const sampleEnvCount = computed(() => {
-  // Check if data is not empty and return the sample_env_count of the first item
   return data.value.length > 0 ? data.value[0].sample_env_count : 0;
 });
 
@@ -446,233 +448,13 @@ const color = computed(() => {
   }
 });
 
-const props = defineProps({
-  isNormalView: Boolean,
-});
-
-// EdnaComponent.vue (script setup)
-const geographyOptions = [
-  {
-    value: "Norr",
-    label: "Norra Sverige",
-    description: "Norr om latitud 60°",
-  },
-  {
-    value: "Söder",
-    label: "Södra Sverige",
-    description: "Söder om latitud 60°",
-  },
-];
-
-const forestTypeOptions = [
-  {
-    value: "Granskog",
-    label: "Granskog",
-    description: "Minst 70% barrträd, och minst 70% av dessa är gran",
-  },
-  {
-    value: "Tallskog",
-    label: "Tallskog",
-    description: "Minst 70% barrträd, och minst 70% av dessa är tall",
-  },
-  {
-    value: "Barrblandskog",
-    label: "Barrblandskog",
-    description: "Minst 70% barrträd, men varken tall eller gran uppnår 70%",
-  },
-  {
-    value: "Lövblandskog",
-    label: "Blandskog",
-    description: "31-69% lövträd respektive barrträd",
-  },
-  {
-    value: "Lövskog",
-    label: "Övrig lövskog",
-    description: "Minst 70% lövträd",
-  },
-  {
-    value: "EkBokskog",
-    label: "Ek och Bokskog",
-    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok.",
-  },
-  {
-    value: "Naturbete",
-    label: "Trädklädd betesmark",
-    description: "Trädbevuxna gräsmarker som används för betesdjur.",
-  },
-];
-
-const standAgeOptions = [
-  {
-    value: "1-40",
-    label: "1-40 år",
-    description: "Yngre träd mellan 1 och 40 år.",
-  },
-  {
-    value: "41-90",
-    label: "41-90 år",
-    description: "Träd mellan 41 och 90 år.",
-  },
-  {
-    value: "91",
-    label: "91 år och äldre",
-    description: "Äldre träd som är 91 år eller mer.",
-  },
-  {
-    value: "allaåldrar",
-    label: "Alla åldrar",
-    description: "Inkluderar alla åldersgrupper av träd.",
-  },
-];
-
-const vegetationTypeOptions = [
-  {
-    value: "Örter_grupp",
-    label: "Örttyper",
-    description: "Består av högörter, lågörter och bredbladiga gräs.",
-  },
-  {
-    value: "Blåbär_grupp",
-    label: "Blåbärstyper",
-    description: "Innehåller blåbär och smalbladiga gräs.",
-  },
-  {
-    value: "Lingon_grupp",
-    label: "Lingon-fattigristyper",
-    description: "Täcker områden med lingon och kråkbär eller ljung.",
-  },
-];
-
-const route = useRoute();
-
-const geographyLabel = computed(() => {
-  const param = decodeURIComponent(route.params.geography || "");
-  const option = geographyOptions.find((o) => o.value === param);
-  return option ? option.label : param; // Fallback to raw param if not found
-});
-
-const forestTypeLabel = computed(() => {
-  const param = decodeURIComponent(route.params.forestType || "");
-  const option = forestTypeOptions.find((o) => o.value === param);
-  return option ? option.label : param;
-});
-
-const standAgeLabel = computed(() => {
-  const param = decodeURIComponent(route.params.standAge || "");
-  const option = standAgeOptions.find((o) => o.value === param);
-  return option ? option.label : param;
-});
-
-const vegetationTypeLabel = computed(() => {
-  const param = decodeURIComponent(route.params.vegetationType || "");
-  const option = vegetationTypeOptions.find((o) => o.value === param);
-  return option ? option.label : param;
-});
-
-const routeKey = computed(
-  () =>
-    `${route.path}-${route.params.geography}-${route.params.forestType}-${route.params.standAge}-${route.params.vegetationType}`
-);
-
-const chartWidth = ref("100%");
-
-const handleZoomIn = () => {
-  let currentWidth = parseInt(chartWidth.value);
-  if (currentWidth < 600) {
-    // Check and adjust these limits as needed
-    chartWidth.value = `${currentWidth + 250}%`; // Adjust zoom increment here
-  }
-};
-
-const handleZoomOut = () => {
-  let currentWidth = parseInt(chartWidth.value);
-  if (currentWidth > 100) {
-    // Check and adjust these limits as needed
-    chartWidth.value = `${currentWidth - 250}%`; // Adjust zoom decrement here
-  }
-};
-
-// Define emits
-const emit = defineEmits(["zoomIn", "zoomOut", "enlarge"]);
-
-const emitEnlarge = (componentName) => {
-  emit("enlarge", componentName);
-};
-
-const activeTab = ref("spatialForest");
-
-const geography = ref("");
-const forestType = ref("");
-const standAge = ref("");
-const vegetationType = ref("");
-
-const topCount = ref(0);
-const next10Count = ref(0);
-const remainingCount = ref(0);
-const topPercentage = ref(0);
-const next10Percentage = ref(0);
-const remainingPercentage = ref(0);
-
-const handleInfoUpdate = (info) => {
-  topCount.value = info.topCount;
-  next10Count.value = info.next10Count;
-  remainingCount.value = info.remainingCount;
-  topPercentage.value = info.topPercentage;
-  next10Percentage.value = info.next10Percentage;
-  remainingPercentage.value = info.remainingPercentage;
-};
-
-const data = ref([]);
-const allColors = ref([]);
-
-const capitalize = (str) => {
-  if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-};
-
-const generateColors = (start, end, steps) => {
-  const stepR = (end[0] - start[0]) / (steps - 1);
-  const stepG = (end[1] - start[1]) / (steps - 1);
-  const stepB = (end[2] - start[2]) / (steps - 1);
-  const colors = [];
-
-  for (let i = 0; i < steps; i++) {
-    const r = Math.round(start[0] + stepR * i);
-    const g = Math.round(start[1] + stepG * i);
-    const b = Math.round(start[2] + stepB * i);
-    colors.push(`rgb(${r}, ${g}, ${b})`);
-  }
-  return colors;
-};
-
-const fetchData = async (geography, forestType, standAge, vegetationType) => {
-  const filename = `data-${geography}-${forestType}-${standAge}-${vegetationType}.json`;
-  try {
-    const response = await fetch(`/edna/${filename}`);
-    if (!response.ok) throw new Error(`Failed to fetch data from ${filename}`);
-    data.value = await response.json();
-
-    // Generate colors after data is fetched
-    const topColors = generateColors([82, 82, 82], [212, 212, 212], 4);
-    const next10Colors = generateColors([22, 101, 52], [134, 239, 172], 10);
-    const otherColors = generateColors(
-      [46, 16, 101],
-      [232, 121, 249],
-      Math.max(data.value.length - 14, 0)
-    );
-    allColors.value = [...top4Colors, ...next10Colors, ...otherColors];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
-
-// Watch for changes in route params and fetch data accordingly
+// -- WATCH ROUTE PARAMS & FETCH DATA --
 watch(
   () => route.params,
-  (params) => {
+  async (params) => {
     const { geography, forestType, standAge, vegetationType } = params;
     if (geography && forestType && standAge && vegetationType) {
-      fetchData(geography, forestType, standAge, vegetationType);
+      await fetchData(geography, forestType, standAge, vegetationType);
     }
   },
   { immediate: true }
@@ -681,13 +463,41 @@ watch(
 watch(
   () => route.params,
   (params) => {
-    geography.value = params.geography || "default-value";
-    forestType.value = params.forestType || "default-value";
-    standAge.value = params.standAge || "default-value";
-    vegetationType.value = params.vegetationType || "default-value";
+    geography.value = params.geography || "default";
+    forestType.value = params.forestType || "default";
+    standAge.value = params.standAge || "default";
+    vegetationType.value = params.vegetationType || "default";
   },
   { immediate: true }
 );
+
+// -- FETCH LOGIC (in Edna) --
+async function fetchData(geog, forest, age, vegType) {
+  const filename = `data-${geog}-${forest}-${age}-${vegType}.json`;
+  try {
+    const response = await fetch(`/edna/${filename}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from ${filename}`);
+    }
+    const jsonData = await response.json();
+
+    // Let's sort in descending order by sample_plot_count
+    jsonData.sort((a, b) => b.sample_plot_count - a.sample_plot_count);
+
+    // Update the data
+    data.value = jsonData;
+
+    // Now compute topCount and remainingCount
+    const total = data.value.length;
+    const topTenPercent = Math.floor(total * 0.1);
+    topCount.value = topTenPercent;
+    remainingCount.value = total - topTenPercent;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// No need for handleInfoUpdate or "updateInfo" from BarChart anymore
 </script>
 
 <style>
@@ -695,7 +505,8 @@ watch(
 .fade-leave-active {
   transition: opacity 0.3s;
 }
-.fade-enter-from, .fade-leave-to /* Initial and final state during transition */ {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
