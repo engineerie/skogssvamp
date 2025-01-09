@@ -92,7 +92,7 @@ function getIconPath(svampGrupp) {
 function getStatusColor(status) {
   // From your original code
   const colors = {
-    NT: "#fdae6b",
+    NT: "#D7838E",
     EN: "#fd8d3c",
     VU: "#f16913",
     CR: "#d94801",

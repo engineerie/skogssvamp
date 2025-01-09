@@ -41,15 +41,15 @@
             <div class="flex items-end">
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-40"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-[2]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-30"
+                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-[1]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-20"
+                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-0"
               />
               <BaseHeading size="xs" weight="medium" class="text-neutral-400">
                 {{ topCount }} Arter
@@ -64,20 +64,21 @@
             <div class="flex items-end">
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-30"
+                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-[3]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-20"
+                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-[2]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-10"
+                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-[1]"
               />
               <Icon
                 name="fluent:shape-organic-16-filled"
                 class="h-7 w-7 mt-1 mr-2 text-rose-400 z-0"
               />
+
               <BaseHeading size="xs" weight="medium" class="text-neutral-400">
                 {{ remainingCount }} Arter
               </BaseHeading>
@@ -177,15 +178,15 @@
                     <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
                       <Icon
                         name="fluent:shape-organic-16-filled"
-                        class="h-6 w-6 -mr-5 text-gray-500 z-40"
+                        class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
                       />
                       <Icon
                         name="fluent:shape-organic-16-filled"
-                        class="h-6 w-6 -mr-5 text-gray-400 z-30"
+                        class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
                       />
                       <Icon
                         name="fluent:shape-organic-16-filled"
-                        class="h-6 w-6 mr-2 text-gray-300 z-20"
+                        class="h-6 w-6 mr-2 text-gray-300 z-0"
                       />
                       <BaseHeading
                         size="xs"
@@ -204,15 +205,15 @@
                     <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
                       <Icon
                         name="fluent:shape-organic-16-filled"
-                        class="h-6 w-6 -mr-5 text-yellow-400 z-30"
+                        class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
                       />
                       <Icon
                         name="fluent:shape-organic-16-filled"
-                        class="h-6 w-6 -mr-5 text-lime-400 z-20"
+                        class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
                       />
                       <Icon
                         name="fluent:shape-organic-16-filled"
-                        class="h-6 w-6 -mr-5 text-teal-400 z-10"
+                        class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
                       />
                       <Icon
                         name="fluent:shape-organic-16-filled"
