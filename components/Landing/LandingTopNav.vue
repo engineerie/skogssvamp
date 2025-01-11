@@ -146,7 +146,7 @@
                   name="mingcute:mushroom-line"
                   class="me-2 block w-5 h-5"
                 />
-                Svamparter
+                Sveriges mykorrhizasvampar
               </NuxtLink>
               <NuxtLink
                 to="/skogsbruk"
@@ -157,7 +157,7 @@
                   name="material-symbols:nature-people-outline-rounded"
                   class="me-2 block w-5 h-5"
                 />
-                Skogsbruk
+                Skogsskötsel
               </NuxtLink>
             </div>
             <div>

@@ -3,7 +3,7 @@
     <client-only>
       <component
         :is="VueApexCharts"
-        height="350px"
+        height="250px"
         width="100%"
         type="bar"
         :options="chartOptions"
@@ -94,7 +94,7 @@ const chartOptions = ref({
     bar: {
       horizontal: false,
       distributed: true,
-      borderRadius: 4,
+      // borderRadius: 4,
     },
   },
   dataLabels: {
@@ -104,6 +104,7 @@ const chartOptions = ref({
     categories: categories,
     type: "category",
     labels: {
+      show: false,
       style: {
         fontSize: "12px",
         colors: "#6b7280",
@@ -134,10 +135,16 @@ const chartOptions = ref({
     type: "solid", // Default fill type
   },
   legend: {
-    show: false,
-    position: "top",
+    show: true,
+    position: "bottom",
+    customLegendItems: categories, // the 4 category labels
+    markers: {
+      fillColors: colors, // matching 4 colors
+      radius: 12,
+    },
   },
   tooltip: {
+    marker: { show: false },
     shared: true,
     intersect: false,
     x: {
@@ -269,7 +276,6 @@ const updateChartData = () => {
 
     // Update chart options for normal mode
     chartOptions.value.plotOptions.bar.distributed = true;
-    chartOptions.value.legend.show = false;
     chartOptions.value.fill = {
       type: "solid",
     };

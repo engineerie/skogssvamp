@@ -167,10 +167,20 @@
       </div> -->
       <div class="flex items-center space-x-2 mt-3">
         <div v-if="species.KALKmark">
-          <UBadge color="amber" variant="subtle">Kalkmark</UBadge>
+          <UBadge
+            :ui="{ rounded: 'rounded-full' }"
+            color="amber"
+            variant="outline"
+            >Kalkmark</UBadge
+          >
         </div>
         <div v-if="species.ANNANmark">
-          <UBadge color="emerald" variant="subtle">Vanlig skogsmark</UBadge>
+          <UBadge
+            :ui="{ rounded: 'rounded-full' }"
+            color="emerald"
+            variant="outline"
+            >Vanlig skogsmark</UBadge
+          >
         </div>
       </div>
       <!-- <div v-if="species.KALKmark" class="flex items-center space-x-2 mt-3">

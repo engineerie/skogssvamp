@@ -29,7 +29,7 @@
           <Icon name="jam:tree" class="h-7 w-7" />
         </div>
         <BaseHeading weight="normal" size="lg" class="mb-2">
-          Svampar och skogsbruk
+          Skogsskötsel
         </BaseHeading>
         <BaseHeading weight="light" size="md" class="mb-4 text-neutral-500">
           Lär dig om hur svampar och träd hänger ihop, och se hur marksvampar

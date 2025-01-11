@@ -41,7 +41,7 @@
       weight="bold"
       class="text-neutral-800 dark:text-neutral-100"
     >
-      Svampar och skogsbruk
+      Skogsskötsel
     </BaseHeading>
     <span
       class="transform transition-transform pb-1"

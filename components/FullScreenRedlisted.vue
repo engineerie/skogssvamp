@@ -242,7 +242,12 @@
               <div class="flex items-center space-x-1">
                 <!-- 'K' for Kalkmark -->
                 <div v-if="row.KALKmark">
-                  <UBadge color="amber" variant="subtle">Kalkmark</UBadge>
+                  <UBadge
+                    :ui="{ rounded: 'rounded-full' }"
+                    color="amber"
+                    variant="outline"
+                    >Kalkmark</UBadge
+                  >
 
                   <!-- <div
                     class="h-8 w-8 rounded-full flex items-center justify-center text-white bg-stone-700"
@@ -254,7 +259,10 @@
                 </div>
                 <!-- 'Ö' for Övrig mark -->
                 <div v-if="row.ANNANmark">
-                  <UBadge color="emerald" variant="subtle"
+                  <UBadge
+                    :ui="{ rounded: 'rounded-full' }"
+                    color="emerald"
+                    variant="outline"
                     >Vanlig skogsmark</UBadge
                   >
 

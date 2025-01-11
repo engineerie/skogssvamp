@@ -57,7 +57,7 @@
         to="/skogsbruk"
         class="h-5 w-5 mb-5"
         data-nui-tooltip-position="right"
-        data-nui-tooltip="Svampar och skogsbruk"
+        data-nui-tooltip="Skogsskötsel"
       >
         <icon
           name="material-symbols:nature-people-outline-rounded"

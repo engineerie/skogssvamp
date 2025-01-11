@@ -1,658 +1,27 @@
 <template>
-  <div
-    class="transition-all duration-300"
-    :class="
-      isFullScreen
-        ? 'fixed left-0 inset-0 w-screen h-screen z-50 bg-white overflow-hidden flex flex-row'
-        : ''
-    "
-  >
-    <!-- When fullscreen, we have a flex container: left is image area, right is side panel -->
-    <!-- When not fullscreen, revert to original layout -->
-    <template v-if="isFullScreen">
-      <!-- Fullscreen Mode -->
+  <client-only>
+    <div
+      class="transition-all duration-300"
+      :class="
+        isFullScreen
+          ? 'fixed left-0 inset-0 w-screen h-screen z-50 bg-white overflow-hidden flex flex-row'
+          : ''
+      "
+    >
+      <!-- When fullscreen, we have a flex container: left is image area, right is side panel -->
+      <!-- When not fullscreen, revert to original layout -->
+      <template v-if="isFullScreen">
+        <!-- Fullscreen Mode -->
 
-      <!-- Left Side (Image Area) -->
-      <div class="relative flex-1 h-full bg-white">
-        <!-- Framework Dropdown (top right corner of entire screen) -->
-        <div
-          class="w-full z-50 pt-3 pb-1 px-5 flex justify-between bg-white absolute border-b border-neutral-300"
-          v-if="!frameworksVisible"
-        >
-          <!-- Same framework dropdown as before, but now absolutely positioned -->
-
-          <div class="flex gap-2 items-center mb-2">
-            <!-- Existing Framework Selection Dropdown -->
-            <Icon
-              :name="currentFramework.icon"
-              :class="[
-                'icon size-10 transition-all duration-300',
-                currentFramework.iconColor,
-              ]"
-            />
-            <div class="text-neutral-800">
-              <BaseDropdown
-                flavor="text"
-                class="text-xl font-thin text-black frameworktitle"
-                :label="currentFramework.label"
-                placement="bottom-start"
-                shape="full"
-                button-color="muted"
-              >
-                <BaseDropdownItem
-                  v-for="(framework, index) in frameworks"
-                  :key="framework.id"
-                  @click="selectedFrameworkIndex = index"
-                  :title="framework.label"
-                  :text="framework.text"
-                  shape="md"
-                  rounded="md"
-                  class="rounded-md overflow-hidden"
-                >
-                  <template #start>
-                    <Icon
-                      :name="framework.icon"
-                      :class="['icon size-6 mr-1', framework.iconColor]"
-                    />
-                  </template>
-                </BaseDropdownItem>
-                <BaseDropdownDivider />
-                <div
-                  class="hover:bg-muted-100 dark:hover:bg-muted-800 rounded-md transition-colors duration-300"
-                >
-                  <BaseCheckboxHeadless
-                    v-model="startskogModel"
-                    value="produktionsskog"
-                  >
-                    <BaseDropdownItem
-                      to="#"
-                      title="Tidigare kalavverkad"
-                      text="Skogens historik"
-                      shape="sm"
-                      class="pointer-events-none"
-                    >
-                      <template #start>
-                        <BaseCheckbox
-                          v-model="startskogModel"
-                          value="produktionsskog"
-                          shape="full"
-                          color="warning"
-                        />
-                      </template>
-                    </BaseDropdownItem>
-                  </BaseCheckboxHeadless>
-                </div>
-              </BaseDropdown>
-              <p class="text-md text-neutral-400">
-                {{ currentStartskog.label }}
-              </p>
-            </div>
-          </div>
-
-          <!-- Compare UI (top right corner of the image area, left of sidepanel) -->
-          <div class="z-50 items-center flex gap-2">
-            <!-- The same logic for displaying Jämför dropdown or compare modes -->
-            <template v-if="!isFrameworkCompareMode && !isCompare">
-              <BaseDropdown
-                flavor="button"
-                class="inline-block text-neural-400 rounded-full"
-                placement="bottom-end"
-                label="Jämför"
-                shape="full"
-              >
-                <template #activator>
-                  <BaseButtonIcon shape="full">
-                    <Icon
-                      name="material-symbols:add-2-rounded"
-                      class="w-10 h-10"
-                    />
-                  </BaseButtonIcon>
-                </template>
-
-                <BaseDropdownItem
-                  @click="onClickFrameworkCompare"
-                  title="Skogsskötsel"
-                  text="Jämför två olika metoder"
-                  class="rounded-md overflow-hidden"
-                >
-                  <template #start>
-                    <Icon
-                      name="simple-icons:forestry"
-                      class="icon size-6 mr-1 text-primary-500"
-                    />
-                  </template>
-                </BaseDropdownItem>
-
-                <BaseDropdownItem
-                  @click="onClickBeforeAfterCompare"
-                  title="Innan / efter avverkning"
-                  text="Jämför utveckling över tid"
-                  class="rounded-md overflow-hidden"
-                >
-                  <template #start>
-                    <Icon
-                      name="material-symbols:clock-loader-40"
-                      class="icon size-7 mr-1 text-primary-500"
-                    />
-                  </template>
-                </BaseDropdownItem>
-              </BaseDropdown>
-            </template>
-
-            <template v-else-if="isFrameworkCompareMode">
-              <div class="flex gap-2 items-center mr-4 z-50">
-                <div>
-                  <BaseDropdown
-                    flavor="text"
-                    class="text-xl font-thin text-neutral-800"
-                    :label="currentFramework2.label"
-                    placement="bottom-start"
-                  >
-                    <BaseDropdownItem
-                      v-for="(framework, index) in frameworks"
-                      :key="'framework2-' + framework.id"
-                      @click="selectedFrameworkIndex2 = index"
-                      :title="framework.label"
-                      :text="framework.text"
-                      rounded="sm"
-                    >
-                      <template #start>
-                        <Icon
-                          :name="framework.icon"
-                          :class="['icon size-6 mr-1', framework.iconColor]"
-                        />
-                      </template>
-                    </BaseDropdownItem>
-                  </BaseDropdown>
-                </div>
-                <div class="relative">
-                  <BaseButtonClose
-                    rounded="full"
-                    color="danger"
-                    @click="onClickFrameworkCompare"
-                    class="absolute -top-3 -right-3 size-5"
-                  />
-                  <Icon
-                    :name="currentFramework2.icon"
-                    :class="[
-                      'icon size-10 transition-all duration-300',
-                      currentFramework2.iconColor,
-                    ]"
-                  />
-                </div>
-              </div>
-            </template>
-
-            <template v-else-if="isCompare">
-              <div
-                class="flex items-center gap-2 text-xl font-thin text-neutral-400 relative mr-4"
-              >
-                <BaseDropdown
-                  flavor="text"
-                  class="text-xl font-thin text-neutral-400"
-                  :label="currentTimeLabel"
-                  placement="bottom-start"
-                >
-                  <BaseDropdownItem
-                    v-for="(stepItem, idx) in availableTimeSteps"
-                    :key="idx"
-                    @click="time = stepItem.value"
-                    :title="stepItem.label"
-                    :text="stepItem.label"
-                    rounded="sm"
-                  >
-                    <template #start>
-                      <Icon
-                        :name="timeIconMap[stepItem.timeLabel]"
-                        class="icon size-6 mr-1 text-primary-500"
-                      />
-                    </template>
-                  </BaseDropdownItem>
-                </BaseDropdown>
-                <div class="relative">
-                  <BaseButtonClose
-                    rounded="full"
-                    color="danger"
-                    @click="onClickBeforeAfterCompare"
-                    class="absolute -top-3 -right-3 size-5"
-                  />
-
-                  <Icon
-                    :name="currentTimeIcon"
-                    class="icon size-11 text-primary-500"
-                  />
-                </div>
-              </div>
-            </template>
-            <BaseButtonIcon shape="full" @click="toggleFullScreen">
-              <Icon
-                v-if="!isFullScreen"
-                name="material-symbols:open-in-full"
-                class="size-5"
-              />
-              <Icon
-                v-else
-                name="material-symbols:close-fullscreen"
-                class="size-5"
-              />
-            </BaseButtonIcon>
-          </div>
-        </div>
-
-        <!-- Image / Comparison Area -->
-        <div class="absolute inset-0 z-0 w-full h-full">
-          <!-- Use the same logic as before for single view, compare modes, etc. -->
-          <!-- Ensure w-full h-full are applied so the viewers scale in fullscreen -->
+        <!-- Left Side (Image Area) -->
+        <div class="relative flex-1 h-full bg-white">
+          <!-- Framework Dropdown (top right corner of entire screen) -->
           <div
-            class="absolute w-full justify-between flex p-4 z-10 left-0 top-20"
-          >
-            <div>
-              <div class="mb-2">
-                <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
-                  <Icon
-                    name="heroicons:magnifying-glass-plus"
-                    class="h-5 w-5"
-                  />
-                </BaseButtonIcon>
-              </div>
-              <div class="mb-2">
-                <BaseButtonIcon @click="zoomAllOut" shape="full" size="sm">
-                  <Icon
-                    name="heroicons:magnifying-glass-minus-solid"
-                    class="h-5 w-5"
-                  />
-                </BaseButtonIcon>
-              </div>
-              <div class="mb-2">
-                <BaseButtonIcon
-                  shape="full"
-                  size="sm"
-                  @click="showTree = !showTree"
-                >
-                  <Icon
-                    name="lucide:trees"
-                    class="size-5"
-                    :class="{ ' text-primary-500': showTree }"
-                  />
-                </BaseButtonIcon>
-              </div>
-              <div class="mb-2">
-                <BaseButtonIcon
-                  shape="full"
-                  size="sm"
-                  @click="showFungi = !showFungi"
-                >
-                  <Icon
-                    name="fluent:shape-organic-24-filled"
-                    class="size-5"
-                    :class="{ ' text-primary-500': showFungi }"
-                  />
-                </BaseButtonIcon>
-              </div>
-              <!-- <div>
-                    <BaseButtonIcon @click="resetAll" shape="full">
-                      <Icon
-                        name="heroicons:magnifying-glass-solid"
-                        class="h-5 w-5"
-                      />
-                    </BaseButtonIcon>
-                  </div> -->
-            </div>
-          </div>
-          <!-- Single View -->
-          <div
-            v-if="!isCompare && !isFrameworkCompareMode"
-            class="w-full h-full relative"
-          >
-            <OpenSeadragonViewer
-              :key="currentImagePath"
-              ref="singleViewerRef"
-              :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-              @viewportChanged="($event) => onViewportChanged('single', $event)"
-              @opened="onViewerOpened('single')"
-              class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-              :class="
-                isFullScreen ? 'rounded-none border-none overflow-visible' : ''
-              "
-            />
-            <UBadge
-              size="xs"
-              :label="currentTimeLabel"
-              color="white"
-              variant="solid"
-              class="absolute bottom-28 left-4"
-            />
-            <UBadge
-              size="xs"
-              :label="currentFramework.label"
-              color="white"
-              variant="solid"
-              class="absolute bottom-36 left-4"
-            />
-            <Circle
-              v-for="circle in filteredCircles"
-              :key="circle.id"
-              :position="circle.position"
-              :info="circle.info"
-            />
-          </div>
-
-          <!-- Before/After Compare -->
-          <img-comparison-slider
-            v-else-if="isCompare"
-            ref="comparisonSliderRef"
-            class="z-0 w-full h-full p-0! m-0!"
-          >
-            <div class="relative w-full h-full" slot="first">
-              <OpenSeadragonViewer
-                :key="currentImagePath"
-                ref="beforeViewerRef"
-                :dziUrl="comparisonImagePath1.replace('.png', '.png_dzi.dzi')"
-                @viewportChanged="
-                  ($event) => onViewportChanged('before', $event)
-                "
-                @opened="onViewerOpened('before')"
-                class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                :class="
-                  isFullScreen
-                    ? 'rounded-none border-none overflow-visible'
-                    : ''
-                "
-              />
-              <UBadge
-                size="xs"
-                label="Innan avverkning"
-                color="white"
-                variant="solid"
-                class="absolute bottom-28 left-4"
-              />
-              <UBadge
-                size="xs"
-                :label="currentFramework.label"
-                color="white"
-                variant="solid"
-                class="absolute bottom-36 left-4"
-              />
-            </div>
-            <div class="w-full h-screen" slot="second">
-              <OpenSeadragonViewer
-                :key="currentImagePath2"
-                ref="afterViewerRef"
-                :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                @viewportChanged="
-                  ($event) => onViewportChanged('after', $event)
-                "
-                @opened="onViewerOpened('after')"
-                class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                :class="
-                  isFullScreen
-                    ? 'rounded-none border-none overflow-visible'
-                    : ''
-                "
-              />
-              <UBadge
-                size="xs"
-                :label="currentTimeLabel"
-                color="white"
-                variant="solid"
-                class="absolute bottom-28 right-4"
-              />
-              <UBadge
-                size="xs"
-                :label="currentFramework.label"
-                color="white"
-                variant="solid"
-                class="absolute bottom-36 right-4"
-              />
-            </div>
-          </img-comparison-slider>
-
-          <!-- Framework Compare -->
-          <img-comparison-slider
-            v-else-if="isFrameworkCompareMode"
-            class="z-0 w-full h-full p-0! m-0!"
-          >
-            <div
-              class="relative w-full h-screen pointer-events-none"
-              slot="first"
-            >
-              <OpenSeadragonViewer
-                :key="currentImagePath"
-                ref="framework1ViewerRef"
-                :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                @viewportChanged="
-                  ($event) => onViewportChanged('framework1', $event)
-                "
-                @opened="onViewerOpened('framework1')"
-                class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
-                :class="
-                  isFullScreen
-                    ? 'rounded-none border-none overflow-visible'
-                    : ''
-                "
-              />
-              <UBadge
-                size="xs"
-                :label="currentTimeLabel"
-                color="white"
-                variant="solid"
-                class="absolute bottom-28 left-4"
-              />
-              <UBadge
-                size="xs"
-                :label="currentFramework.label"
-                color="white"
-                variant="solid"
-                class="absolute bottom-36 left-4"
-              />
-            </div>
-            <div
-              class="relative w-full h-screen pointer-events-none"
-              slot="second"
-            >
-              <OpenSeadragonViewer
-                :key="currentImagePath2"
-                ref="framework2ViewerRef"
-                :dziUrl="currentImagePath2.replace('.png', '.png_dzi.dzi')"
-                @viewportChanged="
-                  ($event) => onViewportChanged('framework2', $event)
-                "
-                @opened="onViewerOpened('framework2')"
-                class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
-                :class="
-                  isFullScreen
-                    ? 'rounded-none border-none overflow-visible'
-                    : ''
-                "
-              />
-              <UBadge
-                size="xs"
-                :label="currentTimeLabel"
-                color="white"
-                variant="solid"
-                class="absolute bottom-28 right-4"
-              />
-              <UBadge
-                size="xs"
-                :label="currentFramework2.label"
-                color="white"
-                variant="solid"
-                class="absolute bottom-36 right-4"
-              />
-            </div>
-          </img-comparison-slider>
-        </div>
-
-        <!-- Timeline at the bottom of the image area -->
-        <div
-          class="absolute bottom-0 bg-neutral-50/90 backdrop-blur-xl z-50 p-5 w-full"
-        >
-          <div class="slider-container flex flex-col items-center w-full">
-            <BaseProgress
-              title="Default progress bar"
-              size="sm"
-              :value="time"
-              color="primary"
-            />
-            <div class="flex justify-between items-center w-full mt-4 gap-10">
-              <div
-                v-for="step in sliderSteps"
-                :key="step.value"
-                @click="handleTimeSelection(step)"
-                class="flex flex-col items-center cursor-pointer"
-              >
-                <BaseButtonAction
-                  shape="full"
-                  :class="
-                    time === step.value &&
-                    '!border-primary-500 !text-primary-500'
-                  "
-                  :disabled="isCompare && step.value === 3"
-                >
-                  {{ step.label }}
-                </BaseButtonAction>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Side Panel (Right) -->
-      <div
-        class="relative w-[400px] h-full bg-neutral-50 overflow-auto p-4 border-l-[1px] border-neutral-300"
-      >
-        <div class="flex gap-3">
-          <div
-            class="cursor-pointer transition-all bg-white p-4 w-full rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
-            @click="Modal1 = true"
-          >
-            <div class="flex items-center gap-2 mb-4">
-              <Icon
-                :name="currentFramework.icon"
-                :class="[
-                  'icon size-5 transition-all duration-300',
-                  currentFramework.iconColor,
-                ]"
-              />
-              <BaseHeading size="md" weight="thin" class="text-neutral-600">
-                {{ currentFramework.label }}
-              </BaseHeading>
-            </div>
-            <BaseProse class="text-sm font-neutral-500">
-              Text om valt skogsbrukssätt...
-            </BaseProse>
-          </div>
-          <UModal v-model="Modal1">
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="Modal1 = false"
-              class="absolute top-4 right-4"
-            >
-              <Icon name="material-symbols:close" class="size-4 m-1" />
-            </BaseButtonIcon>
-            <div class="p-4">
-              <div class="flex items-center gap-2 mb-4">
-                <Icon
-                  :name="currentFramework.icon"
-                  :class="[
-                    'icon size-8 transition-all duration-300',
-                    currentFramework.iconColor,
-                  ]"
-                />
-                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
-                  {{ currentFramework.label }}
-                </BaseHeading>
-              </div>
-              <BaseProse class="text-sm font-neutral-500">
-                <!-- Modal content... -->
-              </BaseProse>
-            </div>
-          </UModal>
-          <div
-            v-if="isFrameworkCompareMode"
-            class="cursor-pointer transition-all bg-white w-full p-4 rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
-            @click="Modal2 = true"
-          >
-            <div class="flex items-center gap-2 mb-4">
-              <Icon
-                :name="currentFramework2.icon"
-                :class="[
-                  'icon size-5 transition-all duration-300',
-                  currentFramework2.iconColor,
-                ]"
-              />
-              <BaseHeading size="md" weight="thin" class="text-neutral-600">
-                {{ currentFramework2.label }}
-              </BaseHeading>
-            </div>
-            <BaseProse class="text-sm font-neutral-500">
-              Text om valt skogsbrukssätt...
-            </BaseProse>
-          </div>
-          <UModal v-model="Modal2">
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="Modal2 = false"
-              class="absolute top-4 right-4"
-            >
-              <Icon name="material-symbols:close" class="size-4 m-1" />
-            </BaseButtonIcon>
-            <div class="p-4">
-              <div class="flex items-center gap-2 mb-4">
-                <Icon
-                  :name="currentFramework2.icon"
-                  :class="[
-                    'icon size-8 transition-all duration-300',
-                    currentFramework2.iconColor,
-                  ]"
-                />
-                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
-                  {{ currentFramework2.label }}
-                </BaseHeading>
-              </div>
-              <BaseProse class="text-sm font-neutral-500">
-                <!-- Modal content... -->
-              </BaseProse>
-            </div>
-          </UModal>
-        </div>
-        <BarChartSkogsbruk
-          :currentFramework="currentFramework"
-          :currentFramework2="isFrameworkCompareMode ? currentFramework2 : null"
-          :currentStartskog="currentStartskog"
-          :timeLabel="timeLabelForDataFiltering"
-          :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-          :currentTimeLabel="currentTimeLabel"
-          :isCompareMode="isCompare"
-          :isFrameworkCompareMode="isFrameworkCompareMode"
-        />
-        <BarChartSkogsbrukRödMat
-          :currentFramework="currentFramework"
-          :currentFramework2="isFrameworkCompareMode ? currentFramework2 : null"
-          :currentStartskog="currentStartskog"
-          :timeLabel="timeLabelForDataFiltering"
-          :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-          :currentTimeLabel="currentTimeLabel"
-          :isCompareMode="isCompare"
-          :isFrameworkCompareMode="isFrameworkCompareMode"
-        />
-      </div>
-    </template>
-
-    <template v-else>
-      <!-- Normal Mode (Your original layout) -->
-      <!-- Just place your original code here as it was before the fullscreen changes -->
-      <!-- ... original non-fullscreen code ... -->
-      <!-- For brevity, not included fully here. Restore from your working version. -->
-
-      <div class="pt-8">
-        <div class="w-full grid grid-cols-4">
-          <div
-            class="col-span-3 items-center flex relative justify-between"
+            class="w-full z-50 pt-3 pb-1 px-5 flex justify-between bg-white absolute border-b border-neutral-300"
             v-if="!frameworksVisible"
           >
+            <!-- Same framework dropdown as before, but now absolutely positioned -->
+
             <div class="flex gap-2 items-center mb-2">
               <!-- Existing Framework Selection Dropdown -->
               <Icon
@@ -662,6 +31,63 @@
                   currentFramework.iconColor,
                 ]"
               />
+              <!-- <div class="text-neutral-800">
+                <BaseDropdown
+                  flavor="text"
+                  class="text-xl font-thin text-black frameworktitle"
+                  :label="currentFramework.label"
+                  placement="bottom-start"
+                  shape="full"
+                  button-color="muted"
+                >
+                  <BaseDropdownItem
+                    v-for="(framework, index) in frameworks"
+                    :key="framework.id"
+                    @click="selectedFrameworkIndex = index"
+                    :title="framework.label"
+                    :text="framework.text"
+                    shape="md"
+                    rounded="md"
+                    class="rounded-md overflow-hidden"
+                  >
+                    <template #start>
+                      <Icon
+                        :name="framework.icon"
+                        :class="['icon size-6 mr-1', framework.iconColor]"
+                      />
+                    </template>
+                  </BaseDropdownItem>
+                  <BaseDropdownDivider />
+                  <div
+                    class="hover:bg-muted-100 dark:hover:bg-muted-800 rounded-md transition-colors duration-300"
+                  >
+                    <BaseCheckboxHeadless
+                      v-model="startskogModel"
+                      value="produktionsskog"
+                    >
+                      <BaseDropdownItem
+                        to="#"
+                        title="Tidigare kalavverkad"
+                        text="Skogens historik"
+                        shape="sm"
+                        class="pointer-events-none"
+                      >
+                        <template #start>
+                          <BaseCheckbox
+                            v-model="startskogModel"
+                            value="produktionsskog"
+                            shape="full"
+                            color="warning"
+                          />
+                        </template>
+                      </BaseDropdownItem>
+                    </BaseCheckboxHeadless>
+                  </div>
+                </BaseDropdown>
+                <p class="text-md text-neutral-400">
+                  {{ currentStartskog.label }}
+                </p>
+              </div> -->
               <div>
                 <BaseDropdown
                   flavor="text"
@@ -714,64 +140,75 @@
                     </BaseCheckboxHeadless>
                   </div>
                 </BaseDropdown>
-                <p class="text-md text-gray-400">
+                <!-- <p class="text-md text-gray-400">
                   {{ currentStartskog.label }}
-                </p>
+                </p> -->
+
+                <UBadge
+                  v-if="currentStartskog.value === 'produktionsskog_'"
+                  :ui="{ rounded: 'rounded-full' }"
+                  color="violet"
+                  variant="outline"
+                  size="sm"
+                  class="opacity-80"
+                >
+                  Tidigare kalavverkad
+                </UBadge>
               </div>
             </div>
 
-            <div class="z-50 flex gap-2">
-              <!-- If NOT in framework compare mode AND NOT in before/after compare mode -->
-              <template v-if="!isFrameworkCompareMode && !isCompare">
-                <BaseDropdown
-                  flavor="button"
-                  class="inline-block text-neural-400 rounded-full"
-                  placement="bottom-end"
-                  label="Jämför"
-                  shape="full"
+            <!-- Compare UI (top right corner of the image area, left of sidepanel) -->
+            <div class="z-50 items-center flex gap-2">
+              <!-- The same logic for displaying Jämför dropdown or compare modes -->
+              <div>
+                <!-- <BaseDropdown
+                flavor="button"
+                class="inline-block text-neural-400 rounded-full"
+                placement="bottom-end"
+                label="Jämför"
+                shape="full"
+              >
+                <template #activator>
+                  <BaseButtonIcon shape="full">
+                    <Icon
+                      name="material-symbols:add-2-rounded"
+                      class="w-10 h-10"
+                    />
+                  </BaseButtonIcon>
+                </template>
+
+                <BaseDropdownItem
+                  @click="onClickFrameworkCompare"
+                  title="Skogsskötsel"
+                  text="Jämför två olika metoder"
+                  class="rounded-md overflow-hidden"
                 >
-                  <template #activator>
-                    <BaseButtonIcon shape="full" @click.stop="toggle">
-                      <Icon
-                        name="material-symbols:add-2-rounded"
-                        class="w-10 h-10"
-                      />
-                    </BaseButtonIcon>
+                  <template #start>
+                    <Icon
+                      name="simple-icons:forestry"
+                      class="icon size-6 mr-1 text-primary-500"
+                    />
                   </template>
+                </BaseDropdownItem>
 
-                  <BaseDropdownItem
-                    @click="onClickFrameworkCompare"
-                    title="Skogsskötsel"
-                    text="Jämför två olika metoder"
-                    class="rounded-md overflow-hidden"
-                  >
-                    <template #start>
-                      <Icon
-                        name="simple-icons:forestry"
-                        class="icon size-6 mr-1 text-primary-500"
-                      />
-                    </template>
-                  </BaseDropdownItem>
+                <BaseDropdownItem
+                  @click="onClickBeforeAfterCompare"
+                  title="Innan / efter avverkning"
+                  text="Jämför utveckling över tid"
+                  class="rounded-md overflow-hidden"
+                >
+                  <template #start>
+                    <Icon
+                      name="material-symbols:clock-loader-40"
+                      class="icon size-7 mr-1 text-primary-500"
+                    />
+                  </template>
+                </BaseDropdownItem>
+              </BaseDropdown> -->
+              </div>
 
-                  <BaseDropdownItem
-                    @click="onClickBeforeAfterCompare"
-                    title="Innan / efter avverkning"
-                    text="Jämför utveckling över tid"
-                    class="rounded-md overflow-hidden"
-                  >
-                    <template #start>
-                      <Icon
-                        name="material-symbols:clock-loader-40"
-                        class="icon size-7 mr-1 text-primary-500"
-                      />
-                    </template>
-                  </BaseDropdownItem>
-                </BaseDropdown>
-              </template>
-
-              <!-- If in framework compare mode -->
-              <template v-else-if="isFrameworkCompareMode">
-                <div class="flex gap-2 items-center z-50 mr-4">
+              <template v-if="isFrameworkCompareMode">
+                <div class="flex gap-2 items-center mr-4 z-50">
                   <div>
                     <BaseDropdown
                       flavor="text"
@@ -797,13 +234,12 @@
                     </BaseDropdown>
                   </div>
                   <div class="relative">
-                    <BaseButtonClose
-                      rounded="full"
-                      color="danger"
-                      @click="onClickFrameworkCompare"
-                      class="absolute -top-3 -right-3 size-5"
-                    />
-
+                    <!-- <BaseButtonClose
+                    rounded="full"
+                    color="danger"
+                    @click="onClickFrameworkCompare"
+                    class="absolute -top-3 -right-3 size-5"
+                  /> -->
                     <Icon
                       :name="currentFramework2.icon"
                       :class="[
@@ -815,8 +251,648 @@
                 </div>
               </template>
 
-              <!-- If in before/after compare mode -->
-              <template v-else-if="isCompare">
+              <!-- <template v-else-if="isCompare">
+              <div
+                class="flex items-center gap-2 text-xl font-thin text-neutral-400 relative mr-4"
+              >
+                <BaseDropdown
+                  flavor="text"
+                  class="text-xl font-thin text-neutral-400"
+                  :label="currentTimeLabel"
+                  placement="bottom-start"
+                >
+                  <BaseDropdownItem
+                    v-for="(stepItem, idx) in availableTimeSteps"
+                    :key="idx"
+                    @click="time = stepItem.value"
+                    :title="stepItem.label"
+                    :text="stepItem.label"
+                    rounded="sm"
+                  >
+                    <template #start>
+                      <Icon
+                        :name="timeIconMap[stepItem.timeLabel]"
+                        class="icon size-6 mr-1 text-primary-500"
+                      />
+                    </template>
+                  </BaseDropdownItem>
+                </BaseDropdown>
+                <div class="relative">
+                  <BaseButtonClose
+                    rounded="full"
+                    color="danger"
+                    @click="onClickBeforeAfterCompare"
+                    class="absolute -top-3 -right-3 size-5"
+                  />
+
+                  <Icon
+                    :name="currentTimeIcon"
+                    class="icon size-11 text-primary-500"
+                  />
+                </div>
+              </div>
+            </template> -->
+            </div>
+          </div>
+
+          <!-- Image / Comparison Area -->
+          <div class="absolute inset-0 z-0 w-full h-full">
+            <!-- Use the same logic as before for single view, compare modes, etc. -->
+            <!-- Ensure w-full h-full are applied so the viewers scale in fullscreen -->
+            <div
+              class="absolute w-full justify-between flex p-4 z-10 left-0 top-20"
+            >
+              <div>
+                <div class="mb-2">
+                  <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
+                    <Icon
+                      name="heroicons:magnifying-glass-plus"
+                      class="h-5 w-5"
+                    />
+                  </BaseButtonIcon>
+                </div>
+                <div class="mb-2">
+                  <BaseButtonIcon @click="zoomAllOut" shape="full" size="sm">
+                    <Icon
+                      name="heroicons:magnifying-glass-minus-solid"
+                      class="h-5 w-5"
+                    />
+                  </BaseButtonIcon>
+                </div>
+                <div class="mb-2">
+                  <BaseButtonIcon
+                    shape="full"
+                    size="sm"
+                    @click="showTree = !showTree"
+                  >
+                    <Icon
+                      name="lucide:trees"
+                      class="size-5"
+                      :class="{ ' text-primary-500': showTree }"
+                    />
+                  </BaseButtonIcon>
+                </div>
+                <div class="mb-2">
+                  <BaseButtonIcon
+                    shape="full"
+                    size="sm"
+                    @click="showFungi = !showFungi"
+                  >
+                    <Icon
+                      name="fluent:shape-organic-24-filled"
+                      class="size-5"
+                      :class="{ ' text-primary-500': showFungi }"
+                    />
+                  </BaseButtonIcon>
+                </div>
+                <!-- <div>
+                    <BaseButtonIcon @click="resetAll" shape="full">
+                      <Icon
+                        name="heroicons:magnifying-glass-solid"
+                        class="h-5 w-5"
+                      />
+                    </BaseButtonIcon>
+                  </div> -->
+              </div>
+            </div>
+            <!-- Single View -->
+            <div
+              v-if="!isCompare && !isFrameworkCompareMode"
+              class="w-full h-full relative"
+            >
+              <OpenSeadragonViewer
+                :key="currentImagePath"
+                ref="singleViewerRef"
+                :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                @viewportChanged="
+                  ($event) => onViewportChanged('single', $event)
+                "
+                @opened="onViewerOpened('single')"
+                class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                :class="
+                  isFullScreen
+                    ? 'rounded-none border-none overflow-visible'
+                    : ''
+                "
+              />
+              <UBadge
+                size="xs"
+                :label="currentTimeLabel"
+                color="white"
+                variant="solid"
+                class="absolute bottom-28 left-4"
+              />
+              <UBadge
+                size="xs"
+                :label="currentFramework.label"
+                color="white"
+                variant="solid"
+                class="absolute bottom-36 left-4"
+              />
+              <Circle
+                v-for="circle in filteredCircles"
+                :key="circle.id"
+                :position="circle.position"
+                :info="circle.info"
+              />
+            </div>
+
+            <!-- Before/After Compare -->
+            <img-comparison-slider
+              v-else-if="isCompare"
+              ref="comparisonSliderRef"
+              class="z-0 w-full h-full p-0! m-0!"
+            >
+              <div class="relative w-full h-full" slot="first">
+                <OpenSeadragonViewer
+                  :key="currentImagePath"
+                  ref="beforeViewerRef"
+                  :dziUrl="comparisonImagePath1.replace('.png', '.png_dzi.dzi')"
+                  @viewportChanged="
+                    ($event) => onViewportChanged('before', $event)
+                  "
+                  @opened="onViewerOpened('before')"
+                  class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                  :class="
+                    isFullScreen
+                      ? 'rounded-none border-none overflow-visible'
+                      : ''
+                  "
+                />
+                <UBadge
+                  size="xs"
+                  label="Före avverkning"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-28 left-4"
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentFramework.label"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-36 left-4"
+                />
+              </div>
+              <div class="w-full h-screen" slot="second">
+                <OpenSeadragonViewer
+                  :key="currentImagePath2"
+                  ref="afterViewerRef"
+                  :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                  @viewportChanged="
+                    ($event) => onViewportChanged('after', $event)
+                  "
+                  @opened="onViewerOpened('after')"
+                  class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                  :class="
+                    isFullScreen
+                      ? 'rounded-none border-none overflow-visible'
+                      : ''
+                  "
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentTimeLabel"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-28 right-4"
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentFramework.label"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-36 right-4"
+                />
+              </div>
+            </img-comparison-slider>
+
+            <!-- Framework Compare -->
+            <img-comparison-slider
+              v-else-if="isFrameworkCompareMode"
+              class="z-0 w-full h-full p-0! m-0!"
+            >
+              <div
+                class="relative w-full h-screen pointer-events-none"
+                slot="first"
+              >
+                <OpenSeadragonViewer
+                  :key="currentImagePath"
+                  ref="framework1ViewerRef"
+                  :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                  @viewportChanged="
+                    ($event) => onViewportChanged('framework1', $event)
+                  "
+                  @opened="onViewerOpened('framework1')"
+                  class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                  :class="
+                    isFullScreen
+                      ? 'rounded-none border-none overflow-visible'
+                      : ''
+                  "
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentTimeLabel"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-28 left-4"
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentFramework.label"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-36 left-4"
+                />
+              </div>
+              <div
+                class="relative w-full h-screen pointer-events-none"
+                slot="second"
+              >
+                <OpenSeadragonViewer
+                  :key="currentImagePath2"
+                  ref="framework2ViewerRef"
+                  :dziUrl="currentImagePath2.replace('.png', '.png_dzi.dzi')"
+                  @viewportChanged="
+                    ($event) => onViewportChanged('framework2', $event)
+                  "
+                  @opened="onViewerOpened('framework2')"
+                  class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                  :class="
+                    isFullScreen
+                      ? 'rounded-none border-none overflow-visible'
+                      : ''
+                  "
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentTimeLabel"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-28 right-4"
+                />
+                <UBadge
+                  size="xs"
+                  :label="currentFramework2.label"
+                  color="white"
+                  variant="solid"
+                  class="absolute bottom-36 right-4"
+                />
+              </div>
+            </img-comparison-slider>
+          </div>
+
+          <!-- Timeline at the bottom of the image area -->
+          <div
+            class="absolute bottom-0 bg-neutral-50/90 backdrop-blur-xl z-50 p-5 w-full"
+          >
+            <div class="slider-container flex flex-col items-center w-full">
+              <BaseProgress
+                title="Default progress bar"
+                size="sm"
+                :value="time"
+                color="primary"
+              />
+              <div class="flex justify-between items-center w-full mt-4 gap-10">
+                <div
+                  v-for="step in sliderSteps"
+                  :key="step.value"
+                  @click="handleTimeSelection(step)"
+                  class="flex flex-col items-center cursor-pointer"
+                >
+                  <BaseButtonAction
+                    shape="full"
+                    :class="
+                      time === step.value &&
+                      '!border-primary-500 !text-primary-500'
+                    "
+                    :disabled="isCompare && step.value === 3"
+                  >
+                    {{ step.label }}
+                  </BaseButtonAction>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Panel (Right) -->
+        <div
+          class="relative w-[400px] h-full bg-neutral-50 overflow-auto p-4 border-l-[1px] border-neutral-300"
+        >
+          <!-- <div class="flex gap-3">
+            <div
+              class="cursor-pointer transition-all bg-white p-4 w-full rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
+              @click="Modal1 = true"
+            >
+              <div class="flex items-center gap-2 mb-4">
+                <Icon
+                  :name="currentFramework.icon"
+                  :class="[
+                    'icon size-5 transition-all duration-300',
+                    currentFramework.iconColor,
+                  ]"
+                />
+                <BaseHeading size="md" weight="thin" class="text-neutral-600">
+                  {{ currentFramework.label }}
+                </BaseHeading>
+              </div>
+              <BaseProse class="text-sm font-neutral-500">
+                Text om valt skogsbrukssätt...
+              </BaseProse>
+            </div>
+            <UModal v-model="Modal1">
+              <BaseButtonIcon
+                shape="full"
+                size="xs"
+                @click="Modal1 = false"
+                class="absolute top-4 right-4"
+              >
+                <Icon name="material-symbols:close" class="size-4 m-1" />
+              </BaseButtonIcon>
+              <div class="p-4">
+                <div class="flex items-center gap-2 mb-4">
+                  <Icon
+                    :name="currentFramework.icon"
+                    :class="[
+                      'icon size-8 transition-all duration-300',
+                      currentFramework.iconColor,
+                    ]"
+                  />
+                  <BaseHeading
+                    size="2xl"
+                    weight="thin"
+                    class="text-neutral-600"
+                  >
+                    {{ currentFramework.label }}
+                  </BaseHeading>
+                </div>
+                <BaseProse class="text-sm font-neutral-500">
+                </BaseProse>
+              </div>
+            </UModal>
+            <div
+              v-if="isFrameworkCompareMode"
+              class="cursor-pointer transition-all bg-white w-full p-4 rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
+              @click="Modal2 = true"
+            >
+              <div class="flex items-center gap-2 mb-4">
+                <Icon
+                  :name="currentFramework2.icon"
+                  :class="[
+                    'icon size-5 transition-all duration-300',
+                    currentFramework2.iconColor,
+                  ]"
+                />
+                <BaseHeading size="md" weight="thin" class="text-neutral-600">
+                  {{ currentFramework2.label }}
+                </BaseHeading>
+              </div>
+              <BaseProse class="text-sm font-neutral-500">
+                Text om valt skogsbrukssätt...
+              </BaseProse>
+            </div>
+            <UModal v-model="Modal2">
+              <BaseButtonIcon
+                shape="full"
+                size="xs"
+                @click="Modal2 = false"
+                class="absolute top-4 right-4"
+              >
+                <Icon name="material-symbols:close" class="size-4 m-1" />
+              </BaseButtonIcon>
+              <div class="p-4">
+                <div class="flex items-center gap-2 mb-4">
+                  <Icon
+                    :name="currentFramework2.icon"
+                    :class="[
+                      'icon size-8 transition-all duration-300',
+                      currentFramework2.iconColor,
+                    ]"
+                  />
+                  <BaseHeading
+                    size="2xl"
+                    weight="thin"
+                    class="text-neutral-600"
+                  >
+                    {{ currentFramework2.label }}
+                  </BaseHeading>
+                </div>
+                <BaseProse class="text-sm font-neutral-500">
+                </BaseProse>
+              </div>
+            </UModal>
+          </div> -->
+          <div class="flex justify-end items-end mb-3 gap-2 -mt-3">
+            <BaseListbox
+              v-model="compareChoice"
+              placeholder="Jämför"
+              label="Jämför"
+              :items="compareItems"
+              :properties="{
+                value: 'id',
+                label: 'name',
+                sublabel: 'text',
+                icon: 'icon',
+              }"
+              size="md"
+              shape="full"
+              class="text-neutral-400 w-72 ps-4"
+            />
+            <BaseButtonIcon shape="full" @click="toggleFullScreen">
+              <Icon
+                v-if="!isFullScreen"
+                name="material-symbols:open-in-full"
+                class="size-5"
+              />
+              <Icon
+                v-else
+                name="material-symbols:close-fullscreen"
+                class="size-5"
+              />
+            </BaseButtonIcon>
+          </div>
+          <TimelineInfoBox
+            :currentFramework="currentFramework"
+            :currentTime="timeLabelForDataFiltering"
+            :currentStartskog="currentStartskog"
+            :isCompare="isCompare"
+            :isFrameworkCompareMode="isFrameworkCompareMode"
+            :compareFramework="currentFramework2"
+            :compareStartskog="currentStartskog"
+            :compareTime="timeLabelForDataFiltering2"
+            :currentTimeLabel="currentTimeLabel"
+          />
+
+          <BarChartSkogsbruk
+            :currentFramework="currentFramework"
+            :currentFramework2="
+              isFrameworkCompareMode ? currentFramework2 : null
+            "
+            :currentStartskog="currentStartskog"
+            :timeLabel="timeLabelForDataFiltering"
+            :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+            :currentTimeLabel="currentTimeLabel"
+            :isCompareMode="isCompare"
+            :isFrameworkCompareMode="isFrameworkCompareMode"
+          />
+          <BarChartSkogsbrukRödMat
+            :currentFramework="currentFramework"
+            :currentFramework2="
+              isFrameworkCompareMode ? currentFramework2 : null
+            "
+            :currentStartskog="currentStartskog"
+            :timeLabel="timeLabelForDataFiltering"
+            :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+            :currentTimeLabel="currentTimeLabel"
+            :isCompareMode="isCompare"
+            :isFrameworkCompareMode="isFrameworkCompareMode"
+          />
+        </div>
+      </template>
+
+      <template v-else>
+        <!-- Normal Mode (Your original layout) -->
+        <!-- Just place your original code here as it was before the fullscreen changes -->
+        <!-- ... original non-fullscreen code ... -->
+        <!-- For brevity, not included fully here. Restore from your working version. -->
+
+        <div class="pt-8">
+          <div class="w-full grid grid-cols-4">
+            <div
+              class="col-span-3 items-center flex relative justify-between"
+              v-if="!frameworksVisible"
+            >
+              <div class="flex gap-2 items-center mb-2">
+                <!-- Existing Framework Selection Dropdown -->
+                <Icon
+                  :name="currentFramework.icon"
+                  :class="[
+                    'icon size-10 transition-all duration-300',
+                    currentFramework.iconColor,
+                  ]"
+                />
+                <div>
+                  <BaseDropdown
+                    flavor="text"
+                    class="text-xl font-thin text-neutral-800"
+                    :label="currentFramework.label"
+                    placement="bottom-start"
+                    shape="full"
+                  >
+                    <BaseDropdownItem
+                      v-for="(framework, index) in frameworks"
+                      :key="framework.id"
+                      @click="selectedFrameworkIndex = index"
+                      :title="framework.label"
+                      :text="framework.text"
+                      shape="md"
+                      rounded="md"
+                      class="rounded-md overflow-hidden"
+                    >
+                      <template #start>
+                        <Icon
+                          :name="framework.icon"
+                          :class="['icon size-6 mr-1', framework.iconColor]"
+                        />
+                      </template>
+                    </BaseDropdownItem>
+                    <BaseDropdownDivider />
+                    <div
+                      class="hover:bg-muted-100 dark:hover:bg-muted-800 rounded-md transition-colors duration-300"
+                    >
+                      <BaseCheckboxHeadless
+                        v-model="startskogModel"
+                        value="produktionsskog"
+                      >
+                        <BaseDropdownItem
+                          to="#"
+                          title="Tidigare kalavverkad"
+                          text="Skogens historik"
+                          shape="sm"
+                          class="pointer-events-none"
+                        >
+                          <template #start>
+                            <BaseCheckbox
+                              v-model="startskogModel"
+                              value="produktionsskog"
+                              shape="full"
+                              color="warning"
+                            />
+                          </template>
+                        </BaseDropdownItem>
+                      </BaseCheckboxHeadless>
+                    </div>
+                  </BaseDropdown>
+                  <!-- <p class="text-md text-gray-400">
+                  {{ currentStartskog.label }}
+                </p> -->
+
+                  <UBadge
+                    v-if="currentStartskog.value === 'produktionsskog_'"
+                    :ui="{ rounded: 'rounded-full' }"
+                    color="violet"
+                    variant="outline"
+                    size="sm"
+                    class="opacity-80"
+                  >
+                    Tidigare kalavverkad
+                  </UBadge>
+                </div>
+              </div>
+
+              <div class="z-50 flex gap-2">
+                <!-- If NOT in framework compare mode AND NOT in before/after compare mode -->
+
+                <!-- If in framework compare mode -->
+                <template v-if="isFrameworkCompareMode">
+                  <div class="flex gap-2 items-center z-50">
+                    <div>
+                      <BaseDropdown
+                        flavor="text"
+                        class="text-xl font-thin text-neutral-800"
+                        :label="currentFramework2.label"
+                        placement="bottom-start"
+                      >
+                        <BaseDropdownItem
+                          v-for="(framework, index) in frameworks"
+                          :key="'framework2-' + framework.id"
+                          @click="selectedFrameworkIndex2 = index"
+                          :title="framework.label"
+                          :text="framework.text"
+                          rounded="sm"
+                        >
+                          <template #start>
+                            <Icon
+                              :name="framework.icon"
+                              :class="['icon size-6 mr-1', framework.iconColor]"
+                            />
+                          </template>
+                        </BaseDropdownItem>
+                      </BaseDropdown>
+                    </div>
+                    <div class="relative">
+                      <!-- <BaseButtonClose
+                      rounded="full"
+                      color="default"
+                      @click="onClickFrameworkCompare"
+                      class="absolute -top-3 -right-3 size-5"
+                    /> -->
+
+                      <Icon
+                        :name="currentFramework2.icon"
+                        :class="[
+                          'icon size-10 transition-all duration-300',
+                          currentFramework2.iconColor,
+                        ]"
+                      />
+                    </div>
+                  </div>
+                </template>
+
+                <!-- If in before/after compare mode -->
+                <!-- <template v-else-if="isCompare">
                 <div
                   class="flex items-center gap-2 text-xl font-thin text-neutral-400 relative mr-4"
                 >
@@ -845,7 +921,7 @@
                   <div class="relative">
                     <BaseButtonClose
                       rounded="full"
-                      color="danger"
+                      color="default"
                       @click="onClickBeforeAfterCompare"
                       class="absolute -top-3 -right-3 size-5"
                     />
@@ -855,7 +931,71 @@
                     />
                   </div>
                 </div>
-              </template>
+              </template> -->
+              </div>
+            </div>
+            <div class="flex justify-end items-end gap-2 mb-3">
+              <div>
+                <!-- <BaseDropdown
+                flavor="button"
+                class="inline-block text-neural-400 rounded-full"
+                placement="bottom-end"
+                label="Jämför"
+                shape="full"
+              >
+                <template #activator>
+                  <BaseButtonIcon shape="full" @click.stop="toggle">
+                    <Icon
+                      name="material-symbols:add-2-rounded"
+                      class="w-10 h-10"
+                    />
+                  </BaseButtonIcon>
+                </template>
+
+                <BaseDropdownItem
+                  @click="onClickFrameworkCompare"
+                  title="Skogsskötsel"
+                  text="Jämför två olika metoder"
+                  class="rounded-md overflow-hidden"
+                >
+                  <template #start>
+                    <Icon
+                      name="simple-icons:forestry"
+                      class="icon size-6 mr-1 text-primary-500"
+                    />
+                  </template>
+                </BaseDropdownItem>
+
+                <BaseDropdownItem
+                  @click="onClickBeforeAfterCompare"
+                  title="Innan / efter avverkning"
+                  text="Jämför utveckling över tid"
+                  class="rounded-md overflow-hidden"
+                >
+                  <template #start>
+                    <Icon
+                      name="material-symbols:clock-loader-40"
+                      class="icon size-7 mr-1 text-primary-500"
+                    />
+                  </template>
+                </BaseDropdownItem>
+              </BaseDropdown> -->
+                <BaseListbox
+                  v-model="compareChoice"
+                  placeholder="Jämför"
+                  label="Jämför"
+                  :items="compareItems"
+                  :properties="{
+                    value: 'id',
+                    label: 'name',
+                    sublabel: 'text',
+                    icon: 'icon',
+                  }"
+                  size="md"
+                  shape="full"
+                  class="text-neutral-400 w-72 ps-4"
+                />
+              </div>
               <BaseButtonIcon shape="full" @click="toggleFullScreen">
                 <Icon
                   v-if="!isFullScreen"
@@ -870,57 +1010,60 @@
               </BaseButtonIcon>
             </div>
           </div>
-        </div>
 
-        <div class="grid grid-cols-4 gap-5">
-          <div class="col-span-3">
-            <div class="relative">
-              <!-- External zoom controls -->
-              <div class="absolute w-full justify-between flex p-4 z-10">
-                <div>
-                  <div class="mb-2">
-                    <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
-                      <Icon
-                        name="heroicons:magnifying-glass-plus"
-                        class="h-5 w-5"
-                      />
-                    </BaseButtonIcon>
-                  </div>
-                  <div class="mb-2">
-                    <BaseButtonIcon @click="zoomAllOut" shape="full" size="sm">
-                      <Icon
-                        name="heroicons:magnifying-glass-minus-solid"
-                        class="h-5 w-5"
-                      />
-                    </BaseButtonIcon>
-                  </div>
-                  <div class="mb-2">
-                    <BaseButtonIcon
-                      shape="full"
-                      size="sm"
-                      @click="showTree = !showTree"
-                    >
-                      <Icon
-                        name="lucide:trees"
-                        class="size-5"
-                        :class="{ ' text-primary-500': showTree }"
-                      />
-                    </BaseButtonIcon>
-                  </div>
-                  <div class="mb-2">
-                    <BaseButtonIcon
-                      shape="full"
-                      size="sm"
-                      @click="showFungi = !showFungi"
-                    >
-                      <Icon
-                        name="fluent:shape-organic-24-filled"
-                        class="size-5"
-                        :class="{ ' text-primary-500': showFungi }"
-                      />
-                    </BaseButtonIcon>
-                  </div>
-                  <!-- <div>
+          <div class="grid grid-cols-4 gap-5">
+            <div class="col-span-3">
+              <div class="relative">
+                <!-- External zoom controls -->
+                <div class="absolute w-full justify-between flex p-4 z-10">
+                  <div>
+                    <div class="mb-2">
+                      <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
+                        <Icon
+                          name="heroicons:magnifying-glass-plus"
+                          class="h-5 w-5"
+                        />
+                      </BaseButtonIcon>
+                    </div>
+                    <div class="mb-2">
+                      <BaseButtonIcon
+                        @click="zoomAllOut"
+                        shape="full"
+                        size="sm"
+                      >
+                        <Icon
+                          name="heroicons:magnifying-glass-minus-solid"
+                          class="h-5 w-5"
+                        />
+                      </BaseButtonIcon>
+                    </div>
+                    <div class="mb-2">
+                      <BaseButtonIcon
+                        shape="full"
+                        size="sm"
+                        @click="showTree = !showTree"
+                      >
+                        <Icon
+                          name="lucide:trees"
+                          class="size-5"
+                          :class="{ ' text-primary-500': showTree }"
+                        />
+                      </BaseButtonIcon>
+                    </div>
+                    <div class="mb-2">
+                      <BaseButtonIcon
+                        shape="full"
+                        size="sm"
+                        @click="showFungi = !showFungi"
+                      >
+                        <Icon
+                          name="fluent:shape-organic-24-filled"
+                          class="size-5"
+                          :class="{ ' text-primary-500': showFungi }"
+                        />
+                      </BaseButtonIcon>
+                    </div>
+                    <!-- <div>
                     <BaseButtonIcon @click="resetAll" shape="full">
                       <Icon
                         name="heroicons:magnifying-glass-solid"
@@ -928,126 +1071,23 @@
                       />
                     </BaseButtonIcon>
                   </div> -->
+                  </div>
                 </div>
-              </div>
 
-              <!-- Single View -->
-              <div
-                v-if="!isCompare && !isFrameworkCompareMode"
-                class="relative w-full h-[650px]"
-              >
-                <OpenSeadragonViewer
-                  :key="currentImagePath"
-                  ref="singleViewerRef"
-                  :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                  @viewportChanged="
-                    ($event) => onViewportChanged('single', $event)
-                  "
-                  @opened="onViewerOpened('single')"
-                  class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                />
-                <UBadge
-                  size="xs"
-                  :label="currentTimeLabel"
-                  color="white"
-                  variant="solid"
-                  class="absolute bottom-4 left-4"
-                />
-                <UBadge
-                  size="xs"
-                  :label="currentFramework.label"
-                  color="white"
-                  variant="solid"
-                  class="absolute bottom-12 left-4"
-                />
-                <Circle
-                  v-for="circle in filteredCircles"
-                  :key="circle.id"
-                  :position="circle.position"
-                  :info="circle.info"
-                />
-              </div>
-
-              <!-- Before/After Compare -->
-              <img-comparison-slider
-                ref="comparisonSliderRef"
-                v-else-if="isCompare"
-                class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-              >
-                <div class="relative w-full h-[650px]" slot="first">
-                  <OpenSeadragonViewer
-                    :key="currentImagePath"
-                    ref="beforeViewerRef"
-                    :dziUrl="
-                      comparisonImagePath1.replace('.png', '.png_dzi.dzi')
-                    "
-                    @viewportChanged="
-                      ($event) => onViewportChanged('before', $event)
-                    "
-                    @opened="onViewerOpened('before')"
-                    class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                  />
-                  <UBadge
-                    size="xs"
-                    label="Innan avverkning"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-4 left-4"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentFramework.label"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-12 left-4"
-                  />
-                </div>
-                <div class="relative w-full h-[650px]" slot="second">
-                  <OpenSeadragonViewer
-                    :key="currentImagePath2"
-                    ref="afterViewerRef"
-                    :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                    @viewportChanged="
-                      ($event) => onViewportChanged('after', $event)
-                    "
-                    @opened="onViewerOpened('after')"
-                    class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentTimeLabel"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-4 right-4"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentFramework.label"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-12 right-4"
-                  />
-                </div>
-              </img-comparison-slider>
-
-              <!-- Framework Compare -->
-              <img-comparison-slider
-                v-else-if="isFrameworkCompareMode"
-                class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-              >
+                <!-- Single View -->
                 <div
-                  class="relative w-full h-[650px] pointer-events-none"
-                  slot="first"
+                  v-if="!isCompare && !isFrameworkCompareMode"
+                  class="relative w-full h-[650px]"
                 >
                   <OpenSeadragonViewer
                     :key="currentImagePath"
-                    ref="framework1ViewerRef"
+                    ref="singleViewerRef"
                     :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
                     @viewportChanged="
-                      ($event) => onViewportChanged('framework1', $event)
+                      ($event) => onViewportChanged('single', $event)
                     "
-                    @opened="onViewerOpened('framework1')"
-                    class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                    @opened="onViewerOpened('single')"
+                    class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                   />
                   <UBadge
                     size="xs"
@@ -1063,72 +1103,231 @@
                     variant="solid"
                     class="absolute bottom-12 left-4"
                   />
-                </div>
-                <div
-                  class="relative w-full h-[650px] pointer-events-none"
-                  slot="second"
-                >
-                  <OpenSeadragonViewer
-                    :key="currentImagePath2"
-                    ref="framework2ViewerRef"
-                    :dziUrl="currentImagePath2.replace('.png', '.png_dzi.dzi')"
-                    @viewportChanged="
-                      ($event) => onViewportChanged('framework2', $event)
-                    "
-                    @opened="onViewerOpened('framework2')"
-                    class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentTimeLabel"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-4 right-4"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentFramework2.label"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-12 right-4"
+                  <Circle
+                    v-for="circle in filteredCircles"
+                    :key="circle.id"
+                    :position="circle.position"
+                    :info="circle.info"
                   />
                 </div>
-              </img-comparison-slider>
-            </div>
 
-            <!-- Slider Container -->
-            <div class="w-full p-5">
-              <div class="slider-container flex flex-col items-center w-full">
-                <BaseProgress
-                  title="Default progress bar"
-                  size="sm"
-                  :value="time"
-                  color="primary"
-                />
-                <div class="flex justify-between items-center w-full mt-4">
-                  <div
-                    v-for="step in sliderSteps"
-                    :key="step.value"
-                    @click="handleTimeSelection(step)"
-                    class="flex flex-col items-center cursor-pointer"
-                  >
-                    <BaseButtonAction
-                      shape="full"
-                      :class="
-                        time === step.value &&
-                        '!border-primary-500 !text-primary-500'
+                <!-- Before/After Compare -->
+                <img-comparison-slider
+                  ref="comparisonSliderRef"
+                  v-else-if="isCompare"
+                  class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+                >
+                  <div class="relative w-full h-[650px]" slot="first">
+                    <OpenSeadragonViewer
+                      :key="currentImagePath"
+                      ref="beforeViewerRef"
+                      :dziUrl="
+                        comparisonImagePath1.replace('.png', '.png_dzi.dzi')
                       "
-                      :disabled="isCompare && step.value === 3"
+                      @viewportChanged="
+                        ($event) => onViewportChanged('before', $event)
+                      "
+                      @opened="onViewerOpened('before')"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                    />
+                    <UBadge
+                      size="xs"
+                      label="Före avverkning"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-4 left-4"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentFramework.label"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-12 left-4"
+                    />
+                  </div>
+                  <div class="relative w-full h-[650px]" slot="second">
+                    <OpenSeadragonViewer
+                      :key="currentImagePath2"
+                      ref="afterViewerRef"
+                      :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                      @viewportChanged="
+                        ($event) => onViewportChanged('after', $event)
+                      "
+                      @opened="onViewerOpened('after')"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentTimeLabel"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-4 right-4"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentFramework.label"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-12 right-4"
+                    />
+                  </div>
+                </img-comparison-slider>
+
+                <!-- Framework Compare -->
+                <img-comparison-slider
+                  v-else-if="isFrameworkCompareMode"
+                  class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+                >
+                  <div
+                    class="relative w-full h-[650px] pointer-events-none"
+                    slot="first"
+                  >
+                    <OpenSeadragonViewer
+                      :key="currentImagePath"
+                      ref="framework1ViewerRef"
+                      :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                      @viewportChanged="
+                        ($event) => onViewportChanged('framework1', $event)
+                      "
+                      @opened="onViewerOpened('framework1')"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentTimeLabel"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-4 left-4"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentFramework.label"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-12 left-4"
+                    />
+                  </div>
+                  <div
+                    class="relative w-full h-[650px] pointer-events-none"
+                    slot="second"
+                  >
+                    <OpenSeadragonViewer
+                      :key="currentImagePath2"
+                      ref="framework2ViewerRef"
+                      :dziUrl="
+                        currentImagePath2.replace('.png', '.png_dzi.dzi')
+                      "
+                      @viewportChanged="
+                        ($event) => onViewportChanged('framework2', $event)
+                      "
+                      @opened="onViewerOpened('framework2')"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentTimeLabel"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-4 right-4"
+                    />
+                    <UBadge
+                      size="xs"
+                      :label="currentFramework2.label"
+                      color="white"
+                      variant="solid"
+                      class="absolute bottom-12 right-4"
+                    />
+                  </div>
+                </img-comparison-slider>
+              </div>
+
+              <!-- Slider Container -->
+              <div class="w-full p-5">
+                <div class="slider-container flex flex-col items-center w-full">
+                  <BaseProgress
+                    title="Default progress bar"
+                    size="sm"
+                    :value="time"
+                    color="primary"
+                  />
+                  <div class="flex justify-between items-center w-full mt-4">
+                    <div
+                      v-for="step in sliderSteps"
+                      :key="step.value"
+                      @click="handleTimeSelection(step)"
+                      class="flex flex-col items-center cursor-pointer"
                     >
-                      {{ step.label }}
-                    </BaseButtonAction>
+                      <BaseButtonAction
+                        shape="full"
+                        :class="
+                          time === step.value &&
+                          '!border-primary-500 !text-primary-500'
+                        "
+                        :disabled="isCompare && step.value === 3"
+                      >
+                        {{ step.label }}
+                      </BaseButtonAction>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="grid grid-cols-3 gap-4">
+                <div
+                  class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5 p-6 object-bottom"
+                >
+                  <BaseHeading size="md">Svampgrupper</BaseHeading>
+                  <BaseHeading
+                    size="sm"
+                    weight="thin"
+                    class="text-neutral-500 mb-4"
+                    >Visar hur stor del av den totala svampmängden olika grupper
+                    utgör inom avverkningsytan</BaseHeading
+                  >
+                  <BarChartSkogsbruk
+                    :currentFramework="currentFramework"
+                    :currentFramework2="
+                      isFrameworkCompareMode ? currentFramework2 : null
+                    "
+                    :currentStartskog="currentStartskog"
+                    :timeLabel="timeLabelForDataFiltering"
+                    :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                    :currentTimeLabel="currentTimeLabel"
+                    :isCompareMode="isCompare"
+                    :isFrameworkCompareMode="isFrameworkCompareMode"
+                    class="h-full inline-block align-bottom"
+                  />
+                </div>
+                <div
+                  class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5 p-6 object-bottom"
+                >
+                  <BaseHeading size="md">Rödlistade och matsvampar</BaseHeading>
+                  <BaseHeading
+                    size="sm"
+                    weight="thin"
+                    class="text-neutral-500 mb-4"
+                    >Visar hur stor del av den totala svampmängden olika grupper
+                    utgör inom avverkningsytan</BaseHeading
+                  >
+
+                  <BarChartSkogsbrukRödMat
+                    :currentFramework="currentFramework"
+                    :currentFramework2="
+                      isFrameworkCompareMode ? currentFramework2 : null
+                    "
+                    :currentStartskog="currentStartskog"
+                    :timeLabel="timeLabelForDataFiltering"
+                    :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                    :currentTimeLabel="currentTimeLabel"
+                    :isCompareMode="isCompare"
+                    :isFrameworkCompareMode="isFrameworkCompareMode"
+                    class="h-full"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="h-full p-4 bg-white bg-opacity-50 rounded-xl">
-            <div class="flex gap-3">
+
+            <div class="p-4 bg-white bg-opacity-50 rounded-xl h-fit">
+              <!-- <div class="flex gap-3">
               <div
                 class="cursor-pointer transition-all bg-white p-4 w-full rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
                 @click="Modal1 = true"
@@ -1179,7 +1378,6 @@
                     </BaseHeading>
                   </div>
                   <BaseProse class="text-sm font-neutral-500">
-                    <!-- Modal content here -->
                     <b>Beskrivning skogsbrukssätt</b>
                     <br />
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -1260,7 +1458,6 @@
                     </BaseHeading>
                   </div>
                   <BaseProse class="text-sm font-neutral-500">
-                    <!-- Modal content here -->
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Phasellus rhoncus facilisis ornare. Donec ullamcorper
                     fermentum sem rhoncus commodo. Phasellus convallis dapibus
@@ -1289,36 +1486,26 @@
                   </BaseProse>
                 </div>
               </UModal>
+            </div> -->
+              <TimelineInfoBox
+                :currentFramework="currentFramework"
+                :currentTime="timeLabelForDataFiltering"
+                :currentStartskog="currentStartskog"
+                :isCompare="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                :compareFramework="currentFramework2"
+                :compareStartskog="currentStartskog"
+                :compareTime="timeLabelForDataFiltering2"
+                :currentTimeLabel="currentTimeLabel"
+              />
             </div>
-            <BarChartSkogsbruk
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :timeLabel="timeLabelForDataFiltering"
-              :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-              :currentTimeLabel="currentTimeLabel"
-              :isCompareMode="isCompare"
-              :isFrameworkCompareMode="isFrameworkCompareMode"
-            />
-            <BarChartSkogsbrukRödMat
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :timeLabel="timeLabelForDataFiltering"
-              :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-              :currentTimeLabel="currentTimeLabel"
-              :isCompareMode="isCompare"
-              :isFrameworkCompareMode="isFrameworkCompareMode"
-            />
           </div>
         </div>
-      </div>
-    </template>
-  </div>
+      </template>
+
+      <!-- <ForestryTimeLine /> -->
+    </div>
+  </client-only>
 </template>
 
 <script setup>
@@ -1476,7 +1663,7 @@ function mapTimeToLabel(value) {
 
 const sliderSteps = computed(() => {
   const steps = [
-    { value: 3, label: "Innan avverkning", timeLabel: "före" },
+    { value: 3, label: "Före avverkning", timeLabel: "före" },
     { value: 15, label: "Efter avverkning", timeLabel: "efter" },
   ];
   if (
@@ -1684,6 +1871,71 @@ function toggleFullScreen() {
   nextTick(() => {
     applyGlobalViewportToAll();
   });
+}
+
+// 1) The currently selected "compare" option:
+const compareChoice = ref({
+  id: "none",
+  name: "Ingen jämförelse",
+  text: "Återgå till enkel vy",
+  icon: "i-mynaui:rectangle",
+});
+
+// 2) Our three options for the Listbox:
+const compareItems = [
+  {
+    id: "none",
+    name: "Ingen jämförelse",
+    text: "Återgå till enkel vy",
+    icon: "i-mynaui:rectangle",
+  },
+  {
+    id: "frameworkCompare",
+    name: "Skogsskötsel",
+    text: "Jämför två olika metoder",
+    icon: "simple-icons:forestry",
+  },
+  {
+    id: "beforeAfterCompare",
+    name: "Före / efter avverkning",
+    text: "Jämför utveckling över tid",
+    icon: "material-symbols:clock-loader-40",
+  },
+];
+
+watch(compareChoice, (newVal, oldVal) => {
+  console.log("compareChoice changed from", oldVal, "to", newVal);
+  if (!newVal || !newVal.id) return; // safety check
+
+  if (newVal.id === "none") {
+    isCompare.value = false;
+    isFrameworkCompareMode.value = false;
+  } else if (newVal.id === "frameworkCompare") {
+    console.log("Calling onClickFrameworkCompare()");
+    onClickFrameworkCompare();
+  } else if (newVal.id === "beforeAfterCompare") {
+    console.log("Calling onClickBeforeAfterCompare()");
+    onClickBeforeAfterCompare();
+  }
+});
+
+function nudgeOpenSeadragon() {
+  console.log("[modell.vue] Nudging OpenSeadragonViewer...");
+  if (singleViewerRef.value?.viewer && currentImagePath.value) {
+    // 1) Force-close the current tile
+    singleViewerRef.value.viewer.close();
+
+    // 2) Now open the same tile again
+    const dziPath = currentImagePath.value.replace(".png", ".png_dzi.dzi");
+    singleViewerRef.value.viewer.open(dziPath);
+
+    // 3) Optionally reset or re-center
+    singleViewerRef.value.viewer.addHandler("open", () => {
+      // For example, goHome + forceRedraw so you see it refresh:
+      singleViewerRef.value.viewer.viewport.goHome(true);
+      singleViewerRef.value.viewer.forceRedraw();
+    });
+  }
 }
 </script>
 

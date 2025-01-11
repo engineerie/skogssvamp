@@ -7,10 +7,10 @@
         <div v-if="currentDirectory === 'svampdata'" class="">
           <SbSvamp />
         </div>
-        <div v-if="currentDirectory === 'svampdata/dashboard'" class="">
+        <div v-else-if="currentDirectory === 'svampdata/dashboard'" class="">
           <SbSvampInfo />
         </div>
-        <div v-else-if="currentDirectory === 'skogsbruk'">
+        <div v-else-if="currentDirectory === 'skogsbruk/modell'">
           <SbSkogsbruk />
         </div>
         <div v-else-if="currentDirectory === 'about'">
