@@ -7,13 +7,14 @@
       <div class="grid grid-cols-4 bg-neutral-100">
         <div class="p-6 col-span-3">
           <BaseHeading size="xl" weight="light">
-            Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
+            Se hur mykorrhizasvampar påverkas av olika skogsskötsel
           </BaseHeading>
           <BaseHeading size="lg" weight="light" class="text-neutral-500">
-            Välj först om skogen har varit kalavverkad tidigare eller är
-            nyetablerad. I nästa steg väljer du skogsbruksätt innan du kommer
-            till en interaktiv model. Valen av skogshistorik och skogsbrukssätt
-            går också att justera inne i modellen.
+            Välj först om skogen har varit kalavverkad tidigare eller inte. I
+            nästa steg väljer du skogsbruksätt. Du kan sedan interaktivt
+            undersöka hur mykorrhizasvampar påverkas under en skogsgeneration.
+            Valen av skogshistorik och skogsskötsel går också att justera inne i
+            modellen.
           </BaseHeading>
         </div>
       </div>
@@ -36,8 +37,7 @@
         <p
           class="nui-paragraph nui-paragraph-md nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 mb-8"
         >
-          Har skogen varit kalavverkad tidigare, eller är skogen yngre än 150
-          år?
+          Har skogen varit kalavverkad tidigare, eller inte tidigare?
         </p>
       </div>
 
@@ -70,7 +70,8 @@
                     <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
-                      Skogen kan ha varit brukad men inte kalavverkad.
+                      Skogen har oftast skogsbrukats, men inte varit
+                      kalavverkad.
                     </p>
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">
@@ -106,7 +107,8 @@
                     <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
-                      Skogen har varit kalaverkad eller är nyetablerad.
+                      Skogen har varit kalavverkad eller är etablerad på
+                      tidigare trädlös mark.
                     </p>
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">

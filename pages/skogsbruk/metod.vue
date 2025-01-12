@@ -2,13 +2,13 @@
   <div class="grid grid-cols-2 gap-4 mt-12">
     <div>
       <BaseHeading size="xl" weight="light">
-        Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
+        Se hur mykorrhizasvampar påverkas av olika skogsskötsel
       </BaseHeading>
       <BaseHeading size="lg" weight="light" class="text-neutral-500">
-        Välj först om skogen har varit kalavverkad tidigare eller är
-        nyetablerad. I nästa steg väljer du skogsbruksätt innan du kommer till
-        en interaktiv model. Valen av skogshistorik och skogsbrukssätt går att
-        ändra i modellen.
+        Välj först om skogen har varit kalavverkad tidigare eller inte. I nästa
+        steg väljer du skogsbruksätt. Du kan sedan interaktivt undersöka hur
+        mykorrhizasvampar påverkas under en skogsgeneration. Valen av
+        skogshistorik och skogsskötsel går att ändra justera inne i modellen.
       </BaseHeading>
     </div>
   </div>
@@ -36,7 +36,7 @@
               <!-- Inga åtgärder -->
               <BaseRadioHeadless
                 v-model="onboardingStore.selectedFramework"
-                :value="1"
+                :value="0"
               >
                 <BaseCard
                   rounded="lg"
@@ -61,11 +61,11 @@
                     >
                       Inga åtgärder
                     </BaseHeading>
-                    <p
+                    <!-- <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
                       Vad som händer när du väljer att inte avverka skogen.
-                    </p>
+                    </p> -->
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">
                     <Icon
@@ -78,7 +78,7 @@
               <!-- Trakthygge -->
               <BaseRadioHeadless
                 v-model="onboardingStore.selectedFramework"
-                :value="0"
+                :value="1"
               >
                 <BaseCard
                   rounded="lg"
@@ -101,13 +101,13 @@
                       weight="medium"
                       class="text-muted-600 dark:text-muted-100"
                     >
-                      Trakthygge
+                      Trakthyggesbruk
                     </BaseHeading>
-                    <p
+                    <!-- <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
                       Trakthyggesbruk med hänsynsträd och högstubbar.
-                    </p>
+                    </p> -->
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">
                     <Icon
@@ -121,7 +121,7 @@
               <!-- Luckhuggning -->
               <BaseRadioHeadless
                 v-model="onboardingStore.selectedFramework"
-                :value="3"
+                :value="2"
               >
                 <BaseCard
                   rounded="lg"
@@ -144,13 +144,13 @@
                       weight="medium"
                       class="text-muted-600 dark:text-muted-100"
                     >
-                      Luckhuggning
+                      Hyggesfritt - luckhuggning
                     </BaseHeading>
-                    <p
+                    <!-- <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
                       Luckors storlek, kanteffekt och avverkningsomlopp.
-                    </p>
+                    </p> -->
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">
                     <Icon
@@ -164,7 +164,7 @@
               <!-- Skärmträd -->
               <BaseRadioHeadless
                 v-model="onboardingStore.selectedFramework"
-                :value="4"
+                :value="3"
               >
                 <BaseCard
                   rounded="lg"
@@ -187,13 +187,13 @@
                       weight="medium"
                       class="text-muted-600 dark:text-muted-100"
                     >
-                      Skärmträd
+                      Hyggesfritt - överhållen skärm
                     </BaseHeading>
-                    <p
+                    <!-- <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
                       Förberedande gallring, skärmställning och avverkning.
-                    </p>
+                    </p> -->
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">
                     <Icon
@@ -207,7 +207,7 @@
               <!-- Blädning -->
               <BaseRadioHeadless
                 v-model="onboardingStore.selectedFramework"
-                :value="2"
+                :value="4"
               >
                 <BaseCard
                   rounded="lg"
@@ -230,13 +230,13 @@
                       weight="medium"
                       class="text-muted-600 dark:text-muted-100"
                     >
-                      Blädning
+                      Hyggesfritt - blädning
                     </BaseHeading>
-                    <p
+                    <!-- <p
                       class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
                     >
                       Blädningsbruk, ger också bild av enstaka gallring.
-                    </p>
+                    </p> -->
                   </div>
                   <div class="child absolute end-2 top-3 opacity-0">
                     <Icon

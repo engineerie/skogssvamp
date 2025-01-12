@@ -6,18 +6,65 @@
     <section v-if="!isCompare && !isFrameworkCompareMode">
       <div v-if="mainTimelineData">
         <!-- ICON + LABEL row -->
-        <div class="flex items-center gap-2 mb-2">
-          <Icon
-            :name="currentFramework.icon"
-            :class="[
-              'icon size-5 transition-all duration-300',
-              currentFramework.iconColor,
-            ]"
-          />
-          <BaseHeading size="md" weight="thin" class="text-neutral-600">
-            {{ currentFramework.label }}
-          </BaseHeading>
+        <div class="flex justify-between">
+          <div class="flex items-center gap-2 mb-2">
+            <Icon
+              :name="currentFramework.icon"
+              :class="['icon size-5', currentFramework.iconColor]"
+            />
+            <BaseHeading size="md" weight="thin" class="text-neutral-600">
+              {{ currentFramework.label }}
+            </BaseHeading>
+          </div>
+          <!-- The new “Läs mer” button -->
+          <BaseButtonIcon
+            shape="full"
+            size="xs"
+            @click="showModal = true"
+            class="size-7"
+          >
+            <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
+          </BaseButtonIcon>
         </div>
+
+        <UModal v-model="showModal">
+          <BaseButtonIcon
+            shape="full"
+            size="xs"
+            @click="showModal = false"
+            class="absolute top-4 right-4"
+          >
+            <Icon name="material-symbols:close" class="size-4 m-1" />
+          </BaseButtonIcon>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-2">
+              <Icon
+                :name="currentFramework.icon"
+                :class="['icon size-8', currentFramework.iconColor]"
+              />
+              <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
+                {{ currentFramework.label }}
+              </BaseHeading>
+            </div>
+
+            <BaseHeading weight="thin" size="md" class="text-neutral-500">
+              <!-- Pull data from frameworkDescriptions.json -->
+              <p>
+                {{ modalInfo.description }}
+              </p>
+              <br />
+              <p>
+                <b>Påverkan på mykorrhizasvampar</b>
+                <br />
+                {{ modalInfo.impact }}
+              </p>
+            </BaseHeading>
+          </div>
+          <FullFrameworkTimeline
+            :frameworkValue="props.currentFramework.value"
+            :startskogValue="props.currentStartskog.value"
+          />
+        </UModal>
 
         <!-- Time Badge -->
         <UBadge
@@ -74,18 +121,65 @@
       <div class="mb-4 pb-4 border-b">
         <div v-if="beforeData">
           <!-- ICON + LABEL row -->
-          <div class="flex items-center gap-2 mb-2">
-            <Icon
-              :name="currentFramework.icon"
-              :class="[
-                'icon size-5 transition-all duration-300',
-                currentFramework.iconColor,
-              ]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">
-              {{ currentFramework.label }}
-            </BaseHeading>
+          <div class="flex justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <Icon
+                :name="currentFramework.icon"
+                :class="['icon size-5', currentFramework.iconColor]"
+              />
+              <BaseHeading size="md" weight="thin" class="text-neutral-600">
+                {{ currentFramework.label }}
+              </BaseHeading>
+            </div>
+            <!-- The new “Läs mer” button -->
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="showModal = true"
+              class="size-7"
+            >
+              <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
+            </BaseButtonIcon>
           </div>
+
+          <UModal v-model="showModal">
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="showModal = false"
+              class="absolute top-4 right-4"
+            >
+              <Icon name="material-symbols:close" class="size-4 m-1" />
+            </BaseButtonIcon>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-2">
+                <Icon
+                  :name="currentFramework.icon"
+                  :class="['icon size-8', currentFramework.iconColor]"
+                />
+                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
+                  {{ currentFramework.label }}
+                </BaseHeading>
+              </div>
+
+              <BaseHeading weight="thin" size="md" class="text-neutral-500">
+                <!-- Pull data from frameworkDescriptions.json -->
+                <p>
+                  {{ modalInfo.description }}
+                </p>
+                <br />
+                <p>
+                  <b>Påverkan på mykorrhizasvampar</b>
+                  <br />
+                  {{ modalInfo.impact }}
+                </p>
+              </BaseHeading>
+            </div>
+            <FullFrameworkTimeline
+              :frameworkValue="props.currentFramework.value"
+              :startskogValue="props.currentStartskog.value"
+            />
+          </UModal>
 
           <!-- “Före avverkning” badge -->
           <UBadge
@@ -138,19 +232,6 @@
       <!-- After box -->
       <div>
         <div v-if="mainTimelineData">
-          <div class="flex items-center gap-2 mb-2">
-            <Icon
-              :name="currentFramework.icon"
-              :class="[
-                'icon size-5 transition-all duration-300',
-                currentFramework.iconColor,
-              ]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">
-              {{ currentFramework.label }}
-            </BaseHeading>
-          </div>
-
           <!-- “Efter avverkning” or “20 år efter avverkning” etc. badge -->
           <UBadge
             :ui="{ rounded: 'rounded-full' }"
@@ -159,16 +240,6 @@
             class="mb-2 mr-2"
           >
             {{ currentTimeLabel }}
-          </UBadge>
-          <UBadge
-            v-if="currentStartskog.value === 'produktionsskog_'"
-            :ui="{ rounded: 'rounded-full' }"
-            color="violet"
-            variant="outline"
-            size="sm"
-            class="opacity-80"
-          >
-            Tidigare kalavverkad
           </UBadge>
 
           <!-- Skog -->
@@ -205,18 +276,65 @@
       <!-- Box #1: currentFramework -->
       <div class="mb-4 pb-4 border-b">
         <div v-if="mainTimelineData">
-          <div class="flex items-center gap-2 mb-2">
-            <Icon
-              :name="currentFramework.icon"
-              :class="[
-                'icon size-5 transition-all duration-300',
-                currentFramework.iconColor,
-              ]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">
-              {{ currentFramework.label }}
-            </BaseHeading>
+          <div class="flex justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <Icon
+                :name="currentFramework.icon"
+                :class="['icon size-5', currentFramework.iconColor]"
+              />
+              <BaseHeading size="md" weight="thin" class="text-neutral-600">
+                {{ currentFramework.label }}
+              </BaseHeading>
+            </div>
+            <!-- The new “Läs mer” button -->
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="showModal = true"
+              class="size-7"
+            >
+              <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
+            </BaseButtonIcon>
           </div>
+
+          <UModal v-model="showModal">
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="showModal = false"
+              class="absolute top-4 right-4"
+            >
+              <Icon name="material-symbols:close" class="size-4 m-1" />
+            </BaseButtonIcon>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-2">
+                <Icon
+                  :name="currentFramework.icon"
+                  :class="['icon size-8', currentFramework.iconColor]"
+                />
+                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
+                  {{ currentFramework.label }}
+                </BaseHeading>
+              </div>
+
+              <BaseHeading weight="thin" size="md" class="text-neutral-500">
+                <!-- Pull data from frameworkDescriptions.json -->
+                <p>
+                  {{ modalInfo.description }}
+                </p>
+                <br />
+                <p>
+                  <b>Påverkan på mykorrhizasvampar</b>
+                  <br />
+                  {{ modalInfo.impact }}
+                </p>
+              </BaseHeading>
+            </div>
+            <FullFrameworkTimeline
+              :frameworkValue="props.currentFramework.value"
+              :startskogValue="props.currentStartskog.value"
+            />
+          </UModal>
 
           <!-- Time badge -->
           <UBadge
@@ -269,18 +387,65 @@
       <!-- Box #2: compareFramework -->
       <div>
         <div v-if="compareTimelineData">
-          <div class="flex items-center gap-2 mb-2">
-            <Icon
-              :name="compareFramework.icon"
-              :class="[
-                'icon size-5 transition-all duration-300',
-                compareFramework.iconColor,
-              ]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">
-              {{ compareFramework.label }}
-            </BaseHeading>
+          <div class="flex justify-between">
+            <div class="flex items-center gap-2 mb-2">
+              <Icon
+                :name="compareFramework.icon"
+                :class="['icon size-5', compareFramework.iconColor]"
+              />
+              <BaseHeading size="md" weight="thin" class="text-neutral-600">
+                {{ compareFramework.label }}
+              </BaseHeading>
+            </div>
+            <!-- The new “Läs mer” button -->
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="showModal2 = true"
+              class="size-7"
+            >
+              <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
+            </BaseButtonIcon>
           </div>
+
+          <UModal v-model="showModal2">
+            <BaseButtonIcon
+              shape="full"
+              size="xs"
+              @click="showModal2 = false"
+              class="absolute top-4 right-4"
+            >
+              <Icon name="material-symbols:close" class="size-4 m-1" />
+            </BaseButtonIcon>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-2">
+                <Icon
+                  :name="compareFramework.icon"
+                  :class="['icon size-8', compareFramework.iconColor]"
+                />
+                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
+                  {{ compareFramework.label }}
+                </BaseHeading>
+              </div>
+
+              <BaseHeading weight="thin" size="md" class="text-neutral-500">
+                <!-- Pull data from frameworkDescriptions.json -->
+                <p>
+                  {{ modalInfo2.description }}
+                </p>
+                <br />
+                <p>
+                  <b>Påverkan på mykorrhizasvampar</b>
+                  <br />
+                  {{ modalInfo2.impact }}
+                </p>
+              </BaseHeading>
+            </div>
+            <FullFrameworkTimeline
+              :frameworkValue="compareFramework.value"
+              :startskogValue="compareStartskog.value"
+            />
+          </UModal>
 
           <!-- Time badge (same time or compareTime if used) -->
           <UBadge
@@ -341,6 +506,34 @@
 <script setup>
 import { computed } from "vue";
 import timelineData from "public/timeline.json";
+import frameworkDescriptions from "public/frameworkDescriptions.json";
+
+const showModal = ref(false);
+const showModal2 = ref(false);
+
+// For Box #1 (currentFramework):
+const modalInfo = computed(() => {
+  if (!props.currentFramework?.value || !props.currentStartskog?.value) {
+    return {};
+  }
+  return (
+    frameworkDescriptions[props.currentStartskog.value][
+      props.currentFramework.value
+    ] || {}
+  );
+});
+
+// For Box #2 (compareFramework):
+const modalInfo2 = computed(() => {
+  if (!props.compareFramework?.value || !props.compareStartskog?.value) {
+    return {};
+  }
+  return (
+    frameworkDescriptions[props.compareStartskog.value][
+      props.compareFramework.value
+    ] || {}
+  );
+});
 
 // 1) Define Props
 const props = defineProps({
@@ -372,6 +565,11 @@ const props = defineProps({
     default: null,
   },
 });
+
+const data =
+  frameworkDescriptions[props.currentStartskog.value][
+    props.currentFramework.value
+  ];
 
 /** mainTimelineData: data for the primary selection (CASE A or first method in compare). */
 const mainTimelineData = computed(() => {

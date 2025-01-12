@@ -318,7 +318,7 @@ function mapFrameworkLabelToDataValue(label) {
     "Ingen åtgärd": "inga åtgärder",
     Blädning: "blädning",
     Luckhuggning: "luckhuggning",
-    Skärmträd: "skärmträd",
+    "Överhållen skärm": "skärmträd",
   };
   return mapping[label] || label.toLowerCase();
 }

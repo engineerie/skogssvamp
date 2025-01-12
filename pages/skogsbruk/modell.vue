@@ -208,7 +208,7 @@
               </div>
 
               <template v-if="isFrameworkCompareMode">
-                <div class="flex gap-2 items-center mr-4 z-50">
+                <div class="flex gap-2 items-center mr-4 z-10">
                   <div>
                     <BaseDropdown
                       flavor="text"
@@ -764,7 +764,7 @@
               class="col-span-3 items-center flex relative justify-between"
               v-if="!frameworksVisible"
             >
-              <div class="flex gap-2 items-center mb-2">
+              <div class="flex gap-2 items-center">
                 <!-- Existing Framework Selection Dropdown -->
                 <Icon
                   :name="currentFramework.icon"
@@ -842,12 +842,12 @@
                 </div>
               </div>
 
-              <div class="z-50 flex gap-2">
+              <div class="flex gap-2">
                 <!-- If NOT in framework compare mode AND NOT in before/after compare mode -->
 
                 <!-- If in framework compare mode -->
                 <template v-if="isFrameworkCompareMode">
-                  <div class="flex gap-2 items-center z-50">
+                  <div class="flex gap-2 items-center">
                     <div>
                       <BaseDropdown
                         flavor="text"
@@ -1514,45 +1514,53 @@ import Circle from "~/components/Circle.vue";
 import BarChart from "~/components/BarChartSkogsbruk.vue";
 import BarChartSkogsbrukRödMat from "~/components/BarChartSkogsbrukRödMat.vue";
 import OpenSeadragonViewer from "~/components/OpenSeadragonViewer.vue";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, nextTick } from "vue";
 import { useOnboardingStore } from "~/stores/onboardingStore";
 import circleDataJson from "public/circles.json";
 
-import { nextTick } from "vue";
-
-// Your existing logic as before
+// Initialize the store
 const onboardingStore = useOnboardingStore();
 
+// Modal references
 const Modal1 = ref(false);
 const Modal2 = ref(false);
-const circleData = ref(circleDataJson);
-const showPingEffectCompareButton = ref(false);
 
+// Circle data
+const circleData = ref(circleDataJson);
+
+// Other refs
+const showPingEffectCompareButton = ref(false);
+const frameworksVisible = ref(false);
+const toggleFrameworks = () =>
+  (frameworksVisible.value = !frameworksVisible.value);
+const showTree = ref(true);
+const showFungi = ref(true);
+const isFrameworkCompareMode = ref(false);
+const isCompare = ref(false);
+const isFullScreen = ref(false);
+
+// Define selectedFrameworkIndex
 const selectedFrameworkIndex = computed({
   get: () => onboardingStore.selectedFramework,
   set: (value) => (onboardingStore.selectedFramework = value),
 });
 
+// Define selectedStartskogIndex
 const selectedStartskogIndex = computed({
   get: () => onboardingStore.selectedStartskog,
   set: (value) => (onboardingStore.selectedStartskog = value),
 });
 
-const frameworksVisible = ref(false);
-const toggleFrameworks = () =>
-  (frameworksVisible.value = !frameworksVisible.value);
+// Define selectedFrameworkIndex2 as an independent ref
+const selectedFrameworkIndex2 = ref(selectedFrameworkIndex.value);
+const currentFramework2 = computed(
+  () => frameworks[selectedFrameworkIndex2.value]
+);
 
+// Frameworks array
 const frameworks = [
   {
     id: 0,
-    label: "Trakthygge",
-    value: "trakthygge",
-    text: "Kalavverkning med hänsyn",
-    icon: "material-symbols:resize",
-    iconColor: "text-violet-400",
-  },
-  {
-    id: 1,
     label: "Ingen åtgärd",
     value: "naturskydd",
     text: "Orörd skog",
@@ -1560,15 +1568,15 @@ const frameworks = [
     iconColor: "text-green-400",
   },
   {
-    id: 2,
-    label: "Blädning",
-    value: "blädning",
-    text: "Stora träd gallras",
-    icon: "tabler:christmas-tree-off",
-    iconColor: "text-teal-400",
+    id: 1,
+    label: "Trakthygge",
+    value: "trakthygge",
+    text: "Kalavverkning med hänsyn",
+    icon: "material-symbols:resize",
+    iconColor: "text-violet-400",
   },
   {
-    id: 3,
+    id: 2,
     label: "Luckhuggning",
     value: "luckhuggning",
     text: "Mindre ytor kalavverkas",
@@ -1576,20 +1584,30 @@ const frameworks = [
     iconColor: "text-sky-400",
   },
   {
-    id: 4,
-    label: "Skärmträd",
+    id: 3,
+    label: "Överhållen skärm",
     value: "skärmträd",
     text: "Överhållen skärm",
     icon: "catppuccin:redwood",
     iconColor: "text-orange-400",
   },
+  {
+    id: 4,
+    label: "Blädning",
+    value: "blädning",
+    text: "Stora träd gallras",
+    icon: "tabler:christmas-tree-off",
+    iconColor: "text-teal-400",
+  },
 ];
 
+// Startskog array
 const startskog = [
   { label: "I äldre skog som inte kalavverkats", value: "naturskog" },
   { label: "I skog som har kalavverkats", value: "produktionsskog_" },
 ];
 
+// Current framework and startskog
 const currentFramework = computed(
   () => frameworks[selectedFrameworkIndex.value]
 );
@@ -1597,17 +1615,26 @@ const currentStartskog = computed(
   () => startskog[selectedStartskogIndex.value]
 );
 
-const isFrameworkCompareMode = ref(false);
+// Initialize startskogModel based on selectedStartskogIndex
+const startskogModel = ref(
+  selectedStartskogIndex.value === 1 ? ["produktionsskog"] : []
+);
+
+// Watch for changes in selectedStartskogIndex and update startskogModel
+watch(selectedStartskogIndex, (newVal) => {
+  startskogModel.value = newVal === 1 ? ["produktionsskog"] : [];
+});
+
+// Watch startskogModel and update selectedStartskogIndex accordingly
+watch(startskogModel, (newVal) => {
+  selectedStartskogIndex.value = newVal.includes("produktionsskog") ? 1 : 0;
+});
+
+// Compare toggling functions
 const toggleFrameworkCompare = () => {
   isFrameworkCompareMode.value = !isFrameworkCompareMode.value;
 };
 
-const selectedFrameworkIndex2 = ref(selectedFrameworkIndex.value);
-const currentFramework2 = computed(
-  () => frameworks[selectedFrameworkIndex2.value]
-);
-
-const isCompare = ref(false);
 const toggleCompare = () => {
   isCompare.value = !isCompare.value;
 };
@@ -1627,23 +1654,16 @@ const onClickBeforeAfterCompare = () => {
   toggleCompare();
 };
 
-const showTree = ref(true);
-const showFungi = ref(true);
-
-const startskogModel = ref([]);
-startskogModel.value =
-  selectedStartskogIndex.value === 1 ? ["produktionsskog"] : [];
-watch(startskogModel, (newVal) => {
-  selectedStartskogIndex.value = newVal.includes("produktionsskog") ? 1 : 0;
-});
-
+// Time references
 const time = ref(3);
 
+// Handle time selection
 function handleTimeSelection(step) {
   if (isCompare.value && step.value === 3) return;
   time.value = step.value;
 }
 
+// Mapping functions
 function mapTimeValueToDataAlder(value) {
   const mapping = {
     3: "innan",
@@ -1661,6 +1681,7 @@ function mapTimeToLabel(value) {
   return step ? step.timeLabel : "före";
 }
 
+// Slider steps
 const sliderSteps = computed(() => {
   const steps = [
     { value: 3, label: "Före avverkning", timeLabel: "före" },
@@ -1680,11 +1701,13 @@ const sliderSteps = computed(() => {
   return steps;
 });
 
+// Current time labels
 const currentTimeLabel = computed(() => {
   const step = sliderSteps.value.find((s) => s.value === time.value);
   return step ? step.label : "";
 });
 
+// Time for data filtering
 const time2 = computed(() => (isCompare.value ? 3 : null));
 const timeLabelForDataFiltering2 = computed(() =>
   time2.value !== null ? mapTimeValueToDataAlder(time2.value) : null
@@ -1693,6 +1716,7 @@ const timeLabelForDataFiltering = computed(() =>
   mapTimeValueToDataAlder(time.value)
 );
 
+// Time icon mapping
 const timeIconMap = {
   efter: "material-symbols:clock-loader-10",
   10: "material-symbols:clock-loader-20",
@@ -1701,16 +1725,19 @@ const timeIconMap = {
   80: "material-symbols:clock-loader-90",
 };
 
+// Available time steps
 const availableTimeSteps = computed(() =>
   sliderSteps.value.filter((s) => s.timeLabel !== "före")
 );
 
+// Current time icon
 const currentTimeIcon = computed(() => {
   const step = sliderSteps.value.find((s) => s.value === time.value);
   if (!step) return "";
   return timeIconMap[step.timeLabel] || "";
 });
 
+// Image paths
 const comparisonImagePath1 = computed(() => {
   const framework = currentFramework.value.value.toLowerCase();
   const timeLabel = "före";
@@ -1750,6 +1777,7 @@ const currentImagePath = computed(() => {
   return `/images/Skogsbruksbilder/${framework}_${tLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
 
+// Watchers
 watch([currentFramework, isCompare, isFrameworkCompareMode], () => {
   const validValues = sliderSteps.value.map((s) => s.value);
   if (!validValues.includes(time.value)) {
@@ -1757,12 +1785,14 @@ watch([currentFramework, isCompare, isFrameworkCompareMode], () => {
   }
 });
 
+// Viewer references
 const singleViewerRef = ref(null);
 const beforeViewerRef = ref(null);
 const afterViewerRef = ref(null);
 const framework1ViewerRef = ref(null);
 const framework2ViewerRef = ref(null);
 
+// Viewport synchronization
 let viewportChangeSource = null;
 const globalViewport = ref({ zoom: 1, center: null });
 const openedViewers = ref({});
@@ -1864,8 +1894,7 @@ function resetAll() {
   globalViewport.value = { zoom: 1, center: { x: 0.5, y: 0.5 } };
 }
 
-const isFullScreen = ref(false);
-
+// Fullscreen toggling
 function toggleFullScreen() {
   isFullScreen.value = !isFullScreen.value;
   nextTick(() => {
@@ -1873,7 +1902,7 @@ function toggleFullScreen() {
   });
 }
 
-// 1) The currently selected "compare" option:
+// Compare choices
 const compareChoice = ref({
   id: "none",
   name: "Ingen jämförelse",
@@ -1881,7 +1910,6 @@ const compareChoice = ref({
   icon: "i-mynaui:rectangle",
 });
 
-// 2) Our three options for the Listbox:
 const compareItems = [
   {
     id: "none",
@@ -1903,9 +1931,10 @@ const compareItems = [
   },
 ];
 
+// Watch compareChoice changes
 watch(compareChoice, (newVal, oldVal) => {
   console.log("compareChoice changed from", oldVal, "to", newVal);
-  if (!newVal || !newVal.id) return; // safety check
+  if (!newVal || !newVal.id) return; // Safety check
 
   if (newVal.id === "none") {
     isCompare.value = false;
@@ -1919,6 +1948,7 @@ watch(compareChoice, (newVal, oldVal) => {
   }
 });
 
+// Function to nudge OpenSeadragonViewer
 function nudgeOpenSeadragon() {
   console.log("[modell.vue] Nudging OpenSeadragonViewer...");
   if (singleViewerRef.value?.viewer && currentImagePath.value) {
