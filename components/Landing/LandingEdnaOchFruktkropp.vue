@@ -2,15 +2,14 @@
   <div class="py-16 mt-12">
     <div class="container mx-auto px-6 text-center">
       <BaseHeading size="4xl" lead="thight" class="font-bold mb-4 text-center">
-        Artlistor baserade på <br /><span class="text-primary-500"
-          >DNA-analyser och samlad kunskap</span
+        Undersök vilka mykorrhizasvampar <br /><span class="text-primary-500"
+          >som kan finnas i olika skogar</span
         >
       </BaseHeading>
       <p class="text-xl mb-10 text-neutral-500 mx-40 text-center">
-        För varje skogsmiljö presenteras data från DNA-analyser av jordprover
-        som samlats in genom Markinventeringen. Denna data kompletteras med
-        sakkunnigas kunskap från SLU om var naturvårdsarter och matsvampar kan
-        finnas.
+        Här kan du söka på svenska skogsmiljöer för att se vilka arter som kan
+        finnas i marken baserat på DNA-analyser av svampmycel i jordprover samt
+        vår samlade kunskap om var olika arters fruktkroppar förekommer.
       </p>
     </div>
     <div class="container mx-auto px-6 lg:grid lg:grid-cols-2 lg:gap-8">

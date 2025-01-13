@@ -548,12 +548,12 @@
             class="absolute bottom-0 bg-neutral-50/90 backdrop-blur-xl z-50 p-5 w-full"
           >
             <div class="slider-container flex flex-col items-center w-full">
-              <BaseProgress
+              <!-- <BaseProgress
                 title="Default progress bar"
                 size="sm"
                 :value="time"
                 color="primary"
-              />
+              /> -->
               <div class="flex justify-between items-center w-full mt-4 gap-10">
                 <div
                   v-for="step in sliderSteps"
@@ -700,7 +700,7 @@
               shape="full"
               class="text-neutral-400 w-72 ps-4"
             />
-            <BaseButtonIcon shape="full" @click="toggleFullScreen">
+            <!-- <BaseButtonIcon shape="full" @click="toggleFullScreen">
               <Icon
                 v-if="!isFullScreen"
                 name="material-symbols:open-in-full"
@@ -711,7 +711,7 @@
                 name="material-symbols:close-fullscreen"
                 class="size-5"
               />
-            </BaseButtonIcon>
+            </BaseButtonIcon> -->
           </div>
           <TimelineInfoBox
             :currentFramework="currentFramework"
@@ -996,7 +996,7 @@
                   class="text-neutral-400 w-72 ps-4"
                 />
               </div>
-              <BaseButtonIcon shape="full" @click="toggleFullScreen">
+              <!-- <BaseButtonIcon shape="full" @click="toggleFullScreen">
                 <Icon
                   v-if="!isFullScreen"
                   name="material-symbols:open-in-full"
@@ -1007,7 +1007,7 @@
                   name="material-symbols:close-fullscreen"
                   class="size-5"
                 />
-              </BaseButtonIcon>
+              </BaseButtonIcon> -->
             </div>
           </div>
 
@@ -1244,13 +1244,13 @@
               <!-- Slider Container -->
               <div class="w-full p-5">
                 <div class="slider-container flex flex-col items-center w-full">
-                  <BaseProgress
+                  <!-- <BaseProgress
                     title="Default progress bar"
                     size="sm"
                     :value="time"
                     color="primary"
-                  />
-                  <div class="flex justify-between items-center w-full mt-4">
+                  /> -->
+                  <div class="flex justify-between items-center w-full">
                     <div
                       v-for="step in sliderSteps"
                       :key="step.value"
@@ -1271,59 +1271,17 @@
                   </div>
                 </div>
               </div>
-              <div class="grid grid-cols-3 gap-4">
-                <div
-                  class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5 p-6 object-bottom"
-                >
-                  <BaseHeading size="md">Svampgrupper</BaseHeading>
-                  <BaseHeading
-                    size="sm"
-                    weight="thin"
-                    class="text-neutral-500 mb-4"
-                    >Visar hur stor del av den totala svampmängden olika grupper
-                    utgör inom avverkningsytan</BaseHeading
-                  >
-                  <BarChartSkogsbruk
-                    :currentFramework="currentFramework"
-                    :currentFramework2="
-                      isFrameworkCompareMode ? currentFramework2 : null
-                    "
-                    :currentStartskog="currentStartskog"
-                    :timeLabel="timeLabelForDataFiltering"
-                    :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-                    :currentTimeLabel="currentTimeLabel"
-                    :isCompareMode="isCompare"
-                    :isFrameworkCompareMode="isFrameworkCompareMode"
-                    class="h-full inline-block align-bottom"
-                  />
-                </div>
-                <div
-                  class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5 p-6 object-bottom"
-                >
-                  <BaseHeading size="md">Rödlistade och matsvampar</BaseHeading>
-                  <BaseHeading
-                    size="sm"
-                    weight="thin"
-                    class="text-neutral-500 mb-4"
-                    >Visar hur stor del av den totala svampmängden olika grupper
-                    utgör inom avverkningsytan</BaseHeading
-                  >
-
-                  <BarChartSkogsbrukRödMat
-                    :currentFramework="currentFramework"
-                    :currentFramework2="
-                      isFrameworkCompareMode ? currentFramework2 : null
-                    "
-                    :currentStartskog="currentStartskog"
-                    :timeLabel="timeLabelForDataFiltering"
-                    :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-                    :currentTimeLabel="currentTimeLabel"
-                    :isCompareMode="isCompare"
-                    :isFrameworkCompareMode="isFrameworkCompareMode"
-                    class="h-full"
-                  />
-                </div>
-              </div>
+              <TimelineInfoBox
+                :currentFramework="currentFramework"
+                :currentTime="timeLabelForDataFiltering"
+                :currentStartskog="currentStartskog"
+                :isCompare="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                :compareFramework="currentFramework2"
+                :compareStartskog="currentStartskog"
+                :compareTime="timeLabelForDataFiltering2"
+                :currentTimeLabel="currentTimeLabel"
+              />
             </div>
 
             <div class="p-4 bg-white bg-opacity-50 rounded-xl h-fit">
@@ -1487,17 +1445,58 @@
                 </div>
               </UModal>
             </div> -->
-              <TimelineInfoBox
-                :currentFramework="currentFramework"
-                :currentTime="timeLabelForDataFiltering"
-                :currentStartskog="currentStartskog"
-                :isCompare="isCompare"
-                :isFrameworkCompareMode="isFrameworkCompareMode"
-                :compareFramework="currentFramework2"
-                :compareStartskog="currentStartskog"
-                :compareTime="timeLabelForDataFiltering2"
-                :currentTimeLabel="currentTimeLabel"
-              />
+
+              <div
+                class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-neutral-50 bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 p-6 object-bottom"
+              >
+                <BaseHeading size="md">Svampgrupper</BaseHeading>
+                <BaseHeading
+                  size="sm"
+                  weight="thin"
+                  class="text-neutral-500 mb-4"
+                  >Visar hur stor del av den totala svampmängden olika grupper
+                  utgör inom avverkningsytan</BaseHeading
+                >
+                <BarChartSkogsbruk
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                  :currentTimeLabel="currentTimeLabel"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                  class="h-full inline-block align-bottom"
+                />
+              </div>
+              <div
+                class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-neutral-50 bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5 p-6 object-bottom"
+              >
+                <BaseHeading size="md">Rödlistade och matsvampar</BaseHeading>
+                <BaseHeading
+                  size="sm"
+                  weight="thin"
+                  class="text-neutral-500 mb-4"
+                  >Visar hur stor del av den totala svampmängden olika grupper
+                  utgör inom avverkningsytan</BaseHeading
+                >
+
+                <BarChartSkogsbrukRödMat
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                  :currentTimeLabel="currentTimeLabel"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                  class="h-full"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1696,7 +1695,7 @@ const sliderSteps = computed(() => {
   steps.push(
     { value: 45, label: "20 år efter avverkning", timeLabel: "20" },
     { value: 70, label: "50 år efter avverkning", timeLabel: "50" },
-    { value: 99, label: "80 år efter avverkning", timeLabel: "80" }
+    { value: 99, label: "+80 år efter avverkning", timeLabel: "80" }
   );
   return steps;
 });
@@ -1744,7 +1743,7 @@ const comparisonImagePath1 = computed(() => {
   const treeVisibility = showTree.value ? "visa" : "dölj";
   const fungiVisibility = showFungi.value ? "visa" : "dölj";
   const startskogValue = currentStartskog.value.value;
-  return `/images/Skogsbruksbilder/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+  return `/images/DZI_Images/${framework}_${timeLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
 
 const currentImagePath2 = computed(() => {
@@ -1753,7 +1752,7 @@ const currentImagePath2 = computed(() => {
   const treeVisibility = showTree.value ? "visa" : "dölj";
   const fungiVisibility = showFungi.value ? "visa" : "dölj";
   const startskogValue = currentStartskog.value.value;
-  return `/images/Skogsbruksbilder/${framework}_${tLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+  return `/images/DZI_Images/${framework}_${tLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
 
 const currentImageKey = computed(() => {
@@ -1774,7 +1773,7 @@ const currentImagePath = computed(() => {
   const treeVisibility = showTree.value ? "visa" : "dölj";
   const fungiVisibility = showFungi.value ? "visa" : "dölj";
   const startskogValue = currentStartskog.value.value;
-  return `/images/Skogsbruksbilder/${framework}_${tLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
+  return `/images/DZI_Images/${framework}_${tLabel}_${fungiVisibility}_${treeVisibility}_${startskogValue}.png`;
 });
 
 // Watchers

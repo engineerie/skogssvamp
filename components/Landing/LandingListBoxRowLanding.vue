@@ -7,9 +7,9 @@
       >
     </BaseHeading>
     <p class="text-xl mb-10 text-neutral-500 mx-40 text-center">
-      Genom att ange var i Sverige, vilka trädslag som växer där, deras ålder
-      och fältskitetets sammansättning kan du se vilka arter som kan förekomma i
-      miljön. Prova nedan eller sök via karta.
+      Genom att ange var i Sverige, trädslag, beståndets ålder samt dominerande
+      växter på marken kan du se vilka svampar som kan förekomma. Prova nedan
+      eller sök via karta.
     </p>
   </div>
   <div

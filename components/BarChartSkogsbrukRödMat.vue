@@ -80,6 +80,12 @@ const chartOptions = ref({
       easing: "easeinout",
       speed: 500,
     },
+    dropShadow: {
+      enabled: true,
+      top: -0,
+      blur: 3,
+      opacity: 0.1,
+    },
   },
   plotOptions: {
     bar: {
@@ -87,6 +93,9 @@ const chartOptions = ref({
       distributed: true,
       // borderRadius: 4,
     },
+  },
+  stroke: {
+    width: [1, 1, 4],
   },
   dataLabels: {
     enabled: false,
@@ -132,6 +141,12 @@ const chartOptions = ref({
     markers: {
       fillColors: colors, // ["#b91c1c", "#eab308"]
       radius: 12,
+      dropShadow: {
+        enabled: true,
+        top: -0,
+        blur: 3,
+        opacity: 0.1,
+      },
     },
   },
   tooltip: {

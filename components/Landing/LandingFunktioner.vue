@@ -39,7 +39,7 @@
             </NuxtLink>
           </div>
         </div> -->
-        <div class="container mx-auto px-6 text-center mt-28">
+        <!-- <div class="container mx-auto px-6 text-center mt-28">
           <BaseHeading
             size="5xl"
             lead="tight"
@@ -58,7 +58,7 @@
             Här kan du söka på olika svenska skogsmiljöer för att se vilka arter
             som kan finnas i marken.
           </p>
-        </div>
+        </div> -->
         <img src="/images/SvamparSverige4.svg" class="z-10 rounded-b-3xl" />
       </div>
       <!-- <LandingListBoxRowLanding class="" /> -->

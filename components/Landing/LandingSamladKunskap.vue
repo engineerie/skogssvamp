@@ -35,23 +35,21 @@
         size="xl"
         class="text-neutral-500 dark:text-neutral-400 mb-6"
       >
-        Sedan 2015 har Markinventeringen samlat in humusprover som
-        DNA-analyserats för att kartlägga svamparnas förekomst. Än så länge har
-        2500 prover analyserats, vilket ger en god bild av vanliga
-        mykorrhizasvampar i olika skogar. Materialet fångar dock inte upp mindre
-        frekventa arter, eftersom dessa ofta är lokalt begränsade och sällan
-        förekommer i de små proverna.
+        Våra kunskaper om svampar och deras ekologi baseras främst på uppgifter
+        om fruktkroppar. Här har vi sammanställt sådan information om mat- och
+        giftsvampar samt naturvårdsintressanta svampar (rödlistade och
+        signalarter).
       </BaseHeading>
       <div class="flex items-start">
         <!-- Navigation Buttons -->
-        <div class="flex gap-4">
+        <!-- <div class="flex gap-4">
           <NuxtLink to="/svampdata">
             <BaseButton color="primary" size="md" shape="full">
               <Icon name="mdi:file-cog-outline" class="-ms-1 mr-1 size-5" />
               <span>Läs dokumentation</span>
             </BaseButton>
           </NuxtLink>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

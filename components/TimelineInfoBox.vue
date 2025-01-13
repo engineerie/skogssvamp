@@ -116,9 +116,9 @@
     </section>
 
     <!-- CASE B: Compare mode => Before/After -->
-    <section v-else-if="isCompare">
+    <section v-else-if="isCompare" class="grid grid-cols-2">
       <!-- Before box -->
-      <div class="mb-4 pb-4 border-b">
+      <div class="mb-4 pb-4 pr-6 border-r">
         <div v-if="beforeData">
           <!-- ICON + LABEL row -->
           <div class="flex justify-between">
@@ -231,7 +231,7 @@
 
       <!-- After box -->
       <div>
-        <div v-if="mainTimelineData">
+        <div v-if="mainTimelineData" class="pl-6 pt-7">
           <!-- “Efter avverkning” or “20 år efter avverkning” etc. badge -->
           <UBadge
             :ui="{ rounded: 'rounded-full' }"
@@ -272,9 +272,9 @@
     </section>
 
     <!-- CASE C: Framework compare mode => two frameworks -->
-    <section v-else-if="isFrameworkCompareMode">
+    <section v-else-if="isFrameworkCompareMode" class="grid grid-cols-2">
       <!-- Box #1: currentFramework -->
-      <div class="mb-4 pb-4 border-b">
+      <div class="mb-4 pb-4 pr-6 border-r">
         <div v-if="mainTimelineData">
           <div class="flex justify-between">
             <div class="flex items-center gap-2 mb-2">
@@ -386,7 +386,7 @@
 
       <!-- Box #2: compareFramework -->
       <div>
-        <div v-if="compareTimelineData">
+        <div v-if="compareTimelineData" class="pl-6">
           <div class="flex justify-between">
             <div class="flex items-center gap-2 mb-2">
               <Icon

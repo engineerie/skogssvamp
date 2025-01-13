@@ -85,7 +85,6 @@
       ></div>
       <BaseButtonIcon
         :color="isInGuide ? 'primary' : 'default'"
-        @click="openSidebar"
         shape="full"
         to="/guide"
         class="h-5 w-5 my-5"
@@ -96,7 +95,6 @@
       </BaseButtonIcon>
       <BaseButtonIcon
         :color="isInAbout ? 'primary' : 'default'"
-        @click="openSidebar"
         shape="full"
         to="/about"
         class="h-5 w-5 mb-5"

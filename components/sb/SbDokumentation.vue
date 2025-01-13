@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <BaseHeading
     size="xl"
     weight="normal"
@@ -16,14 +16,13 @@
       weight="bold"
       class="text-neutral-800 dark:text-neutral-100"
     >
-      Svampar i olika skogar
+      Markinventeringen och Rikskogstaxeringen
     </BaseHeading>
     <span
       class="transform transition-transform pb-1"
       :class="!svamparOpen ? 'rotate-90' : ''"
     >
       <icon name="heroicons:chevron-down-20-solid" size="25px" />
-      <!-- Down arrow, rotates when open -->
     </span>
   </button>
   <transition name="slide-fade">
@@ -31,7 +30,6 @@
       <UVerticalNavigation class="ml-4" :links="svampar" :ui="uiSettings" />
     </div>
   </transition>
-  <!-- Collapsible Section for "Svampar och skogsbruk" -->
   <button
     @click="toggleSkogssbruk"
     class="flex justify-between items-center w-full text-left py-2 mt-4"
@@ -48,7 +46,6 @@
       :class="!skogssbrukOpen ? 'rotate-90' : ''"
     >
       <icon name="heroicons:chevron-down-20-solid" size="25px" />
-      <!-- Down arrow, rotates when open -->
     </span>
   </button>
   <transition name="slide-fade">
@@ -59,7 +56,7 @@
       :ui="uiSettings"
     />
   </transition>
-</template>
+</template> -->
 
 <script setup>
 import { ref } from "vue";
@@ -87,15 +84,16 @@ const skogssbruk = [
 ];
 
 const uiSettings = {
-  wrapper: "border-s border-gray-200 dark:border-gray-800 space-y-2",
-  base: "group block border-s -ms-px leading-6 before:hidden",
-  padding: "p-0 ps-4",
-  rounded: "",
-  font: "",
-  ring: "",
-  active: "text-primary-500 dark:text-primary-400 border-current font-semibold",
+  // wrapper: "",
+  // base: "",
+
+  // rounded: "",
+  // font: "",
+  // ring: "",
+  active:
+    "text-primary-500 dark:text-primary-400 before:bg-neutral-50 dark:before:bg-neutral-900",
   inactive:
-    "border-transparent hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300",
+    "hover:text-primary-500 hover:dark:text-primary-400 before:bg-neutral-50 dark:before:bg-neutral-900",
 };
 </script>
 

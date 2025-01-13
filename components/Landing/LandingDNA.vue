@@ -21,22 +21,40 @@
         size="xl"
         class="text-neutral-500 dark:text-neutral-400 mb-6"
       >
-        Sedan 2015 har Markinventeringen samlat in humusprover som
-        DNA-analyserats för att kartlägga svamparnas förekomst. Än så länge har
-        2500 prover analyserats, vilket ger en god bild av vanliga
-        mykorrhizasvampar i olika skogar. Materialet fångar dock inte upp mindre
-        frekventa arter, eftersom dessa ofta är lokalt begränsade och sällan
-        förekommer i de små proverna.
+        Sedan 2015 samlar
+        <NuxtLink
+          to="https://www.slu.se/centrumbildningar-och-projekt/markinventeringen/"
+          class="text-primary-500 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Markinventeringen</NuxtLink
+        >
+        tillsammans med
+        <NuxtLink
+          to="https://www.slu.se/centrumbildningar-och-projekt/riksskogstaxeringen/"
+          class="text-primary-500 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          SLU Rikskogstaxeringen</NuxtLink
+        >
+        årligen in markprover som DNA-analyseras för att identifiera och
+        undersöka svampar i skogsmark. Hittills har prover från 2500 skogar runt
+        om i Sverige analyserats. Resultaten ger en bra bild av förekomsten av
+        vanliga mykorrhizasvampar. Denna stickprovsundersökning fångar dock inte
+        upp ovanligare arter, eftersom dessa ofta är lokalt begränsade och
+        sällan förekommer i de små proverna.
       </BaseHeading>
       <div class="flex items-start">
         <!-- Navigation Buttons -->
         <div class="flex gap-4">
-          <NuxtLink to="/svampdata">
+          <!-- <NuxtLink to="/svampdata">
             <BaseButton color="primary" size="md" shape="full">
               <Icon name="mdi:file-cog-outline" class="-ms-1 mr-1 size-5" />
               <span>Läs dokumentation</span>
             </BaseButton>
-          </NuxtLink>
+          </NuxtLink> -->
           <NuxtLink to="https://svamparisverige.se/" target="blank">
             <BaseButton color="default" type="outline" size="md" shape="full">
               <Icon

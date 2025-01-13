@@ -38,10 +38,10 @@
       </div>
     </div>
   </UModal>
-  <div class="py-64 z-10">
-    <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center">
+  <div class="pt-52 mb-16 z-10 mx-24">
+    <div class="px-6 items-center text-center">
       <!-- Text Content -->
-      <div class="mb-10 lg:mb-0 lg:w-1/2">
+      <div class="mb-10 lg:mb-0">
         <!-- Existing content -->
         <!-- <BaseButton
           to="https://www.slu.se/ew-nyheter/2023/3/se-svampen-i-din-skog/"
@@ -55,17 +55,24 @@
           <span>Läs artikel på slu.se</span>
           <Icon name="lucide:arrow-up-right" class="me-1 h-4 w-4" />
         </BaseButton> -->
-        <BaseHeading
-          size="7xl"
+        <!-- <BaseHeading
+          size="2xl"
           lead="tight"
-          class="text-gray-800 dark:text-white"
+          class="text-primary-500 dark:text-white"
         >
-          Se svampen<br /><span class="text-primary-500">i skogsmarken</span>
+          Svampskogen.se
+        </BaseHeading> -->
+        <BaseHeading
+          size="4xl"
+          lead="tight"
+          class="text-neutral-800 dark:text-white"
+        >
+          Utforska
+          <span class="text-primary-500">mykorrhizasvampar</span>
+          i olika skogar <br />
+          och se hur de reagerar vid
+          <span class="text-primary-500">skogsbruksåtgärder</span>
         </BaseHeading>
-        <p class="mt-4 text-xl text-neutral-500 dark:text-gray-300">
-          Utforska vilka mykorrhizasvampar som kan finnas i olika skogar och hur
-          de reagerar vid skogsbruksåtgärder.
-        </p>
         <NuxtLink
           to="/start"
           class="inline-flex items-center justify-center mt-8"
@@ -74,7 +81,7 @@
             class="text-neutral-100 rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-primary-500 border-neutral-300 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-primary-400"
           >
             <!-- <Icon name="mingcute:mushroom-line" class="-ms-1 h-6 w-6 mr-3" /> -->
-            <span>Kom igång</span>
+            <span>Börja här</span>
           </div>
         </NuxtLink>
         <NuxtLink

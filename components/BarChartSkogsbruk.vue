@@ -70,11 +70,11 @@ const categories = [
 ];
 
 const colors = [
-  "#e5e7eb", // Skinnsvampar
-  "#030712", // Spindelskivlingar
-  "#6b7280", // Kremlor och riskor
+  "#334155", // Skinnsvampar
+  "#000000", // Spindelskivlingar
+  "#ffffff", // Kremlor och riskor
 
-  "#854d0e", // Övriga svampar
+  "#94a3b8", // Övriga svampar
 ];
 
 const chartSeries = ref([]);
@@ -89,6 +89,12 @@ const chartOptions = ref({
       easing: "easeinout",
       speed: 500,
     },
+    dropShadow: {
+      enabled: true,
+      top: -0,
+      blur: 3,
+      opacity: 0.1,
+    },
   },
   plotOptions: {
     bar: {
@@ -96,6 +102,9 @@ const chartOptions = ref({
       distributed: true,
       // borderRadius: 4,
     },
+  },
+  stroke: {
+    width: [1, 1, 4],
   },
   dataLabels: {
     enabled: false,
@@ -141,6 +150,7 @@ const chartOptions = ref({
     markers: {
       fillColors: colors, // matching 4 colors
       radius: 12,
+      strokeWidth: 1,
     },
   },
   tooltip: {

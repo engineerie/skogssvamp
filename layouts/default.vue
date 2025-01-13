@@ -49,7 +49,7 @@
         </transition>
 
         <div class="flex justify-end gap-4 items-center">
-          <BaseButtonIcon
+          <!-- <BaseButtonIcon
             shape="full"
             size="md"
             v-if="isDashboard"
@@ -57,7 +57,7 @@
             data-nui-tooltip="Dela miljö på sociala medier"
           >
             <Icon name="material-symbols:share" class="size-5" />
-          </BaseButtonIcon>
+          </BaseButtonIcon> -->
           <BaseButtonIcon
             shape="full"
             size="md"
@@ -68,7 +68,7 @@
           >
             <Icon name="akar-icons:link-chain" class="size-5" />
           </BaseButtonIcon>
-          <BaseButtonIcon
+          <!-- <BaseButtonIcon
             shape="full"
             size="md"
             v-if="isDashboard"
@@ -76,8 +76,14 @@
             data-nui-tooltip="Spara miljö som PDF"
           >
             <Icon name="carbon:generate-pdf" class="size-5" />
-          </BaseButtonIcon>
-          <BaseThemeSwitch />
+          </BaseButtonIcon> -->
+          <BaseMessage type="danger" icon>
+            <span class="text-red-500">
+              <b>Testversion:</b> information kan vara ofullständig eller
+              felaktig
+            </span>
+          </BaseMessage>
+          <!-- <BaseThemeSwitch /> -->
         </div>
       </div>
     </div>
