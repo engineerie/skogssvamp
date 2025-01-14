@@ -1,43 +1,28 @@
 <template>
-  <UModal v-model="isOpen">
-    <div class="p-4 w-full">
-      <div
-        class="relative w-full pb-[56.25%] bg-transparent border border-neutral-300 rounded-2xl cursor-pointer"
-        style="
-          background-image: repeating-linear-gradient(
-            -45deg,
-            rgba(0, 0, 0, 0.1) 0px,
-            rgba(0, 0, 0, 0.1) 5px,
-            transparent 5px,
-            transparent 10px
-          );
-        "
-      >
-        <!-- Play Triangle -->
-        <button
-          class="absolute inset-0 flex items-center justify-center focus:outline-none"
-          aria-label="Play Video"
-          style="
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin: auto;
-          "
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="#333"
-            width="40"
-            height="40"
-          >
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </button>
+  <UModal
+    v-model="isOpen"
+    :ui="{
+      width: 'w-full sm:max-w-6xl',
+    }"
+  >
+    <!-- Ändrad från w-full till max-w-4xl -->
+    <div class="p-6 w-full">
+      <!-- Ökad padding för bättre layout -->
+      <!-- YouTube Iframe -->
+      <div class="relative w-full pb-[56.25%]">
+        <iframe
+          class="absolute top-0 left-0 w-full h-full rounded-2xl border border-neutral-300"
+          src="https://www.youtube.com/embed/cnMmNMoqBME"
+          title="Skogssvamp Introduktionsfilm"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   </UModal>
+
   <div class="pt-52 mb-16 z-10 mx-24">
     <div class="px-6 items-center text-center">
       <!-- Text Content -->
