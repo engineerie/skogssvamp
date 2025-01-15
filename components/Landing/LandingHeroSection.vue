@@ -9,11 +9,13 @@
     <div class="p-6 w-full">
       <!-- Ökad padding för bättre layout -->
       <!-- YouTube Iframe -->
-      <div class="relative w-full pb-[56.25%]">
+      <div
+        class="relative w-full pb-[56.25%] border border-neutral-200 rounded-2xl"
+      >
         <iframe
-          class="absolute top-0 left-0 w-full h-full rounded-2xl border border-neutral-300"
-          src="https://www.youtube.com/embed/cnMmNMoqBME"
-          title="Skogssvamp Introduktionsfilm"
+          class="absolute top-0 left-0 w-full h-full rounded-2xl"
+          src="https://www.youtube.com/embed/k3QjCZNrp1c"
+          title="Introduktionsfilm Skogssvamp"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
