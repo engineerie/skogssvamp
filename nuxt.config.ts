@@ -42,7 +42,20 @@ export default defineNuxtConfig({
     "vue3-carousel-nuxt",
     "nuxt-swiper",
     "@nuxt/image",
+    "@nuxtjs/color-mode",
   ],
+
+  colorMode: {
+    preference: "light", // default value of $colorMode.preference
+    fallback: "light", // fallback value if not system preference found
+    hid: "nuxt-color-mode-script",
+    globalName: "__NUXT_COLOR_MODE__",
+    componentName: "ColorScheme",
+    classPrefix: "",
+    classSuffix: "-mode",
+    storage: "localStorage", // or 'sessionStorage' or 'cookie'
+    storageKey: "nuxt-color-mode",
+  },
 
   mapbox: {
     accessToken:
