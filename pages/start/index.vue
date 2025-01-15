@@ -1,5 +1,29 @@
 <template>
   <UModal
+    v-model="isPdfOpen"
+    :ui="{
+      width: 'w-full sm:max-w-6xl',
+    }"
+  >
+    <!-- Modal Content for PDF Viewer -->
+    <div class="p-6 w-full">
+      <!-- Increased padding for better layout -->
+      <!-- PDF Viewer -->
+      <div
+        class="relative w-full h-[80vh] border border-neutral-200 rounded-2xl"
+      >
+        <iframe
+          class="absolute top-0 left-0 w-full h-full rounded-2xl"
+          :src="pdfUrl"
+          title="PDF Viewer"
+          frameborder="0"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </UModal>
+  <UModal
     v-model="isOpen"
     :ui="{
       width: 'w-full sm:max-w-6xl',
@@ -29,12 +53,24 @@
     class="inline-flex items-center justify-center cursor-pointer mt-8 mb-4"
   >
     <div
-      class="rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-neutral-100 border-neutral-300 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-neutral-50"
+      class="rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-neutral-100 border-violet-500 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-neutral-50 text-violet-500"
     >
       <span>Introduktionsfilm</span>
       <Icon name="heroicons:play-circle-solid" class="h-6 w-6 ml-1 -mr-2" />
     </div>
   </NuxtLink>
+  <NuxtLink
+    @click.prevent="isPdfOpen = true"
+    class="inline-flex items-center justify-center cursor-pointer mt-8 mb-4 ml-4"
+  >
+    <div
+      class="rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-neutral-100 border-violet-500 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-neutral-50 text-violet-500"
+    >
+      <span>Manual PDF</span>
+      <Icon name="heroicons:document-text-solid" class="h-6 w-6 ml-1 -mr-2" />
+    </div>
+  </NuxtLink>
+
   <BaseHeading size="sm" weight="thin" class="text-neutral-500"
     >Appfunktioner</BaseHeading
   >
@@ -157,4 +193,7 @@
 
 <script setup>
 const isOpen = ref(false);
+const isPdfOpen = ref(false); // New state for PDF modal
+
+const pdfUrl = "docs/Manual.pdf"; // Ensure the path matches the location in public/
 </script>
