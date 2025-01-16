@@ -53,7 +53,7 @@ export default defineNuxtConfig({
     componentName: "ColorScheme",
     classPrefix: "",
     classSuffix: "-mode",
-    storage: "localStorage", // or 'sessionStorage' or 'cookie'
+    storage: false, // or 'sessionStorage' or 'cookie'
     storageKey: "nuxt-color-mode",
   },
 
