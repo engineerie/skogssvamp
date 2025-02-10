@@ -74,14 +74,14 @@
   <BaseHeading size="sm" weight="thin" class="text-neutral-500"
     >Appfunktioner</BaseHeading
   >
-  <div class="grid grid-cols-4 gap-5 mb-12 mt-1">
-    <NuxtLink to="/svampdata">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
+    <NuxtLink to="/svampdata/dashboard">
       <div
         class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
       >
         <div class="p-4">
           <div class="flex gap-2 items-center text-neutral-900">
-            <icon name="material-symbols:map-outline-rounded" class="h-6 w-6" />
+            <icon name="lineicons:mushroom-1" class="h-6 w-6" />
 
             <BaseHeading size="lg" weight="thin">
               Sveriges mykorrhizasvampar
@@ -102,10 +102,7 @@
       >
         <div class="p-4">
           <div class="flex gap-2 items-center text-neutral-900">
-            <icon
-              name="material-symbols:nature-people-outline-rounded"
-              class="h-6 w-6"
-            />
+            <icon name="healthicons:forest-persons-outline" class="size-6" />
             <BaseHeading size="lg" weight="thin"> Skogsskötsel </BaseHeading>
           </div>
 
@@ -117,14 +114,14 @@
             Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
           </BaseHeading>
         </div>
-        <img src="/images/Skogssbruk.svg" class="" />
+        <img src="/images/Skogsskötsel4.svg" class="" />
       </div>
     </NuxtLink>
   </div>
   <BaseHeading size="sm" weight="thin" class="text-neutral-500"
     >Resurser</BaseHeading
   >
-  <div class="grid grid-cols-4 gap-5 mb-12 mt-1">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
     <NuxtLink to="/svampkunskap">
       <div
         class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden"
@@ -149,7 +146,7 @@
     >Dokumentation</BaseHeading
   >
 
-  <div class="grid grid-cols-4 gap-5 mb-12 mt-1">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
     <NuxtLink to="/guide">
       <div
         class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"

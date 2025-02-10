@@ -1,6 +1,6 @@
 <template>
   <!-- Geography Options -->
-  <div class="container mx-auto px-6 text-center">
+  <!-- <div class="container mx-auto px-6 text-center">
     <BaseHeading lead="tight" size="4xl" class="font-bold mb-4 text-center">
       Använd skogsmiljö-filter <br /><span class="text-primary-500"
         >eller utforska via karta</span
@@ -11,7 +11,7 @@
       växter på marken kan du se vilka svampar som kan förekomma. Prova nedan
       eller sök via karta.
     </p>
-  </div>
+  </div> -->
   <div
     class="grid grid-cols-4 gap-3 p-5 pb-4 dark:border-neutral-800 border-neutral-00 w-fulloverflow-y-scroll shrink-0 mb-6"
   >

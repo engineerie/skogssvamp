@@ -13,7 +13,7 @@
     <div class="">
       <div
         class="flex justify-between mb-2 items-end"
-        :class="{ 'mt-3': isNormalView }"
+        :class="{ '-mt-4': isNormalView }"
       >
         <UPopover
           mode="hover"
@@ -48,7 +48,7 @@
 
         <div v-else></div>
 
-        <div class="flex gap-2 items-end">
+        <div class="flex gap-2 items-end" v-if="!isNormalView">
           <div class="flex items-end h-10">
             <div class="w-28">
               <BaseHeading weight="medium" size="xs" class="text-neutral-400"
@@ -82,7 +82,8 @@
           <!-- display the  "sample_env_count" here  -->
 
           <div
-            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-l-full text-neutral-400"
+            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-full text-neutral-400"
+            v-if="!isNormalView"
           >
             <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
               >{{ data ? data.length : 0 }}
@@ -90,12 +91,11 @@
             <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
           </div>
 
-          <div
+          <!-- <div
             class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
             :data-nui-tooltip="'Mycel från få arter dominerar i marken'"
           >
             <div class="flex items-end">
-              <!-- <div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div> -->
 
               <Icon
                 name="fluent:shape-organic-16-filled"
@@ -121,7 +121,6 @@
             :data-nui-tooltip="'De flesta arterna och deras mycel är ovanliga i marken'"
           >
             <div class="flex items-end">
-              <!-- <div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div> -->
               <Icon
                 name="fluent:shape-organic-16-filled"
                 class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-[3]"
@@ -143,7 +142,7 @@
                 >{{ remainingCount }} Arter</BaseHeading
               >
             </div>
-          </div>
+          </div> -->
           <BaseInput
             v-if="!isNormalView"
             icon="i-heroicons-magnifying-glass-20-solid"
@@ -152,6 +151,7 @@
             placeholder="Sök i tabell"
           />
           <BaseButtonIcon
+            v-if="!isNormalView"
             shape="full"
             @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
           >
@@ -215,7 +215,7 @@
             sort-mode="manual"
             :key="route.fullPath"
           >
-            <template
+            <!-- <template
               v-if="isNormalView"
               #sample_plot_count-data="{ row, index }"
             >
@@ -244,11 +244,41 @@
                   :data-nui-tooltip="`Förekommer i ${row.sample_plot_count} av ${sampleEnvCount} skogar`"
                 />
               </div>
+            </template> -->
+            <template #sample_plot_count-data="{ row, index }">
+              <!-- Show icons if `showIcons` is true -->
+              <div v-if="showIcons" class="flex items-center justify-center">
+                <div
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="`Förekommer i ${row.sample_plot_count} av ${sampleEnvCount} skogar`"
+                >
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    :class="'h-7 w-7 -my-2'"
+                    :style="{ color: allColors[index] }"
+                  />
+                </div>
+              </div>
+
+              <!-- Otherwise show progress bars -->
+              <div v-else class="px-2 w-32">
+                <UProgress
+                  :max="sampleEnvCount"
+                  :value="row.sample_plot_count"
+                  size="md"
+                  :color="''"
+                  :style="{ color: allColors[row.colorIndex] }"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="`Förekommer i ${row.sample_plot_count} av ${sampleEnvCount} skogar`"
+                />
+              </div>
             </template>
             <template #snamn-data="{ row }" v-if="isNormalView">
               <div class="truncate">
                 {{ capitalize(row.snamn) }}
-                <span class="italic">({{ capitalize(row.taxon) }})</span>
+                <span class="italic text-neutral-400"
+                  >({{ capitalize(row.taxon) }})</span
+                >
               </div>
             </template>
             <template #snamn-data="{ row }" v-if="!isNormalView">
@@ -327,13 +357,86 @@
           <div
             class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-700"
           >
-            <div>
-              <!-- Display the current range and total items -->
-              <BaseProse class="text-sm"
+            <UPopover
+              mode="hover"
+              class="flex items-end cursor-default"
+              :popper="{ placement: 'top-end' }"
+            >
+              <div
+                class="flex h-fit shrink-0 items-center"
+                @click="showIcons = !showIcons"
+              >
+                <!-- Left mini-legend -->
+                <div
+                  class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-white border-[0.5px] border-r-0 border-neutral-300 text-neutral-400"
+                >
+                  <div class="flex items-end">
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
+                    />
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
+                    />
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 mr-2 text-gray-300 z-0"
+                    />
+                    <BaseHeading
+                      size="xs"
+                      weight="medium"
+                      class="text-neutral-400"
+                    >
+                      {{ topCount }} Arter
+                    </BaseHeading>
+                  </div>
+                </div>
+
+                <!-- Right mini-legend -->
+                <div
+                  class="flex items-end px-3 py-1 bg-white border-[0.5px] border-neutral-300 rounded-r-xl text-neutral-400 border-l-0"
+                >
+                  <div class="flex items-end">
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
+                    />
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
+                    />
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
+                    />
+                    <Icon
+                      name="fluent:shape-organic-16-filled"
+                      class="h-6 w-6 mr-2 text-rose-400 z-0"
+                    />
+                    <BaseHeading
+                      size="xs"
+                      weight="medium"
+                      class="text-neutral-400"
+                    >
+                      {{ remainingCount }} Arter
+                    </BaseHeading>
+                  </div>
+                </div>
+              </div>
+              <template #panel>
+                <div class="p-4 w-96 text-sm text-neutral-500">
+                  Få arter är vanliga och många arter är ovanliga.
+                </div>
+              </template>
+            </UPopover>
+
+            <!-- Display the current range and total items -->
+            <!-- <BaseProse class="text-sm"
                 >Visar {{ startItem }} till {{ endItem }} av
                 {{ totalItems }} arter
-              </BaseProse>
-            </div>
+              </BaseProse> -->
+
             <div>
               <!-- Pagination component -->
               <div v-if="!isNormalView && rowsPerPage !== 'Alla'">
@@ -395,6 +498,9 @@ import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
 
+// This new boolean controls how 'förekomst' will be shown
+const showIcons = ref(false);
+
 const speciesStore = useSpeciesStore();
 
 function selectRow(row) {
@@ -415,7 +521,7 @@ const color = computed(() => {
 // Method to strip 'detaljer' from the URL if it exists
 const stripDetailsFromURL = (url) => {
   if (!url) return "";
-  return url.replace("/detaljer", "");
+  return url.replace("/detaljer", "").replace("/artinformation", "");
 };
 
 // Capitalize function for displaying the species name

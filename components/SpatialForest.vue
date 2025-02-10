@@ -1,34 +1,4 @@
 <template>
-  <!-- Info Button -->
-  <!-- <BaseIconBox
-    shape="full"
-    size="xs"
-    variant="solid"
-    color="muted"
-    class="z-50 fixed top-2 right-2 border-muted-200 dark:border-muted-600 dark:bg-muted-700 border bg-white text-gray-500"
-    @mouseover="isHovered = true"
-    @mouseleave="isHovered = false"
-  >
-    <Icon name="material-symbols:info-i-rounded" class="size-4" />
-  </BaseIconBox>
-
-  <Transition name="fade">
-    <UCard
-      v-show="isHovered"
-      class="z-50 fixed top-12 right-2 ml-12 bg-opacity-90 backdrop-blur-lg text-neutral-800 dark:text-neutral-300"
-      @mouseover="isHovered = true"
-      @mouseleave="isHovered = false"
-    >
-      <BaseHeading weight="medium" size="sm">
-        Figuren illustrerar hur utbredningen av mykorrhizasvampars mycel kan se
-        ut i 41-90 år gamla tallskogar med blåbärsris i norra Sverige. De olika
-        färgerna representerar olika svampars frekvens: grått indikerar de
-        vanligaste arterna (4 arter), grönt visar de mindre vanliga arterna (10
-        arter), och lila representerar de ovanliga arterna (187 arter).
-      </BaseHeading>
-    </UCard>
-  </Transition> -->
-
   <!-- Image Section -->
   <div class="justify-center">
     <div v-if="imageUrl">
@@ -37,7 +7,7 @@
           height="505"
           width="805"
           :src="imageUrl"
-          class="image-fit border-[1px] dark:border-neutral-700 border-neutral-200 rounded-xl"
+          class="image-fit"
           format="webp"
         />
       </div>
@@ -58,48 +28,28 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
+import { storeToRefs } from "pinia";
+import { useEnvParamsStore } from "~/stores/envParamsStore";
 
-// State to track hover status
-const isHovered = ref(false);
+const envParamsStore = useEnvParamsStore();
+const { geography, forestType, standAge, vegetationType } =
+  storeToRefs(envParamsStore);
 
-// Define props to receive data from parent
-const props = defineProps({
-  geography: String,
-  forestType: String,
-  vegetationType: String,
-  standAge: String,
-  data: {
-    type: Array,
-    required: true,
-  },
-  topCount: {
-    type: Number,
-    required: true,
-  },
-  remainingCount: {
-    type: Number,
-    required: true,
-  },
-});
-
-// Destructure props for easier access
-const { data, topCount, remainingCount } = props;
-
-// Convert the props to an image filename
+// Now compute the final image URL from the store values
 const imageUrl = computed(() => {
   if (
-    props.geography &&
-    props.forestType &&
-    props.vegetationType &&
-    props.standAge
+    geography.value &&
+    forestType.value &&
+    standAge.value &&
+    vegetationType.value
   ) {
-    const imageName = `${props.geography}_${props.forestType}_${props.standAge}_${props.vegetationType}`;
-
+    const imageName = `${geography.value}_${forestType.value}_${standAge.value}_${vegetationType.value}`;
     const finalUrl = `/images/EDNA_bilder_skog/${imageName}.png`;
     console.log("Returning dynamic URL:", finalUrl);
     return finalUrl;
   }
+  return null; // or fallback placeholder
 });
 
 // List of possible values for each prop

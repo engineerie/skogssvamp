@@ -1,8 +1,9 @@
 <template>
   <div class="relative">
+    <MobileTopNav />
     <ThinSideBar
       :class="{ '-ml-20': isStartPage, 'ml-0 w-20': !isStartPage }"
-      class="z-50 transition-all duration-300 sync-transition"
+      class="z-50 transition-all duration-300 sync-transition hidden md:block"
     />
     <SideBar
       :isSidebarOpen="isSidebarOpen"
@@ -12,13 +13,14 @@
 
     <div
       :class="[
-        'fixed top-0 left-0 right-0 flex justify-between items-center z-20 transition-all duration-300',
+        'fixed top-0 left-0 right-0 justify-between items-center z-20 transition-all duration-300 hidden md:flex',
         {
-          'ml-0 hidden': isStartPage,
-          'ml-16': isSvampdataSubRoute && !isStartPage,
-          'ml-[400px]': isSidebarOpen && !isStartPage,
-          'ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
-          'ml-[20px]': isSidebarOpen && isDocumentation,
+          'ml-0 md:hidden': isStartPage,
+          'md:ml-16': isSvampdataSubRoute && !isStartPage,
+          'md:ml-[400px]': isSidebarOpen && !isStartPage,
+          'md:ml-[64px]':
+            !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
+          'md:ml-[20px]': isSidebarOpen && isDocumentation,
         },
       ]"
       class="bg-neutral-100 dark:bg-neutral-800 py-2"
@@ -77,12 +79,12 @@
           >
             <Icon name="carbon:generate-pdf" class="size-5" />
           </BaseButtonIcon> -->
-          <BaseMessage type="danger" icon>
+          <!-- <BaseMessage type="danger" icon>
             <span class="text-red-500">
               <b>Testversion:</b> information kan vara ofullständig eller
               felaktig
             </span>
-          </BaseMessage>
+          </BaseMessage> -->
           <!-- <BaseThemeSwitch /> -->
         </div>
       </div>
@@ -92,24 +94,20 @@
         '': !isStartPage,
 
         'pl-0': isStartPage,
-        'ml-16 ': !isStartPage,
-        'ml-[400px]': isSidebarOpen && !isStartPage,
-        'ml-[64px]':
-          !isSidebarOpen &&
-          !isSvampdataSubRoute &&
-          !isExactSvampdata &&
-          !isStartPage,
-        'ml-[20px]': isSidebarOpen && isDocumentation,
+        'md:ml-16 ': !isStartPage,
+        'md:ml-[400px]': isSidebarOpen && !isStartPage,
+        'md:ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
+        'md:ml-[20px]': isSidebarOpen && isDocumentation,
         'sync-transition': true,
       }"
     >
       <div
         :class="{
-          'py-4 pt-2 pl-6 pr-4': !isStartPage && !isExactSvampdata,
+          'py-4 pt-2 md:pl-6 md:pr-4': !isStartPage,
           'lg:max-w-full 2xl:max-w-screen-2xl mx-auto ': !isStartPage,
         }"
       >
-        <div :class="{ 'p-4 pt-8': !isStartPage && !isExactSvampdata }">
+        <div :class="{ 'p-4 pt-8': !isStartPage }">
           <slot />
         </div>
       </div>

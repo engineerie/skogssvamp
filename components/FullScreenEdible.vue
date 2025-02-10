@@ -65,7 +65,21 @@
       </UPopover>
 
       <div class="flex gap-2 items-end">
-        <div
+        <!-- <BaseListbox
+          v-model="selectedFoodOption"
+          :items="foodOptions"
+          :properties="{
+            value: 'value',
+            label: 'name',
+            // icon: 'icon',
+          }"
+          size="md"
+          shape="full"
+          label="Ätlighet"
+          label-float
+          class="w-48"
+        /> -->
+        <!-- <div
           :data-nui-tooltip="'Visa giftiga svampar'"
           data-nui-tooltip-position="left"
         >
@@ -77,7 +91,7 @@
               'text-neutral-300': !showPoisonous,
             }"
           />
-        </div>
+        </div> -->
         <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
             v-model="rowsPerPage"
@@ -130,7 +144,7 @@
               icon: 'i-heroicons-arrow-path-20-solid',
               label: 'Laddar',
             }"
-            class="max-h-[calc(100vh-400px)]"
+            class="max-h-[calc(100vh-400px)] min-h-[415px]"
             :sort-button="{
               color: 'text-neutral-700 dark:text-neutral-300',
               size: 'xl',
@@ -197,7 +211,7 @@
             <template #Commonname-data="{ row }">
               <div class="truncate max-w-96">
                 {{ capitalize(row.Commonname) }}
-                <span class="italic" v-if="isNormalView"
+                <span class="italic text-neutral-400" v-if="isNormalView"
                   >({{ capitalize(row.Scientificname) }})</span
                 >
               </div>
@@ -366,9 +380,37 @@
 <script setup>
 console.log("FullScreenEdible setup started");
 
-import { ref, reactive, onMounted, onUnmounted, computed } from "vue";
+import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
+
+// 1) Define 3 options: “matsvampar”, “giftiga”, or “alla”
+const foodOptions = [
+  {
+    id: "edibleOnly",
+    name: "Matsvampar",
+    value: "edible",
+    icon: "icon-park-solid:knife-fork",
+  },
+  {
+    id: "poisonOnly",
+    name: "Giftsvampar",
+    value: "poison",
+    icon: "hugeicons:danger",
+  },
+  {
+    id: "all",
+    name: "Mat- & giftsvampar",
+    value: "all",
+    icon: "hugeicons:mushroom",
+  },
+];
+
+// 2) Create a ref for the selected option (default to “all”?)
+const selectedFoodOption = ref(foodOptions[2]); // "Alla svampar"
+
+// Reactive data, watchers, etc. remain
+// e.g. const data = ref([]);
 
 function getInvertedRankValue(rank) {
   // Fallback to 0 if rank is missing or invalid
@@ -602,7 +644,7 @@ const sort = ref({ column: "", direction: "asc" });
 
 const selectedColumns = computed(() =>
   [
-    showPoisonous.value ? columns[3] : null,
+    columns[3],
     columns[0], // Commonname
     !props.isNormalView ? columns[1] : null, // Scientificname
     columns[2], // Svamp-grupp
@@ -723,23 +765,19 @@ const selectedRow = ref(null);
 
 // Computed property for filtered data
 const filteredData = computed(() => {
-  let result = data.value;
+  // Only include rows that are edible: they must have the Nyasvamp-boken flag true and not be poisonous
+  let result = data.value.filter(
+    (row) => row["Nyasvamp-boken"] && !row.Giftsvamp
+  );
 
-  // 1) Hide giftsvamp if showPoisonous = false
-  if (!showPoisonous.value) {
-    // Keep only items that are NOT giftsvamp
-    result = result.filter((row) => !row.Giftsvamp);
-  }
-
-  // 2) Apply search filter if any
+  // Apply search filter if any
   if (searchQuery.value) {
     result = result.filter((row) =>
-      Object.values(row).some((value) =>
-        String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
+      Object.values(row).some((val) =>
+        String(val).toLowerCase().includes(searchQuery.value.toLowerCase())
       )
     );
   }
-
   return result;
 });
 

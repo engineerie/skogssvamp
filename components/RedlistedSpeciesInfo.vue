@@ -308,7 +308,7 @@ const capitalize = (str) => {
 
 const stripDetailsFromURL = (url) => {
   if (!url) return "";
-  return url.replace("/detaljer", "");
+  return url.replace("/detaljer", "").replace("/artinformation", "");
 };
 
 const getStatusAbbreviation = (status) => {

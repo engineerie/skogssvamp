@@ -1,66 +1,44 @@
 <template>
   <div>
+    <!-- A button to toggle the slideover (e.g. for species info) -->
+    <BaseButtonIcon
+      shape="full"
+      @click="toggleSlideover"
+      class="fixed top-2 right-2 z-50"
+    >
+      <Icon name="heroicons:chevron-left" class="size-5" />
+    </BaseButtonIcon>
+
+    <!-- Always show the EnvironmentTitle at the top -->
     <EnvironmentTitle />
 
-    <!-- USlideover for SpeciesInfo -->
-    <USlideover
-      v-model="isOpen"
-      :ui="{
-        width: 'w-screen max-w-md',
-      }"
+    <!-- MySlideover contains additional info (e.g. SpeciesInfo) -->
+    <MySlideover
+      v-model="showSlideover"
+      :pinned="isPinned"
+      @update:pinned="(val) => (isPinned = val)"
     >
-      <UCard
-        class="flex flex-col flex-1 overflow-y-scroll"
-        id="scrollbar"
-        :ui="{
-          body: {
-            base: 'flex-1',
-            background: '',
-            padding: 'px-0 py-0 sm:p-0',
-          },
-          header: {
-            base: '',
-            background: '',
-            padding: 'px-4 py-3 sm:px-6',
-          },
+      <SpeciesInfo
+        :species="speciesStore.selectedSpecies"
+        :source="speciesStore.sourceComponent"
+      />
+    </MySlideover>
 
-          ring: '',
-        }"
-      >
-        <!-- SpeciesInfo Component -->
-        <SpeciesInfo
-          :species="speciesStore.selectedSpecies"
-          :source="speciesStore.sourceComponent"
-          @close="isOpen = false"
-        />
-
-        <!-- <template #footer>
-          <BaseProse class="text-neutral-500">
-            Se
-            <NuxtLink to="/guide" class="underline" @click="isOpen = false"
-              >dokumentationen</NuxtLink
-            >
-            för mer information.
-          </BaseProse>
-        </template> -->
-      </UCard>
-    </USlideover>
-
-    <!-- Other Components -->
-    <div>
+    <!-- Main content area -->
+    <div class="mb-14">
       <transition name="fade" mode="out-in">
+        <!-- Render either StartView or one of the other views based on the route -->
         <component
           :is="activeComponent"
-          :isNormalView="
-            activeFullScreenComponent &&
-            activeFullScreenComponent.value === null
-          "
           @close="handleCloseFullScreen"
           @enlarge="handleFullScreen"
-          key="activeComponent"
+          :key="$route.fullPath"
         />
       </transition>
     </div>
+
+    <!-- Optional footer -->
+    <EnvironmentFooter />
   </div>
 </template>
 
@@ -68,32 +46,66 @@
 import { computed, onMounted, onBeforeUnmount, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useTitleStore } from "~/stores/titleStore";
+import MySlideover from "./MySlideover.vue";
+import FullScreenPoison from "./FullScreenPoison.vue";
 import FullScreenEdna from "./FullScreenEdna.vue";
 import FullScreenEdible from "./FullScreenEdible.vue";
 import FullScreenRedlisted from "./FullScreenRedlisted.vue";
 import NormalView from "./NormalView.vue"; // Component for the normal view
+import StartView from "./StartView.vue"; // Component for the normal view
+
+import { useEnvParamsStore } from "~/stores/envParamsStore";
 
 import { useSpeciesStore } from "~/stores/speciesStore";
 
 const speciesStore = useSpeciesStore();
+const envParamsStore = useEnvParamsStore();
+const titleStore = useTitleStore();
 
 const route = useRoute();
-const titleStore = useTitleStore();
-const { geography, forestType, standAge, vegetationType } = route.params;
 
+const showSlideover = ref(false);
+const isPinned = ref(true);
+
+// Toggle the slideover panel (e.g. for SpeciesInfo)
+function toggleSlideover() {
+  showSlideover.value = !showSlideover.value;
+}
+
+// Open the slideover automatically when a species is selected
+watch(
+  () => speciesStore.selectedSpecies,
+  (newVal) => {
+    if (newVal) {
+      showSlideover.value = true;
+    }
+  }
+);
+
+// A ref to track if a full-screen view is active
 const activeFullScreenComponent = ref(null);
-const isModalOpen = ref(false);
 
-// Reference for SpeciesInfo panel (optional for focus trapping)
-const panelRef = ref(null);
+// A computed property to check if all required route parameters are provided
+const hasAllParams = computed(() => {
+  const { geography, forestType, standAge, vegetationType } = route.params;
+  return geography && forestType && standAge && vegetationType;
+});
 
-// Computed to select the active component based on fullscreen state
+// The active component is chosen based on the route parameters and any full-screen state:
+// - If not all parameters are provided, we show StartView.
+// - If all parameters are provided, we use the full-screen component if one is active,
+//   or fall back to NormalView.
 const activeComponent = computed(() => {
+  if (!hasAllParams.value) {
+    return StartView;
+  }
   switch (activeFullScreenComponent.value) {
     case "FullScreenEdna":
       return FullScreenEdna;
     case "FullScreenEdible":
       return FullScreenEdible;
+    case "FullScreenPoison":
+      return FullScreenPoison;
     case "FullScreenRedlisted":
       return FullScreenRedlisted;
     default:
@@ -101,15 +113,7 @@ const activeComponent = computed(() => {
   }
 });
 
-// Computed property to bind USlideover's isOpen state
-const isOpen = computed({
-  get: () => !!speciesStore.selectedSpecies,
-  set: (val) => {
-    if (!val) speciesStore.clearSelection();
-  },
-});
-
-// Functions to manage fullscreen and modal states
+// Handlers for toggling full-screen view states
 const handleFullScreen = (componentName) => {
   activeFullScreenComponent.value = componentName;
 };
@@ -118,84 +122,52 @@ const handleCloseFullScreen = () => {
   activeFullScreenComponent.value = null;
 };
 
-// Function to handle 'Esc' key press
+// Optional: handle the Esc key to clear a species selection or close modals
 const handleKeydown = (event) => {
   if (event.key === "Escape" && speciesStore.selectedSpecies) {
     speciesStore.clearSelection();
   }
 };
 
-// Watch for changes in selectedSpecies to toggle body overflow
-watch(
-  () => speciesStore.selectedSpecies,
-  (newVal) => {
-    if (newVal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }
-);
-
-// Add event listener on mount
 onMounted(() => {
   window.addEventListener("keydown", handleKeydown);
 
-  // Initialize focus trap if SpeciesInfo is open
-  if (speciesStore.selectedSpecies && panelRef.value) {
-    useFocusTrap(panelRef.value);
-  }
-
-  // Open the modal every time the page is loaded
-  if (route.path.startsWith("/svampdata/dashboard/")) {
-    isModalOpen.value = true;
-  }
+  // Initialize the environment parameters store from the current route
+  envParamsStore.setParams({
+    geography: route.params.geography,
+    forestType: route.params.forestType,
+    standAge: route.params.standAge,
+    vegetationType: route.params.vegetationType,
+  });
 });
 
-// Remove event listener before unmounting
 onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeydown);
 });
+
+// Watch for changes in route parameters to update the environment parameters store
+watch(
+  () => route.params,
+  (newParams) => {
+    envParamsStore.setParams({
+      geography: newParams.geography,
+      forestType: newParams.forestType,
+      standAge: newParams.standAge,
+      vegetationType: newParams.vegetationType,
+    });
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>
-/* Fade Transition for Other Components */
+/* Fade transition for view changes */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease-in-out;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-.fade-enter-to,
-.fade-leave-from {
-  opacity: 1;
-}
-
-/* Additional styling if necessary */
-
-#scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-#scrollbar::-webkit-scrollbar-thumb {
-  display: none;
-  background-color: #6f202033; /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
-}
-
-#scrollbar:hover::-webkit-scrollbar-thumb {
-  display: block;
-}
-
-/* For Firefox */
-#scrollbar {
-  scrollbar-width: medium;
-  scrollbar-color: #88888800 #f2f3f500;
-  transition: scrollbar-color 1s ease-in-out; /* transition effect for Firefox */
 }
 </style>

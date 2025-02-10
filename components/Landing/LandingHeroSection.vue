@@ -2,11 +2,11 @@
   <UModal
     v-model="isOpen"
     :ui="{
-      width: 'w-full sm:max-w-6xl',
+      width: 'w-full md:max-w-6xl',
     }"
   >
     <!-- Ändrad från w-full till max-w-4xl -->
-    <div class="p-6 w-full">
+    <div class="w-full">
       <!-- Ökad padding för bättre layout -->
       <!-- YouTube Iframe -->
       <div
@@ -25,12 +25,12 @@
     </div>
   </UModal>
 
-  <div class="pt-52 mb-16 z-10 mx-24">
+  <div class="md:pt-52 pt-36 mb-16 z-10 md:mx-24">
     <div class="px-6 items-center text-center">
       <!-- Text Content -->
       <div class="mb-10 lg:mb-0">
         <!-- Existing content -->
-        <!-- <BaseButton
+        <BaseButton
           to="https://www.slu.se/ew-nyheter/2023/3/se-svampen-i-din-skog/"
           target="_blank"
           color="primary"
@@ -39,9 +39,9 @@
           shape="full"
           class="border-[0.5px] border-green-500 inline-flex mb-5"
         >
-          <span>Läs artikel på slu.se</span>
-          <Icon name="lucide:arrow-up-right" class="me-1 h-4 w-4" />
-        </BaseButton> -->
+          <span>Testversion 2025.02.03</span>
+          <Icon name="heroicons:arrow-right-16-solid" class="me-1 h-4 w-4" />
+        </BaseButton>
         <!-- <BaseHeading
           size="2xl"
           lead="tight"
@@ -49,20 +49,35 @@
         >
           Svampskogen.se
         </BaseHeading> -->
-        <BaseHeading
-          size="4xl"
+        <!-- <BaseHeading
+          size=""
           lead="tight"
-          class="text-neutral-800 dark:text-white"
+          class="text-green-500 dark:text-white text-6xl md:text-6xl mb-6 mt-8"
         >
-          Utforska
-          <span class="text-primary-500">mykorrhizasvampar</span>
-          i olika skogar <br />
-          och se hur de reagerar vid
-          <span class="text-primary-500">skogsbruksåtgärder</span>
+          Svampskog
+        </BaseHeading> -->
+        <BaseHeading
+          size=""
+          lead="tight"
+          class="text-neutral-800 dark:text-white text-4xl md:text-7xl mb-6"
+        >
+          Mykorrhizasvampar
+          <br />
+          <span class="text-primary-500 -mt-6">& skogsskötsel </span>
+        </BaseHeading>
+        <BaseHeading
+          weight="thin"
+          size=""
+          lead="tight"
+          class="text-neutral-500 dark:text-white text-lg md:text-xl md:mx-36"
+        >
+          Svampskog.se är en webbapplikation där du kan utforska vilka
+          mykorrhizasvampar som kan finnas i olika skogar och se hur de reagerar
+          vid skogsbruksåtgärder
         </BaseHeading>
         <NuxtLink
           to="/start"
-          class="inline-flex items-center justify-center mt-8"
+          class="inline-flex items-center justify-center md:mt-8 mt-8"
         >
           <div
             class="text-neutral-100 rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-primary-500 border-neutral-300 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-primary-400"

@@ -409,9 +409,9 @@ const capitalize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-const stripDetailsFromURL = (url: string): string => {
+const stripDetailsFromURL = (url) => {
   if (!url) return "";
-  return url.replace("/detaljer", "");
+  return url.replace("/detaljer", "").replace("/artinformation", "");
 };
 
 const getStatusAbbreviation = (status: string): string => {

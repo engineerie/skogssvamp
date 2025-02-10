@@ -1,10 +1,10 @@
 <template>
   <div>
-    <BaseMessage type="danger" icon class="fixed top-4 right-4 z-[999]">
+    <!-- <BaseMessage type="danger" icon class="fixed top-4 right-4 z-[999]">
       <span class="text-red-500">
         <b>Testversion:</b> information kan vara ofullständig eller felaktig
       </span>
-    </BaseMessage>
+    </BaseMessage> -->
     <!-- Navigation Bar -->
     <div
       ref="navRef"
@@ -22,7 +22,7 @@
             ? 'bg-neutral-100 dark:bg-opacity-0 backdrop-blur-none dark:backdrop-blur-none'
             : 'bg-neutral-100 dark:bg-neutral-900 dark:bg-opacity-80 backdrop-blur-xl dark:backdrop-blur-xl',
         ]"
-        class="container mx-auto max-w-screen-xl px-8 py-4 flex flex-col items-center rounded-2xl border border-neutral-200 overflow-hidden transition-all duration-300"
+        class="container mx-auto max-w-screen-xl px-2 py-4 flex flex-col items-center rounded-2xl border border-neutral-200 overflow-hidden transition-all duration-300"
         @mouseenter="handleNavMouseEnter"
         @mouseleave="handleNavMouseLeave"
       >
@@ -30,7 +30,18 @@
         <div class="flex items-center w-full justify-between">
           <!-- Left Side: Logo -->
           <div class="flex items-center">
-            <img src="/images/LogoSmile2.svg" alt="Logo" class="h-10 mr-2" />
+            <!-- <img
+              src="/images/LogoSmile2.svg"
+              alt="Logo"
+              class="size-6 mr-2 mt-1"
+            /> -->
+            <img
+              src="/images/slu_logo_svart_webb.png"
+              alt="Logo"
+              class="size-16 mr-2 -my-3"
+            />
+
+            <BaseHeading size="xl" weight="medium">Svampskog</BaseHeading>
           </div>
 
           <!-- Center: Navigation Links -->
@@ -144,13 +155,14 @@
                     />
                     Sveriges mykorrhizasvampar
                   </NuxtLink>
+
                   <NuxtLink
                     to="/skogsbruk"
                     @click="closeMenu"
                     class="flex items-center text-lg text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded transition-colors"
                   >
                     <Icon
-                      name="material-symbols:nature-people-outline-rounded"
+                      name="material-symbols-light:nature-people-outline-rounded"
                       class="me-2 block w-5 h-5"
                     />
                     Skogsskötsel

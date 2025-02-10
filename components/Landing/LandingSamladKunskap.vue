@@ -1,39 +1,68 @@
 <template>
-  <div class="grid grid-cols-2 mt-6 mb-44 items-center gap-20">
-    <div class="relative pr-4">
-      <LandingMatsvamp class="absolute top-16 -left-16 z-0" />
-
-      <LandingRedlisted class="z-50" />
-
-      <!-- <div
-        class="absolute -top-8 -right-10 z-50 dark:opacity-90 w-24 h-24 ml-2 mr-3 rounded-full bg-violet-200 ring-1 ring-neutral-200 text-violet-500 flex justify-center items-center"
-      >
-        <Icon name="solar:dna-linear" class="h-16 w-16" />
-      </div> -->
-      <div class="absolute -bottom-12 -right-20 w-11/12">
-        <img src="/images/SamladKunskap.svg" />
-      </div>
+  <div class="items-center">
+    <div class="relative px-10 mb-8">
+      <img src="/images/SamladKunskap.svg" />
     </div>
-    <div>
+    <div class="">
+      <div class="flex gap-2">
+        <UBadge
+          icon="i-material-symbols-location-on-outline"
+          size="md"
+          color="teal"
+          variant="subtle"
+          :ui="{ rounded: 'rounded-full' }"
+          class="my-2"
+        >
+          <Icon
+            name="material-symbols:award-star-outline"
+            class="text-teal-500 mr-1"
+          />
+          Naturvårdsarter
+        </UBadge>
+        <UBadge
+          icon="i-material-symbols-location-on-outline"
+          size="md"
+          color="yellow"
+          variant="subtle"
+          :ui="{ rounded: 'rounded-full' }"
+          class="my-2"
+        >
+          <Icon
+            name="icon-park-solid:knife-fork"
+            class="text-yellow-500 mr-1"
+          />
+          Matsvampar
+        </UBadge>
+        <UBadge
+          icon="i-material-symbols-location-on-outline"
+          size="md"
+          color="lime"
+          variant="subtle"
+          :ui="{ rounded: 'rounded-full' }"
+          class="my-2"
+        >
+          <Icon name="hugeicons:danger" class="text-lime-500 mr-1" />
+          Giftsvampar
+        </UBadge>
+      </div>
       <BaseHeading
-        lead="tight"
-        size="5xl"
-        class="text-neutral-950 dark:text-neutral-200"
+        size=""
+        class="text-neutral-950 dark:text-neutral-200 text-xl md:text-2xl"
       >
-        Samlad kunskap
+        Samlad kunskap från fruktkroppar
       </BaseHeading>
-      <BaseHeading
+      <!-- <BaseHeading
         lead="tight"
-        size="5xl"
+        size="2xl"
         class="text-primary-500 dark:text-neutral-200 mb-1"
       >
         från fruktkroppsfynd
-      </BaseHeading>
+      </BaseHeading> -->
       <!-- Description -->
       <BaseHeading
         weight="semi-bold"
-        size="xl"
-        class="text-neutral-500 dark:text-neutral-400 mb-6"
+        size=""
+        class="text-neutral-500 dark:text-neutral-400 mb-6 text-md md:text-lg"
       >
         Våra kunskaper om svampar och deras ekologi baseras främst på uppgifter
         om fruktkroppar. Här har vi sammanställt sådan information om mat- och

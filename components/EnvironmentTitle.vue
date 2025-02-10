@@ -1,96 +1,263 @@
 <template>
   <div class="relative pt-8">
-    <div class="grid grid-cols-4 gap-5">
-      <transition name="slide-up" mode="out-in">
-        <div class="flex items-center justify-center" :key="geographyLabel">
-          <div
-            class="my-4 w-14 h-14 rounded-lg text-fuchsia-500 flex justify-center items-center"
-          >
-            <Icon name="material-symbols:location-on-outline" class="h-8 w-8" />
-          </div>
-          <div>
-            <BaseHeading size="md" weight="light" class="text-neutral-500"
-              >Var i Sverige</BaseHeading
+    <div class="grid grid-cols-4 gap-5 mb-2">
+      <!-- GEOGRAPHY -->
+      <div class="flex justify-center w-full">
+        <UPopover :popper="{ placement: 'bottom-end' }">
+          <transition name="slide-up" mode="out-in">
+            <div
+              :key="geographyLabel"
+              class="flex items-center justify-center cursor-pointer"
             >
+              <div
+                class="my-2 w-14 h-14 rounded-lg text-fuchsia-500 flex justify-center items-center"
+              >
+                <Icon
+                  name="material-symbols:location-on-outline"
+                  class="h-8 w-8"
+                />
+              </div>
+              <div>
+                <BaseHeading size="md" weight="light" class="text-neutral-500">
+                  Var i Sverige
+                </BaseHeading>
+                <BaseHeading size="2xl" weight="light">
+                  {{ geographyLabel }}
+                </BaseHeading>
+              </div>
+            </div>
+          </transition>
 
-            <BaseHeading size="2xl" weight="light">
-              {{ geographyLabel }}
-            </BaseHeading>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide-up" mode="out-in">
-        <div class="flex items-center justify-center" :key="forestTypeLabel">
-          <div
-            class="my-4 w-14 h-14 rounded-lg text-green-500 flex justify-center items-center"
-          >
-            <Icon name="lucide:trees" class="h-8 w-8" />
-          </div>
-          <div>
-            <BaseHeading size="md" weight="light" class="text-neutral-500"
-              >Skogstyp</BaseHeading
+          <template #panel="{ close }">
+            <div class="p-2 min-w-60">
+              <div
+                v-for="option in enabledGeographyOptions"
+                :key="option.value"
+                class="hover:bg-gray-100 p-3 rounded-md my-1"
+                :class="[
+                  option.disabled
+                    ? 'opacity-50 cursor-not-allowed '
+                    : 'cursor-pointer ',
+                  option.value === currentSelectedValueFor('geography')
+                    ? 'bg-primary-50 hover:bg-primary-50 ring-1 ring-primary-100'
+                    : 'ring-0',
+                ]"
+                @click="
+                  () => {
+                    if (!option.disabled) selectGeography(option);
+                    close();
+                  }
+                "
+              >
+                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
+                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+              </div>
+            </div>
+          </template>
+        </UPopover>
+      </div>
+
+      <!-- FOREST TYPE -->
+      <div class="flex justify-center">
+        <UPopover :popper="{ placement: 'bottom-end' }">
+          <transition name="slide-up" mode="out-in">
+            <div
+              :key="forestTypeLabel"
+              class="flex items-center justify-center cursor-pointer"
             >
-            <BaseHeading size="2xl" weight="light">
-              {{ forestTypeLabel }}
-            </BaseHeading>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide-up" mode="out-in">
-        <div class="flex items-center justify-center" :key="standAgeLabel">
-          <div
-            class="my-4 w-14 h-14 rounded-lg text-violet-500 flex justify-center items-center"
-          >
-            <Icon name="carbon:crop-growth" class="h-8 w-8" />
-          </div>
-          <div>
-            <BaseHeading size="md" weight="light" class="text-neutral-500"
-              >Beståndsålder</BaseHeading
+              <div
+                class="my-2 w-14 h-14 rounded-lg text-green-500 flex justify-center items-center"
+              >
+                <Icon name="lucide:trees" class="h-8 w-8" />
+              </div>
+              <div>
+                <BaseHeading size="md" weight="light" class="text-neutral-500">
+                  Skogstyp
+                </BaseHeading>
+                <BaseHeading size="2xl" weight="light">
+                  {{ forestTypeLabel }}
+                </BaseHeading>
+              </div>
+            </div>
+          </transition>
+
+          <template #panel="{ close }">
+            <div class="p-2 min-w-60">
+              <div
+                v-for="option in enabledForestTypes"
+                :key="option.value"
+                class="hover:bg-gray-100 p-3 rounded-md my-1"
+                :class="[
+                  option.disabled
+                    ? 'opacity-50 cursor-not-allowed '
+                    : 'cursor-pointer ',
+                  option.value === currentSelectedValueFor('forestType')
+                    ? 'bg-primary-50 hover:bg-primary-50 ring-1 ring-primary-100'
+                    : 'ring-0',
+                ]"
+                @click="
+                  () => {
+                    if (!option.disabled) selectForestType(option);
+                    close();
+                  }
+                "
+              >
+                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
+                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+              </div>
+            </div>
+          </template>
+        </UPopover>
+      </div>
+
+      <!-- STAND AGE -->
+      <div class="flex justify-center">
+        <UPopover :popper="{ placement: 'bottom-end' }">
+          <transition name="slide-up" mode="out-in">
+            <div
+              :key="standAgeLabel"
+              class="flex items-center justify-center cursor-pointer"
             >
-            <BaseHeading size="2xl" weight="light">{{
-              standAgeLabel
-            }}</BaseHeading>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide-up" mode="out-in">
-        <div
-          class="flex items-center justify-center"
-          :key="vegetationTypeLabel"
-        >
-          <div
-            class="my-4 w-14 h-14 rounded-lg text-teal-500 flex justify-center items-center"
-          >
-            <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
-          </div>
-          <div>
-            <BaseHeading size="md" weight="light" class="text-neutral-500"
-              >Fältskikt</BaseHeading
+              <div
+                class="my-2 w-14 h-14 rounded-lg text-violet-500 flex justify-center items-center"
+              >
+                <Icon name="carbon:crop-growth" class="h-8 w-8" />
+              </div>
+              <div>
+                <BaseHeading size="md" weight="light" class="text-neutral-500">
+                  Beståndsålder
+                </BaseHeading>
+                <BaseHeading size="2xl" weight="light">
+                  {{ standAgeLabel }}
+                </BaseHeading>
+              </div>
+            </div>
+          </transition>
+
+          <template #panel="{ close }">
+            <div class="p-2 min-w-60">
+              <div
+                v-for="option in enabledStandAges"
+                :key="option.value"
+                class="hover:bg-gray-100 p-3 rounded-md my-1"
+                :class="[
+                  option.disabled
+                    ? 'opacity-50 cursor-not-allowed '
+                    : 'cursor-pointer ',
+                  option.value === currentSelectedValueFor('standAge')
+                    ? 'bg-primary-50 hover:bg-primary-50 ring-1 ring-primary-100'
+                    : 'ring-0',
+                ]"
+                @click="
+                  () => {
+                    if (!option.disabled) selectStandAge(option);
+                    close();
+                  }
+                "
+              >
+                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
+                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+              </div>
+            </div>
+          </template>
+        </UPopover>
+      </div>
+
+      <!-- VEGETATION TYPE -->
+      <div class="flex justify-center">
+        <UPopover :popper="{ placement: 'bottom-end' }">
+          <transition name="slide-up" mode="out-in">
+            <div
+              :key="vegetationTypeLabel"
+              class="flex items-center justify-center cursor-pointer"
             >
-            <BaseHeading size="2xl" weight="light">{{
-              vegetationTypeLabel
-            }}</BaseHeading>
-          </div>
-        </div>
-      </transition>
+              <div
+                class="my-2 w-14 h-14 rounded-lg text-teal-500 flex justify-center items-center"
+              >
+                <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
+              </div>
+              <div>
+                <BaseHeading size="md" weight="light" class="text-neutral-500">
+                  Fältskikt
+                </BaseHeading>
+                <BaseHeading size="2xl" weight="light">
+                  {{ vegetationTypeLabel }}
+                </BaseHeading>
+              </div>
+            </div>
+          </transition>
+
+          <template #panel="{ close }">
+            <div class="p-2 min-w-60">
+              <div
+                v-for="option in enabledVegetationTypes"
+                :key="option.value"
+                class="hover:bg-gray-100 p-3 rounded-md my-1"
+                :class="[
+                  option.disabled
+                    ? 'opacity-50 cursor-not-allowed '
+                    : 'cursor-pointer ',
+                  option.value === currentSelectedValueFor('vegetationType')
+                    ? 'bg-primary-50 hover:bg-primary-50 ring-1 ring-primary-100'
+                    : 'ring-0',
+                ]"
+                @click="
+                  () => {
+                    if (!option.disabled) selectVegetationType(option);
+                    close();
+                  }
+                "
+              >
+                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
+                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+              </div>
+            </div>
+          </template>
+        </UPopover>
+      </div>
     </div>
   </div>
-  <!-- Apply dynamic style for height transition -->
+
+  <!-- ListBoxRowHorizontal container with height transition -->
   <div
     :style="{ height: listBoxRowHeight }"
     class="overflow-visible transition-height ease-in-out duration-500"
   >
     <Transition name="fade">
       <ListBoxRowHorizontal
+        ref="listBoxRef"
         class="overflow-visible z-50"
-        v-if="listBoxRowVisible"
+        v-show="listBoxRowVisible"
       />
     </Transition>
   </div>
-  <div class="flex justify-end">
-    <BaseButtonAction @click="toggleHeight" shape="full" class="mb-2">
+
+  <!-- Toggle button -->
+  <div class="flex justify-end gap-2">
+    <BaseButtonAction
+      @click="toggleRestriction"
+      shape="full"
+      class="mb-2"
+      :color="restrictionEnabled ? 'warning' : 'white'"
+    >
       <span class="ml-2">
-        {{ listBoxRowVisible ? "Byt miljö" : "Byt miljö" }}
+        {{
+          restrictionEnabled ? "Markinventeringsdata" : "Markinventeringsdata"
+        }}
+      </span>
+      <Icon
+        :name="restrictionEnabled ? 'mdi:lock' : 'mdi:lock-open'"
+        class="size-4"
+      />
+    </BaseButtonAction>
+    <BaseButtonAction
+      @click="toggleHeight"
+      shape="full"
+      class="mb-2"
+      color="white"
+    >
+      <span class="ml-2">
+        {{ listBoxRowVisible ? "Dölj kombinationsvy" : "Visa kombinationsvy" }}
       </span>
       <Icon
         :name="listBoxRowVisible ? 'mdi:chevron-up' : 'mdi:chevron-down'"
@@ -102,35 +269,25 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
+import ListBoxRowHorizontal from "./ListBoxRowHorizontal.vue";
 
-const listBoxRowVisible = ref(false);
-const listBoxRowHeight = ref("0px");
+// Reference to the child component.
+const listBoxRef = ref(null);
 
-const toggleHeight = () => {
-  listBoxRowVisible.value = !listBoxRowVisible.value;
-  listBoxRowHeight.value = listBoxRowVisible.value ? "250px" : "0px";
-};
-
-const route = useRoute();
-const router = useRouter();
-
-// Define options as reactive references if they might change, or as constants outside the setup function if they are static
-
-// Options for the select fields
+// --- Options Arrays (for fallback if child is not available) ---
 const geographyOptions = [
   {
     value: "Norr",
     label: "Norra Sverige",
-    description: "Norr om latitud 60°",
+    description: "Norr om breddgrad 60°",
   },
   {
     value: "Söder",
     label: "Södra Sverige",
-    description: "Söder om latitud 60°",
+    description: "Söder om breddgrad 60°",
   },
 ];
-
 const forestTypeOptions = [
   {
     value: "Granskog",
@@ -150,7 +307,12 @@ const forestTypeOptions = [
   {
     value: "Lövblandskog",
     label: "Blandskog",
-    description: "31-69% lövträd respektive barrträd",
+    description: "31-69% lövträd eller barrträd",
+  },
+  {
+    value: "EkBokskog",
+    label: "Ek och Bokskog",
+    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok",
   },
   {
     value: "Lövskog",
@@ -158,88 +320,171 @@ const forestTypeOptions = [
     description: "Minst 70% lövträd",
   },
   {
-    value: "EkBokskog",
-    label: "Ek och Bokskog",
-    description: "Minst 70% lövträd, och minst 70% av dessa är ek eller bok.",
-  },
-  {
     value: "Naturbete",
     label: "Trädklädd betesmark",
-    description: "Trädbevuxna gräsmarker som används för betesdjur.",
+    description: "Trädbevuxna gräsmarker som används för betesdjur",
   },
 ];
-
 const standAgeOptions = [
   {
     value: "1-40",
     label: "1-40 år",
-    description: "Yngre träd mellan 1 och 40 år.",
+    description: "Trädbeståndets medelålder är mellan 1 och 40 år",
   },
   {
     value: "41-90",
     label: "41-90 år",
-    description: "Träd mellan 41 och 90 år.",
+    description: "Trädbeståndets medelålder är mellan 41 och 90 år",
   },
   {
     value: "91",
     label: "91 år och äldre",
-    description: "Äldre träd som är 91 år eller mer.",
+    description: "Trädbeståndets medelålder är äldre än 90 år",
   },
   {
     value: "allaåldrar",
     label: "Alla åldrar",
-    description: "Inkluderar alla åldersgrupper av träd.",
+    description: "Inkluderar trädbestånds med alla trädmedelåldrar",
   },
 ];
-
 const vegetationTypeOptions = [
   {
     value: "Örter_grupp",
     label: "Örttyper",
-    description: "Består av högörter, lågörter och bredbladiga gräs.",
+    description:
+      "Näringsrik mark med fältskikt som innehåller högörter, lågörter och bredbladiga gräs",
   },
   {
     value: "Blåbär_grupp",
     label: "Blåbärstyper",
-    description: "Innehåller blåbär och smalbladiga gräs.",
+    description: "Fältskikt som domineras av blåbär och smalbladiga gräs",
   },
   {
     value: "Lingon_grupp",
     label: "Lingon-fattigristyper",
-    description: "Täcker områden med lingon och kråkbär eller ljung.",
+    description:
+      "Näringsfattig mark med fältskikt som domineras av lingon, kråkbär, ljung, eller andra fattigris",
   },
 ];
 
-// Computed properties to get the labels from the options based on the URL parameters
+const route = useRoute();
+
+watch(
+  () => route.fullPath,
+  (newPath) => {
+    if (
+      newPath === "/svampdata/dashboard" &&
+      listBoxRef.value?.resetSelections
+    ) {
+      listBoxRef.value.resetSelections();
+    }
+  }
+);
+
+const isDashboardStart = computed(() => route.path === "/svampdata/dashboard");
+const currentSelection = computed(() => {
+  if (
+    isDashboardStart.value &&
+    listBoxRef.value &&
+    listBoxRef.value.selectedOptions
+  ) {
+    return listBoxRef.value.selectedOptions;
+  } else {
+    return {
+      geography: route.params.geography || "",
+      forestType: route.params.forestType || "",
+      standAge: route.params.standAge || "",
+      vegetationType: route.params.vegetationType || "",
+    };
+  }
+});
+
 const geographyLabel = computed(() => {
-  const param = decodeURIComponent(route.params.geography || "");
-  const option = geographyOptions.find((o) => o.value === param);
-  return option ? option.label : param; // Fall back to raw value if no label is found
+  const value = decodeURIComponent(currentSelection.value.geography || "");
+  const option = geographyOptions.find((o) => o.value === value);
+  return option ? option.label : value || "Välj plats";
 });
 const forestTypeLabel = computed(() => {
-  const param = decodeURIComponent(route.params.forestType || "");
-  const option = forestTypeOptions.find((o) => o.value === param);
-  return option ? option.label : param;
+  const value = decodeURIComponent(currentSelection.value.forestType || "");
+  const option = forestTypeOptions.find((o) => o.value === value);
+  return option ? option.label : value || "Välj skogstyp";
 });
 const standAgeLabel = computed(() => {
-  const param = decodeURIComponent(route.params.standAge || "");
-  const option = standAgeOptions.find((o) => o.value === param);
-  return option ? option.label : param;
+  const value = decodeURIComponent(currentSelection.value.standAge || "");
+  const option = standAgeOptions.find((o) => o.value === value);
+  return option ? option.label : value || "Välj ålder";
 });
 const vegetationTypeLabel = computed(() => {
-  const param = decodeURIComponent(route.params.vegetationType || "");
-  const option = vegetationTypeOptions.find((o) => o.value === param);
-  return option ? option.label : param;
+  const value = decodeURIComponent(currentSelection.value.vegetationType || "");
+  const option = vegetationTypeOptions.find((o) => o.value === value);
+  return option ? option.label : value || "Välj fältskikt";
+});
+
+function currentSelectedValueFor(category) {
+  return currentSelection.value[category];
+}
+
+function selectGeography(option) {
+  if (listBoxRef.value && listBoxRef.value.updateSelection) {
+    listBoxRef.value.updateSelection(option.value, "geography");
+  }
+}
+function selectForestType(option) {
+  if (listBoxRef.value && listBoxRef.value.updateSelection) {
+    listBoxRef.value.updateSelection(option.value, "forestType");
+  }
+}
+function selectStandAge(option) {
+  if (listBoxRef.value && listBoxRef.value.updateSelection) {
+    listBoxRef.value.updateSelection(option.value, "standAge");
+  }
+}
+function selectVegetationType(option) {
+  if (listBoxRef.value && listBoxRef.value.updateSelection) {
+    listBoxRef.value.updateSelection(option.value, "vegetationType");
+  }
+}
+
+const listBoxRowVisible = ref(false);
+const listBoxRowHeight = ref("0px");
+function toggleHeight() {
+  listBoxRowVisible.value = !listBoxRowVisible.value;
+  listBoxRowHeight.value = listBoxRowVisible.value ? "250px" : "0px";
+}
+
+const restrictionEnabled = ref(false);
+function toggleRestriction() {
+  restrictionEnabled.value = !restrictionEnabled.value;
+  if (listBoxRef.value) {
+    listBoxRef.value.setRestriction(restrictionEnabled.value);
+  }
+}
+
+// Use the enabled options exposed by the child. If the child isn’t yet mounted, fall back to the raw arrays.
+const enabledGeographyOptions = computed(() => {
+  return listBoxRef.value
+    ? listBoxRef.value.enabledGeographyOptions
+    : geographyOptions;
+});
+const enabledForestTypes = computed(() => {
+  return listBoxRef.value
+    ? listBoxRef.value.enabledForestTypes
+    : forestTypeOptions;
+});
+const enabledStandAges = computed(() => {
+  return listBoxRef.value ? listBoxRef.value.enabledStandAges : standAgeOptions;
+});
+const enabledVegetationTypes = computed(() => {
+  return listBoxRef.value
+    ? listBoxRef.value.enabledVegetationTypes
+    : vegetationTypeOptions;
 });
 </script>
 
 <style scoped>
-/* Specific transition for height */
 .transition-height {
   transition: height 0.5s ease-in-out;
 }
-
-/* Fade transition styles */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -248,17 +493,14 @@ const vegetationTypeLabel = computed(() => {
 .fade-leave-to {
   opacity: 0;
 }
-
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: all 0.25s ease-out;
 }
-
 .slide-up-enter-from {
   opacity: 0;
   transform: translateY(30px);
 }
-
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(-30px);

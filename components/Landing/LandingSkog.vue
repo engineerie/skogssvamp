@@ -6,17 +6,17 @@
         lead="thight"
         class="font-bold mb-2 md:mb-4 md:text-center text-xl md:text-5xl"
       >
-        Undersök vilka mykorrhizasvampar <br /><span class="text-primary-500"
-          >som kan finnas i olika skogar</span
+        Hur påverkar skogsskötsel <br /><span class="text-primary-500"
+          >mykorrhizasvampar?</span
         >
       </BaseHeading>
 
       <p
         class="md:text-lg text-md mb-10 text-neutral-500 md:mx-24 md:text-center"
       >
-        Här kan du söka på svenska skogsmiljöer för att se vilka arter som kan
-        finnas i marken baserat på DNA-analyser av svampmycel i jordprover samt
-        vår samlade kunskap om var olika arters fruktkroppar förekommer.
+        Här visualiserar vi baserat på den kunskap som finns hur olika
+        skogsskötsel, olika former av trakthyggesbruk och hyggesfria metoder,
+        påverkar förekomsten av mykorrhizasvampar under en skogsgeneration.
       </p>
 
       <!-- <NuxtLink

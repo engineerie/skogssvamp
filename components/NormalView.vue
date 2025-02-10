@@ -1,6 +1,14 @@
 <template>
   <div class="grid grid-cols-12 gap-5">
     <div class="col-span-12">
+      <EnvImgInfo
+        :geography="geography"
+        :forestType="forestType"
+        :standAge="standAge"
+        :vegetationType="vegetationType"
+      />
+    </div>
+    <div class="col-span-12">
       <EdnaComponent @enlarge="emitEnlarge('FullScreenEdna')" />
     </div>
     <div class="col-span-12 flex flex-col">
@@ -60,9 +68,8 @@
         fruktkroppar förekommer.
       </BaseMessage> -->
     </div>
-    <div class="col-span-7 flex flex-col">
+    <div class="col-span-12 flex flex-col">
       <FullScreenRedlisted
-        class="flex-grow"
         :geography="geography"
         :forestType="forestType"
         :standAge="standAge"
@@ -72,15 +79,25 @@
         :key="route.fullPath"
       />
     </div>
-    <div class="col-span-5 flex flex-col">
+    <div class="col-span-6 flex flex-col h-full">
       <FullScreenEdible
-        class="flex-grow"
         :geography="geography"
         :forestType="forestType"
         :standAge="standAge"
         :vegetationType="vegetationType"
         :isNormalView="true"
         @enlarge="emitEnlarge('FullScreenEdible')"
+        :key="route.fullPath"
+      />
+    </div>
+    <div class="col-span-6 flex flex-col">
+      <FullScreenPoison
+        :geography="geography"
+        :forestType="forestType"
+        :standAge="standAge"
+        :vegetationType="vegetationType"
+        :isNormalView="true"
+        @enlarge="emitEnlarge('FullScreenPoison')"
         :key="route.fullPath"
       />
     </div>
@@ -94,6 +111,7 @@ import EdnaComponent from "./EdnaComponent.vue";
 import Edible from "./Edible.vue";
 import Redlisted from "./Redlisted.vue";
 import { useRoute } from "vue-router";
+import EnvImgInfo from "./EnvImgInfo.vue";
 const route = useRoute();
 
 // Define props

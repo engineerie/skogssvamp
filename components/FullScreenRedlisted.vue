@@ -148,7 +148,7 @@
               icon: 'i-heroicons-arrow-path-20-solid',
               label: 'Laddar',
             }"
-            class="max-h-[calc(100vh-400px)]"
+            class="max-h-[calc(100vh-400px)] min-h-[415px]"
             :sort-button="{
               color: 'text-neutral-700 dark:text-neutral-300',
               size: 'xl',
@@ -230,7 +230,7 @@
             <template #Commonname-data="{ row }">
               <div class="truncate">
                 {{ capitalize(row.Commonname) }}
-                <span class="italic" v-if="isNormalView"
+                <span class="italic text-neutral-400" v-if="isNormalView"
                   >({{ capitalize(row.Scientificname) }})</span
                 >
               </div>
