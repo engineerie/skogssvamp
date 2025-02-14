@@ -54,9 +54,9 @@
         />
 
         <!-- NEW: Toggle button (table <-> grid) -->
-        <UButtonIcon shape="full" @click="toggleView">
+        <UButton shape="full" @click="toggleView">
           <Icon :name="toggleIcon" class="size-5" />
-        </UButtonIcon>
+        </UButton>
 
         <!-- Existing fullscreen toggle button -->
         <BaseButtonIcon

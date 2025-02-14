@@ -1,246 +1,329 @@
 <template>
-  <!-- The container changes width based on expanded state -->
+  <!-- Modal for PDF Viewer -->
+  <UModal v-model="isPdfOpen" :ui="{ width: 'w-full sm:max-w-6xl' }">
+    <div class="p-6 w-full">
+      <div
+        class="relative w-full h-[80vh] border border-neutral-200 rounded-2xl"
+      >
+        <iframe
+          class="absolute top-0 left-0 w-full h-full rounded-2xl"
+          :src="pdfUrl"
+          title="PDF Viewer"
+          frameborder="0"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </UModal>
+
+  <!-- Modal for YouTube (Introduktionsfilm) -->
+  <UModal v-model="isOpen" :ui="{ width: 'w-full sm:max-w-6xl' }">
+    <div class="p-6 w-full">
+      <div
+        class="relative w-full pb-[56.25%] border border-neutral-200 rounded-2xl"
+      >
+        <iframe
+          class="absolute top-0 left-0 w-full h-full rounded-2xl"
+          src="https://www.youtube.com/embed/k3QjCZNrp1c"
+          title="Introduktionsfilm Skogssvamp"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </UModal>
+
+  <!-- Sidebar Container -->
   <div
     :class="[
-      'fixed h-screen py-4 bg-neutral-100 dark:bg-neutral-900 dark:bg-opacity-50 border-r-[1px] dark:border-neutral-700 border-neutral-300 flex flex-col justify-between',
-      isExpanded ? 'w-72 px-4' : 'w-20 px-3',
+      'transition-all z-50 fixed inset-1 rounded-xl ring-1 ring-neutral-200 py-4 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-50 shadow-md flex flex-col justify-between',
+      isExpanded ? 'w-64 px-3' : 'w-[72px] px-3',
+      isInHome ? '-ml-20' : '',
     ]"
   >
-    <!-- The two modals remain unchanged -->
-    <UModal v-model="isPdfOpen" :ui="{ width: 'w-full sm:max-w-6xl' }">
-      <!-- Modal Content for PDF Viewer -->
-      <div class="p-6 w-full">
-        <div
-          class="relative w-full h-[80vh] border border-neutral-200 rounded-2xl"
-        >
-          <iframe
-            class="absolute top-0 left-0 w-full h-full rounded-2xl"
-            :src="pdfUrl"
-            title="PDF Viewer"
-            frameborder="0"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
-        </div>
-      </div>
-    </UModal>
-
-    <UModal v-model="isOpen" :ui="{ width: 'w-full sm:max-w-6xl' }">
-      <!-- Modal Content for YouTube Iframe -->
-      <div class="p-6 w-full">
-        <div
-          class="relative w-full pb-[56.25%] border border-neutral-200 rounded-2xl"
-        >
-          <iframe
-            class="absolute top-0 left-0 w-full h-full rounded-2xl"
-            src="https://www.youtube.com/embed/k3QjCZNrp1c"
-            title="Introduktionsfilm Skogssvamp"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
-        </div>
-      </div>
-    </UModal>
-
-    <!-- ─── TOP SECTION: Logo and Navigation ───────────────────────────── -->
+    <!-- TOP GROUP: Logo + Navigation Buttons -->
     <div>
-      <!-- Always show the logo -->
+      <!-- LOGO -->
       <NuxtLink
         @click="closeSidebar"
         to="/"
-        class="flex items-center"
+        class="flex items-center -mx-4 -my-3"
         data-nui-tooltip="Tillbaka till startsida"
         data-nui-tooltip-position="right"
       >
         <img src="/images/slu_logo_svart_webb.png" alt="Logo" class="size-20" />
       </NuxtLink>
 
-      <!-- Render the navigation links differently based on expanded state -->
-      <div class="mt-4">
-        <!-- Expanded: use UVerticalNavigation with a links array (including a divider) -->
-        <template v-if="isExpanded">
-          <UVerticalNavigation
-            :links="navigationLinks"
-            :ui="{ width: 'w-full' }"
-          />
-        </template>
-        <!-- Collapsed: use the original icon buttons -->
-        <template v-else>
-          <div class="flex flex-col items-center">
-            <BaseButtonIcon
-              :color="isInStart ? 'primary' : 'default'"
-              shape="full"
-              to="/start"
-              class="h-5 w-5 my-5"
-              data-nui-tooltip="Översikt"
-              data-nui-tooltip-position="right"
-            >
-              <icon
-                name="material-symbols:grid-view-outline-rounded"
-                class="h-5 w-5"
-              />
-            </BaseButtonIcon>
-            <div
-              class="border-b border-neutral-300 dark:border-neutral-700 w-full"
-            ></div>
-            <BaseButtonIcon
-              :color="isInSvampData ? 'primary' : 'default'"
-              shape="full"
-              to="/svampdata/dashboard"
-              class="h-5 w-5 my-5"
-              data-nui-tooltip="Sveriges mykorrhizasvampar"
-              data-nui-tooltip-position="right"
-            >
-              <icon
-                name="material-symbols:map-outline-rounded"
-                class="h-5 w-5"
-              />
-            </BaseButtonIcon>
-            <BaseButtonIcon
-              :color="isInSkogsbruk ? 'primary' : 'default'"
-              shape="full"
-              to="/skogsbruk"
-              class="h-5 w-5 mb-5"
-              data-nui-tooltip="Skogsskötsel"
-              data-nui-tooltip-position="right"
-            >
-              <icon
-                name="material-symbols:nature-people-outline-rounded"
-                class="h-5 w-5"
-              />
-            </BaseButtonIcon>
-            <div
-              class="border-b border-neutral-300 dark:border-neutral-700 w-full"
-            ></div>
-            <BaseButtonIcon
-              :color="isInSvampkunskap ? 'primary' : 'default'"
-              shape="full"
-              to="/svampkunskap"
-              class="h-5 w-5 my-5"
-              data-nui-tooltip="Svampkunskap"
-              data-nui-tooltip-position="right"
-            >
-              <icon name="heroicons:book-open" class="h-5 w-5" />
-            </BaseButtonIcon>
-          </div>
-        </template>
+      <!-- TOP SECTION (Navigation Buttons) -->
+      <div class="mt-4 flex flex-col space-y-1">
+        <!-- Översikt Button -->
+        <div
+          :data-nui-tooltip="!isExpanded ? 'Översikt' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
+        >
+          <NuxtLink
+            to="/start"
+            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            :class="[
+              isExpanded ? 'w-full' : 'w-12 h-12',
+              isInStart
+                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                : 'text-neutral-800',
+            ]"
+          >
+            <icon
+              name="heroicons:squares-2x2"
+              class="size-6 transition-all"
+              :class="isInStart ? 'text-green-500' : 'text-neutral-700'"
+            />
+            <Transition name="fade">
+              <span
+                v-if="isExpanded"
+                class="text-md whitespace-nowrap transition-all"
+                :class="isInStart ? 'text-green-500' : 'text-neutral-800'"
+              >
+                Översikt
+              </span>
+            </Transition>
+          </NuxtLink>
+        </div>
+
+        <!-- Separator -->
+        <hr class="border-neutral-300 dark:border-neutral-700" />
+
+        <!-- Mykorrhizasvampar Button -->
+        <div
+          :data-nui-tooltip="!isExpanded ? 'Mykorrhizasvampar' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
+        >
+          <NuxtLink
+            to="/svampdata/dashboard"
+            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            :class="[
+              isExpanded ? 'w-full' : 'w-12 h-12',
+              isInSvampData
+                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                : 'text-neutral-800',
+            ]"
+          >
+            <icon
+              name="lineicons:mushroom-1"
+              class="size-6 transition-all"
+              :class="isInSvampData ? 'text-green-500' : 'text-neutral-700'"
+            />
+            <Transition name="fade">
+              <span
+                v-if="isExpanded"
+                class="text-md whitespace-nowrap transition-all"
+                :class="isInSvampData ? 'text-green-500' : 'text-neutral-800'"
+              >
+                Mykorrhizasvampar
+              </span>
+            </Transition>
+          </NuxtLink>
+        </div>
+
+        <!-- Skogsskötsel Button -->
+        <div data-nui-tooltip="Skogsskötsel" data-nui-tooltip-position="right">
+          <NuxtLink
+            to="/skogsbruk"
+            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            :class="[
+              isExpanded ? 'w-full' : 'w-12 h-12',
+              isInSkogsbruk
+                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                : 'text-neutral-800',
+            ]"
+          >
+            <icon
+              name="material-symbols:nature-people-outline-rounded"
+              class="size-6 transition-all"
+              :class="isInSkogsbruk ? 'text-green-500' : 'text-neutral-700'"
+            />
+            <Transition name="fade">
+              <span
+                v-if="isExpanded"
+                class="text-md whitespace-nowrap transition-all"
+                :class="isInSkogsbruk ? 'text-green-500' : 'text-neutral-800'"
+              >
+                Skogsskötsel
+              </span>
+            </Transition>
+          </NuxtLink>
+        </div>
+
+        <!-- Separator -->
+        <hr class="border-neutral-300 dark:border-neutral-700" />
+
+        <!-- Svampkunskap Button -->
+        <div data-nui-tooltip="Svampkunskap" data-nui-tooltip-position="right">
+          <NuxtLink
+            to="/svampkunskap"
+            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            :class="[
+              isExpanded ? 'w-full' : 'w-12 h-12',
+              isInSvampkunskap
+                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                : 'text-neutral-800',
+            ]"
+          >
+            <icon
+              name="i-heroicons-book-open"
+              class="size-6 transition-all"
+              :class="isInSvampkunskap ? 'text-green-500' : 'text-neutral-700'"
+            />
+            <Transition name="fade">
+              <span
+                v-if="isExpanded"
+                class="text-md whitespace-nowrap transition-all"
+                :class="
+                  isInSvampkunskap ? 'text-green-500' : 'text-neutral-800'
+                "
+              >
+                Svampkunskap
+              </span>
+            </Transition>
+          </NuxtLink>
+        </div>
       </div>
     </div>
 
-    <!-- ─── BOTTOM SECTION: Action Buttons & Toggle ───────────────────────── -->
+    <!-- BOTTOM SECTION -->
     <div>
-      <!-- In expanded mode, show full–width buttons with labels -->
-      <div class="mt-4">
-        <template v-if="isExpanded">
-          <div class="mb-4">
-            <BaseButtonIcon
-              color="info"
-              shape="full"
-              @click="isOpen = true"
-              class="w-full flex items-center px-2 py-1"
-            >
-              <icon name="heroicons:play-circle-solid" class="h-5 w-5 mr-2" />
-              Introduktionsfilm
-            </BaseButtonIcon>
-            <BaseButtonIcon
-              color="info"
-              shape="full"
-              @click.prevent="isPdfOpen = true"
-              class="w-full flex items-center px-2 py-1 mt-2"
-            >
-              <icon name="heroicons:document-text-solid" class="h-5 w-5 mr-2" />
-              Manual PDF
-            </BaseButtonIcon>
-          </div>
-        </template>
-        <!-- Collapsed mode: show the original icon–only buttons -->
-        <template v-else>
-          <div class="flex flex-col items-center">
-            <BaseButtonIcon
-              color="info"
-              shape="full"
-              @click="isOpen = true"
-              class="h-5 w-5 my-5"
-              data-nui-tooltip="Introduktionsfilm"
-              data-nui-tooltip-position="right"
-            >
-              <icon name="heroicons:play-circle-solid" class="h-5 w-5" />
-            </BaseButtonIcon>
-            <BaseButtonIcon
-              color="info"
-              shape="full"
-              @click.prevent="isPdfOpen = true"
-              class="h-5 w-5 mb-5"
-              data-nui-tooltip="Manual PDF"
-              data-nui-tooltip-position="right"
-            >
-              <icon name="heroicons:document-text-solid" class="h-5 w-5" />
-            </BaseButtonIcon>
-            <div
-              class="border-b border-neutral-300 dark:border-neutral-700 w-full"
-            ></div>
-            <BaseButtonIcon
-              :color="isInGuide ? 'primary' : 'default'"
-              shape="full"
-              to="/guide"
-              class="h-5 w-5 my-5"
-              data-nui-tooltip="Dokumentation"
-              data-nui-tooltip-position="right"
-            >
-              <icon name="mdi:file-cog-outline" class="h-5 w-5" />
-            </BaseButtonIcon>
-            <BaseButtonIcon
-              :color="isInAbout ? 'primary' : 'default'"
-              shape="full"
-              to="/about"
-              class="h-5 w-5 mb-5"
-              data-nui-tooltip="Om Projektet"
-              data-nui-tooltip-position="right"
-            >
-              <icon name="tabler:info-circle" class="h-5 w-5" />
-            </BaseButtonIcon>
-          </div>
-        </template>
+      <!-- Modal Trigger Buttons Group -->
+      <div class="mt-4 flex flex-col space-y-1">
+        <div
+          :data-nui-tooltip="'Introduktionsfilm'"
+          data-nui-tooltip-position="right"
+        >
+          <button
+            @click="isOpen = true"
+            :class="[
+              isExpanded ? 'w-full' : 'w-12 h-12',
+              'flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70 bg-amber-100',
+            ]"
+          >
+            <icon
+              name="heroicons:play-circle-solid"
+              class="size-6 transition-all"
+              :class="isOpen ? 'text-green-500' : 'text-neutral-700'"
+            />
+            <Transition name="fade">
+              <span
+                v-if="isExpanded"
+                class="text-md whitespace-nowrap transition-all"
+              >
+                Introduktionsfilm
+              </span>
+            </Transition>
+          </button>
+        </div>
+        <div data-nui-tooltip="Manual PDF" data-nui-tooltip-position="right">
+          <button
+            @click.prevent="isPdfOpen = true"
+            :class="[
+              isExpanded ? 'w-full' : 'w-12 h-12',
+              'flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70 bg-amber-100',
+            ]"
+          >
+            <icon
+              name="heroicons:document-text-solid"
+              class="size-6 transition-all"
+              :class="isPdfOpen ? 'text-green-500' : 'text-neutral-700'"
+            />
+            <Transition name="fade">
+              <span
+                v-if="isExpanded"
+                class="text-md whitespace-nowrap transition-all"
+              >
+                Manual PDF
+              </span>
+            </Transition>
+          </button>
+        </div>
       </div>
 
-      <!-- Expand/Collapse toggle button (always visible) -->
-      <div class="mt-4 flex justify-center">
-        <BaseButtonIcon
-          @click="isExpanded = !isExpanded"
-          shape="full"
-          class="h-5 w-5"
-          :data-nui-tooltip="isExpanded ? 'Collapse Sidebar' : 'Expand Sidebar'"
+      <!-- Separator -->
+      <hr class="border-neutral-300 dark:border-neutral-700 my-2" />
+
+      <!-- Documentation & Om Projektet Buttons -->
+      <div class="mt-4 flex flex-col space-y-1">
+        <NuxtLink
+          to="/guide"
+          class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+          :class="[
+            isExpanded ? 'w-full' : 'w-12 h-12',
+            isInGuide
+              ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+              : 'text-neutral-800',
+          ]"
+          data-nui-tooltip="Dokumentation"
+          data-nui-tooltip-position="right"
         >
           <icon
-            :name="
-              isExpanded
-                ? 'heroicons:chevron-double-left'
-                : 'heroicons:chevron-double-right'
-            "
-            class="h-5 w-5"
+            name="i-heroicons-document-text"
+            class="size-6 transition-all"
+            :class="isInGuide ? 'text-green-500' : 'text-neutral-700'"
           />
-        </BaseButtonIcon>
+          <Transition name="fade">
+            <span
+              v-if="isExpanded"
+              class="text-md whitespace-nowrap transition-all"
+              :class="isInGuide ? 'text-green-500' : 'text-neutral-800'"
+            >
+              Dokumentation
+            </span>
+          </Transition>
+        </NuxtLink>
+        <NuxtLink
+          to="/about"
+          class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+          :class="[
+            isExpanded ? 'w-full' : 'w-12 h-12',
+            isInAbout
+              ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+              : 'text-neutral-800',
+          ]"
+          data-nui-tooltip="Om Projektet"
+          data-nui-tooltip-position="right"
+        >
+          <icon
+            name="i-heroicons-information-circle"
+            class="size-6 transition-all"
+            :class="isInAbout ? 'text-green-500' : 'text-neutral-700'"
+          />
+          <Transition name="fade">
+            <span
+              v-if="isExpanded"
+              class="text-md whitespace-nowrap transition-all"
+              :class="isInAbout ? 'text-green-500' : 'text-neutral-800'"
+            >
+              Om Projektet
+            </span>
+          </Transition>
+        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { useSidebarStore } from "~/stores/sidebarStore";
+import { ref, computed, defineExpose, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useSidebarStore } from "~/stores/sidebarStore";
 
-// States for the modals and the new expanded mode
+const isExpanded = ref(false);
 const isOpen = ref(false);
 const isPdfOpen = ref(false);
-const isExpanded = ref(false);
+const route = useRoute();
+const { closeSidebar } = useSidebarStore();
 
-// Path for the PDF (make sure it exists in your public folder)
 const pdfUrl = "/docs/Manual.pdf";
 
-const route = useRoute();
+// Active directory helpers – a button will be “active” if the current URL includes the directory.
 const isActiveDirectory = (directory: string) =>
   computed(() => route.path.includes(`/${directory}`));
 
@@ -248,46 +331,44 @@ const isInStart = isActiveDirectory("start");
 const isInSvampData = isActiveDirectory("svampdata");
 const isInSkogsbruk = isActiveDirectory("skogsbruk");
 const isInSvampkunskap = isActiveDirectory("svampkunskap");
-const isInAbout = isActiveDirectory("about");
 const isInGuide = isActiveDirectory("guide");
+const isInAbout = isActiveDirectory("about");
+
 const isInHome = computed(() => route.path === "/");
 
-const { closeSidebar } = useSidebarStore();
+watch(isInHome, (newValue) => {
+  if (newValue) {
+    isExpanded.value = false;
+  }
+});
 
-// Navigation links that replace the icon buttons when expanded.
-// Notice the divider property (which you can use with UVerticalNavigation to split sections)
-const navigationLinks = [
-  {
-    label: "Översikt",
-    icon: "i-material-symbols-grid-view-outline-rounded",
-    to: "/start",
-  },
-  {
-    label: "Sveriges mykorrhizasvampar",
-    icon: "i-material-symbols-map-outline-rounded",
-    to: "/svampdata/dashboard",
-  },
-  {
-    label: "Skogsskötsel",
-    icon: "i-material-symbols-nature-people-outline-rounded",
-    to: "/skogsbruk",
-  },
-  {
-    label: "Svampkunskap",
-    icon: "i-heroicons-book-open",
-    to: "/svampkunskap",
-  },
-  // This item starts a new section (divider before it)
-  {
-    label: "Dokumentation",
-    icon: "i-heroicons-document-text",
-    to: "/guide",
-    divider: true,
-  },
-  {
-    label: "Om Projektet",
-    icon: "i-heroicons-information-circle",
-    to: "/about",
-  },
-];
+// New method to toggle expansion
+function toggleExpand() {
+  isExpanded.value = !isExpanded.value;
+}
+
+// Expose the toggle method (and even the current state, if needed)
+defineExpose({
+  toggleExpand,
+  isExpanded,
+});
 </script>
+
+<style scoped>
+/* Fade-in (Expanding) */
+.fade-enter-active {
+  transition: opacity 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+/* Fade-out (Collapsing) */
+.fade-leave-active {
+  transition: opacity 0.1s ease-in-out;
+}
+
+/* Initial and final opacity */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

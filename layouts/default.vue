@@ -2,6 +2,7 @@
   <div class="relative">
     <MobileTopNav />
     <ThinSideBar
+      ref="thinSideBar"
       :class="{ '-ml-20': isStartPage, 'ml-0 w-20': !isStartPage }"
       class="z-50 transition-all duration-300 sync-transition hidden md:block"
     />
@@ -16,11 +17,10 @@
         'fixed top-0 left-0 right-0 justify-between items-center z-20 transition-all duration-300 hidden md:flex',
         {
           'ml-0 md:hidden': isStartPage,
-          'md:ml-16': isSvampdataSubRoute && !isStartPage,
-          'md:ml-[400px]': isSidebarOpen && !isStartPage,
-          'md:ml-[64px]':
-            !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
-          'md:ml-[20px]': isSidebarOpen && isDocumentation,
+          // 'md:ml-16': isSvampdataSubRoute && !isStartPage,
+          'md:ml-[240px]': thinSideBar?.isExpanded && !isStartPage,
+          'md:ml-[50px]': !thinSideBar?.isExpanded && !isStartPage,
+          'md:ml-[20px]': thinSideBar?.isExpanded && isDocumentation,
         },
       ]"
       class="bg-neutral-100 dark:bg-neutral-800 py-2"
@@ -29,13 +29,14 @@
         class="px-6 container flex justify-between items-center mx-auto lg:max-w-full 2xl:max-w-screen-2xl"
       >
         <div class="flex gap-2">
-          <button @click="toggleSidebar">
+          <button @click="toggleThinSidebar">
+            <!-- The icon can depend on whether the ThinSideBar is expanded -->
             <Icon
-              name="material-symbols-light:data-info-alert-rounded"
-              v-if="!isSidebarOpen"
-              class="h-10 w-10 ml-3 text-green-500"
+              name="heroicons:bars-3-bottom-left-solid"
+              v-if="!thinSideBar?.isExpanded"
+              class="h-8 w-8 ml-3 text-green-500"
             />
-            <ChevronLeftIcon v-else class="h-10 w-10 ml-2 text-green-500" />
+            <ChevronLeftIcon v-else class="h-8 w-8 ml-2 text-green-500" />
           </button>
           <slot name="title" :key="route.path">
             <BaseHeading as="h1" weight="light" size="3xl" :key="route.path">
@@ -95,9 +96,10 @@
 
         'pl-0': isStartPage,
         'md:ml-16 ': !isStartPage,
-        'md:ml-[400px]': isSidebarOpen && !isStartPage,
-        'md:ml-[64px]': !isSidebarOpen && !isSvampdataSubRoute && !isStartPage,
-        'md:ml-[20px]': isSidebarOpen && isDocumentation,
+        'md:ml-[240px]': thinSideBar?.isExpanded && !isStartPage,
+        // 'md:ml-[240px]':
+        //   thinSideBar?.isExpanded && !isSvampdataSubRoute && !isStartPage,
+        'md:ml-[20px]': thinSideBar?.isExpanded && isDocumentation,
         'sync-transition': true,
       }"
     >
@@ -121,6 +123,13 @@ import { Bars3CenterLeftIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { useTitleStore } from "~/stores/titleStore";
 import { useRoute } from "vue-router";
 import { useSidebarStore } from "~/stores/sidebarStore";
+
+const thinSideBar = ref(null);
+
+// Change the toggle function to call the ThinSideBar's toggle method
+function toggleThinSidebar() {
+  thinSideBar.value && thinSideBar.value.toggleExpand();
+}
 
 const showEnvironmentTitleSmall = ref(false);
 

@@ -45,6 +45,16 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
   ],
 
+  icon: {
+    collections: {
+      // Register your Material Symbols collection
+      "material-symbols": () =>
+        import("@iconify-json/material-symbols/icons.json"),
+      // You can also register other collections if needed:
+      // 'uil': () => import('@iconify-json/uil/icons.json'),
+    },
+  },
+
   colorMode: {
     preference: "light", // default value of $colorMode.preference
     fallback: "light", // fallback value if not system preference found
