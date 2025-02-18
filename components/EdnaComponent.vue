@@ -151,14 +151,14 @@
               v-model="activeTab"
               :tabs="[
                 {
-                  label: 'Lista',
-                  icon: 'material-symbols:format-list-bulleted-rounded',
-                  value: 'spatialForest',
-                },
-                {
                   label: 'Diagram',
                   icon: 'material-symbols:bar-chart',
                   value: 'columnChart',
+                },
+                {
+                  label: 'Lista',
+                  icon: 'material-symbols:format-list-bulleted-rounded',
+                  value: 'spatialForest',
                 },
               ]"
             />
@@ -277,7 +277,7 @@ const emitEnlarge = (componentName) => {
 const route = useRoute();
 
 // -- TABS, CHART WIDTH, ZOOM --
-const activeTab = ref("spatialForest");
+const activeTab = ref("columnChart");
 const chartWidth = ref("100%");
 
 const handleZoomIn = () => {

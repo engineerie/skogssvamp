@@ -1,157 +1,782 @@
 <template>
-  <div class="flex mt-12">
-    <!-- <NuxtImg src="/images/SvamparSverige4.svg" class="w-56" /> -->
-    <div
-      class="ring-1 ring-neutral-200 rounded-xl flex justify-between overflow-hidden"
-    >
-      <div class="grid grid-cols-4 bg-neutral-100">
-        <div class="p-6 col-span-3">
-          <BaseHeading size="xl" weight="light">
-            Se hur mykorrhizasvampar påverkas av olika skogsskötsel
-          </BaseHeading>
-          <BaseHeading size="lg" weight="light" class="text-neutral-500">
-            Välj först om skogen har varit kalavverkad tidigare eller inte. I
-            nästa steg väljer du skogsbruksätt. Du kan sedan interaktivt
-            undersöka hur mykorrhizasvampar påverkas under en skogsgeneration.
-            Valen av skogshistorik och skogsskötsel går också att justera inne i
-            modellen.
-          </BaseHeading>
-        </div>
-      </div>
-      <NuxtImg
-        src="/images/Skogssbruk.svg"
-        class="w-80 pt-2 border-l-[1px] border-neutral-200"
-      />
-    </div>
-  </div>
-
-  <div class="w-full h-full overflow-auto p-4 pr-2">
-    <form class="mx-auto w-full max-w-7xl px-4 pt-12">
-      <!-- Header -->
-      <div class="pt-8 text-center">
-        <p
-          class="nui-heading nui-heading-3xl nui-weight-medium nui-lead-normal mb-2"
-        >
-          Välj skogshistorik
-        </p>
-        <p
-          class="nui-paragraph nui-paragraph-md nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 mb-8"
-        >
-          Har skogen varit kalavverkad tidigare, eller inte tidigare?
-        </p>
-      </div>
-
-      <!-- Radio options grid -->
-      <div class="w-full">
-        <div class="mx-auto w-full">
-          <div class="w-full">
-            <div class="mx-auto mb-8 grid max-w-5xl gap-6 sm:grid-cols-4">
-              <div></div>
-              <BaseRadioHeadless
-                v-model="onboardingStore.selectedStartskog"
-                :value="0"
+  <div class="mt-24">
+    <!-- Updated Stepper (Circles and Labels separated) -->
+    <div class="mb-20 mx-60">
+      <!-- Circles and line -->
+      <div class="px-6">
+        <div class="relative" style="height: 3rem">
+          <!-- Background line -->
+          <div
+            class="absolute top-1/2 h-1 bg-gray-200 z-[-1]"
+            :style="{ left: lineLeft, right: lineLeft }"
+          ></div>
+          <!-- Animated progress line -->
+          <div
+            class="absolute top-1/2 h-1 bg-primary-500 transition-all duration-50 z-[-1]"
+            :style="{ left: lineLeft, width: progressWidth }"
+          ></div>
+          <!-- Circles container -->
+          <div class="flex items-center h-full z-10">
+            <div
+              v-for="(step, index) in onboardingStepsDisplay"
+              :key="index"
+              class="flex-1 flex justify-center"
+            >
+              <div
+                class="size-14 flex items-center justify-center rounded-full border-2 transition-all"
+                :class="[
+                  circleClasses(index),
+                  {
+                    'cursor-not-allowed border-opacity-20 bg-neutral-200 text-opacity-20':
+                      !isStepEnabled(index),
+                  },
+                ]"
+                @click="isStepEnabled(index) && onboardingStepClicked(index)"
               >
-                <BaseCard
-                  rounded="lg"
-                  class="peer-checked:!border-primary-500 peer-checked:!bg-primary-500/10 relative border-2 p-9 opacity-60 grayscale peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:[&_.child]:!opacity-100"
-                >
-                  <div class="flex flex-col items-center text-center">
-                    <img
-                      class="mx-auto mt-12 mb-8 max-w-[120px]"
-                      src="public/images/SkogsbrukIcons/InteKalavverkad.png"
-                    />
-                    <BaseHeading
-                      size="md"
-                      weight="medium"
-                      class="text-muted-600 dark:text-muted-100"
-                    >
-                      Inte kalavverkad
-                    </BaseHeading>
-                    <p
-                      class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
-                    >
-                      Skogen har oftast skogsbrukats, men inte varit
-                      kalavverkad.
-                    </p>
-                  </div>
-                  <div class="child absolute end-2 top-3 opacity-0">
-                    <Icon
-                      name="ph:check-circle-duotone"
-                      class="text-primary-500 size-7"
-                    />
-                  </div>
-                </BaseCard>
-              </BaseRadioHeadless>
-
-              <!-- Kalavverkad -->
-              <BaseRadioHeadless
-                v-model="onboardingStore.selectedStartskog"
-                :value="1"
-              >
-                <BaseCard
-                  rounded="lg"
-                  class="peer-checked:!border-primary-500 peer-checked:!bg-primary-500/10 relative border-2 p-9 opacity-60 grayscale peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:[&_.child]:!opacity-100"
-                >
-                  <div class="flex flex-col items-center text-center">
-                    <img
-                      src="public/images/SkogsbrukIcons/Kalavverkad.png"
-                      class="mx-auto mt-12 mb-8 max-w-[120px]"
-                    />
-                    <BaseHeading
-                      size="md"
-                      weight="medium"
-                      class="text-muted-600 dark:text-muted-100"
-                    >
-                      Kalavverkad
-                    </BaseHeading>
-                    <p
-                      class="nui-paragraph nui-paragraph-xs nui-weight-normal nui-lead-snug text-muted-500 dark:text-muted-400"
-                    >
-                      Skogen har varit kalavverkad eller är etablerad på
-                      tidigare trädlös mark.
-                    </p>
-                  </div>
-                  <div class="child absolute end-2 top-3 opacity-0">
-                    <Icon
-                      name="ph:check-circle-duotone"
-                      class="text-primary-500 size-7"
-                    />
-                  </div>
-                </BaseCard>
-              </BaseRadioHeadless>
-              <div></div>
+                <Icon
+                  :name="step.icon"
+                  class="size-8"
+                  :class="{ 'text-gray-300': !isStepEnabled(index) }"
+                />
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- Confirmation Button -->
-        <div class="mx-auto flex flex-col items-center">
-          <NuxtLink to="/skogsbruk/metod">
-            <BaseButton
-              shape=""
-              size="lg"
-              color="primary"
-              class="w-32 rounded-xl"
-              >Nästa</BaseButton
-            ></NuxtLink
+      </div>
+      <!-- Labels row -->
+      <div class="flex mt-2 px-6">
+        <div
+          v-for="(step, index) in onboardingStepsDisplay"
+          :key="index"
+          class="flex-1 text-center text-sm text-neutral-500 relative"
+          :class="{ 'text-primary-500': index <= currentStep }"
+        >
+          <div>{{ step.label }}</div>
+          <!-- Display badges for selections in historik and skogsskötsel -->
+          <div
+            v-if="index === 1 && onboardingStore.selectedStartskog !== null"
+            class="absolute left-1/2 top-full mt-1 transform -translate-x-1/2 w-full"
           >
+            <UBadge>
+              {{ startskogOptions[onboardingStore.selectedStartskog] }}
+            </UBadge>
+          </div>
+          <!-- Display badge for skogsskötsel -->
+          <div
+            v-if="index === 2 && onboardingStore.selectedFramework !== null"
+            class="absolute left-1/2 top-full mt-1 transform -translate-x-1/2"
+          >
+            <UBadge>
+              {{ frameworkOptions[onboardingStore.selectedFramework] }}
+            </UBadge>
+          </div>
         </div>
       </div>
-    </form>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <!-- Right side (full width) -->
+      <div class="col-span-12">
+        <div class="rounded-2xl">
+          <!-- Step 0: Information -->
+          <div v-if="currentStep === 0">
+            <div class="grid grid-cols-11">
+              <div
+                class="col-span-3 col-start-5 border border-neutral-200 rounded-2xl bg-neutral-50 bg-opacity-95 overflow-hidden flex-col justify-between h-fit"
+              >
+                <div class="p-6">
+                  <BaseHeading
+                    size="2xl"
+                    weight="light"
+                    class="text-neutral-900 mb-2"
+                  >
+                    Se skogsskötselns påverkan på mykorrhizasvampar.
+                  </BaseHeading>
+                  <BaseHeading
+                    size="lg"
+                    weight="light"
+                    class="text-neutral-500"
+                  >
+                    Här visualiserar vi baserat på den kunskap som finns hur
+                    olika former av trakthyggesbruk och hyggesfria metoder
+                    påverkar förekomsten av mykorrhizasvampar under en
+                    skogsgeneration.
+                  </BaseHeading>
+                </div>
+                <div>
+                  <img
+                    src="/images/Skogsskötsel4.svg"
+                    class="z-10"
+                    alt="Skogsskötsel illustration"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Navigation buttons -->
+            <div class="flex gap-1 w-full justify-center mt-6">
+              <!-- Next Button -->
+              <button
+                @click="nextStep"
+                :disabled="!isStepEnabled(1)"
+                :class="[
+                  'rounded-full text-sm border p-2 px-5 transition-colors',
+                  !isStepEnabled(1)
+                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
+                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
+                ]"
+              >
+                <span>Välj historik</span>
+                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 1: Välj historik -->
+          <div v-else-if="currentStep === 1">
+            <BaseHeading size="2xl" weight="light" class="mb-12 text-center">
+              Har skogen varit kalavverkad tidigare eller inte?
+            </BaseHeading>
+
+            <!-- Custom selection options for historik -->
+            <div class="mb-6">
+              <div class="mx-auto mb-8 grid max-w-3xl gap-6 sm:grid-cols-2">
+                <!-- Option 0: Inte kalavverkad -->
+                <div
+                  class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all col-start-1"
+                  :class="optionCardClass(onboardingStore.selectedStartskog, 0)"
+                  @click="onboardingStore.selectedStartskog = 0"
+                >
+                  <div class="relative">
+                    <NuxtImg
+                      src="/images/hyggesfritt.jpg"
+                      class="object-cover"
+                      alt="Inte kalavverkad"
+                      height="250"
+                      width="500"
+                    />
+                  </div>
+                  <div class="p-3">
+                    <BaseHeading
+                      size="md"
+                      weight="medium"
+                      class="text-muted-600"
+                    >
+                      Inte kalavverkad
+                    </BaseHeading>
+                    <BaseHeading
+                      size="md"
+                      weight="medium"
+                      class="text-muted-400"
+                    >
+                      Skogen har oftast skogsbrukats, men inte varit
+                      kalavverkad.
+                    </BaseHeading>
+                  </div>
+                </div>
+                <!-- Option 1: Kalavverkad -->
+                <div
+                  class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                  :class="optionCardClass(onboardingStore.selectedStartskog, 1)"
+                  @click="onboardingStore.selectedStartskog = 1"
+                >
+                  <div class="relative">
+                    <NuxtImg
+                      src="/images/kalhygge.jpeg"
+                      class="object-cover"
+                      alt="Kalavverkad"
+                      height="250"
+                      width="500"
+                    />
+                  </div>
+                  <div class="p-3">
+                    <BaseHeading
+                      size="md"
+                      weight="medium"
+                      class="text-muted-600"
+                    >
+                      Kalavverkad
+                    </BaseHeading>
+                    <BaseHeading
+                      size="md"
+                      weight="medium"
+                      class="text-muted-400"
+                    >
+                      Skogen har varit kalavverkad eller är etablerad på
+                      tidigare trädlös mark.
+                    </BaseHeading>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation buttons for Step 1 -->
+            <div class="flex gap-1 w-full justify-center mt-6">
+              <!-- Previous Button -->
+              <button
+                @click="prevStep"
+                :disabled="currentStep === 0"
+                :class="[
+                  'rounded-full text-sm border p-2 px-5 transition-colors',
+                  currentStep === 0
+                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
+                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
+                ]"
+              >
+                <Icon name="heroicons:arrow-left" class="size-5 mr-1 -ml-2" />
+                <span>Information</span>
+              </button>
+              <!-- Next Button -->
+              <button
+                @click="nextStep"
+                :disabled="!isStepEnabled(2)"
+                :class="[
+                  'rounded-full text-sm border p-2 px-5 transition-colors',
+                  !isStepEnabled(2)
+                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
+                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
+                ]"
+              >
+                <span>Välj skogsskötsel</span>
+                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Välj skogsskötsel -->
+          <div v-else-if="currentStep === 2">
+            <BaseHeading size="2xl" weight="light" class="mb-6 text-center">
+              Vilken skogsskötsel planeras?
+            </BaseHeading>
+
+            <div class="w-full flex justify-center">
+              <BaseTabs v-model="activeTab" :tabs="tabs" />
+            </div>
+            <div v-if="activeTab === 'komigang'">
+              <!-- Custom selection options for management method -->
+              <div class="mb-6">
+                <div class="mx-auto mb-8 grid max-w-7xl gap-6 sm:grid-cols-5">
+                  <div
+                    class="mx-8 col-start-3 col-span-3 text-primary-500 text-sm font-light flex justify-center border-primary-500 border-b border-dashed pb-2"
+                  >
+                    Hyggesfria metoder
+                  </div>
+                  <!-- Option 0: Inga åtgärder (naturskydd) -->
+                  <div
+                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                    :class="
+                      optionCardClass(onboardingStore.selectedFramework, 0)
+                    "
+                    @click="onboardingStore.selectedFramework = 0"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        width="300"
+                        height="180"
+                        src="/images/ingen_åtgärd.jpg"
+                        class="h-full rounded-t-xl overflow-hidden"
+                        alt="Inga åtgärder"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <Icon
+                        name="pepicons-pop:tree-circle"
+                        class="size-5 text-green-400"
+                      />
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        Inga åtgärder
+                      </BaseHeading>
+                    </div>
+                  </div>
+
+                  <!-- Option 1: Trakthyggesbruk -->
+                  <div
+                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                    :class="
+                      optionCardClass(onboardingStore.selectedFramework, 1)
+                    "
+                    @click="onboardingStore.selectedFramework = 1"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        width="300"
+                        height="180"
+                        src="/images/kalhygge.jpg"
+                        class="h-full rounded-t-xl overflow-hidden"
+                        alt="Trakthyggesbruk"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <Icon
+                        name="material-symbols:resize"
+                        class="size-5 text-violet-400"
+                      />
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        Trakthyggesbruk
+                      </BaseHeading>
+                    </div>
+                  </div>
+
+                  <!-- Option 2: Luckhuggning -->
+                  <div
+                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                    :class="
+                      optionCardClass(onboardingStore.selectedFramework, 2)
+                    "
+                    @click="onboardingStore.selectedFramework = 2"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        width="300"
+                        height="180"
+                        src="/images/luckhuggning.jpg"
+                        class="h-full rounded-t-xl overflow-hidden"
+                        alt="Luckhuggning"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <Icon
+                        name="pixelarticons:chess"
+                        class="size-5 text-sky-400"
+                      />
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        Luckhuggning
+                      </BaseHeading>
+                    </div>
+                  </div>
+
+                  <!-- Option 3: Överhållen skärm -->
+                  <div
+                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                    :class="
+                      optionCardClass(onboardingStore.selectedFramework, 3)
+                    "
+                    @click="onboardingStore.selectedFramework = 3"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        width="300"
+                        height="180"
+                        src="/images/överhållenskärm.jpg"
+                        class="h-full rounded-t-xl overflow-hidden"
+                        alt="Överhållen skärm"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <Icon
+                        name="catppuccin:redwood"
+                        class="size-5 text-orange-400"
+                      />
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        Överhållen skärm
+                      </BaseHeading>
+                    </div>
+                  </div>
+
+                  <!-- Option 4: Blädning -->
+                  <div
+                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                    :class="
+                      optionCardClass(onboardingStore.selectedFramework, 4)
+                    "
+                    @click="onboardingStore.selectedFramework = 4"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        width="300"
+                        height="180"
+                        src="/images/blädning.jpg"
+                        class="h-full rounded-t-xl overflow-hidden"
+                        alt="Blädning"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <Icon
+                        name="tabler:christmas-tree-off"
+                        class="size-5 text-teal-400"
+                      />
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        Blädning
+                      </BaseHeading>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Tab: Skogsskötsel information -->
+            <div
+              v-else-if="activeTab === 'skogsskolsel'"
+              class="rounded-2xl w-full flex justify-center"
+            >
+              <div class="space-y-6 max-w-7xl">
+                <!-- Loop over each forest type in the JSON -->
+                <div
+                  v-for="(forestData, index) in allForestryData"
+                  :key="index"
+                >
+                  <div v-if="forestData.methods.length > 0">
+                    <!-- Loop over each method for the forest type -->
+                    <div
+                      v-for="(method, mIndex) in forestData.methods"
+                      :key="mIndex"
+                      class="p-4 border rounded-lg transition-shadow mb-4 grid grid-cols-4 gap-4 bg-neutral-50"
+                    >
+                      <!-- Image from the JSON -->
+                      <div
+                        class="bg-gray-200 h-full rounded-lg flex items-center justify-center overflow-hidden"
+                      >
+                        <div
+                          class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700"
+                        >
+                          <NuxtImg
+                            :src="method.image"
+                            alt="Framework image"
+                            class="object-cover w-full h-full"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-span-3">
+                        <div class="flex items-center gap-4">
+                          <span class="font-bold text-lg">
+                            {{ methodLabels[method.key] || method.title }}
+                          </span>
+                        </div>
+                        <p class="mt-2 text-neutral-600">
+                          {{ method.description }}
+                        </p>
+                        <p class="mt-2 text-neutral-600">
+                          <span class="font-bold"
+                            >Påverkan på mykorrhizasvampar:</span
+                          >
+                          <span>{{ method.impact }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation buttons for Step 2 -->
+            <div class="flex gap-1 w-full justify-center mt-6">
+              <!-- Previous Button -->
+              <button
+                @click="prevStep"
+                :disabled="currentStep === 0"
+                :class="[
+                  'rounded-full text-sm border p-2 px-5 transition-colors',
+                  currentStep === 0
+                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
+                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
+                ]"
+              >
+                <Icon name="heroicons:arrow-left" class="size-5 mr-1 -ml-2" />
+                <span>Historik</span>
+              </button>
+              <!-- Next Button -->
+              <button
+                @click="nextStep"
+                :disabled="!isStepEnabled(3)"
+                :class="[
+                  'rounded-full text-sm border p-2 px-5 transition-colors',
+                  !isStepEnabled(3)
+                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
+                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
+                ]"
+              >
+                <span>Gå till modell</span>
+                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Gå till modell (Summary) -->
+          <div v-else-if="currentStep === 3">
+            <!-- Summary of user choices -->
+            <div class="mb-6">
+              <BaseHeading size="2xl" weight="light" class="mb-6 text-center">
+                Klar att fortsätta till modell?
+              </BaseHeading>
+              <div class="grid grid-cols-6 gap-6">
+                <div class="col-start-3">
+                  <BaseHeading
+                    size="md"
+                    weight="light"
+                    class="text-center text-neutral-400 mb-2"
+                  >
+                    Skogens historik
+                  </BaseHeading>
+                  <!-- Historik summary card -->
+                  <div
+                    class="rounded-xl overflow-hidden border border-neutral-200"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        :src="
+                          onboardingStore.selectedStartskog === 0
+                            ? '/images/hyggesfritt.jpg'
+                            : '/images/kalhygge.jpeg'
+                        "
+                        class="w-full rounded-t-xl overflow-hidden object-cover"
+                        alt="Historik val"
+                        height="180"
+                        width="300"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        {{
+                          startskogOptions[onboardingStore.selectedStartskog]
+                        }}
+                      </BaseHeading>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Skogsskötsel summary card -->
+                <div>
+                  <BaseHeading
+                    size="md"
+                    weight="light"
+                    class="text-center text-neutral-400 mb-2"
+                  >
+                    Planerad skogsskötsel
+                  </BaseHeading>
+                  <div
+                    class="rounded-xl overflow-hidden border border-neutral-200"
+                  >
+                    <div class="relative">
+                      <NuxtImg
+                        :src="frameworkImage()"
+                        class="w-full rounded-t-xl overflow-hidden object-cover"
+                        alt="Skogsskötsel val"
+                        height="180"
+                        width="300"
+                      />
+                    </div>
+                    <div class="flex items-center gap-1 p-2">
+                      <BaseHeading
+                        size="md"
+                        weight="medium"
+                        class="text-muted-600"
+                      >
+                        {{
+                          frameworkOptions[onboardingStore.selectedFramework]
+                        }}
+                      </BaseHeading>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <button
+                @click="goToModell"
+                :class="[
+                  'rounded-full text-sm border p-2 px-5 transition-colors',
+                  isStepEnabled(3)
+                    ? 'bg-primary-500  text-neutral-50 hover:bg-opacity-80'
+                    : 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed',
+                ]"
+              >
+                <span>Gå till modell</span>
+                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
 import { useOnboardingStore } from "~/stores/onboardingStore";
-import { watch } from "vue";
+import frameworkDescriptions from "public/frameworkDescriptions.json";
+import { useRouter } from "vue-router";
+
+// Create a computed property to transform your JSON structure
+const allForestryData = computed(() => {
+  return Object.entries(frameworkDescriptions).map(
+    ([forestType, methodsObj]) => {
+      const methods = Object.entries(methodsObj).map(
+        ([methodKey, methodData]) => ({ key: methodKey, ...methodData })
+      );
+      return { forestType, methods };
+    }
+  );
+});
+
+// Mapping for startskog selections
+const startskogOptions = ["Inte kalavverkad", "Kalavverkad"];
+
+// Mapping for framework selections
+const frameworkOptions = [
+  "Inga åtgärder",
+  "Trakthyggesbruk",
+  "Luckhuggning",
+  "Överhållen skärm",
+  "Blädning",
+];
+
+// Map to override the JSON titles with your desired labels
+const methodLabels = {
+  naturskydd: "Inga åtgärder",
+  trakthygge: "Trakthyggesbruk",
+  luckhuggning: "Luckhuggning",
+  skärmträd: "Överhållen skärm",
+  blädning: "Blädning",
+};
+
+const onboardingStepsDisplay = [
+  { label: "Information", icon: "heroicons:information-circle" },
+  { label: "Välj historik", icon: "iconamoon:history-light" },
+  { label: "Välj skogsskötsel", icon: "mdi:saw-blade" },
+  { label: "Gå till modell", icon: "heroicons:arrow-right" },
+];
+
+const currentStep = ref(0);
+
+// Progress line calculations.
+const lineLeft = computed(
+  () => `${100 / (onboardingStepsDisplay.length * 2)}%`
+);
+const totalLineWidth = computed(
+  () => 100 - 100 / onboardingStepsDisplay.length
+);
+const progressWidth = computed(() => {
+  if (onboardingStepsDisplay.length <= 1) return "0%";
+  return (
+    (currentStep.value / (onboardingStepsDisplay.length - 1)) *
+      totalLineWidth.value +
+    "%"
+  );
+});
+
+function circleClasses(index) {
+  return index <= currentStep.value
+    ? "border-primary-500 bg-primary-500 text-neutral-50"
+    : "border-gray-300 bg-white text-neutral-500";
+}
+
+function nextStep() {
+  if (currentStep.value < onboardingStepsDisplay.length - 1) {
+    currentStep.value++;
+  }
+}
+
+function prevStep() {
+  if (currentStep.value > 0) {
+    currentStep.value--;
+  }
+}
+
+const router = useRouter();
+function goToModell() {
+  router.push("/skogsbruk/modell");
+}
+
+function onboardingStepClicked(index) {
+  // For step 3, check that required selections have been made.
+
+  currentStep.value = index;
+}
+
+// Enable conditions:
+// - Step 0 (Information): Always enabled.
+// - Step 1 (Välj historik): Always enabled.
+// - Step 2 (Välj skogsskötsel): Enabled if a historik selection has been made.
+// - Step 3 (Gå till modell): Enabled if both historik and framework selections are made.
+function isStepEnabled(index) {
+  if (index === 0) return true;
+  if (index === 1) return true;
+  if (index === 2) return onboardingStore.selectedStartskog !== null;
+  if (index === 3)
+    return (
+      onboardingStore.selectedStartskog !== null &&
+      onboardingStore.selectedFramework !== null
+    );
+  return false;
+}
+
+function optionCardClass(selectedValue, optionValue) {
+  return selectedValue === optionValue
+    ? "ring-primary-500 ring border-primary-500 rounded-xl"
+    : "ring-none";
+}
+
+const activeTab = ref("komigang");
+const tabs = [
+  { label: "Gör val", value: "komigang" },
+  { label: "Skogsskötsel information", value: "skogsskolsel" },
+];
 
 const onboardingStore = useOnboardingStore();
 
-// Watch for changes in the store and log them
-watch(
-  () => onboardingStore.selectedStartskog,
-  (newValue) => {
-    console.log("Selected Startskog value in component:", newValue);
+// Helper function to return the image path for the selected framework.
+function frameworkImage() {
+  const index = onboardingStore.selectedFramework;
+  switch (index) {
+    case 0:
+      return "/images/ingen_åtgärd.jpg";
+    case 1:
+      return "/images/kalhygge.jpg";
+    case 2:
+      return "/images/luckhuggning.jpg";
+    case 3:
+      return "/images/överhållenskärm.jpg";
+    case 4:
+      return "/images/blädning.jpg";
+    default:
+      return "";
   }
-);
+}
 </script>
+
+<style scoped>
+.transition-height {
+  transition: height 0.5s ease-in-out;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+</style>

@@ -39,7 +39,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Amanita lividopallescens-2975.jpg"
+    ]
   },
   {
     "Scientificname": "Hemileccinum impolitum",
@@ -81,7 +84,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Lactarius mairei",
@@ -123,7 +127,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Rubroboletus satanas",
@@ -165,7 +170,17 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-214-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-228-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-229-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-230-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-225-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-224-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-226-161.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus satanas-227-161.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus penarioides",
@@ -207,7 +222,10 @@
     "förekomst_skog": "x",
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": "x2"
+    "förekomst_sum": "x2",
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus penarioides-4419.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus cossus",
@@ -249,7 +267,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus cossus-239233.jpg"
+    ]
   },
   {
     "Scientificname": "Rubroboletus legaliae",
@@ -291,7 +312,12 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Rubroboletus legaliae-232-156.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus legaliae-255-.jpg",
+      "/images/SvampBilder/Giftsvampar/Rubroboletus legaliae-231-156.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius multiformium",
@@ -333,7 +359,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Russula decipiens",
@@ -375,7 +402,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius arcuatorum",
@@ -417,7 +445,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Leccinellum crocipodium",
@@ -459,7 +488,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Aureoboletus gentilis",
@@ -501,7 +531,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Aureoboletus gentilis-1334.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria subbotrytis",
@@ -543,7 +576,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Scleroderma cepa",
@@ -585,7 +619,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius olearioides",
@@ -627,7 +662,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius moÃ«nne-loccozii",
@@ -669,7 +705,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Russula laeta",
@@ -711,7 +748,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Ramaria flavobrunnescens",
@@ -753,7 +791,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius hinnuleoarmillatus",
@@ -795,7 +834,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Lactarius violascens",
@@ -837,7 +877,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Lactarius zonarius",
@@ -879,6 +920,9 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Lactarius zonarius-4788.jpg"
+    ]
   }
 ]

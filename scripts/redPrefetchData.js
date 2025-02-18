@@ -1,4 +1,4 @@
-// scripts/ediblePrefetchData.js
+// scripts/redPrefetchData.js
 
 import { fetchEdibleDataDirectly } from "/Users/jacobbertilsson/Documents/NUXT Apps/LearningNUXT/my-nuxt-app/server/api/redFetchData.js";
 import fs from "fs";
@@ -58,6 +58,57 @@ const mapStandAgeToColumn = {
   91: "91 år och äldre",
   allaåldrar: null,
 };
+
+// === IMAGE LOGIC START ===
+
+// Helper: Compute image URLs for a given scientific name using the manifest
+async function computeImages(scientificName, manifest) {
+  if (!scientificName) return [];
+  const cleanedName = scientificName
+    .replace(/\s*s\.?\s*(lat\.?|str\.?)\s*$/i, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+  const foundImages = [];
+  const searchFolders = ["Matsvampar", "Giftsvampar", "RödlistadeSvampar"];
+  for (const folder of searchFolders) {
+    const files = manifest[folder] || [];
+    for (const file of files) {
+      const base = file.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+      const [namePart] = base.split("-", 1);
+      const cleanedNamePart = namePart
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+      if (cleanedNamePart.includes(",")) {
+        const [nameA, nameB] = cleanedNamePart.split(",").map((s) => s.trim());
+        if (nameA === cleanedName || nameB === cleanedName) {
+          foundImages.push(`/images/SvampBilder/${folder}/${file}`);
+        }
+      } else if (cleanedNamePart === cleanedName) {
+        foundImages.push(`/images/SvampBilder/${folder}/${file}`);
+      }
+    }
+  }
+  return foundImages;
+}
+
+// Read the manifest file directly from disk
+const manifestPath = path.join(
+  __dirname,
+  "../public/imagemanifest/manifest.json"
+);
+let manifest = {};
+try {
+  const manifestData = fs.readFileSync(manifestPath, "utf8");
+  manifest = JSON.parse(manifestData);
+} catch (error) {
+  console.error("Error reading manifest file:", error);
+}
+
+// === IMAGE LOGIC END ===
 
 async function prefetchEdibleData() {
   for (const { geo, forest, veg, age } of allCombinations) {
@@ -129,10 +180,18 @@ async function prefetchEdibleData() {
         )
       );
 
+      // Add computed image URLs to each entry
+      const enhancedDataWithImages = await Promise.all(
+        enhancedData.map(async (entry) => {
+          const images = await computeImages(entry.Scientificname, manifest);
+          return { ...entry, images };
+        })
+      );
+
       const filename = `redlisted-${geo}-${forest}-${age}-${veg}.json`;
       fs.writeFileSync(
         path.join(__dirname, `../static/${filename}`),
-        JSON.stringify(enhancedData, null, 2) // Ensure the output is nicely formatted
+        JSON.stringify(enhancedDataWithImages, null, 2) // Ensure the output is nicely formatted
       );
       console.log(`Redlisted data pre-fetching complete for ${filename}.`);
     } catch (error) {

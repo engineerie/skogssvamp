@@ -39,7 +39,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Inocybe tricolor",
@@ -81,7 +82,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius harcynicus",
@@ -123,7 +125,12 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Cortinarius harcynicus-132-249278.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius harcynicus-1-249278.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius harcynicus-249278.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria pallida",
@@ -165,7 +172,12 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Ramaria mairei, Ramaria pallida-186-256756.jpg",
+      "/images/SvampBilder/Giftsvampar/Ramaria mairei, Ramaria pallida-185-256756.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria pallida-256756.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius salor",
@@ -207,7 +219,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum caeruleum",
@@ -249,7 +262,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum caeruleum-4362.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius serarius",
@@ -291,7 +307,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius barbaricus",
@@ -333,7 +350,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma borgsjoeÃ«nse",
@@ -375,7 +393,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum auratile",
@@ -417,7 +436,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum auratile-786.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius corrosus",
@@ -459,7 +481,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Ramaria schildii",
@@ -501,7 +524,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius dionysae s. lat.",
@@ -543,7 +567,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum suaveolens",
@@ -585,7 +610,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum suaveolens-4368.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria botrytis",
@@ -627,7 +655,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Ramaria botrytis-2.jpg",
+      "/images/SvampBilder/Matsvampar/Ramaria botrytis-3.jpg",
+      "/images/SvampBilder/Matsvampar/Ramaria botrytis-1.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria botrytis-5734.jpg"
+    ]
   },
   {
     "Scientificname": "Porphyrellus porphyrosporus",
@@ -669,7 +703,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Porphyrellus porphyrosporus-1277.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius ectypus",
@@ -711,7 +748,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Ramaria rufescens",
@@ -753,7 +791,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma olivaceotinctum",
@@ -795,7 +834,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Tricholoma olivaceotinctum-1599.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria sanguinea",
@@ -837,7 +879,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria sanguinea-1357.jpg"
+    ]
   },
   {
     "Scientificname": "Boletopsis leucomelaena",
@@ -879,7 +924,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Boletopsis leucomelaena-150.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius zonarioides",
@@ -921,7 +969,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Bankera violascens",
@@ -963,7 +1012,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Bankera violascens-1968.jpg"
+    ]
   },
   {
     "Scientificname": "Albatrellus citrinus",
@@ -1005,7 +1057,13 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Albatrellus citrinus-2.jpg",
+      "/images/SvampBilder/Matsvampar/Albatrellus citrinus-1.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Albatrellus citrinus-232138.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Albatrellus citrinus-2-232138.jpg"
+    ]
   },
   {
     "Scientificname": "Russula aurea",
@@ -1047,7 +1105,13 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Russula aurea-3.jpg",
+      "/images/SvampBilder/Matsvampar/Russula aurea-2.jpg",
+      "/images/SvampBilder/Matsvampar/Russula aurea-1.jpg",
+      "/images/SvampBilder/Matsvampar/Russula aurea-4.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius haasii",
@@ -1089,7 +1153,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius haasii-248956.jpg"
+    ]
   },
   {
     "Scientificname": "Tretomyces lutescens",
@@ -1131,7 +1198,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Ramaria testaceoflava",
@@ -1173,7 +1241,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria testaceoflava-5754.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria brunneicontusa",
@@ -1215,7 +1286,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Otidea propinquata",
@@ -1257,7 +1329,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Otidea brunneoparva",
@@ -1299,7 +1372,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hygrophorus hyacinthinus",
@@ -1341,7 +1415,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus hyacinthinus-823.jpg"
+    ]
   },
   {
     "Scientificname": "Inocybe fibrosa",
@@ -1383,7 +1460,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum cumulatum",
@@ -1425,7 +1503,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum cumulatum-239737.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnellum lundellii",
@@ -1467,7 +1548,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius kristinae",
@@ -1509,7 +1591,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius percomis",
@@ -1551,7 +1634,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius elegantior",
@@ -1593,7 +1677,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius elegantior-3611.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnellum fuligineoviolaceum",
@@ -1635,7 +1722,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Ramaria safraniolens",
@@ -1677,7 +1765,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius violaceus",
@@ -1719,7 +1808,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Ramaria tridentina",
@@ -1761,7 +1851,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Lactarius volemus",
@@ -1803,7 +1894,13 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Lactarius volemus-4.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius volemus-1.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius volemus-3.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius volemus-2.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus subviscifer",
@@ -1845,7 +1942,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus subviscifer-831.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius olivinus",
@@ -1887,7 +1987,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Lactarius olivinus-4749.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius venetus",
@@ -1929,7 +2032,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum aurantiacum",
@@ -1971,7 +2075,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum aurantiacum-4361.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius inexspectatus",
@@ -2013,7 +2120,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius sulfurinus",
@@ -2055,7 +2163,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius cumatilis",
@@ -2097,7 +2206,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius cumatilis-1980.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria flava var. pinicola",
@@ -2139,7 +2251,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius spadicellus",
@@ -2181,7 +2294,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Craterellus lutescens",
@@ -2223,7 +2337,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-1.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-3.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-2.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-5.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-4.jpg"
+    ]
   },
   {
     "Scientificname": "Tricholoma fucatum",
@@ -2265,7 +2386,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum martioflavum",
@@ -2307,7 +2429,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum peckii",
@@ -2349,7 +2472,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius fuscoperonatus",
@@ -2391,7 +2515,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": "x",
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius fuscoperonatus-451.jpg"
+    ]
   },
   {
     "Scientificname": "Russula anthracina",
@@ -2433,7 +2560,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius bovinus",
@@ -2475,7 +2603,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius glaucopus",
@@ -2517,7 +2646,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma atrosquamosum",
@@ -2559,7 +2689,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Tricholoma atrosquamosum-1594.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius scrobiculatus",
@@ -2601,7 +2734,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Ramaria lutea",
@@ -2643,7 +2777,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Ramaria karstenii",
@@ -2685,7 +2820,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria karstenii-256335.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius terpsichores",
@@ -2727,7 +2865,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": "s",
     "förekomst_ung": 0,
-    "förekomst_sum": "1s"
+    "förekomst_sum": "1s",
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius terpsichores-248939.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus latitabundus",
@@ -2769,7 +2910,10 @@
     "förekomst_skog": "x",
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": "x2"
+    "förekomst_sum": "x2",
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus latitabundus-4414.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria flavescens",
@@ -2811,7 +2955,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius metarius",
@@ -2853,7 +2998,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Gomphus clavatus",
@@ -2895,7 +3041,15 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-3.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-2.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-1.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-5.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-4.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Gomphus clavatus-720.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius agathosmus",
@@ -2937,7 +3091,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius agathosmus-3528.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnellum concrescens",
@@ -2979,7 +3136,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Ramaria flavoides",
@@ -3021,6 +3179,7 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   }
 ]

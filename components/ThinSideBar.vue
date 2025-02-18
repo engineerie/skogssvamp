@@ -39,7 +39,7 @@
   <!-- Sidebar Container -->
   <div
     :class="[
-      'transition-all z-50 fixed inset-1 rounded-xl ring-1 ring-neutral-200 py-4 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-50 shadow-md flex flex-col justify-between',
+      'transition-all z-50 fixed inset-1 rounded-xl  ring-neutral-200 py-4 bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-50 shadow-md flex flex-col justify-between',
       isExpanded ? 'w-64 px-3' : 'w-[72px] px-3',
       isInHome ? '-ml-20' : '',
     ]"
@@ -58,32 +58,33 @@
       </NuxtLink>
 
       <!-- TOP SECTION (Navigation Buttons) -->
-      <div class="mt-4 flex flex-col space-y-1">
+      <div class="mt-4 flex flex-col">
         <!-- Översikt Button -->
         <div
+          class="mb-2"
           :data-nui-tooltip="!isExpanded ? 'Översikt' : null"
           :data-nui-tooltip-position="!isExpanded ? 'right' : null"
         >
           <NuxtLink
             to="/start"
-            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
             :class="[
               isExpanded ? 'w-full' : 'w-12 h-12',
               isInStart
-                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                ? '  bg-primary-500 hover:bg-primary-500'
                 : 'text-neutral-800',
             ]"
           >
             <icon
               name="heroicons:squares-2x2"
               class="size-6 transition-all"
-              :class="isInStart ? 'text-green-500' : 'text-neutral-700'"
+              :class="isInStart ? 'text-white' : 'text-neutral-700'"
             />
             <Transition name="fade">
               <span
                 v-if="isExpanded"
                 class="text-md whitespace-nowrap transition-all"
-                :class="isInStart ? 'text-green-500' : 'text-neutral-800'"
+                :class="isInStart ? 'text-white' : 'text-neutral-800'"
               >
                 Översikt
               </span>
@@ -96,29 +97,30 @@
 
         <!-- Mykorrhizasvampar Button -->
         <div
+          class="mt-2 mb-1"
           :data-nui-tooltip="!isExpanded ? 'Mykorrhizasvampar' : null"
           :data-nui-tooltip-position="!isExpanded ? 'right' : null"
         >
           <NuxtLink
             to="/svampdata/dashboard"
-            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
             :class="[
               isExpanded ? 'w-full' : 'w-12 h-12',
               isInSvampData
-                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                ? '  bg-primary-500 hover:bg-primary-500'
                 : 'text-neutral-800',
             ]"
           >
             <icon
               name="lineicons:mushroom-1"
               class="size-6 transition-all"
-              :class="isInSvampData ? 'text-green-500' : 'text-neutral-700'"
+              :class="isInSvampData ? 'text-white' : 'text-neutral-700'"
             />
             <Transition name="fade">
               <span
                 v-if="isExpanded"
                 class="text-md whitespace-nowrap transition-all"
-                :class="isInSvampData ? 'text-green-500' : 'text-neutral-800'"
+                :class="isInSvampData ? 'text-white' : 'text-neutral-800'"
               >
                 Mykorrhizasvampar
               </span>
@@ -127,27 +129,31 @@
         </div>
 
         <!-- Skogsskötsel Button -->
-        <div data-nui-tooltip="Skogsskötsel" data-nui-tooltip-position="right">
+        <div
+          class="mb-2"
+          :data-nui-tooltip="!isExpanded ? 'Skogsskötsel' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
+        >
           <NuxtLink
             to="/skogsbruk"
-            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
             :class="[
               isExpanded ? 'w-full' : 'w-12 h-12',
               isInSkogsbruk
-                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                ? '  bg-primary-500 hover:bg-primary-500'
                 : 'text-neutral-800',
             ]"
           >
             <icon
               name="material-symbols:nature-people-outline-rounded"
               class="size-6 transition-all"
-              :class="isInSkogsbruk ? 'text-green-500' : 'text-neutral-700'"
+              :class="isInSkogsbruk ? 'text-white' : 'text-neutral-700'"
             />
             <Transition name="fade">
               <span
                 v-if="isExpanded"
                 class="text-md whitespace-nowrap transition-all"
-                :class="isInSkogsbruk ? 'text-green-500' : 'text-neutral-800'"
+                :class="isInSkogsbruk ? 'text-white' : 'text-neutral-800'"
               >
                 Skogsskötsel
               </span>
@@ -159,29 +165,31 @@
         <hr class="border-neutral-300 dark:border-neutral-700" />
 
         <!-- Svampkunskap Button -->
-        <div data-nui-tooltip="Svampkunskap" data-nui-tooltip-position="right">
+        <div
+          class="mt-2"
+          :data-nui-tooltip="!isExpanded ? 'Svampkunskap' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
+        >
           <NuxtLink
             to="/svampkunskap"
-            class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+            class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
             :class="[
               isExpanded ? 'w-full' : 'w-12 h-12',
               isInSvampkunskap
-                ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+                ? '  bg-primary-500 hover:bg-primary-500'
                 : 'text-neutral-800',
             ]"
           >
             <icon
               name="i-heroicons-book-open"
               class="size-6 transition-all"
-              :class="isInSvampkunskap ? 'text-green-500' : 'text-neutral-700'"
+              :class="isInSvampkunskap ? 'text-white' : 'text-neutral-700'"
             />
             <Transition name="fade">
               <span
                 v-if="isExpanded"
                 class="text-md whitespace-nowrap transition-all"
-                :class="
-                  isInSvampkunskap ? 'text-green-500' : 'text-neutral-800'
-                "
+                :class="isInSvampkunskap ? 'text-white' : 'text-neutral-800'"
               >
                 Svampkunskap
               </span>
@@ -194,7 +202,7 @@
     <!-- BOTTOM SECTION -->
     <div>
       <!-- Modal Trigger Buttons Group -->
-      <div class="mt-4 flex flex-col space-y-1">
+      <div class="mt-4 mb-2 flex flex-col space-y-1">
         <div
           :data-nui-tooltip="'Introduktionsfilm'"
           data-nui-tooltip-position="right"
@@ -203,13 +211,13 @@
             @click="isOpen = true"
             :class="[
               isExpanded ? 'w-full' : 'w-12 h-12',
-              'flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70 bg-amber-100',
+              'flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200  border-primary-500 border-2 border-dashed',
             ]"
           >
             <icon
               name="heroicons:play-circle-solid"
               class="size-6 transition-all"
-              :class="isOpen ? 'text-green-500' : 'text-neutral-700'"
+              :class="isOpen ? 'text-white' : 'text-neutral-700'"
             />
             <Transition name="fade">
               <span
@@ -221,18 +229,21 @@
             </Transition>
           </button>
         </div>
-        <div data-nui-tooltip="Manual PDF" data-nui-tooltip-position="right">
+        <div
+          :data-nui-tooltip="!isExpanded ? 'Manual PDF' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
+        >
           <button
             @click.prevent="isPdfOpen = true"
             :class="[
               isExpanded ? 'w-full' : 'w-12 h-12',
-              'flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70 bg-amber-100',
+              'flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200  border-primary-500 border-2 border-dashed',
             ]"
           >
             <icon
-              name="heroicons:document-text-solid"
+              name="tabler:pdf"
               class="size-6 transition-all"
-              :class="isPdfOpen ? 'text-green-500' : 'text-neutral-700'"
+              :class="isPdfOpen ? 'text-white' : 'text-neutral-700'"
             />
             <Transition name="fade">
               <span
@@ -247,32 +258,32 @@
       </div>
 
       <!-- Separator -->
-      <hr class="border-neutral-300 dark:border-neutral-700 my-2" />
+      <hr class="border-neutral-300 dark:border-neutral-700" />
 
       <!-- Documentation & Om Projektet Buttons -->
-      <div class="mt-4 flex flex-col space-y-1">
+      <div class="mt-2 flex flex-col space-y-1">
         <NuxtLink
           to="/guide"
-          class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+          class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
           :class="[
             isExpanded ? 'w-full' : 'w-12 h-12',
             isInGuide
-              ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+              ? '  bg-primary-500 hover:bg-primary-500'
               : 'text-neutral-800',
           ]"
-          data-nui-tooltip="Dokumentation"
-          data-nui-tooltip-position="right"
+          :data-nui-tooltip="!isExpanded ? 'Dokumentation' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
         >
           <icon
             name="i-heroicons-document-text"
             class="size-6 transition-all"
-            :class="isInGuide ? 'text-green-500' : 'text-neutral-700'"
+            :class="isInGuide ? 'text-white' : 'text-neutral-700'"
           />
           <Transition name="fade">
             <span
               v-if="isExpanded"
               class="text-md whitespace-nowrap transition-all"
-              :class="isInGuide ? 'text-green-500' : 'text-neutral-800'"
+              :class="isInGuide ? 'text-white' : 'text-neutral-800'"
             >
               Dokumentation
             </span>
@@ -280,26 +291,26 @@
         </NuxtLink>
         <NuxtLink
           to="/about"
-          class="flex items-center p-3 rounded-xl space-x-2 transition-all overflow-hidden hover:bg-neutral-200 hover:bg-opacity-70"
+          class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
           :class="[
             isExpanded ? 'w-full' : 'w-12 h-12',
             isInAbout
-              ? 'ring-1 ring-green-200 bg-primary-100 hover:bg-primary-100'
+              ? '  bg-primary-500 hover:bg-primary-500'
               : 'text-neutral-800',
           ]"
-          data-nui-tooltip="Om Projektet"
-          data-nui-tooltip-position="right"
+          :data-nui-tooltip="!isExpanded ? 'Om Projektet' : null"
+          :data-nui-tooltip-position="!isExpanded ? 'right' : null"
         >
           <icon
             name="i-heroicons-information-circle"
             class="size-6 transition-all"
-            :class="isInAbout ? 'text-green-500' : 'text-neutral-700'"
+            :class="isInAbout ? 'text-white' : 'text-neutral-700'"
           />
           <Transition name="fade">
             <span
               v-if="isExpanded"
               class="text-md whitespace-nowrap transition-all"
-              :class="isInAbout ? 'text-green-500' : 'text-neutral-800'"
+              :class="isInAbout ? 'text-white' : 'text-neutral-800'"
             >
               Om Projektet
             </span>

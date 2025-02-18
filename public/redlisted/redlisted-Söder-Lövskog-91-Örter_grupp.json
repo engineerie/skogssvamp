@@ -39,7 +39,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Gyrodon lividus",
@@ -81,7 +82,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Amanita lividopallescens",
@@ -123,7 +125,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Amanita lividopallescens-2975.jpg"
+    ]
   },
   {
     "Scientificname": "Hemileccinum impolitum",
@@ -165,7 +170,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius caesiostramineus s. lat.",
@@ -207,7 +213,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius salor",
@@ -249,7 +256,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": []
   },
   {
     "Scientificname": "Butyriboletus appendiculatus",
@@ -291,7 +299,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Inosperma bongardii",
@@ -333,7 +342,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Porphyrellus porphyrosporus",
@@ -375,7 +385,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Porphyrellus porphyrosporus-1277.jpg"
+    ]
   },
   {
     "Scientificname": "Amanita strobiliformis",
@@ -417,7 +430,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Alpova larskersii",
@@ -459,7 +473,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hygrophorus chrysodon",
@@ -501,7 +516,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus chrysodon-821.jpg"
+    ]
   },
   {
     "Scientificname": "Fischerula macrospora",
@@ -543,7 +561,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius croceocaeruleus",
@@ -585,7 +604,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Amanita phalloides",
@@ -627,7 +647,18 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-18-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-144-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-30-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-31-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-149-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-148-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-143-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-173-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-172-2979.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius violaceus",
@@ -669,7 +700,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Macowanites candidus",
@@ -711,7 +743,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius cotoneus",
@@ -753,7 +786,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius sulfurinus",
@@ -795,7 +829,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius fragrantior",
@@ -837,7 +872,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Elaphomyces maculatus",
@@ -879,7 +915,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Russula anthracina",
@@ -921,7 +958,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius bovinus",
@@ -963,7 +1001,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius glaucopus",
@@ -1005,7 +1044,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Elaphomyces striatosporus",
@@ -1047,7 +1087,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Elaphomyces anthracinus",
@@ -1089,7 +1130,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Elaphomyces aculeatus",
@@ -1131,7 +1173,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Elaphomyces leveillei",
@@ -1173,6 +1216,7 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   }
 ]

@@ -79,7 +79,7 @@
             </template>
 
             <!-- Namn Data -->
-            <template #snamn-data="{ row }">
+            <template #Commonname-data="{ row }">
               <div class="truncate">
                 {{ capitalize(row.Commonname) }}
                 <span class="italic"
@@ -190,7 +190,7 @@ const columns = [
     sortable: false,
   },
   {
-    key: "snamn",
+    key: "Commonname",
     label: "Namn",
     sortable: false,
   },

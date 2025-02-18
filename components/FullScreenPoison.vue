@@ -1,3 +1,4 @@
+<!-- FullScreenPoison.vue -->
 <template>
   <div>
     <div class="flex justify-between mb-2 items-end">
@@ -8,20 +9,35 @@
           >
             <Icon name="hugeicons:danger" class="h-10 w-10" />
           </div>
-
-          <div class="">
+          <div>
             <BaseHeading
               size="3xl"
               weight="medium"
               class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
-              >Giftsvampar</BaseHeading
             >
-            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Bedömning baserad på samlad kunskap
+              Giftsvampar
+            </BaseHeading>
+            <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+              Bedömning baserad på samlad kunskap
             </BaseHeading>
           </div>
         </div>
-
+        <BaseTabs
+          v-model="activeView"
+          :tabs="[
+            {
+              label: 'Galleri',
+              icon: 'i-heroicons-squares-2x2',
+              value: 'grid',
+            },
+            {
+              label: 'Lista',
+              icon: 'material-symbols:format-list-bulleted-rounded',
+              value: 'table',
+            },
+          ]"
+          class="ml-4 -mb-4 inline-flex align-bottom"
+        />
         <template #panel>
           <div class="p-4 w-96 text-sm text-neutral-500">
             Visar giftsvampar som kan förekomma i miljön, baserat på
@@ -53,12 +69,7 @@
           class="w-1/2"
         />
 
-        <!-- NEW: Toggle button (table <-> grid) -->
-        <UButton shape="full" @click="toggleView">
-          <Icon :name="toggleIcon" class="size-5" />
-        </UButton>
-
-        <!-- Existing fullscreen toggle button -->
+        <!-- Fullscreen toggle button -->
         <BaseButtonIcon
           shape="full"
           @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
@@ -80,11 +91,10 @@
     <div
       class="relative pt-3 backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
-      <!-- TABLE VIEW (unchanged) -->
+      <!-- TABLE VIEW -->
       <div v-if="isTableView">
         <div v-if="filteredData" class="col-span-6 -mt-12">
           <div class="h-fit">
-            <!-- UTable with Filtered Data -->
             <UTable
               :loading="isLoading"
               :loading-state="{
@@ -109,19 +119,19 @@
                 <div
                   class="flex flex-col items-center justify-center py-6 gap-3"
                 >
-                  <span class="italic text-sm"
-                    >Inga vanligt förekommande giftsvampar i denna miljön</span
-                  >
+                  <span class="italic text-sm">
+                    Inga vanligt förekommande giftsvampar i denna miljön
+                  </span>
                 </div>
               </template>
 
-              <!-- Original table slots remain unchanged -->
+              <!-- Table slot templates -->
               <template #Commonname-data="{ row }">
                 <div class="truncate max-w-96">
                   {{ capitalize(row.Commonname) }}
-                  <span class="italic text-neutral-400" v-if="isNormalView"
-                    >({{ capitalize(row.Scientificname) }})</span
-                  >
+                  <span class="italic text-neutral-400" v-if="isNormalView">
+                    ({{ capitalize(row.Scientificname) }})
+                  </span>
                 </div>
               </template>
               <template #Scientificname-data="{ row }">
@@ -131,21 +141,16 @@
               </template>
               <template #FoodType-data="{ row }">
                 <div class="flex justify-center max-w-8">
-                  <!-- Danger icon if poisonous -->
                   <Icon
                     v-if="row.Giftsvamp"
                     name="hugeicons:danger"
                     class="text-lime-500 w-6 h-6"
                   />
-
-                  <!-- Knife-fork icon if not poisonous but is edible -->
                   <Icon
                     v-else-if="row['Nyasvamp-boken']"
                     name="icon-park-solid:knife-fork"
                     class="text-yellow-500 w-6 h-6"
                   />
-
-                  <!-- Or show nothing / neutral icon if neither applies -->
                   <Icon
                     v-else
                     name="material-symbols:help-outline-rounded"
@@ -168,7 +173,6 @@
               </template>
               <template #RL2020kat-data="{ row }">
                 <div class="flex items-center space-x-2">
-                  <!-- Existing Status Circle -->
                   <div
                     :class="getStatusColor(row.RL2020kat)"
                     class="h-5 w-5 rounded-full flex items-center justify-center text-white z-0 max-w-12"
@@ -178,18 +182,12 @@
                         ? getStatusTooltip(row.RL2020kat)
                         : 'Ej bedömd'
                     "
-                  >
-                    <!-- {{ getStatusAbbreviation(row.RL2020kat) }} -->
-                  </div>
-
-                  <!-- Conditional Blue 'S' Circle -->
+                  ></div>
                   <div v-if="row.SIGNAL_art === 'S'" class="relative">
                     <div
                       class="h-5 w-5 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10 text-sm"
                       :data-nui-tooltip="'Signalart'"
-                    >
-                      <!-- S -->
-                    </div>
+                    ></div>
                   </div>
                 </div>
               </template>
@@ -205,24 +203,20 @@
                   />
                 </div>
               </template>
-              <!-- ...other columns... -->
             </UTable>
 
             <div
-              class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-800"
+              class="flex justify-between items-center p-5 border-t border-neutral-200 dark:border-neutral-800"
             >
               <div>
-                <!-- Display the current range and total items -->
-                <BaseProse class="text-sm"
-                  >Visar {{ startItem }} till {{ endItem }} av
-                  {{ totalItems }} arter</BaseProse
-                >
+                <BaseProse class="text-sm">
+                  Visar {{ startItem }} till {{ endItem }} av
+                  {{ totalItems }} arter
+                </BaseProse>
               </div>
               <div>
-                <!-- Pagination component -->
                 <div v-if="rowsPerPage !== 'Alla'">
                   <UPagination
-                    :max="2"
                     v-model="page"
                     :page-count="rowsPerPage"
                     :total="totalItems"
@@ -233,7 +227,6 @@
                     }"
                     size="lg"
                   >
-                    <!-- Custom previous button -->
                     <template #prev="{ onClick }">
                       <UButton
                         icon="i-heroicons-chevron-left-20-solid"
@@ -246,8 +239,6 @@
                         @click="onClick"
                       />
                     </template>
-
-                    <!-- Custom next button -->
                     <template #next="{ onClick }">
                       <UButton
                         icon="i-heroicons-chevron-right-20-solid"
@@ -274,27 +265,109 @@
         </div>
       </div>
 
-      <!-- GRID VIEW (new) -->
+      <!-- GRID VIEW (Gallery) -->
       <div v-else>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+        <div
+          :class="[
+            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1 max-h-[calc(100vh-400px)] min-h-[399px] overflow-scroll',
+            isNormalView ? 'md:grid-cols-3' : 'md:grid-cols-6',
+          ]"
+        >
           <div
-            v-for="(row, index) in sortedData"
+            v-for="(row, index) in gridPaginatedData"
             :key="row.Commonname + row.Scientificname + index"
-            class="bg-white dark:bg-neutral-800 p-4 rounded shadow hover:shadow-lg transition-shadow cursor-pointer"
+            class="bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer h-[184px]"
             @click="selectRow(row)"
           >
-            <div
-              class="text-lg font-medium text-neutral-800 dark:text-neutral-300"
-            >
-              {{ row.Commonname }}
+            <!-- Image Thumbnail -->
+            <div class="w-full h-32 relative rounded-t-lg overflow-hidden">
+              <NuxtImg
+                v-if="row.images && row.images.length"
+                :src="row.images[0]"
+                class="w-full h-full object-cover"
+                alt="Species Image"
+                height="300"
+                width="450"
+                format="webp"
+              />
+              <div
+                v-else
+                class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700"
+              >
+                <Icon
+                  name="material-symbols:photo"
+                  class="w-8 h-8 text-neutral-500"
+                />
+              </div>
+              <div class="absolute bottom-2 left-2 flex gap-1">
+                <div class="p-1 rounded-full bg-neutral-50 bg-opacity-90">
+                  <Icon name="hugeicons:danger" class="size-6 text-lime-500" />
+                </div>
+              </div>
             </div>
-            <div class="italic text-sm text-neutral-500">
-              {{ row.Scientificname }}
+            <!-- Species Names -->
+            <div class="p-2 pt-1">
+              <div
+                class="text-md font-medium text-neutral-500 dark:text-neutral-300 truncate"
+              >
+                {{ capitalize(row.Commonname) }}
+              </div>
+              <div
+                class="text-sm font-medium text-neutral-400 dark:text-neutral-300 truncate"
+              >
+                {{ capitalize(row.Scientificname) }}
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- GRID VIEW PAGINATION -->
+        <div
+          class="flex justify-between items-center p-5 border-t border-neutral-200 dark:border-neutral-800"
+        >
+          <div>
+            <BaseProse class="text-sm">
+              Visar {{ gridStartItem }} till {{ gridEndItem }} av
+              {{ totalItems }} arter
+            </BaseProse>
+          </div>
+          <div>
+            <UPagination
+              v-model="gridPage"
+              :page-count="gridPageSize"
+              :total="totalItems"
+              :ui="{
+                wrapper: 'flex items-center gap-1',
+                rounded: '!rounded-full min-w-[32px] justify-center px-4',
+                default: {},
+              }"
+              size="lg"
+            >
+              <template #prev="{ onClick }">
+                <UButton
+                  icon="i-heroicons-chevron-left-20-solid"
+                  size="lg"
+                  color="white"
+                  :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                  class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                  @click="onClick"
+                />
+              </template>
+              <template #next="{ onClick }">
+                <UButton
+                  icon="i-heroicons-chevron-right-20-solid"
+                  size="lg"
+                  color="white"
+                  :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                  class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                  @click="onClick"
+                />
+              </template>
+            </UPagination>
+          </div>
+        </div>
       </div>
-      <!-- End of new grid view section -->
+      <!-- End of grid view -->
     </div>
   </div>
 </template>
@@ -311,13 +384,13 @@
 </style>
 
 <script setup>
-console.log("FullScreenEdible setup started");
-
-import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
 
-// 1) Define 3 options: “matsvampar”, “giftiga”, or “alla”
+console.log("FullScreenEdible setup started");
+
+// --- Food Options ---
 const foodOptions = [
   {
     id: "edibleOnly",
@@ -338,29 +411,26 @@ const foodOptions = [
     icon: "hugeicons:mushroom",
   },
 ];
-
 const selectedFoodOption = ref(foodOptions[2]); // "Alla svampar"
 
-// --- NEW: toggling between table and grid
-const isTableView = ref(true);
+// --- Toggling between table and grid view ---
 
-const toggleIcon = computed(
-  () =>
-    isTableView.value
-      ? "i-heroicons-squares-2x2" // Show grid icon when table is active
-      : "i-heroicons-table-cells" // Show table icon when grid is active
-);
+const activeView = ref("grid");
+const isTableView = computed(() => activeView.value === "table");
 
-function toggleView() {
-  isTableView.value = !isTableView.value;
-}
-// --- end new code
+// const isTableView = ref(true);
+// const toggleIcon = computed(() =>
+//   isTableView.value ? "i-heroicons-squares-2x2" : "i-heroicons-table-cells"
+// );
+// function toggleView() {
+//   isTableView.value = !isTableView.value;
+// }
 
+// --- Ranking / Status Utilities ---
 function getInvertedRankValue(rank) {
   if (!rank) return 0;
   return 4 - rank;
 }
-
 function getRankTooltip(rank) {
   switch (rank) {
     case 1:
@@ -373,7 +443,6 @@ function getRankTooltip(rank) {
       return "";
   }
 }
-
 function getColorForRank(rank) {
   switch (rank) {
     case 1:
@@ -388,9 +457,7 @@ function getColorForRank(rank) {
 }
 
 const speciesStore = useSpeciesStore();
-
 function selectRow(row) {
-  // Existing code that marks user selection
   speciesStore.selectSpecies(row, "edible");
 }
 
@@ -406,10 +473,12 @@ const getIconPath = (svampGrupp) => {
     skinnsvamp: "skinnsvamp.webp",
     skålsvamp: "skalsvamp.webp",
   };
-
   return `/images/svampgrupp/${iconMapping[svampGrupp] || "default-icon.webp"}`;
 };
-
+function capitalize(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 const getStatusAbbreviation = (status) => {
   const abbreviations = {
     LC: "LC",
@@ -422,7 +491,6 @@ const getStatusAbbreviation = (status) => {
   };
   return abbreviations[status] || "NE";
 };
-
 const getStatusColor = (status) => {
   const colors = {
     LC: "bg-green-500",
@@ -435,7 +503,6 @@ const getStatusColor = (status) => {
   };
   return colors[status] || "bg-neutral-300";
 };
-
 const getStatusTooltip = (status) => {
   const tooltips = {
     LC: "Livskraftig",
@@ -449,10 +516,7 @@ const getStatusTooltip = (status) => {
   return tooltips[status] || "Ej bedömd";
 };
 
-const props = defineProps({
-  isNormalView: Boolean,
-});
-
+const props = defineProps({ isNormalView: Boolean });
 console.log("isNormalView in FullScreenEdible:", props.isNormalView);
 
 const computedUITable = computed(() => ({
@@ -464,60 +528,67 @@ const computedUITable = computed(() => ({
     size: "text-md",
     color: "text-neutral-500 dark:text-neutral-400",
   },
-  th: {
-    padding: "pt-4 pl-6",
-  },
+  th: { padding: "pt-4 pl-6" },
   tr: {
     padding: "pl-12",
     base: "overflow-hidden",
     selected: "bg-neutral-100 dark:bg-neutral-900",
     active:
-      "hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-900 ",
+      "hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-900",
   },
 }));
+
+// --- Grid View Pagination ---
+// We use a fixed page size based on our design (columns are controlled via Tailwind classes)
+
+const gridPageSize = computed(() => (props.isNormalView ? 6 : 24));
+const gridPage = ref(1);
+const gridPaginatedData = computed(() => {
+  const start = (gridPage.value - 1) * gridPageSize.value;
+  return sortedData.value.slice(start, start + gridPageSize.value);
+});
+const gridStartItem = computed(() =>
+  sortedData.value.length > 0
+    ? (gridPage.value - 1) * gridPageSize.value + 1
+    : 0
+);
+const gridEndItem = computed(() =>
+  Math.min(gridPage.value * gridPageSize.value, sortedData.value.length)
+);
 
 const route = useRoute();
 
 const isInfoBoxVisible = ref(false);
-
 const selectedRows = ref([]);
 const isDragging = ref(false);
 const dragOffset = reactive({ x: 0, y: 0 });
-
 function startDrag(event) {
   isDragging.value = true;
   const boxRect = event.target.getBoundingClientRect();
   dragOffset.x = event.clientX - boxRect.left;
   dragOffset.y = event.clientY - boxRect.top;
 }
-
 function stopDrag() {
   isDragging.value = false;
 }
-
 function drag(event) {
   if (isDragging.value) {
     boxPosition.left = event.clientX - dragOffset.x;
     boxPosition.top = event.clientY - dragOffset.y;
   }
 }
-
 onMounted(() => {
   document.addEventListener("mousemove", drag);
   document.addEventListener("mouseup", stopDrag);
 });
-
 onUnmounted(() => {
   document.removeEventListener("mousemove", drag);
   document.removeEventListener("mouseup", stopDrag);
 });
-
 function closeInfoBox() {
   selectedRows.value = [];
 }
-
-const showPoisonous = ref(false); // Hidden by default
-
+const showPoisonous = ref(false);
 function togglePoisonous() {
   showPoisonous.value = !showPoisonous.value;
 }
@@ -538,11 +609,7 @@ const columns = [
     label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
-  {
-    key: "FoodType",
-    label: "",
-    sortable: false,
-  },
+  { key: "FoodType", label: "", sortable: false },
   {
     key: "RL2020kat",
     label: "Status",
@@ -554,11 +621,7 @@ const columns = [
       return `<div class="flex items-center justify-center w-6 h-6 rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
     },
   },
-  {
-    key: "Rank",
-    label: "Antal fynd",
-    sortable: false,
-  },
+  { key: "Rank", label: "Antal fynd", sortable: false },
 ];
 
 const sort = ref({ column: "", direction: "asc" });
@@ -576,11 +639,26 @@ const selectedColumns = computed(() =>
 
 const sortedData = computed(() => {
   let result = filteredData.value.slice();
-  // If user clicked a column to sort, do single-column logic
   if (sort.value?.column) {
-    // ...
+    const { column, direction } = sort.value;
+    result.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      // Handle null or undefined
+      if (valueA == null && valueB != null) return 1;
+      if (valueA != null && valueB == null) return -1;
+      if (valueA == null && valueB == null) return 0;
+
+      // Compare as strings (or numbers)
+      const comparison = String(valueA).localeCompare(String(valueB), "sv", {
+        numeric: true,
+        sensitivity: "base",
+      });
+
+      return direction === "asc" ? comparison : -comparison;
+    });
   } else {
-    // Default 2-level sort by Rank asc, then Commonname asc
     result.sort((a, b) => {
       const rankA = a.Rank ?? 99999;
       const rankB = b.Rank ?? 99999;
@@ -605,11 +683,6 @@ const vegetationType = ref("");
 
 const data = ref([]);
 const isLoading = ref(true);
-
-function capitalize(str) {
-  if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
 
 async function fetchData(geography, forestType, standAge, vegetationType) {
   const filename = `edibledata-${geography}-${forestType}-${standAge}-${vegetationType}.json`;
@@ -655,7 +728,6 @@ const page = ref(1);
 const rowsPerPage = ref(props.isNormalView ? 5 : 10);
 
 const filteredData = computed(() => {
-  // Show only poisonous species
   let result = data.value.filter((row) => row.Giftsvamp);
   if (searchQuery.value) {
     result = result.filter((row) =>

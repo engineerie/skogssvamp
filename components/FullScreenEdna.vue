@@ -273,20 +273,20 @@
                 />
               </div>
             </template>
-            <template #snamn-data="{ row }" v-if="isNormalView">
+            <template #Commonname-data="{ row }" v-if="isNormalView">
               <div class="truncate">
-                {{ capitalize(row.snamn) }}
+                {{ capitalize(row.Commonname) }}
                 <span class="italic text-neutral-400"
-                  >({{ capitalize(row.taxon) }})</span
+                  >({{ capitalize(row.Scientificname) }})</span
                 >
               </div>
             </template>
-            <template #snamn-data="{ row }" v-if="!isNormalView">
-              <div>{{ capitalize(row.snamn) }}</div>
+            <template #Commonname-data="{ row }" v-if="!isNormalView">
+              <div>{{ capitalize(row.Commonname) }}</div>
             </template>
-            <template #taxon-data="{ row }">
+            <template #Scientificname-data="{ row }">
               <div class="italic font-thin max-w-52 truncate">
-                {{ row.taxon }}
+                {{ row.Scientificname }}
               </div>
             </template>
             <template #Svamp-grupp-släkte-data="{ row }">
@@ -608,7 +608,7 @@ const columns = [
     }),
   },
   {
-    key: "snamn",
+    key: "Commonname",
     label: "Namn",
     sortable: props.isNormalView ? false : true,
   },
@@ -616,7 +616,7 @@ const columns = [
     ? []
     : [
         {
-          key: "taxon",
+          key: "Scientificname",
           label: "Latinskt namn",
           sortable: true,
         },

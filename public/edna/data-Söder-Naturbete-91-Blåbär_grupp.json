@@ -1,7 +1,7 @@
 [
   {
     "SpeciesCode": "SI18-307",
-    "taxon": "Laccaria tortilis sp.2",
+    "Scientificname": "Laccaria tortilis sp.2",
     "Svampguiden": "0",
     "Kriteriedokumentation": "De skattade värdena som bedömningen baserar sig på ligger alla inom intervallet för kategorin Livskraftig (LC).",
     "OVANLIGHET": null,
@@ -10,7 +10,7 @@
     "Värdtaxa:Vedochbark": null,
     "Värdtaxa:Finarerötterochrottrådar": "Trivial deciduous forest trees - red list assemblage, Hardwood forest trees - red list assemblage, Salix",
     "ekologi": null,
-    "snamn": "dvärglaxskivling",
+    "Commonname": "dvärglaxskivling",
     "matsvamp": 0,
     "total_presence": 1,
     "Artfakta": "https://artfakta.se/artinformation/taxa/4679/detaljer",
@@ -18,16 +18,17 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "SIGNAL_art": "0",
-    "Nya svamp-boken": "0",
+    "Nyasvamp-boken": "0",
     "Giftsvamp": "0",
     "Genus": "Laccaria",
     "sample_plot_count": 1,
     "sample_env_count": 2,
-    "Svamp-grupp-släkte": "hattsvamp"
+    "Svamp-grupp-släkte": "hattsvamp",
+    "images": []
   },
   {
     "SpeciesCode": "SI18-346",
-    "taxon": "Lactarius quietus",
+    "Scientificname": "Lactarius quietus",
     "Svampguiden": "0",
     "Kriteriedokumentation": "De skattade värdena som bedömningen baserar sig på ligger alla inom intervallet för kategorin Livskraftig (LC).",
     "OVANLIGHET": null,
@@ -36,7 +37,7 @@
     "Värdtaxa:Vedochbark": null,
     "Värdtaxa:Finarerötterochrottrådar": null,
     "ekologi": null,
-    "snamn": "ekriska",
+    "Commonname": "ekriska",
     "matsvamp": 0,
     "total_presence": 6,
     "Artfakta": "https://artfakta.se/artinformation/taxa/4760/detaljer",
@@ -44,16 +45,17 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "SIGNAL_art": "0",
-    "Nya svamp-boken": "0",
+    "Nyasvamp-boken": "0",
     "Giftsvamp": "0",
     "Genus": "Lactarius",
     "sample_plot_count": 1,
     "sample_env_count": 2,
-    "Svamp-grupp-släkte": "hattsvamp"
+    "Svamp-grupp-släkte": "hattsvamp",
+    "images": []
   },
   {
     "SpeciesCode": "SI21-5901",
-    "taxon": "Inocybe calospora sp.2",
+    "Scientificname": "Inocybe calospora sp.2",
     "Svampguiden": "0",
     "Kriteriedokumentation": "De skattade värdena som bedömningen baserar sig på ligger alla inom intervallet för kategorin Livskraftig (LC).",
     "OVANLIGHET": null,
@@ -62,7 +64,7 @@
     "Värdtaxa:Vedochbark": null,
     "Värdtaxa:Finarerötterochrottrådar": "Trivial deciduous forest trees - red list assemblage, Conifers - red list assemblage",
     "ekologi": null,
-    "snamn": "taggsporig tråding",
+    "Commonname": "taggsporig tråding",
     "matsvamp": 0,
     "total_presence": 9,
     "Artfakta": "https://artfakta.se/artinformation/taxa/4570/detaljer",
@@ -70,11 +72,12 @@
     "Svamp-grupp": "hattsvamp",
     "Svamp-Undersvamp-grupp": "0",
     "SIGNAL_art": "0",
-    "Nya svamp-boken": "0",
+    "Nyasvamp-boken": "0",
     "Giftsvamp": "0",
     "Genus": "Inocybe",
     "sample_plot_count": 1,
     "sample_env_count": 2,
-    "Svamp-grupp-släkte": "hattsvamp"
+    "Svamp-grupp-släkte": "hattsvamp",
+    "images": []
   }
 ]

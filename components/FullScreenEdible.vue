@@ -26,14 +26,15 @@
 
         <div class="px-3 pt-1 pointer-events-none">
           <BaseHeading size="lg" class="pointer-events-none">{{
-            capitalize(selectedRows[0].snamn)
+            capitalize(selectedRows[0].Commonname)
           }}</BaseHeading>
           <BaseHeading weight="light" size="sm" class="pointer-events-none">{{
-            selectedRows[0].taxon
+            selectedRows[0].Scientificname
           }}</BaseHeading>
         </div>
       </div>
     </transition>
+
     <div class="flex justify-between mb-2 items-end">
       <UPopover mode="hover" class="flex items-end cursor-default" :ui="{}">
         <div class="items-end flex cursor-default">
@@ -43,19 +44,36 @@
             <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
           </div>
 
-          <div class="">
+          <div>
             <BaseHeading
               size="3xl"
               weight="medium"
               class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
-              >Matsvampar</BaseHeading
             >
-            <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-              >Bedömning baserad på samlad kunskap
+              Matsvampar
+            </BaseHeading>
+            <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+              Bedömning baserad på samlad kunskap
             </BaseHeading>
           </div>
         </div>
-
+        <!-- Added grid/table toggle tabs (same as in FullScreenPoison.vue) -->
+        <BaseTabs
+          v-model="activeView"
+          :tabs="[
+            {
+              label: 'Galleri',
+              icon: 'i-heroicons-squares-2x2',
+              value: 'grid',
+            },
+            {
+              label: 'Lista',
+              icon: 'material-symbols:format-list-bulleted-rounded',
+              value: 'table',
+            },
+          ]"
+          class="ml-4 -mb-4 inline-flex align-bottom"
+        />
         <template #panel>
           <div class="p-4 w-96 text-sm text-neutral-500">
             Visar matsvampar som kan förekomma i miljön, baserat på
@@ -65,33 +83,7 @@
       </UPopover>
 
       <div class="flex gap-2 items-end">
-        <!-- <BaseListbox
-          v-model="selectedFoodOption"
-          :items="foodOptions"
-          :properties="{
-            value: 'value',
-            label: 'name',
-            // icon: 'icon',
-          }"
-          size="md"
-          shape="full"
-          label="Ätlighet"
-          label-float
-          class="w-48"
-        /> -->
-        <!-- <div
-          :data-nui-tooltip="'Visa giftiga svampar'"
-          data-nui-tooltip-position="left"
-        >
-          <Icon
-            @click="togglePoisonous"
-            name="hugeicons:danger"
-            class="w-10 h-10 hover:text-lime-500 text-lime-500 hover:cursor-pointer transition-all"
-            :class="{
-              'text-neutral-300': !showPoisonous,
-            }"
-          />
-        </div> -->
+        <!-- <BaseListbox ... /> -->
         <div v-if="!props.isNormalView" class="w-20">
           <BaseListbox
             v-model="rowsPerPage"
@@ -128,254 +120,283 @@
       </div>
     </div>
 
+    <!-- Main content: switch between table view and grid view -->
     <div
       class="relative pt-3 backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
-      <div class="grid grid-cols-2 mb-8"></div>
-
-      <div v-if="filteredData" class="col-span-6 -mt-12">
-        <div class="h-fit">
-          <!-- v-model="selectedRows" -->
-
-          <!-- UTable with Filtered Data -->
-          <UTable
-            :loading="isLoading"
-            :loading-state="{
-              icon: 'i-heroicons-arrow-path-20-solid',
-              label: 'Laddar',
-            }"
-            class="max-h-[calc(100vh-400px)] min-h-[415px]"
-            :sort-button="{
-              color: 'text-neutral-700 dark:text-neutral-300',
-              size: 'xl',
-            }"
-            id="scrollbar"
-            :ui="computedUITable"
-            :columns="selectedColumns"
-            :rows="paginatedData"
-            @select="selectRow"
-            v-model:sort="sort"
-            sort-mode="manual"
-            :key="route.fullPath"
-          >
-            <template #empty-state>
-              <div class="flex flex-col items-center justify-center py-6 gap-3">
-                <span class="italic text-sm"
-                  >Inga vanligt förekommande matsvampar i denna miljön</span
-                >
-              </div>
-            </template>
-            <!-- <template v-slot:förekomst-data="{ row }">
-              <div>
-                {{
-                  parseInt(row.förekomst_skog) + parseInt(row.förekomst_ålder)
-                }}
-              </div>
-            </template> -->
-            <!-- <template #rating-data="{ row }">
-              <div class="flex">
-                <span v-for="n in getValidRating(row.rating)" :key="n">
-                  <Icon
-                    name="material-symbols:star-rate-rounded"
-                    class="h-4 w-4 text-yellow-500"
-                  />
-                </span>
-              </div>
-            </template>
-            <template #förekomst_ung-data="{ row }">
-              <div>
-                <div v-if="row.förekomst_ung === 1">
-                  <Icon name="tabler:mushroom" class="h-4 w-4" />
-                </div>
-                <div v-else-if="row.förekomst_ung === 0">
-                  <Icon name="heroicons:x-mark-16-solid" class="h-4 w-4" />
-                </div>
-              </div>
-            </template> -->
-
-            <!-- <template #förekomst_skog_ålder-data="{ row }">
-              <div class="flex">
-                <span
-                  v-for="n in getValidFörekomst(row.förekomst_skog_ålder)"
-                  :key="n"
-                >
-                  <Icon name="tabler:mushroom" class="h-4 w-4" />
-                </span>
-              </div>
-            </template> -->
-            <!-- <template #förekomst_ung-data="{ row }">
-              <div class="text-ellipsis overflow-hidden">
-                {{ capitalize(row.förekomst_ung) }}
-              </div>
-            </template> -->
-            <template #Commonname-data="{ row }">
-              <div class="truncate max-w-96">
-                {{ capitalize(row.Commonname) }}
-                <span class="italic text-neutral-400" v-if="isNormalView"
-                  >({{ capitalize(row.Scientificname) }})</span
-                >
-              </div>
-            </template>
-            <template #Scientificname-data="{ row }">
-              <div class="italic font-thin overflow-hidden text-ellipsis">
-                {{ row.Scientificname }}
-              </div>
-            </template>
-            <template #FoodType-data="{ row }">
-              <div class="flex justify-center max-w-8">
-                <!-- Danger icon if poisonous -->
-                <Icon
-                  v-if="row.Giftsvamp"
-                  name="hugeicons:danger"
-                  class="text-lime-500 w-6 h-6"
-                />
-
-                <!-- Knife-fork icon if not poisonous but is edible -->
-                <Icon
-                  v-else-if="row['Nyasvamp-boken']"
-                  name="icon-park-solid:knife-fork"
-                  class="text-yellow-500 w-6 h-6"
-                />
-
-                <!-- Or show nothing / neutral icon if neither applies -->
-                <Icon
-                  v-else
-                  name="material-symbols:help-outline-rounded"
-                  class="text-neutral-400 w-6 h-6"
-                />
-              </div>
-            </template>
-            <template #Svamp-grupp-data="{ row }">
-              <div
-                data-nui-tooltip-position="left"
-                :data-nui-tooltip="capitalize(row['Svamp-grupp'])"
-                class="ml-2"
-              >
-                <NuxtImg
-                  :src="getIconPath(row['Svamp-grupp'])"
-                  class="w-5"
-                  alt="Svamp Icon"
-                />
-              </div>
-            </template>
-            <template #RL2020kat-data="{ row }">
-              <div class="flex items-center space-x-2">
-                <!-- Existing Status Circle -->
-
+      <!-- TABLE VIEW -->
+      <div v-if="isTableView">
+        <div v-if="filteredData" class="col-span-6 -mt-12">
+          <div class="h-fit">
+            <!-- UTable with Filtered Data -->
+            <UTable
+              :loading="isLoading"
+              :loading-state="{
+                icon: 'i-heroicons-arrow-path-20-solid',
+                label: 'Laddar',
+              }"
+              class="max-h-[calc(100vh-400px)] min-h-[415px] mt-8"
+              :sort-button="{
+                color: 'text-neutral-700 dark:text-neutral-300',
+                size: 'xl',
+              }"
+              id="scrollbar"
+              :ui="computedUITable"
+              :columns="selectedColumns"
+              :rows="paginatedData"
+              @select="selectRow"
+              v-model:sort="sort"
+              sort-mode="manual"
+              :key="route.fullPath"
+            >
+              <template #empty-state>
                 <div
-                  :class="getStatusColor(row.RL2020kat)"
-                  class="h-5 w-5 rounded-full flex items-center justify-center text-white z-0 max-w-12"
-                  data-nui-tooltip-position="left"
-                  :data-nui-tooltip="
-                    row['RL2020kat'] !== 'Saknas'
-                      ? getStatusTooltip(row.RL2020kat)
-                      : 'Ej bedömd'
-                  "
+                  class="flex flex-col items-center justify-center py-6 gap-3"
                 >
-                  <!-- {{ getStatusAbbreviation(row.RL2020kat) }} -->
+                  <span class="italic text-sm">
+                    Inga vanligt förekommande matsvampar i denna miljön
+                  </span>
                 </div>
-
-                <!-- Conditional Blue 'S' Circle -->
-                <div v-if="row.SIGNAL_art === 'S'" class="relative">
-                  <div
-                    class="h-5 w-5 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10 text-sm"
-                    :data-nui-tooltip="'Signalart'"
+              </template>
+              <template #Commonname-data="{ row }">
+                <div class="truncate max-w-96">
+                  {{ capitalize(row.Commonname) }}
+                  <span
+                    class="italic text-neutral-400"
+                    v-if="props.isNormalView"
                   >
-                    <!-- S -->
-                  </div>
+                    ({{ capitalize(row.Scientificname) }})
+                  </span>
                 </div>
-              </div>
-            </template>
-            <template #Rank-data="{ row }">
-              <div class="px-2 w-32">
-                <UProgress
-                  max="3"
-                  :value="getInvertedRankValue(row.Rank)"
-                  :color="getColorForRank(row.Rank)"
-                  size="md"
-                  data-nui-tooltip-position="right"
-                  :data-nui-tooltip="getRankTooltip(row.Rank)"
-                />
-              </div>
-            </template>
-
-            <!-- ...other columns... -->
-          </UTable>
-          <div
-            class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-800"
-          >
-            <div>
-              <!-- Display the current range and total items -->
-              <BaseProse class="text-sm"
-                >Visar {{ startItem }} till {{ endItem }} av
-                {{ totalItems }} arter</BaseProse
-              >
-            </div>
-            <div>
-              <!-- Pagination component -->
-              <div v-if="rowsPerPage !== 'Alla'">
-                <UPagination
-                  :max="2"
-                  v-model="page"
-                  :page-count="rowsPerPage"
-                  :total="totalItems"
-                  :ui="{
-                    wrapper: 'flex items-center gap-1',
-                    rounded: '!rounded-full min-w-[32px] justify-center px-4',
-                    default: {},
-                  }"
-                  size="lg"
+              </template>
+              <template #Scientificname-data="{ row }">
+                <div class="italic font-thin overflow-hidden text-ellipsis">
+                  {{ row.Scientificname }}
+                </div>
+              </template>
+              <template #FoodType-data="{ row }">
+                <div class="flex justify-center max-w-8">
+                  <Icon
+                    v-if="row.Giftsvamp"
+                    name="hugeicons:danger"
+                    class="text-lime-500 w-6 h-6"
+                  />
+                  <Icon
+                    v-else-if="row['Nyasvamp-boken']"
+                    name="icon-park-solid:knife-fork"
+                    class="text-yellow-500 w-6 h-6"
+                  />
+                  <Icon
+                    v-else
+                    name="material-symbols:help-outline-rounded"
+                    class="text-neutral-400 w-6 h-6"
+                  />
+                </div>
+              </template>
+              <template #Svamp-grupp-data="{ row }">
+                <div
+                  data-nui-tooltip-position="left"
+                  :data-nui-tooltip="capitalize(row['Svamp-grupp'])"
+                  class="ml-2"
                 >
-                  <!-- Custom previous button -->
-                  <template #prev="{ onClick }">
-                    <UButton
-                      icon="i-heroicons-chevron-left-20-solid"
-                      size="lg"
-                      color="white"
-                      :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                      class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
-                      @click="onClick"
-                    />
-                  </template>
-
-                  <!-- Custom next button -->
-                  <template #next="{ onClick }">
-                    <UButton
-                      icon="i-heroicons-chevron-right-20-solid"
-                      size="lg"
-                      color="white"
-                      :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                      class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
-                      @click="onClick"
-                    />
-                  </template>
-                </UPagination>
+                  <NuxtImg
+                    :src="getIconPath(row['Svamp-grupp'])"
+                    class="w-5"
+                    alt="Svamp Icon"
+                  />
+                </div>
+              </template>
+              <template #RL2020kat-data="{ row }">
+                <div class="flex items-center space-x-2">
+                  <div
+                    :class="getStatusColor(row.RL2020kat)"
+                    class="h-5 w-5 rounded-full flex items-center justify-center text-white z-0 max-w-12"
+                    data-nui-tooltip-position="left"
+                    :data-nui-tooltip="
+                      row['RL2020kat'] !== 'Saknas'
+                        ? getStatusTooltip(row.RL2020kat)
+                        : 'Ej bedömd'
+                    "
+                  ></div>
+                </div>
+              </template>
+              <template #Rank-data="{ row }">
+                <div class="px-2 w-32">
+                  <UProgress
+                    max="3"
+                    :value="getInvertedRankValue(row.Rank)"
+                    :color="getColorForRank(row.Rank)"
+                    size="md"
+                    data-nui-tooltip-position="right"
+                    :data-nui-tooltip="getRankTooltip(row.Rank)"
+                  />
+                </div>
+              </template>
+            </UTable>
+            <div
+              class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-800"
+            >
+              <div>
+                <BaseProse class="text-sm">
+                  Visar {{ startItem }} till {{ endItem }} av
+                  {{ totalItems }} arter
+                </BaseProse>
+              </div>
+              <div>
+                <div v-if="rowsPerPage !== 'Alla'">
+                  <UPagination
+                    :max="2"
+                    v-model="page"
+                    :page-count="rowsPerPage"
+                    :total="totalItems"
+                    :ui="{
+                      wrapper: 'flex items-center gap-1',
+                      rounded: '!rounded-full min-w-[32px] justify-center px-4',
+                      default: {},
+                    }"
+                    size="lg"
+                  >
+                    <template #prev="{ onClick }">
+                      <UButton
+                        icon="i-heroicons-chevron-left-20-solid"
+                        size="lg"
+                        color="white"
+                        :ui="{
+                          rounded: 'rounded-full dark:border-neutral-800',
+                        }"
+                        class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                        @click="onClick"
+                      />
+                    </template>
+                    <template #next="{ onClick }">
+                      <UButton
+                        icon="i-heroicons-chevron-right-20-solid"
+                        size="lg"
+                        color="white"
+                        :ui="{
+                          rounded: 'rounded-full dark:border-neutral-800',
+                        }"
+                        class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                        @click="onClick"
+                      />
+                    </template>
+                  </UPagination>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- GRID VIEW -->
       <div v-else>
-        <div class="max-w-sm space-y-2 mt-2">
-          <BasePlaceload class="h-4 w-full rounded" />
-          <BasePlaceload class="h-4 w-[85%] rounded" />
+        <div
+          :class="[
+            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1 max-h-[calc(100vh-400px)] min-h-[399px] overflow-scroll',
+            props.isNormalView ? 'md:grid-cols-3' : 'md:grid-cols-6',
+          ]"
+        >
+          <div
+            v-for="(row, index) in gridPaginatedData"
+            :key="row.Commonname + row.Scientificname + index"
+            class="bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer h-[184px]"
+            @click="selectRow(row)"
+          >
+            <!-- Image Thumbnail -->
+            <div class="w-full h-32 relative rounded-t-lg overflow-hidden">
+              <NuxtImg
+                v-if="row.images && row.images.length"
+                :src="row.images[0]"
+                class="w-full h-full object-cover"
+                alt="Species Image"
+                height="300"
+                width="450"
+                format="webp"
+              />
+              <div
+                v-else
+                class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700"
+              >
+                <Icon
+                  name="material-symbols:photo"
+                  class="w-8 h-8 text-neutral-500"
+                />
+              </div>
+              <div class="absolute bottom-2 left-2 flex gap-1">
+                <div class="p-1 rounded-full bg-neutral-50 bg-opacity-90">
+                  <Icon
+                    name="icon-park-solid:knife-fork"
+                    class="size-6 p-0.5 text-yellow-500"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Species Names -->
+            <div class="p-2 pt-1">
+              <div
+                class="text-md font-medium text-neutral-500 dark:text-neutral-300 truncate"
+              >
+                {{ capitalize(row.Commonname) }}
+              </div>
+              <div
+                class="text-sm font-medium text-neutral-400 dark:text-neutral-300 truncate"
+              >
+                {{ capitalize(row.Scientificname) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GRID VIEW PAGINATION -->
+        <div
+          class="flex justify-between items-center p-5 border-t border-neutral-200 dark:border-neutral-800"
+        >
+          <div>
+            <BaseProse class="text-sm">
+              Visar {{ gridStartItem }} till {{ gridEndItem }} av
+              {{ totalItems }} arter
+            </BaseProse>
+          </div>
+          <div>
+            <UPagination
+              v-model="gridPage"
+              :page-count="gridPageSize"
+              :total="totalItems"
+              :ui="{
+                wrapper: 'flex items-center gap-1',
+                rounded: '!rounded-full min-w-[32px] justify-center px-4',
+                default: {},
+              }"
+              size="lg"
+            >
+              <template #prev="{ onClick }">
+                <UButton
+                  icon="i-heroicons-chevron-left-20-solid"
+                  size="lg"
+                  color="white"
+                  :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                  class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                  @click="onClick"
+                />
+              </template>
+              <template #next="{ onClick }">
+                <UButton
+                  icon="i-heroicons-chevron-right-20-solid"
+                  size="lg"
+                  color="white"
+                  :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                  class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                  @click="onClick"
+                />
+              </template>
+            </UPagination>
+          </div>
         </div>
       </div>
-
-      <!-- Information section aligned to the bottom -->
+      <!-- End grid view -->
     </div>
   </div>
 </template>
-
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0;
-}
-</style>
 
 <script setup>
 console.log("FullScreenEdible setup started");
@@ -384,7 +405,6 @@ import { ref, reactive, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
 
-// 1) Define 3 options: “matsvampar”, “giftiga”, or “alla”
 const foodOptions = [
   {
     id: "edibleOnly",
@@ -406,16 +426,11 @@ const foodOptions = [
   },
 ];
 
-// 2) Create a ref for the selected option (default to “all”?)
 const selectedFoodOption = ref(foodOptions[2]); // "Alla svampar"
 
-// Reactive data, watchers, etc. remain
-// e.g. const data = ref([]);
-
 function getInvertedRankValue(rank) {
-  // Fallback to 0 if rank is missing or invalid
   if (!rank) return 0;
-  return 4 - rank; // Invert so rank=1 -> 3, rank=2 -> 2, rank=3 -> 1
+  return 4 - rank;
 }
 
 function getRankTooltip(rank) {
@@ -434,16 +449,12 @@ function getRankTooltip(rank) {
 function getColorForRank(rank) {
   switch (rank) {
     case 1:
-      // Rank = 1 (full bar) => color “blue”, for example
       return "yellow";
     case 2:
-      // Rank = 2 (half bar) => color “amber”
       return "amber";
     case 3:
-      // Rank = 3 (almost empty) => color “orange”
       return "orange";
     default:
-      // Fallback color
       return "neutral";
   }
 }
@@ -466,21 +477,20 @@ const getIconPath = (svampGrupp) => {
     skinnsvamp: "skinnsvamp.webp",
     skålsvamp: "skalsvamp.webp",
   };
-
   return `/images/svampgrupp/${iconMapping[svampGrupp] || "default-icon.webp"}`;
 };
 
 const getStatusAbbreviation = (status) => {
   const abbreviations = {
     LC: "LC",
-    NT: "NT", // Near Threatened
-    EN: "EN", // Endangered
-    VU: "VU", // Vulnerable
-    CR: "CR", // Critically Endangered
-    RE: "RE", // Regionally Extinct
-    DD: "DD", // Data Deficient
+    NT: "NT",
+    EN: "EN",
+    VU: "VU",
+    CR: "CR",
+    RE: "RE",
+    DD: "DD",
   };
-  return abbreviations[status] || "NE"; // Default case
+  return abbreviations[status] || "NE";
 };
 
 const getStatusColor = (status) => {
@@ -512,9 +522,13 @@ const getStatusTooltip = (status) => {
 const props = defineProps({
   isNormalView: Boolean,
 });
-
 console.log("isNormalView in FullScreenEdible:", props.isNormalView);
 
+// --- New: Toggle between grid and table views ---
+const activeView = ref("grid");
+const isTableView = computed(() => activeView.value === "table");
+
+// --- Existing computed UI config ---
 const computedUITable = computed(() => ({
   thead:
     "sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-50",
@@ -524,39 +538,20 @@ const computedUITable = computed(() => ({
     size: "text-md",
     color: "text-neutral-500 dark:text-neutral-400",
   },
-  th: {
-    padding: "pt-4 pl-6",
-  },
-  // divide: props.isNormalView
-  //   ? ""
-  //   : "divide-y divide-neutral-200 dark:divide-neutral-800",
+  th: { padding: "pt-4 pl-6" },
   tr: {
     padding: "pl-12",
     base: "overflow-hidden",
     selected: "bg-neutral-100 dark:bg-neutral-900",
     active:
-      "hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-900 ",
+      "hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-900",
   },
 }));
 
 const route = useRoute();
-
 const isInfoBoxVisible = ref(false);
-
 const selectedRows = ref([]);
 const isDragging = ref(false);
-
-// function getCenterPosition() {
-//   const boxWidth = 200;
-//   const boxHeight = 400;
-
-//   const centerX = (window.innerWidth - boxWidth) / 2;
-//   const centerY = (window.innerHeight - boxHeight) / 2;
-
-//   return { top: centerY, left: centerX };
-// }
-
-// const boxPosition = reactive(getCenterPosition());
 const dragOffset = reactive({ x: 0, y: 0 });
 
 function startDrag(event) {
@@ -576,6 +571,7 @@ function drag(event) {
     boxPosition.top = event.clientY - dragOffset.y;
   }
 }
+
 onMounted(() => {
   document.addEventListener("mousemove", drag);
   document.addEventListener("mouseup", stopDrag);
@@ -586,17 +582,11 @@ onUnmounted(() => {
   document.removeEventListener("mouseup", stopDrag);
 });
 
-// function selectRow(row) {
-//   selectedRows.value = [row];
-// }
-
 function closeInfoBox() {
   selectedRows.value = [];
 }
 
-// Reactive state for toggling giftsvampar
-const showPoisonous = ref(false); // Hidden by default
-
+const showPoisonous = ref(false);
 function togglePoisonous() {
   showPoisonous.value = !showPoisonous.value;
 }
@@ -618,9 +608,9 @@ const columns = [
     sortable: props.isNormalView ? false : true,
   },
   {
-    key: "FoodType", // or "Type"
+    key: "FoodType",
     label: "",
-    sortable: false, // probably no need to sort by this
+    sortable: false,
   },
   {
     key: "RL2020kat",
@@ -630,7 +620,7 @@ const columns = [
       const statusAbbr = getStatusAbbreviation(row.RL2020kat);
       const statusColor = getStatusColor(row.RL2020kat);
       const tooltip = getStatusTooltip(row.RL2020kat);
-      return `<div class="flex items-center justify-center w-6 h-6  rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
+      return `<div class="flex items-center justify-center w-6 h-6 rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
     },
   },
   {
@@ -645,39 +635,37 @@ const sort = ref({ column: "", direction: "asc" });
 const selectedColumns = computed(() =>
   [
     columns[3],
-    columns[0], // Commonname
-    !props.isNormalView ? columns[1] : null, // Scientificname
-    columns[2], // Svamp-grupp
-
-    // NEW: show the FoodType column only if showPoisonous is TRUE
-
+    columns[0],
+    !props.isNormalView ? columns[1] : null,
+    columns[2],
     !props.isNormalView ? columns[4] : null,
-    !props.isNormalView ? columns[5] : null, // Rank
+    !props.isNormalView ? columns[5] : null,
   ].filter((column) => column !== null)
 );
 
 const sortedData = computed(() => {
   let result = filteredData.value.slice();
-
-  // If user clicked a column to sort, do single-column logic
   if (sort.value?.column) {
-    // same as before
     const { column, direction } = sort.value;
     result.sort((a, b) => {
-      // ...
+      const valueA = a[column];
+      const valueB = b[column];
+      if (valueA == null && valueB != null) return 1;
+      if (valueA != null && valueB == null) return -1;
+      if (valueA == null && valueB == null) return 0;
+      const comparison = String(valueA).localeCompare(String(valueB), "sv", {
+        numeric: true,
+        sensitivity: "base",
+      });
+      return direction === "asc" ? comparison : -comparison;
     });
   } else {
-    // Default 2-level sort:
-    //  1) By "Rank" ascending
-    //  2) By "Commonname" ascending
     result.sort((a, b) => {
       const rankA = a.Rank ?? 99999;
       const rankB = b.Rank ?? 99999;
       if (rankA !== rankB) {
         return rankA - rankB;
       }
-
-      // If same rank, compare name
       const nameA = (a.Commonname || "").toLowerCase();
       const nameB = (b.Commonname || "").toLowerCase();
       return nameA.localeCompare(nameB, "sv", {
@@ -686,7 +674,6 @@ const sortedData = computed(() => {
       });
     });
   }
-
   return result;
 });
 
@@ -721,23 +708,10 @@ const fetchData = async (geography, forestType, standAge, vegetationType) => {
   }
 };
 
-// const getValidRating = (rating) => {
-//   const parsedRating = parseInt(rating);
-//   return Number.isNaN(parsedRating) ? 0 : parsedRating;
-// };
-
-// const getValidFörekomst = (förekomst_skog_ålder) => {
-//   const parsedFörekomst = parseInt(förekomst_skog_ålder);
-//   // Subtract 1 from the parsed value but ensure it doesn't go below 0
-//   return Math.max(0, Number.isNaN(parsedFörekomst) ? 0 : parsedFörekomst - 1);
-// };
-
-// Watch for changes in route params and fetch data accordingly
 watch(
   () => route.params,
   (params) => {
     isLoading.value = true;
-
     const { geography, forestType, standAge, vegetationType } = params;
     if (geography && forestType && standAge && vegetationType) {
       fetchData(geography, forestType, standAge, vegetationType);
@@ -759,18 +733,12 @@ watch(
 
 const searchQuery = ref("");
 const page = ref(1);
-const rowsPerPageOptions = [5, 10, 20, 30, 40, 50]; // Options for rows per page
 const rowsPerPage = ref(props.isNormalView ? 5 : 10);
-const selectedRow = ref(null);
 
-// Computed property for filtered data
 const filteredData = computed(() => {
-  // Only include rows that are edible: they must have the Nyasvamp-boken flag true and not be poisonous
   let result = data.value.filter(
     (row) => row["Nyasvamp-boken"] && !row.Giftsvamp
   );
-
-  // Apply search filter if any
   if (searchQuery.value) {
     result = result.filter((row) =>
       Object.values(row).some((val) =>
@@ -783,7 +751,6 @@ const filteredData = computed(() => {
 
 const paginatedData = computed(() => {
   if (rowsPerPage.value === "Alla") {
-    // Show all rows
     return sortedData.value;
   } else {
     const start = (page.value - 1) * rowsPerPage.value;
@@ -792,12 +759,6 @@ const paginatedData = computed(() => {
   }
 });
 
-const totalPages = computed(() => {
-  if (rowsPerPage.value === "Alla") {
-    return 1; // Only one "page" when showing all
-  }
-  return Math.ceil(filteredData.value.length / rowsPerPage.value);
-});
 const totalItems = computed(() => sortedData.value.length);
 const startItem = computed(() => {
   if (rowsPerPage.value === "Alla") {
@@ -805,11 +766,37 @@ const startItem = computed(() => {
   }
   return (page.value - 1) * rowsPerPage.value + 1;
 });
-
 const endItem = computed(() => {
   if (rowsPerPage.value === "Alla") {
     return totalItems.value;
   }
   return Math.min(page.value * rowsPerPage.value, totalItems.value);
 });
+
+// --- GRID VIEW computed properties ---
+const gridPageSize = computed(() => (props.isNormalView ? 6 : 24));
+const gridPage = ref(1);
+const gridPaginatedData = computed(() => {
+  const start = (gridPage.value - 1) * gridPageSize.value;
+  return sortedData.value.slice(start, start + gridPageSize.value);
+});
+const gridStartItem = computed(() =>
+  sortedData.value.length > 0
+    ? (gridPage.value - 1) * gridPageSize.value + 1
+    : 0
+);
+const gridEndItem = computed(() =>
+  Math.min(gridPage.value * gridPageSize.value, sortedData.value.length)
+);
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

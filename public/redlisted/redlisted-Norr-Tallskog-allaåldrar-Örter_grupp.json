@@ -39,7 +39,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius salor",
@@ -81,7 +82,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum caeruleum",
@@ -123,7 +125,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum caeruleum-4362.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius barbaricus",
@@ -165,7 +170,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma aurantium",
@@ -207,7 +213,11 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Tricholoma aurantium-92-1595.jpg",
+      "/images/SvampBilder/Giftsvampar/Tricholoma aurantium-174-1595.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius corrosus",
@@ -249,7 +259,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius haasii",
@@ -291,7 +302,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius haasii-248956.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius aureofulvus",
@@ -333,7 +347,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius aureofulvus-426.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus hyacinthinus",
@@ -375,7 +392,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus hyacinthinus-823.jpg"
+    ]
   },
   {
     "Scientificname": "Catathelasma imperiale",
@@ -417,7 +437,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Catathelasma imperiale-275.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius cupreorufus",
@@ -459,7 +482,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius cupreorufus-445.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnellum fuligineoviolaceum",
@@ -501,7 +527,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma ilkkae",
@@ -543,7 +570,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hygrophorus subviscifer",
@@ -585,7 +613,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus subviscifer-831.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius venetus",
@@ -627,7 +658,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum aurantiacum",
@@ -669,7 +701,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum aurantiacum-4361.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius inexspectatus",
@@ -711,7 +746,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius sulfurinus",
@@ -753,7 +789,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum peckii",
@@ -795,7 +832,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius mussivus",
@@ -837,7 +875,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius glaucopus",
@@ -879,7 +918,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma atrosquamosum",
@@ -921,7 +961,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Tricholoma atrosquamosum-1594.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria flavescens",
@@ -963,7 +1006,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius pseudoglaucopus",
@@ -1005,7 +1049,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Hydnellum concrescens",
@@ -1047,6 +1092,7 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   }
 ]

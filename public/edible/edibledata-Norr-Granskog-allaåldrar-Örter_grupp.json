@@ -38,7 +38,12 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Ramaria mairei, Ramaria pallida-186-256756.jpg",
+      "/images/SvampBilder/Giftsvampar/Ramaria mairei, Ramaria pallida-185-256756.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria pallida-256756.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnum repandum s. lat.",
@@ -79,7 +84,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Hydnum repandum-2.jpg",
+      "/images/SvampBilder/Matsvampar/Hydnum repandum-1.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius sanguineus s. lat.",
@@ -120,7 +129,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Cortinarius sanguineus-15-.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius sanguineus-181-.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius sanguineus-179-.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius sanguineus-70-.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius sanguineus-235.jpg"
+    ]
   },
   {
     "Scientificname": "Albatrellus confluens",
@@ -161,7 +177,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Albatrellus confluens-1.jpg",
+      "/images/SvampBilder/Matsvampar/Albatrellus confluens-2.jpg"
+    ]
   },
   {
     "Scientificname": "Gomphidius glutinosus",
@@ -202,7 +222,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 1,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Gomphidius glutinosus-4.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphidius glutinosus-1.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphidius glutinosus-3.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphidius glutinosus-2.jpg"
+    ]
   },
   {
     "Scientificname": "Ramaria botrytis",
@@ -243,7 +269,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Ramaria botrytis-2.jpg",
+      "/images/SvampBilder/Matsvampar/Ramaria botrytis-3.jpg",
+      "/images/SvampBilder/Matsvampar/Ramaria botrytis-1.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Ramaria botrytis-5734.jpg"
+    ]
   },
   {
     "Scientificname": "Russula favrei",
@@ -284,7 +316,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": []
   },
   {
     "Scientificname": "Leccinum piceinum",
@@ -325,7 +358,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": []
   },
   {
     "Scientificname": "Cantharellus cibarius",
@@ -366,7 +400,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-4.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-5.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-2.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-3.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-1.jpg"
+    ]
   },
   {
     "Scientificname": "Russula vesca",
@@ -407,7 +448,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Russula vesca-1.jpg",
+      "/images/SvampBilder/Matsvampar/Russula vesca-3.jpg",
+      "/images/SvampBilder/Matsvampar/Russula vesca-2.jpg",
+      "/images/SvampBilder/Matsvampar/Russula vesca-4.jpg"
+    ]
   },
   {
     "Scientificname": "Russula integra",
@@ -448,7 +495,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Russula integra-2.jpg",
+      "/images/SvampBilder/Matsvampar/Russula integra-3.jpg",
+      "/images/SvampBilder/Matsvampar/Russula integra-1.jpg",
+      "/images/SvampBilder/Matsvampar/Russula integra-4.jpg",
+      "/images/SvampBilder/Matsvampar/Russula integra-5.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus olivaceoalbus",
@@ -489,7 +543,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Hygrophorus olivaceoalbus-2.jpg",
+      "/images/SvampBilder/Matsvampar/Hygrophorus olivaceoalbus-1.jpg"
+    ]
   },
   {
     "Scientificname": "Paxillus involutus",
@@ -530,7 +588,11 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-104-5351.jpg",
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-98-5351.jpg"
+    ]
   },
   {
     "Scientificname": "Paxillus involutus s.lat.",
@@ -571,7 +633,11 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-104-5351.jpg",
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-98-5351.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnum rufescens s. lat.",
@@ -612,7 +678,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Hydnum rufescens-4.jpg",
+      "/images/SvampBilder/Matsvampar/Hydnum rufescens-1.jpg",
+      "/images/SvampBilder/Matsvampar/Hydnum rufescens-3.jpg",
+      "/images/SvampBilder/Matsvampar/Hydnum rufescens-2.jpg"
+    ]
   },
   {
     "Scientificname": "Craterellus lutescens",
@@ -653,7 +725,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-1.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-3.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-2.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-5.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus lutescens-4.jpg"
+    ]
   },
   {
     "Scientificname": "Xerocomus subtomentosus s.lat.",
@@ -694,7 +773,14 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Xerocomus subtomentosus-5.jpg",
+      "/images/SvampBilder/Matsvampar/Xerocomus subtomentosus-4.jpg",
+      "/images/SvampBilder/Matsvampar/Xerocomus subtomentosus-1.jpg",
+      "/images/SvampBilder/Matsvampar/Xerocomus subtomentosus-3.jpg",
+      "/images/SvampBilder/Matsvampar/Xerocomus subtomentosus-2.jpg"
+    ]
   },
   {
     "Scientificname": "Russula xerampelina s. lat.",
@@ -735,7 +821,10 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Russula xerampelina.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius trivialis",
@@ -776,7 +865,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Lactarius trivialis-2.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius trivialis-1.jpg"
+    ]
   },
   {
     "Scientificname": "Boletus edulis",
@@ -817,7 +910,15 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Boletus edulis-1.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-2.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-3.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-6.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-4.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-5.jpg"
+    ]
   },
   {
     "Scientificname": "Craterellus cornucopioides",
@@ -858,7 +959,17 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-8.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-2.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-3.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-1.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-4.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-5.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-7.jpg",
+      "/images/SvampBilder/Matsvampar/Craterellus cornucopioides-6.jpg"
+    ]
   },
   {
     "Scientificname": "Pseudosperma rimosum",
@@ -899,7 +1010,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma bryogenum",
@@ -940,7 +1052,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": []
   },
   {
     "Scientificname": "Hebeloma crustuliniforme",
@@ -981,7 +1094,12 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Hebeloma crustuliniforme-217-4264.jpg",
+      "/images/SvampBilder/Giftsvampar/Hebeloma crustuliniforme-216-4264.jpg",
+      "/images/SvampBilder/Giftsvampar/Hebeloma crustuliniforme-142-4264.jpg"
+    ]
   },
   {
     "Scientificname": "Gomphus clavatus",
@@ -1022,7 +1140,15 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-3.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-2.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-1.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-5.jpg",
+      "/images/SvampBilder/Matsvampar/Gomphus clavatus-4.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Gomphus clavatus-720.jpg"
+    ]
   },
   {
     "Scientificname": "Russula vitellina",
@@ -1063,7 +1189,12 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Russula vitellina-3.jpg",
+      "/images/SvampBilder/Matsvampar/Russula vitellina-2.jpg",
+      "/images/SvampBilder/Matsvampar/Russula vitellina-1.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius meinhardii",
@@ -1104,6 +1235,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Cortinarius meinhardii-187-473.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius meinhardii-131-473.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Cortinarius meinhardii-473.jpg"
+    ]
   }
 ]

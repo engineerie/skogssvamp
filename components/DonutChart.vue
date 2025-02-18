@@ -158,7 +158,7 @@ const fetchChartData = async () => {
     ); // 13 not 14 to ensure the value is not 1.
 
     chartSeries.value = data.value.map((row) => row.total_presence);
-    chartOptions.value.labels = data.value.map((row) => row.taxon);
+    chartOptions.value.labels = data.value.map((row) => row.Scientificname);
     chartOptions.value.colors = [
       ...top4Colors,
       ...next10Colors,

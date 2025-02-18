@@ -39,7 +39,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Inosperma bongardii",
@@ -81,7 +82,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Russula fulvograminea",
@@ -123,7 +125,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius violaceus",
@@ -165,7 +168,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   },
   {
     "Scientificname": "Tricholoma boreosulphurescens",
@@ -207,7 +211,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius populinus",
@@ -249,7 +254,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   },
   {
     "Scientificname": "Russula virescens",
@@ -291,7 +297,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius niveoglobosus",
@@ -333,7 +340,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius glaucopus",
@@ -375,7 +383,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Phellodon niger",
@@ -417,7 +426,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Phellodon niger-5449.jpg"
+    ]
   },
   {
     "Scientificname": "Elaphomyces leveillei",
@@ -459,6 +471,7 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   }
 ]

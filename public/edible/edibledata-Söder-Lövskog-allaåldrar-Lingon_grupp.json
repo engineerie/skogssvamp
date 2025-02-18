@@ -38,7 +38,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 1,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Leccinum scabrum-4.jpg",
+      "/images/SvampBilder/Matsvampar/Leccinum scabrum-3.jpg",
+      "/images/SvampBilder/Matsvampar/Leccinum scabrum-2.jpg",
+      "/images/SvampBilder/Matsvampar/Leccinum scabrum-1.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius pubescens",
@@ -79,7 +85,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": []
   },
   {
     "Scientificname": "Imleria badia",
@@ -120,7 +127,15 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 5,
     "förekomst_ung": 1,
-    "förekomst_sum": 6
+    "förekomst_sum": 6,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Imleria badia-4.jpg",
+      "/images/SvampBilder/Matsvampar/Imleria badia-5.jpg",
+      "/images/SvampBilder/Matsvampar/Imleria badia-6.jpg",
+      "/images/SvampBilder/Matsvampar/Imleria badia-2.jpg",
+      "/images/SvampBilder/Matsvampar/Imleria badia-3.jpg",
+      "/images/SvampBilder/Matsvampar/Imleria badia-1.jpg"
+    ]
   },
   {
     "Scientificname": "Russula claroflava",
@@ -161,7 +176,13 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Russula claroflava-4.jpg",
+      "/images/SvampBilder/Matsvampar/Russula claroflava-1.jpg",
+      "/images/SvampBilder/Matsvampar/Russula claroflava-3.jpg",
+      "/images/SvampBilder/Matsvampar/Russula claroflava-2.jpg"
+    ]
   },
   {
     "Scientificname": "Cantharellus cibarius",
@@ -202,7 +223,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-4.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-5.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-2.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-3.jpg",
+      "/images/SvampBilder/Matsvampar/Cantharellus cibarius-1.jpg"
+    ]
   },
   {
     "Scientificname": "Leccinum holopus",
@@ -243,7 +271,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": []
   },
   {
     "Scientificname": "Paxillus involutus",
@@ -284,7 +313,11 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-104-5351.jpg",
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-98-5351.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius rufus",
@@ -325,7 +358,13 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 6,
     "förekomst_ung": 1,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Lactarius rufus-4.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius rufus-1.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius rufus-3.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius rufus-2.jpg"
+    ]
   },
   {
     "Scientificname": "Paxillus involutus s.lat.",
@@ -366,7 +405,11 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-104-5351.jpg",
+      "/images/SvampBilder/Giftsvampar/Paxillus involutus-98-5351.jpg"
+    ]
   },
   {
     "Scientificname": "Scleroderma bovista",
@@ -407,7 +450,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 3,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Scleroderma bovista-161-5975.jpg"
+    ]
   },
   {
     "Scientificname": "Amanita muscaria",
@@ -448,7 +494,14 @@
     "förekomst_skog": "x",
     "förekomst_ålder": 6,
     "förekomst_ung": 0,
-    "förekomst_sum": "x6"
+    "förekomst_sum": "x6",
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Amanita muscaria-28-2976.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita muscaria-29-2976.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita muscaria-48-2976.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita muscaria-49-2976.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita muscaria-26-2976.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius armillatus",
@@ -489,7 +542,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 6,
     "förekomst_ung": 0,
-    "förekomst_sum": 8
+    "förekomst_sum": 8,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Cortinarius armillatus-20-3541.jpg",
+      "/images/SvampBilder/Giftsvampar/Cortinarius armillatus-21-3541.jpg"
+    ]
   },
   {
     "Scientificname": "Tricholoma columbetta",
@@ -530,7 +587,14 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 4,
     "förekomst_ung": 0,
-    "förekomst_sum": 5
+    "förekomst_sum": 5,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Tricholoma columbetta-1.jpg",
+      "/images/SvampBilder/Matsvampar/Tricholoma columbetta-3.jpg",
+      "/images/SvampBilder/Matsvampar/Tricholoma columbetta-2.jpg",
+      "/images/SvampBilder/Matsvampar/Tricholoma columbetta-5.jpg",
+      "/images/SvampBilder/Matsvampar/Tricholoma columbetta-4.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius torminosus",
@@ -571,7 +635,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Lactarius torminosus-2.jpg",
+      "/images/SvampBilder/Matsvampar/Lactarius torminosus-1.jpg"
+    ]
   },
   {
     "Scientificname": "Boletus edulis",
@@ -612,6 +680,14 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 5,
     "förekomst_ung": 0,
-    "förekomst_sum": 7
+    "förekomst_sum": 7,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Boletus edulis-1.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-2.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-3.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-6.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-4.jpg",
+      "/images/SvampBilder/Matsvampar/Boletus edulis-5.jpg"
+    ]
   }
 ]

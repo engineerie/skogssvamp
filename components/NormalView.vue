@@ -15,13 +15,13 @@
       <UDivider
         type="solid"
         size="xl"
-        class="text-lg my-4"
+        class="text-lg mt-4"
         :ui="{
           container: {
             base: ' flex rounded-xl',
           },
           border: {
-            horizontal: 'border-t-[2px] rounded-xl',
+            horizontal: 'border-0 rounded-xl',
           },
         }"
       >
@@ -49,57 +49,43 @@
           fruktkroppar förekommer.
         </BaseHeading>
       </UDivider>
-      <!-- <BaseMessage type="primary" class="flex justify-center align-bottom">
-        Listorna för
-        <span class="inline-block align-top"
-          ><Icon
-            name="material-symbols:award-star-outline"
-            class="text-teal-500 mb-1"
-        /></span>
-        naturvårdsarter,
-        <span class="inline-block align-top"
-          ><Icon name="icon-park-solid:knife-fork" class="text-yellow-500 mb-1"
-        /></span>
-        mat- och
-        <span class="inline-block align-top"
-          ><Icon name="hugeicons:danger" class="text-lime-500 mb-1"
-        /></span>
-        giftsvampar bygger på samlad kunskap, framförallt var svamparnas
-        fruktkroppar förekommer.
-      </BaseMessage> -->
     </div>
-    <div class="col-span-12 flex flex-col">
-      <FullScreenRedlisted
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        :isNormalView="true"
-        @enlarge="emitEnlarge('FullScreenRedlisted')"
-        :key="route.fullPath"
-      />
-    </div>
-    <div class="col-span-6 flex flex-col h-full">
-      <FullScreenEdible
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        :isNormalView="true"
-        @enlarge="emitEnlarge('FullScreenEdible')"
-        :key="route.fullPath"
-      />
-    </div>
-    <div class="col-span-6 flex flex-col">
-      <FullScreenPoison
-        :geography="geography"
-        :forestType="forestType"
-        :standAge="standAge"
-        :vegetationType="vegetationType"
-        :isNormalView="true"
-        @enlarge="emitEnlarge('FullScreenPoison')"
-        :key="route.fullPath"
-      />
+    <div
+      class="col-span-12 grid grid-cols-12 rounded-2xl bg-neutral-50 p-4 gap-6"
+    >
+      <div class="col-span-12 flex flex-col">
+        <FullScreenRedlisted
+          :geography="geography"
+          :forestType="forestType"
+          :standAge="standAge"
+          :vegetationType="vegetationType"
+          :isNormalView="true"
+          @enlarge="emitEnlarge('FullScreenRedlisted')"
+          :key="route.fullPath"
+        />
+      </div>
+      <div class="col-span-6 flex flex-col h-full">
+        <FullScreenEdible
+          :geography="geography"
+          :forestType="forestType"
+          :standAge="standAge"
+          :vegetationType="vegetationType"
+          :isNormalView="true"
+          @enlarge="emitEnlarge('FullScreenEdible')"
+          :key="route.fullPath"
+        />
+      </div>
+      <div class="col-span-6 flex flex-col">
+        <FullScreenPoison
+          :geography="geography"
+          :forestType="forestType"
+          :standAge="standAge"
+          :vegetationType="vegetationType"
+          :isNormalView="true"
+          @enlarge="emitEnlarge('FullScreenPoison')"
+          :key="route.fullPath"
+        />
+      </div>
     </div>
   </div>
 </template>

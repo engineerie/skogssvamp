@@ -39,7 +39,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Gyrodon lividus",
@@ -81,7 +82,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius salor",
@@ -123,7 +125,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": []
   },
   {
     "Scientificname": "Amanita strobiliformis",
@@ -165,7 +168,8 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": []
   },
   {
     "Scientificname": "Alpova larskersii",
@@ -207,7 +211,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Amanita phalloides",
@@ -249,7 +254,18 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": [
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-18-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-144-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-30-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-31-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-149-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-148-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-143-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-173-2979.jpg",
+      "/images/SvampBilder/Giftsvampar/Amanita phalloides-172-2979.jpg"
+    ]
   },
   {
     "Scientificname": "Cortinarius violaceus",
@@ -291,7 +307,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Cortinarius glaucopus",
@@ -333,6 +350,7 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": []
   }
 ]

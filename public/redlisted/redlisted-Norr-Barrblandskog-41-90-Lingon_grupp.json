@@ -39,7 +39,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Hydnellum caeruleum-4362.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnellum ferrugineum",
@@ -81,7 +84,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Sarcodon imbricatus s.str.",
@@ -123,7 +127,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Sarcodon imbricatus-2.jpg",
+      "/images/SvampBilder/Matsvampar/Sarcodon imbricatus-1.jpg"
+    ]
   },
   {
     "Scientificname": "Hydnellum fuligineoviolaceum",
@@ -165,7 +173,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": []
   },
   {
     "Scientificname": "Sarcodon squamosus",
@@ -207,7 +216,11 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Sarcodon squamosus.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Sarcodon squamosus-5966.jpg"
+    ]
   },
   {
     "Scientificname": "Scleroderma septentrionale",
@@ -249,7 +262,8 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 2,
     "förekomst_ung": 0,
-    "förekomst_sum": 4
+    "förekomst_sum": 4,
+    "images": []
   },
   {
     "Scientificname": "Phellodon connatus",
@@ -291,7 +305,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Phellodon connatus-5448.jpg"
+    ]
   },
   {
     "Scientificname": "Lactarius musteus",
@@ -333,7 +350,10 @@
     "förekomst_skog": 1,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 2
+    "förekomst_sum": 2,
+    "images": [
+      "/images/SvampBilder/RödlistadeSvampar/Lactarius musteus-4745.jpg"
+    ]
   },
   {
     "Scientificname": "Hygrophorus karstenii",
@@ -375,6 +395,11 @@
     "förekomst_skog": 2,
     "förekomst_ålder": 1,
     "förekomst_ung": 0,
-    "förekomst_sum": 3
+    "förekomst_sum": 3,
+    "images": [
+      "/images/SvampBilder/Matsvampar/Hygrophorus karstenii-2.jpg",
+      "/images/SvampBilder/Matsvampar/Hygrophorus karstenii-1.jpg",
+      "/images/SvampBilder/RödlistadeSvampar/Hygrophorus karstenii-4412.jpg"
+    ]
   }
 ]

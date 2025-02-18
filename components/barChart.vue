@@ -220,9 +220,9 @@ function setupChartData(incomingData) {
   );
 
   // 4) Build annotation points
-  //    (Icons for each taxon, plus food icons, danger icons, etc.)
+  //    (Icons for each Scientificname, plus food icons, danger icons, etc.)
   const iconAnnotations = localData.value.map((row) => ({
-    x: row.taxon,
+    x: row.Scientificname,
     y: row.sample_plot_count,
     marker: {
       size: 10,
@@ -242,7 +242,7 @@ function setupChartData(incomingData) {
   const foodAnnotations = localData.value
     .filter((row) => row.matsvamp === 1)
     .map((row) => ({
-      x: row.taxon,
+      x: row.Scientificname,
       y: row.sample_plot_count,
       marker: {
         size: 10,
@@ -261,7 +261,7 @@ function setupChartData(incomingData) {
   const giftAnnotations = localData.value
     .filter((row) => row.Giftsvamp === "x")
     .map((row) => ({
-      x: row.taxon,
+      x: row.Scientificname,
       y: row.sample_plot_count,
       marker: {
         size: 10,
@@ -280,7 +280,7 @@ function setupChartData(incomingData) {
   const redlistAnnotations = localData.value
     .filter((row) => ["NT", "EN", "VU", "CR"].includes(row.RL2020kat))
     .map((row) => ({
-      x: row.taxon,
+      x: row.Scientificname,
       y: row.sample_plot_count,
       marker: {
         size: 10,
@@ -303,13 +303,13 @@ function setupChartData(incomingData) {
     ...giftAnnotations,
   ];
 
-  // 5) Build a map from taxon => snamn
-  const taxonToSnamnMap = new Map();
+  // 5) Build a map from Scientificname => Commonname
+  const ScientificnameToCommonnameMap = new Map();
   localData.value.forEach((row) => {
-    const sNam = row.snamn
-      ? capitalizeFirstLetter(row.snamn)
+    const sNam = row.Commonname
+      ? capitalizeFirstLetter(row.Commonname)
       : "Svenskt namn saknas";
-    taxonToSnamnMap.set(row.taxon, sNam);
+    ScientificnameToCommonnameMap.set(row.Scientificname, sNam);
   });
 
   // 6) If you want your "top 10% are gray" or "rainbow" logic for coloring:
@@ -331,17 +331,17 @@ function setupChartData(incomingData) {
     {
       name: "",
       data: localData.value.map((row, index) => ({
-        x: row.taxon,
+        x: row.Scientificname,
         y: row.sample_plot_count,
         fillColor: individualBarColors[index],
         color: individualBarColors[index],
-        snamn: row.snamn,
+        Commonname: row.Commonname,
       })),
     },
   ];
 
   // 8) Update chartOptions with the final categories, tooltip, annotations
-  const newCategories = localData.value.map((row) => row.taxon);
+  const newCategories = localData.value.map((row) => row.Scientificname);
 
   chartOptions.value = {
     ...chartOptions.value,
@@ -351,7 +351,7 @@ function setupChartData(incomingData) {
       // Show Swedish name in the label if you want
       labels: {
         formatter(val) {
-          return taxonToSnamnMap.get(val) || val;
+          return ScientificnameToCommonnameMap.get(val) || val;
         },
         rotate: -45,
       },
@@ -377,10 +377,10 @@ function setupChartData(incomingData) {
       x: {
         formatter(val, { seriesIndex, dataPointIndex, w }) {
           const dataPoint = w.config.series[seriesIndex].data[dataPointIndex];
-          let snamn = dataPoint.snamn
-            ? capitalizeFirstLetter(dataPoint.snamn)
+          let Commonname = dataPoint.Commonname
+            ? capitalizeFirstLetter(dataPoint.Commonname)
             : "Saknar svenskt namn";
-          return `${snamn} (${val})`;
+          return `${Commonname} (${val})`;
         },
       },
       theme: isDarkMode.value ? "dark" : "light",

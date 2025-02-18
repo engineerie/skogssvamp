@@ -76,16 +76,18 @@
               </div>
             </template> -->
 
-            <template #snamn-data="{ row }">
+            <template #Commonname-data="{ row }">
               <div class="truncate">
-                {{ capitalize(row.snamn) }}
-                <span class="italic">({{ capitalize(row.taxon) }})</span>
+                {{ capitalize(row.Commonname) }}
+                <span class="italic"
+                  >({{ capitalize(row.Scientificname) }})</span
+                >
               </div>
             </template>
 
-            <!-- <template #taxon-data="{ row }">
+            <!-- <template #Scientificname-data="{ row }">
               <div class="italic font-thin max-w-52 truncate">
-                {{ row.taxon }}
+                {{ row.Scientificname }}
               </div>
             </template> -->
 
@@ -268,12 +270,12 @@ const columns = [
     sortable: false,
   },
   {
-    key: "snamn",
+    key: "Commonname",
     label: "Namn",
     sortable: false,
   },
   // {
-  //   key: "taxon",
+  //   key: "Scientificname",
   //   label: "Latinskt namn",
   //   sortable: false,
   // },

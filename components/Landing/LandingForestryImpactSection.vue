@@ -21,9 +21,9 @@
         size="xl"
         class="text-neutral-500 dark:text-neutral-400 mb-6"
       >
-        Här visualiserar vi baserat på den kunskap som finns hur olika
-        skogsskötsel, olika former av trakthyggesbruk och hyggesfria metoder,
-        påverkar förekomsten av mykorrhizasvampar under en skogsgeneration.
+        Här visualiserar vi baserat på den kunskap som finns hur olika former av
+        trakthyggesbruk och hyggesfria metoder påverkar förekomsten av
+        mykorrhizasvampar under en skogsgeneration.
       </BaseHeading>
 
       <!-- Navigation Buttons -->

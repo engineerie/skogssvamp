@@ -1,19 +1,10 @@
 <template>
-  <div class="grid grid-cols-12 rounded-xl overflow-hidden">
-    <div class="col-span-9 grid grid-cols-12 gap-4 backdrop-blur-3xl">
-      <div class="col-span-8">
-        <EnvInfo />
-      </div>
+  <div
+    class="grid grid-cols-12 rounded-xl overflow-hidden p-4 gap-4 bg-neutral-50"
+  >
+    <div class="col-span-5 flex">
       <div
-        class="col-span-4 backdrop-blur-3xl overflow-clip rounded-xl border dark:border-neutral-600 dark:border-opacity-30 border-neutral-200 p-4 h-full bg-neutral-50"
-      >
-        <SpeciesRichness />
-      </div>
-    </div>
-
-    <div class="col-span-3 flex">
-      <div
-        class="relative rounded-xl overflow-hidden ml-3 border border-neutral-200"
+        class="relative rounded-xl overflow-hidden border border-neutral-200"
       >
         <SpatialForest />
         <div
@@ -29,6 +20,16 @@
           name="heroicons:question-mark-circle"
           class="size-6 text-neutral-400 absolute bottom-2 right-2 hover:text-primary-500 cursor-pointer transition-all"
         />
+      </div>
+    </div>
+    <div class="col-span-7 grid grid-cols-12 gap-4 backdrop-blur-3xl">
+      <div
+        class="col-span-4 backdrop-blur-3xl overflow-clip rounded-xl border dark:border-neutral-600 dark:border-opacity-30 border-neutral-200 p-4 h-full bg-neutral-50"
+      >
+        <SpeciesRichness />
+      </div>
+      <div class="col-span-8">
+        <EnvInfo />
       </div>
     </div>
   </div>

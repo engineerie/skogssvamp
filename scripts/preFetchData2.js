@@ -1,4 +1,4 @@
-import { fetchDataDirectly } from "/Users/jacobbertilsson/Documents/NUXT Apps/LearningNUXT/my-nuxt-app/server/api/fetchData2.js";
+import { fetchDataDirectly } from "../server/api/fetchData2.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,8 +14,8 @@ const forestTypeOptions = [
   "Barrblandskog",
   "Lövblandskog",
   "Lövskog",
-  "Naturbete",
   "EkBokskog",
+  "Naturbete",
 ];
 const vegetationGroups = {
   Örter_grupp: ["Högört", "Lågört", "Bredblad gräs"],
@@ -34,6 +34,43 @@ for (let geo of geographyOptions) {
       }
     }
   }
+}
+
+// Helper: Compute image URLs for a given scientific name using the manifest
+async function computeImages(scientificName, manifest) {
+  if (!scientificName) return [];
+  const cleanedName = scientificName
+    .replace(/\s*s\.?\s*(lat\.?|str\.?)\s*$/i, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
+  const foundImages = [];
+  const searchFolders = ["Matsvampar", "Giftsvampar", "RödlistadeSvampar"];
+  for (const folder of searchFolders) {
+    const files = manifest[folder] || [];
+    for (const file of files) {
+      // Remove file extension and split out the name part
+      const base = file.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+      const [namePart] = base.split("-", 1);
+      const cleanedNamePart = namePart
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+      // If the name includes a comma, compare both parts
+      if (cleanedNamePart.includes(",")) {
+        const [nameA, nameB] = cleanedNamePart.split(",").map((s) => s.trim());
+        if (nameA === cleanedName || nameB === cleanedName) {
+          foundImages.push(`/images/SvampBilder/${folder}/${file}`);
+        }
+      } else if (cleanedNamePart === cleanedName) {
+        foundImages.push(`/images/SvampBilder/${folder}/${file}`);
+      }
+    }
+  }
+  return foundImages;
 }
 
 // Mapping of genera to their corresponding svamp-grupp values
@@ -116,6 +153,7 @@ const genusToSvampGrupp = {
   Xerocomus: "sopp",
 };
 
+// Mapping of taxon to SvampGrupp (fallback if genus mapping fails)
 const taxonToSvampGrupp = {
   Albatrellaceae: "övrigt",
   Atheliaceae: "skinnsvamp",
@@ -127,10 +165,10 @@ const taxonToSvampGrupp = {
 };
 
 // Function to clean taxon and remove "sp.1", "sp.2", etc.
-function cleanTaxon(taxon) {
-  if (!taxon) return null;
+function cleanTaxon(Scientificname) {
+  if (!Scientificname) return null;
   // Regex to remove " sp.X" (e.g., "sp.1", "sp.2") from taxon
-  return taxon.replace(/ sp\.\d+$/, "").trim();
+  return Scientificname.replace(/ sp\.\d+$/, "").trim();
 }
 
 // Function to log data
@@ -140,6 +178,19 @@ function logToFile(data) {
 }
 
 async function prefetchData() {
+  // Read the manifest file directly from disk
+  const manifestPath = path.join(
+    __dirname,
+    "../public/imagemanifest/manifest.json"
+  );
+  let manifest = {};
+  try {
+    const manifestData = fs.readFileSync(manifestPath, "utf8");
+    manifest = JSON.parse(manifestData);
+  } catch (error) {
+    console.error("Error reading manifest file:", error);
+  }
+
   for (const {
     geo,
     forest,
@@ -173,10 +224,10 @@ async function prefetchData() {
         continue;
       }
 
-      // Enrich data with the appropriate 'Svamp-grupp-släkte'
+      // First, enrich the raw data by adding 'Svamp-grupp-släkte'
       const enrichedData = data.map((entry) => {
         const genus = entry.Genus;
-        const rawTaxon = entry.taxon;
+        const rawTaxon = entry.Scientificname;
         const cleanedTaxon = cleanTaxon(rawTaxon); // Clean the taxon
 
         // Decide Svamp-grupp-släkte
@@ -184,7 +235,7 @@ async function prefetchData() {
 
         if (!svampGruppSlakte && cleanedTaxon) {
           // Fallback to taxon-based assignment if genus is null or not in the mapping
-          svampGruppSlakte = taxonToSvampGrupp[cleanedTaxon] || "Saknas"; // Use cleaned taxon
+          svampGruppSlakte = taxonToSvampGrupp[cleanedTaxon] || "Saknas";
         }
 
         return {
@@ -193,11 +244,22 @@ async function prefetchData() {
         };
       });
 
+      // Now add the computed image URLs to each entry
+      const enrichedDataWithImages = await Promise.all(
+        enrichedData.map(async (entry) => {
+          const images = await computeImages(entry.Scientificname, manifest);
+          return { ...entry, images };
+        })
+      );
+
       const safeVegGroupName = vegGroupName.replace(/\//g, ""); // Remove slashes
       const filename = `data-${geo}-${forest}-${age}-${safeVegGroupName}.json`;
       const filePath = path.join(__dirname, `../static/${filename}`);
 
-      fs.writeFileSync(filePath, JSON.stringify(enrichedData, null, 2));
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify(enrichedDataWithImages, null, 2)
+      );
       const writtenMessage = `Data written to ${filePath}. File size: ${
         fs.statSync(filePath).size
       } bytes`;
@@ -213,7 +275,7 @@ async function prefetchData() {
 
 prefetchData();
 
-// Assuming allCombinations is already defined as in your script
+// Generate valid combinations and save to a file
 async function generateValidCombinations() {
   let validCombinations = [];
   for (const {
@@ -228,11 +290,11 @@ async function generateValidCombinations() {
       const data = await fetchDataDirectly({
         geography: geo,
         forestType: forest,
-        vegetationTypes: vegGroupList, // Pass the array of vegetation types
+        vegetationTypes: vegGroupList,
         standAge: age,
       });
       if (data && data.length > 0) {
-        validCombinations.push({ geo, forest, veg: safeVegGroupName, age }); // Store using normalized veg group name
+        validCombinations.push({ geo, forest, veg: safeVegGroupName, age });
       }
     } catch (error) {
       console.error(

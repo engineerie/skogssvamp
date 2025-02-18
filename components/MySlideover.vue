@@ -17,7 +17,7 @@
       <!-- The slideover panel sits on the right side (ml-auto) -->
       <div
         ref="panelRef"
-        class="ml-auto w-96 bg-white shadow-lg z-50 relative pointer-events-auto rounded-xl ring-1 ring-neutral-200 transition-all"
+        class="ml-auto w-96 bg-white shadow-lg z-50 relative pointer-events-auto rounded-xl ring-1 ring-neutral-200 transition-all overflow-hidden"
         :class="localPinned ? ' -m-1' : ''"
         @click.stop
       >
@@ -45,7 +45,7 @@
         </header>
 
         <!-- Default slot for content -->
-        <div class="overflow-auto h-full relative">
+        <div class="h-full relative overflow-auto pb-16">
           <slot />
         </div>
       </div>

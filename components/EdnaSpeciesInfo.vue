@@ -7,10 +7,10 @@
         weight="thin"
         lead="snug"
         class="pt-3 pb-2 px-6"
-        >{{ capitalize(species.snamn) }}</BaseHeading
+        >{{ capitalize(species.Commonname) }}</BaseHeading
       >
       <!-- <BaseHeading size="lg" weight="light" class="ml-1">{{
-        capitalize(species.taxon)
+        capitalize(species.Scientificname)
       }}</BaseHeading> -->
 
       <hr />
@@ -103,8 +103,10 @@
       <img :src="item" width="300" height="400" draggable="false" />
     </UCarousel> -->
     <div class="px-6 pb-3">
-      <BaseHeading size="lg">{{ capitalize(species.snamn) }}</BaseHeading>
-      <BaseHeading weight="light" size="sm">{{ species.taxon }}</BaseHeading>
+      <BaseHeading size="lg">{{ capitalize(species.Commonname) }}</BaseHeading>
+      <BaseHeading weight="light" size="sm">{{
+        species.Scientificname
+      }}</BaseHeading>
       <!-- Additional EDNA-specific data -->
       <div class="flex items-center space-x-2 mt-3">
         <NuxtImg
@@ -296,8 +298,8 @@ const props = defineProps({
   species: Object,
 });
 
-// Determine the species name field (for EDNA: species.taxon)
-const speciesName = computed(() => props.species.taxon || "");
+// Determine the species name field (for EDNA: species.Scientificname)
+const speciesName = computed(() => props.species.Scientificname || "");
 
 // Directories to search for EDNA
 const searchFolders = ["Giftsvampar", "Matsvampar", "RödlistadeSvampar"];

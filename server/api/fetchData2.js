@@ -76,7 +76,7 @@ const fetchDataFromDB = async ({
   const query = `
   SELECT 
     mcv.SpeciesCode,
-    sd.Taxon_sp AS taxon,
+    sd.Taxon_sp AS Scientificname,
       ms.Svampguiden,
   ms.Kriteriedokumentation,
   ms.OVANLIGHET,
@@ -94,7 +94,7 @@ const fetchDataFromDB = async ({
   ösn.släktesnamn, 
   ösn.högrenivå, 
   'Saknar svenskt namn'
-) AS snamn,
+) AS Commonname,
     CASE WHEN ms."Nyasvamp-boken" = 'x' THEN 1 ELSE 0 END AS matsvamp,
     SUM(mcv.Presence) AS total_presence,
     COALESCE(ms.Artfakta, 'Information saknas') AS Artfakta,
@@ -103,7 +103,7 @@ const fetchDataFromDB = async ({
     COALESCE(ms."Svamp-Undersvamp-grupp", '0') AS "Svamp-Undersvamp-grupp",
     COALESCE(ms.SIGNAL_art, '0') AS "SIGNAL_art",
     COALESCE(ms.Svampguiden, '0') AS Svampguiden,
-    COALESCE(ms."Nyasvamp-boken", '0') AS "Nya svamp-boken",
+    COALESCE(ms."Nyasvamp-boken", '0') AS "Nyasvamp-boken",
     COALESCE(ms."Giftsvamp", '0') AS "Giftsvamp",
     COALESCE(sd.Genus, 'Information saknas') AS Genus,
     COUNT(DISTINCT m.GropInventeringID) AS sample_plot_count,
