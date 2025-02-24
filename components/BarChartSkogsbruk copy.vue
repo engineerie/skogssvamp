@@ -3,7 +3,7 @@
     <client-only>
       <component
         :is="VueApexCharts"
-        height="200px"
+        height="250px"
         width="100%"
         type="bar"
         :options="chartOptions"
@@ -69,42 +69,55 @@ const categories = [
   "Övriga svampar",
 ];
 
-const colorMap = {
-  Skinnsvampar: "#334155",
-  Spindelskivlingar: "#000000",
-  "Kremlor och riskor": "#ffffff",
-  "Övriga svampar": "#94a3b8",
-};
+const colors = [
+  "#334155", // Skinnsvampar
+  "#000000", // Spindelskivlingar
+  "#ffffff", // Kremlor och riskor
 
-// **Computed colors array:** derive an array from the object mapping using the same order as categories
-const computedColors = computed(() =>
-  categories.map((category) => colorMap[category] || "#000000")
-);
+  "#94a3b8", // Övriga svampar
+];
 
 const chartSeries = ref([]);
 
-// **Chart options:**
 const chartOptions = ref({
   chart: {
-    toolbar: { show: false },
-    animations: { enabled: true, easing: "easeinout", speed: 500 },
-    dropShadow: { enabled: true, top: 0, blur: 3, opacity: 0.1 },
+    toolbar: {
+      show: false,
+    },
+    animations: {
+      enabled: true,
+      easing: "easeinout",
+      speed: 500,
+    },
+    dropShadow: {
+      enabled: true,
+      top: -0,
+      blur: 3,
+      opacity: 0.1,
+    },
   },
   plotOptions: {
     bar: {
       horizontal: false,
       distributed: true,
-      columnWidth: "12px",
+      // borderRadius: 4,
     },
   },
-  stroke: { width: [1, 1, 4] },
-  dataLabels: { enabled: false },
+  stroke: {
+    width: [1, 1, 4],
+  },
+  dataLabels: {
+    enabled: false,
+  },
   xaxis: {
     categories: categories,
     type: "category",
     labels: {
       show: false,
-      style: { fontSize: "12px", colors: "#6b7280" },
+      style: {
+        fontSize: "12px",
+        colors: "#6b7280",
+      },
     },
   },
   yaxis: {
@@ -113,28 +126,48 @@ const chartOptions = ref({
     max: 75,
     tickAmount: 3,
     labels: {
-      formatter: (value) => value.toFixed(0) + "%",
-      style: { fontSize: "12px", colors: "#6b7280" },
+      formatter: function (value) {
+        return value.toFixed(0) + "%";
+      },
+      style: {
+        fontSize: "12px",
+        colors: "#6b7280",
+      },
     },
   },
-  grid: { borderColor: "#e5e7eb", strokeDashArray: 3 },
-  fill: { opacity: 1, type: "solid" },
+  grid: {
+    borderColor: "#e5e7eb",
+    strokeDashArray: 3,
+  },
+  fill: {
+    opacity: 1,
+    type: "solid", // Default fill type
+  },
   legend: {
     show: true,
     position: "bottom",
-    customLegendItems: categories,
-    markers: { fillColors: computedColors.value, radius: 12, strokeWidth: 1 },
+    customLegendItems: categories, // the 4 category labels
+    markers: {
+      fillColors: colors, // matching 4 colors
+      radius: 12,
+      strokeWidth: 1,
+    },
   },
   tooltip: {
     marker: { show: false },
     shared: true,
     intersect: false,
-    x: { show: true },
-    y: { formatter: (value) => value.toFixed(1) + "%" },
+    x: {
+      show: true,
+    },
+    y: {
+      formatter: function (value) {
+        return value.toFixed(1) + "%";
+      },
+    },
   },
 });
 
-chartOptions.value.colors = computedColors.value;
 const VueApexCharts = shallowRef(null);
 
 // **Update Chart Data Function:**
@@ -256,7 +289,7 @@ const updateChartData = () => {
     chartOptions.value.fill = {
       type: "solid",
     };
-    chartOptions.value.colors = computedColors.value;
+    chartOptions.value.colors = colors;
   }
 
   // **Update chart series data:**

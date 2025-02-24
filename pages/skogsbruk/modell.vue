@@ -364,6 +364,7 @@
                 :key="currentImagePath"
                 ref="singleViewerRef"
                 :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                :allowPan="!isCompare && !isFrameworkCompareMode"
                 @viewportChanged="
                   ($event) => onViewportChanged('single', $event)
                 "
@@ -408,6 +409,7 @@
                   :key="currentImagePath"
                   ref="beforeViewerRef"
                   :dziUrl="comparisonImagePath1.replace('.png', '.png_dzi.dzi')"
+                  :allowPan="!isCompare && !isFrameworkCompareMode"
                   @viewportChanged="
                     ($event) => onViewportChanged('before', $event)
                   "
@@ -439,6 +441,7 @@
                   :key="currentImagePath2"
                   ref="afterViewerRef"
                   :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                  :allowPan="!isCompare && !isFrameworkCompareMode"
                   @viewportChanged="
                     ($event) => onViewportChanged('after', $event)
                   "
@@ -480,6 +483,7 @@
                   :key="currentImagePath"
                   ref="framework1ViewerRef"
                   :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                  :allowPan="!isCompare && !isFrameworkCompareMode"
                   @viewportChanged="
                     ($event) => onViewportChanged('framework1', $event)
                   "
@@ -514,6 +518,7 @@
                   :key="currentImagePath2"
                   ref="framework2ViewerRef"
                   :dziUrl="currentImagePath2.replace('.png', '.png_dzi.dzi')"
+                  :allowPan="!isCompare && !isFrameworkCompareMode"
                   @viewportChanged="
                     ($event) => onViewportChanged('framework2', $event)
                   "
@@ -1011,59 +1016,85 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-4 gap-5">
+          <div class="grid grid-cols-4 gap-3">
             <div class="col-span-3">
-              <div class="relative">
+              <div class="relative flex">
                 <!-- External zoom controls -->
-                <div class="absolute w-full justify-between flex p-4 z-10">
-                  <div>
-                    <div class="mb-2">
-                      <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
-                        <Icon
-                          name="heroicons:magnifying-glass-plus"
-                          class="h-5 w-5"
-                        />
-                      </BaseButtonIcon>
-                    </div>
-                    <div class="mb-2">
-                      <BaseButtonIcon
-                        @click="zoomAllOut"
-                        shape="full"
-                        size="sm"
-                      >
-                        <Icon
-                          name="heroicons:magnifying-glass-minus-solid"
-                          class="h-5 w-5"
-                        />
-                      </BaseButtonIcon>
-                    </div>
-                    <div class="mb-2">
-                      <BaseButtonIcon
-                        shape="full"
-                        size="sm"
-                        @click="showTree = !showTree"
-                      >
-                        <Icon
-                          name="lucide:trees"
-                          class="size-5"
-                          :class="{ ' text-primary-500': showTree }"
-                        />
-                      </BaseButtonIcon>
-                    </div>
-                    <div class="mb-2">
-                      <BaseButtonIcon
-                        shape="full"
-                        size="sm"
-                        @click="showFungi = !showFungi"
-                      >
-                        <Icon
-                          name="fluent:shape-organic-24-filled"
-                          class="size-5"
-                          :class="{ ' text-primary-500': showFungi }"
-                        />
-                      </BaseButtonIcon>
-                    </div>
-                    <!-- <div>
+
+                <StackedBarSkogsbruk
+                  class="h-[650px] border border-neutral-300 rounded-full mr-1 w-3"
+                  v-if="isCompare"
+                  :currentFramework="currentFramework"
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :overrideTimeLabel="timeLabelForDataFiltering2"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                />
+                <StackedBarSkogsbruk
+                  class="h-[650px] border border-neutral-300 rounded-full mr-1 w-3"
+                  v-if="isFrameworkCompareMode"
+                  :currentFramework="currentFramework"
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                />
+
+                <div class="relative w-full">
+                  <div class="absolute w-full justify-between flex p-4 z-10">
+                    <div>
+                      <div class="mb-2">
+                        <BaseButtonIcon
+                          @click="zoomAllIn"
+                          shape="full"
+                          size="sm"
+                        >
+                          <Icon
+                            name="heroicons:magnifying-glass-plus"
+                            class="h-5 w-5"
+                          />
+                        </BaseButtonIcon>
+                      </div>
+                      <div class="mb-2">
+                        <BaseButtonIcon
+                          @click="zoomAllOut"
+                          shape="full"
+                          size="sm"
+                        >
+                          <Icon
+                            name="heroicons:magnifying-glass-minus-solid"
+                            class="h-5 w-5"
+                          />
+                        </BaseButtonIcon>
+                      </div>
+                      <div class="mb-2">
+                        <BaseButtonIcon
+                          shape="full"
+                          size="sm"
+                          @click="showTree = !showTree"
+                        >
+                          <Icon
+                            name="lucide:trees"
+                            class="size-5"
+                            :class="{ ' text-primary-500': showTree }"
+                          />
+                        </BaseButtonIcon>
+                      </div>
+                      <div class="mb-2">
+                        <BaseButtonIcon
+                          shape="full"
+                          size="sm"
+                          @click="showFungi = !showFungi"
+                        >
+                          <Icon
+                            name="fluent:shape-organic-24-filled"
+                            class="size-5"
+                            :class="{ ' text-primary-500': showFungi }"
+                          />
+                        </BaseButtonIcon>
+                      </div>
+                      <!-- <div>
                     <BaseButtonIcon @click="resetAll" shape="full">
                       <Icon
                         name="heroicons:magnifying-glass-solid"
@@ -1071,126 +1102,27 @@
                       />
                     </BaseButtonIcon>
                   </div> -->
+                    </div>
                   </div>
-                </div>
-
-                <!-- Single View -->
-                <div
-                  v-if="!isCompare && !isFrameworkCompareMode"
-                  class="relative w-full h-[650px]"
-                >
-                  <OpenSeadragonViewer
-                    :key="currentImagePath"
-                    ref="singleViewerRef"
-                    :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                    @viewportChanged="
-                      ($event) => onViewportChanged('single', $event)
-                    "
-                    @opened="onViewerOpened('single')"
-                    class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentTimeLabel"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-4 left-4"
-                  />
-                  <UBadge
-                    size="xs"
-                    :label="currentFramework.label"
-                    color="white"
-                    variant="solid"
-                    class="absolute bottom-12 left-4"
-                  />
-                  <Circle
-                    v-for="circle in filteredCircles"
-                    :key="circle.id"
-                    :position="circle.position"
-                    :info="circle.info"
-                  />
-                </div>
-
-                <!-- Before/After Compare -->
-                <img-comparison-slider
-                  ref="comparisonSliderRef"
-                  v-else-if="isCompare"
-                  class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-                >
-                  <div class="relative w-full h-[650px]" slot="first">
-                    <OpenSeadragonViewer
-                      :key="currentImagePath"
-                      ref="beforeViewerRef"
-                      :dziUrl="
-                        comparisonImagePath1.replace('.png', '.png_dzi.dzi')
-                      "
-                      @viewportChanged="
-                        ($event) => onViewportChanged('before', $event)
-                      "
-                      @opened="onViewerOpened('before')"
-                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                    />
-                    <UBadge
-                      size="xs"
-                      label="Före avverkning"
-                      color="white"
-                      variant="solid"
-                      class="absolute bottom-4 left-4"
-                    />
-                    <UBadge
-                      size="xs"
-                      :label="currentFramework.label"
-                      color="white"
-                      variant="solid"
-                      class="absolute bottom-12 left-4"
-                    />
-                  </div>
-                  <div class="relative w-full h-[650px]" slot="second">
-                    <OpenSeadragonViewer
-                      :key="currentImagePath2"
-                      ref="afterViewerRef"
-                      :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                      @viewportChanged="
-                        ($event) => onViewportChanged('after', $event)
-                      "
-                      @opened="onViewerOpened('after')"
-                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
-                    />
-                    <UBadge
-                      size="xs"
-                      :label="currentTimeLabel"
-                      color="white"
-                      variant="solid"
-                      class="absolute bottom-4 right-4"
-                    />
-                    <UBadge
-                      size="xs"
-                      :label="currentFramework.label"
-                      color="white"
-                      variant="solid"
-                      class="absolute bottom-12 right-4"
-                    />
-                  </div>
-                </img-comparison-slider>
-
-                <!-- Framework Compare -->
-                <img-comparison-slider
-                  v-else-if="isFrameworkCompareMode"
-                  class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
-                >
+                  <!-- Single View -->
                   <div
-                    class="relative w-full h-[650px] pointer-events-none"
-                    slot="first"
+                    v-if="!isCompare && !isFrameworkCompareMode"
+                    class="relative w-full h-[650px]"
                   >
                     <OpenSeadragonViewer
-                      :key="currentImagePath"
-                      ref="framework1ViewerRef"
+                      ref="singleViewerRef"
                       :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
+                      :allowPan="!isCompare && !isFrameworkCompareMode"
                       @viewportChanged="
-                        ($event) => onViewportChanged('framework1', $event)
+                        ($event) => onViewportChanged('single', $event)
                       "
-                      @opened="onViewerOpened('framework1')"
-                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                      @opened="onViewerOpened('single')"
+                      class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                      :class="
+                        isFullScreen
+                          ? 'rounded-none border-none overflow-visible'
+                          : ''
+                      "
                     />
                     <UBadge
                       size="xs"
@@ -1206,43 +1138,172 @@
                       variant="solid"
                       class="absolute bottom-12 left-4"
                     />
+                    <Circle
+                      v-for="circle in filteredCircles"
+                      :key="circle.id"
+                      :position="circle.position"
+                      :info="circle.info"
+                    />
                   </div>
-                  <div
-                    class="relative w-full h-[650px] pointer-events-none"
-                    slot="second"
+
+                  <!-- Before/After Compare -->
+                  <img-comparison-slider
+                    ref="comparisonSliderRef"
+                    v-else-if="isCompare"
+                    class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
                   >
-                    <OpenSeadragonViewer
-                      :key="currentImagePath2"
-                      ref="framework2ViewerRef"
-                      :dziUrl="
-                        currentImagePath2.replace('.png', '.png_dzi.dzi')
-                      "
-                      @viewportChanged="
-                        ($event) => onViewportChanged('framework2', $event)
-                      "
-                      @opened="onViewerOpened('framework2')"
-                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
-                    />
-                    <UBadge
-                      size="xs"
-                      :label="currentTimeLabel"
-                      color="white"
-                      variant="solid"
-                      class="absolute bottom-4 right-4"
-                    />
-                    <UBadge
-                      size="xs"
-                      :label="currentFramework2.label"
-                      color="white"
-                      variant="solid"
-                      class="absolute bottom-12 right-4"
-                    />
-                  </div>
-                </img-comparison-slider>
+                    <div class="relative w-full h-[650px]" slot="first">
+                      <OpenSeadragonViewer
+                        ref="beforeViewerRef"
+                        :dziUrl="
+                          comparisonImagePath1.replace('.png', '.png_dzi.dzi')
+                        "
+                        :allowPan="!isCompare && !isFrameworkCompareMode"
+                        @viewportChanged="
+                          ($event) => onViewportChanged('before', $event)
+                        "
+                        @opened="onViewerOpened('before')"
+                        class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                      />
+                      <UBadge
+                        size="xs"
+                        label="Före avverkning"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-4 left-4"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentFramework.label"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-12 left-4"
+                      />
+                    </div>
+                    <div class="relative w-full h-[650px]" slot="second">
+                      <OpenSeadragonViewer
+                        ref="afterViewerRef"
+                        :dziUrl="
+                          currentImagePath.replace('.png', '.png_dzi.dzi')
+                        "
+                        :allowPan="!isCompare && !isFrameworkCompareMode"
+                        @viewportChanged="
+                          ($event) => onViewportChanged('after', $event)
+                        "
+                        @opened="onViewerOpened('after')"
+                        class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentTimeLabel"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-4 right-4"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentFramework.label"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-12 right-4"
+                      />
+                    </div>
+                  </img-comparison-slider>
+
+                  <!-- Framework Compare -->
+                  <img-comparison-slider
+                    v-else-if="isFrameworkCompareMode"
+                    class="slider-example-focus z-0 w-full p-0! m-0! -mb-1.5"
+                  >
+                    <div
+                      class="relative w-full h-[650px] pointer-events-none"
+                      slot="first"
+                    >
+                      <OpenSeadragonViewer
+                        ref="framework1ViewerRef"
+                        :dziUrl="
+                          currentImagePath.replace('.png', '.png_dzi.dzi')
+                        "
+                        :allowPan="!isCompare && !isFrameworkCompareMode"
+                        @viewportChanged="
+                          ($event) => onViewportChanged('framework1', $event)
+                        "
+                        @opened="onViewerOpened('framework1')"
+                        class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentTimeLabel"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-4 left-4"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentFramework.label"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-12 left-4"
+                      />
+                    </div>
+                    <div
+                      class="relative w-full h-[650px] pointer-events-none"
+                      slot="second"
+                    >
+                      <OpenSeadragonViewer
+                        ref="framework2ViewerRef"
+                        :dziUrl="
+                          currentImagePath2.replace('.png', '.png_dzi.dzi')
+                        "
+                        :allowPan="!isCompare && !isFrameworkCompareMode"
+                        @viewportChanged="
+                          ($event) => onViewportChanged('framework2', $event)
+                        "
+                        @opened="onViewerOpened('framework2')"
+                        class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentTimeLabel"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-4 right-4"
+                      />
+                      <UBadge
+                        size="xs"
+                        :label="currentFramework2.label"
+                        color="white"
+                        variant="solid"
+                        class="absolute bottom-12 right-4"
+                      />
+                    </div>
+                  </img-comparison-slider>
+                </div>
+
+                <StackedBarSkogsbruk
+                  class="h-[650px] border border-neutral-300 rounded-full ml-1 w-3"
+                  v-if="isCompare || !isFrameworkCompareMode"
+                  :currentFramework="currentFramework"
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                />
+                <StackedBarSkogsbruk
+                  class="h-[650px] border border-neutral-300 rounded-full ml-1 w-3"
+                  v-if="isFrameworkCompareMode"
+                  :currentFramework="currentFramework"
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :overrideFramework="currentFramework2"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                />
+                <!-- New Stacked Bar: Positioned to the right of the Imgsliders -->
               </div>
 
               <!-- Slider Container -->
-              <div class="w-full p-5">
+              <div class="w-full p-5 py-3">
                 <div class="slider-container flex flex-col items-center w-full">
                   <!-- <BaseProgress
                     title="Default progress bar"
@@ -1283,8 +1344,7 @@
                 :currentTimeLabel="currentTimeLabel"
               />
             </div>
-
-            <div class="p-4 bg-white bg-opacity-50 rounded-xl h-fit">
+            <div class="rounded-xl h-fit px-5">
               <!-- <div class="flex gap-3">
               <div
                 class="cursor-pointer transition-all bg-white p-4 w-full rounded-xl h-40 border-[1px] border-neutral-100 mb-2 hover:border-neutral-200 hover:border-opacity-80 hover:bg-neutral-50 hover:bg-opacity-80"
@@ -1446,7 +1506,138 @@
               </UModal>
             </div> -->
 
-              <div
+              <!-- add buttons here to toggle between LineChartView and BarChartView -->
+              <div class="flex gap-4 mb-4">
+                <button
+                  @click="chartType = 'bar'"
+                  :class="[
+                    'px-4 py-2 rounded',
+                    chartType === 'bar'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-200',
+                  ]"
+                >
+                  Bar Chart
+                </button>
+                <button
+                  @click="chartType = 'line'"
+                  :class="[
+                    'px-4 py-2 rounded',
+                    chartType === 'line'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-200',
+                  ]"
+                >
+                  Line Chart
+                </button>
+              </div>
+
+              <!-- <BaseHeading size="md" weight="light" class="text-neutral-700"
+                >Rödlistade och signalarter</BaseHeading
+              > -->
+              <SvampLineChart
+                v-if="chartType === 'line'"
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :visibleGroups="['Rödlistade + signalarter']"
+              />
+              <SvampBarChart
+                v-if="chartType === 'bar'"
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :timeLabel="timeLabelForDataFiltering"
+                :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                :currentTimeLabel="currentTimeLabel"
+                :isCompareMode="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                :visibleGroups="['Rödlistade + signalarter']"
+                :yaxisMax="0.1"
+              />
+              <!-- <BaseHeading size="md" weight="light" class="text-neutral-700"
+                >Matsvampar</BaseHeading
+              > -->
+
+              <SvampLineChart
+                v-if="chartType === 'line'"
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :visibleGroups="['Matsvamp']"
+              />
+              <SvampBarChart
+                v-if="chartType === 'bar'"
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :timeLabel="timeLabelForDataFiltering"
+                :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                :currentTimeLabel="currentTimeLabel"
+                :isCompareMode="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                :visibleGroups="['Matsvamp']"
+                :yaxisMax="1"
+              />
+              <!-- <BaseHeading size="md" weight="light" class="text-neutral-700"
+                >Svampgrupper</BaseHeading
+              > -->
+              <SvampBarChart
+                v-if="chartType === 'bar'"
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :timeLabel="timeLabelForDataFiltering"
+                :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                :currentTimeLabel="currentTimeLabel"
+                :isCompareMode="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                :visibleGroups="[
+                  'Skinnsvampar',
+                  'Övriga svampar',
+                  'Spindelskivlingar',
+                  'Kremlor och riskor',
+                ]"
+              />
+
+              <SvampLineChart
+                v-if="chartType === 'line'"
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :visibleGroups="[
+                  'Skinnsvampar',
+                  'Övriga svampar',
+                  'Spindelskivlingar',
+                  'Kremlor och riskor',
+                ]"
+              />
+              <!-- <BarChartSkogsbruk
+                :currentFramework="currentFramework"
+                :currentFramework2="
+                  isFrameworkCompareMode ? currentFramework2 : null
+                "
+                :currentStartskog="currentStartskog"
+                :timeLabel="timeLabelForDataFiltering"
+                :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                :currentTimeLabel="currentTimeLabel"
+                :isCompareMode="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                class="h-full inline-block align-bottom"
+              /> -->
+              <!-- <div
                 class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-neutral-50 bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 p-6 object-bottom"
               >
                 <BaseHeading size="md">Svampgrupper</BaseHeading>
@@ -1496,7 +1687,7 @@
                   :isFrameworkCompareMode="isFrameworkCompareMode"
                   class="h-full"
                 />
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -1512,10 +1703,14 @@ import { ImgComparisonSlider } from "@img-comparison-slider/vue";
 import Circle from "~/components/Circle.vue";
 import BarChart from "~/components/BarChartSkogsbruk.vue";
 import BarChartSkogsbrukRödMat from "~/components/BarChartSkogsbrukRödMat.vue";
+import SvampLineChart from "~/components/SvampLineChart.vue";
 import OpenSeadragonViewer from "~/components/OpenSeadragonViewer.vue";
 import { ref, computed, watch, nextTick } from "vue";
 import { useOnboardingStore } from "~/stores/onboardingStore";
 import circleDataJson from "public/circles.json";
+import SvampBarChart from "../../components/SvampBarChart.vue";
+
+const chartType = ref("bar");
 
 // Initialize the store
 const onboardingStore = useOnboardingStore();

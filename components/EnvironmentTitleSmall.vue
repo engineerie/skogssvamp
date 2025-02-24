@@ -1,5 +1,7 @@
 <template>
-  <div class="">
+  <div
+    class="bg-neutral-50 rounded-full pr-4 pl-2 py-0.5 border border-neutral-200"
+  >
     <div class="flex gap-8">
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="geographyLabel">

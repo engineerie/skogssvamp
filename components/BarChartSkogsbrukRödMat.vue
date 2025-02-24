@@ -60,55 +60,44 @@ const props = defineProps({
   },
 });
 
-// **Categories and Colors:**
+// **Categories for this chart:**
 const categories = ["Rödlistade + signalarter", "Matsvamp"];
 
-const colors = [
-  "#b91c1c", // Rödlistade + signalarter
-  "#eab308", // Matsvamp
-];
+// **Color mapping for red/matsvamp:**
+const colorMap = {
+  "Rödlistade + signalarter": "#b91c1c",
+  Matsvamp: "#eab308",
+};
+
+// **Computed colors array:**
+const computedColors = computed(() =>
+  categories.map((category) => colorMap[category] || "#000000")
+);
 
 const chartSeries = ref([]);
 
+// **Chart Options:**
 const chartOptions = ref({
   chart: {
-    toolbar: {
-      show: false,
-    },
-    animations: {
-      enabled: true,
-      easing: "easeinout",
-      speed: 500,
-    },
-    dropShadow: {
-      enabled: true,
-      top: -0,
-      blur: 3,
-      opacity: 0.1,
-    },
+    toolbar: { show: false },
+    animations: { enabled: true, easing: "easeinout", speed: 500 },
+    dropShadow: { enabled: true, top: 0, blur: 1, opacity: 0.1 },
   },
   plotOptions: {
     bar: {
       horizontal: false,
       distributed: true,
-      // borderRadius: 4,
+      columnWidth: "12px",
     },
   },
-  stroke: {
-    width: [1, 1, 4],
-  },
-  dataLabels: {
-    enabled: false,
-  },
+  stroke: { width: [1, 1, 4] },
+  dataLabels: { enabled: false },
   xaxis: {
     categories: categories,
     type: "category",
     labels: {
       show: false,
-      style: {
-        fontSize: "12px",
-        colors: "#6b7280",
-      },
+      style: { fontSize: "12px", colors: "#6b7280" },
     },
   },
   yaxis: {
@@ -117,36 +106,20 @@ const chartOptions = ref({
     max: 1,
     tickAmount: 1,
     labels: {
-      formatter: function (value) {
-        return value.toFixed(0) + "%";
-      },
-      style: {
-        fontSize: "12px",
-        colors: "#6b7280",
-      },
+      formatter: (value) => value.toFixed(0) + "%",
+      style: { fontSize: "12px", colors: "#6b7280" },
     },
   },
-  grid: {
-    borderColor: "#e5e7eb",
-    strokeDashArray: 3,
-  },
-  fill: {
-    opacity: 1,
-    type: "solid", // Default fill type
-  },
+  grid: { borderColor: "#e5e7eb", strokeDashArray: 3 },
+  fill: { opacity: 1, type: "solid" },
   legend: {
     show: true,
     position: "bottom",
-    customLegendItems: categories, // ["Rödlistade + signalarter", "Matsvamp"]
+    customLegendItems: categories,
     markers: {
-      fillColors: colors, // ["#b91c1c", "#eab308"]
+      fillColors: computedColors.value,
       radius: 12,
-      dropShadow: {
-        enabled: true,
-        top: -0,
-        blur: 3,
-        opacity: 0.1,
-      },
+      dropShadow: { enabled: true, top: 0, blur: 3, opacity: 0.1 },
     },
   },
   tooltip: {
@@ -154,17 +127,13 @@ const chartOptions = ref({
     followCursor: true,
     shared: true,
     intersect: false,
-    x: {
-      show: true,
-    },
-    y: {
-      formatter: function (value) {
-        return value.toFixed(2) + "%";
-      },
-    },
+    x: { show: true },
+    y: { formatter: (value) => value.toFixed(2) + "%" },
   },
 });
 
+// **Assign computed colors:**
+chartOptions.value.colors = computedColors.value;
 const VueApexCharts = shallowRef(null);
 
 // **Update Chart Data Function:**
@@ -287,7 +256,7 @@ const updateChartData = () => {
     chartOptions.value.fill = {
       type: "solid",
     };
-    chartOptions.value.colors = colors;
+    chartOptions.value.colors = computedColors.value;
   }
 
   // **Update chart series data:**

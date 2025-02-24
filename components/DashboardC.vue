@@ -25,7 +25,7 @@
     </MySlideover>
 
     <!-- Main content area -->
-    <div class="mb-14">
+    <div class="">
       <transition name="fade" mode="out-in">
         <!-- Render either StartView or one of the other views based on the route -->
         <component
@@ -36,9 +36,6 @@
         />
       </transition>
     </div>
-
-    <!-- Optional footer -->
-    <EnvironmentFooter />
   </div>
 </template>
 

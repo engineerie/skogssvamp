@@ -21,7 +21,11 @@
                 <BaseHeading size="md" weight="light" class="text-neutral-500">
                   Var i Sverige
                 </BaseHeading>
-                <BaseHeading size="2xl" weight="light">
+                <BaseHeading
+                  size="2xl"
+                  weight="semi-bold"
+                  class="text-neutral-800"
+                >
                   {{ geographyLabel }}
                 </BaseHeading>
               </div>
@@ -74,7 +78,11 @@
                 <BaseHeading size="md" weight="light" class="text-neutral-500">
                   Skogstyp
                 </BaseHeading>
-                <BaseHeading size="2xl" weight="light">
+                <BaseHeading
+                  size="2xl"
+                  weight="semi-bold"
+                  class="text-neutral-800"
+                >
                   {{ forestTypeLabel }}
                 </BaseHeading>
               </div>
@@ -127,7 +135,11 @@
                 <BaseHeading size="md" weight="light" class="text-neutral-500">
                   Beståndsålder
                 </BaseHeading>
-                <BaseHeading size="2xl" weight="light">
+                <BaseHeading
+                  size="2xl"
+                  weight="semi-bold"
+                  class="text-neutral-800"
+                >
                   {{ standAgeLabel }}
                 </BaseHeading>
               </div>
@@ -180,7 +192,11 @@
                 <BaseHeading size="md" weight="light" class="text-neutral-500">
                   Fältskikt
                 </BaseHeading>
-                <BaseHeading size="2xl" weight="light">
+                <BaseHeading
+                  size="2xl"
+                  weight="semi-bold"
+                  class="text-neutral-800"
+                >
                   {{ vegetationTypeLabel }}
                 </BaseHeading>
               </div>

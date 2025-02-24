@@ -1,10 +1,10 @@
 <template>
-  <!-- Renders the container only on client -->
   <div
     v-if="isClient"
     :id="viewerId"
     class="openseadragon-viewer pointer-events-none"
     ref="viewerContainer"
+    :style="{ backgroundColor: backgroundColor }"
   ></div>
 </template>
 
@@ -16,88 +16,107 @@ import {
   onMounted,
   onBeforeUnmount,
   onActivated,
+  nextTick,
 } from "vue";
 import { useRoute } from "vue-router";
 
 export default {
-  name: "OpenSeadragonViewer",
+  name: "OpenSeaDragonViewer",
   props: {
-    dziUrl: { type: String, required: true },
+    dziUrl: {
+      type: String,
+      required: true,
+    },
+    allowPan: {
+      type: Boolean,
+      default: true,
+    },
+    backgroundColor: {
+      type: String,
+      default: "#fff",
+    },
   },
   setup(props, { emit }) {
-    const route = useRoute(); // We watch route.name
-    const viewer = ref(null); // The OSD instance
+    const route = useRoute();
+    const viewer = ref(null);
     const isClient = ref(false);
-    const viewerContainer = ref(null); // Our container div ref
-
-    // Unique ID if needed, though we mainly rely on viewerContainer ref
+    const viewerContainer = ref(null);
     const viewerId = computed(
       () => "openseadragon-viewer-" + Math.random().toString(36).substr(2, 9)
     );
 
-    // The actual initialization logic
-    async function initViewer() {
-      // SSR guard
-      if (typeof window === "undefined") return;
+    // Keep track of the currently displayed tiled image.
+    const currentTile = ref(null);
 
-      // If we already created the viewer, skip
+    async function initViewer() {
+      if (typeof window === "undefined") return;
       if (viewer.value) {
         console.log("[OSD] Viewer already created, skipping init.");
         return;
       }
-
-      // Confirm route is "skogsbruk-modell"
+      // Optionally, only initialize on your modell page.
       if (route.name !== "skogsbruk-modell") {
         console.log("[OSD] Not on modell page, skipping initViewer().");
         return;
       }
-
-      // Confirm we have a container in the DOM
       const containerEl = viewerContainer.value;
       if (!containerEl) {
         console.warn("[OSD] containerEl is null, skipping initViewer().");
         return;
       }
-
-      // Dynamically import OpenSeadragon
+      // Dynamically import OpenSeadragon.
       const { default: OpenSeadragon } = await import("openseadragon");
-
-      // Create the viewer
       viewer.value = OpenSeadragon({
-        element: containerEl, // Use the actual element, not an 'id'
-        tileSources: props.dziUrl,
+        element: containerEl,
         showNavigationControl: false,
         visibilityRatio: 1,
         minZoomLevel: 1,
         constrainDuringPan: true,
-        panHorizontal: false,
-        panVertical: false,
+        panHorizontal: props.allowPan,
+        panVertical: props.allowPan,
+        homeFillsViewer: true, // <-- add this option
         gestureSettingsMouse: {
-          scrollToZoom: false,
+          scrollToZoom: props.allowPan,
           clickToZoom: false,
-          dblClickToZoom: false,
+          dblClickToZoom: props.allowPan,
           clickTodrag: false,
           pinchToZoom: false,
         },
       });
+      console.log("[OSD] Viewer CREATED");
+      // Load the first image using our transition function.
+      transitionToNewTile(props.dziUrl);
+    }
 
-      viewer.value.addHandler("open", () => {
-        console.log("[OSD] 'open' event fired for", props.dziUrl);
-        emit("opened");
+    function transitionToNewTile(newUrl) {
+      if (!viewer.value) return;
+
+      viewer.value.addTiledImage({
+        tileSource: newUrl,
+        // <-- this option tells OSD to keep the current viewport
+        success: function (newTiledImage) {
+          console.log("[OSD] New tiled image added for", newUrl);
+          // Remove the previous image immediately, if any.
+          if (currentTile.value) {
+            viewer.value.world.removeItem(currentTile.value);
+          }
+          currentTile.value = newTiledImage;
+          emit("opened");
+        },
       });
-
-      console.log("[OSD] Viewer CREATED with dziUrl:", props.dziUrl);
     }
-
-    // Called whenever we want to re-open the tile
-    function reOpenTile() {
-      if (viewer.value && route.name === "skogsbruk-modell") {
-        console.log("[OSD] Re-opening tile:", props.dziUrl);
-        viewer.value.open(props.dziUrl);
+    // Watch for changes in the dziUrl prop and trigger a transition.
+    watch(
+      () => props.dziUrl,
+      (newVal, oldVal) => {
+        if (viewer.value && newVal !== oldVal) {
+          console.log("[OSD] Transitioning to new dziUrl:", newVal);
+          transitionToNewTile(newVal);
+        }
       }
-    }
+    );
 
-    // Cleanup
+    // Cleanup the viewer when the component is unmounted.
     onBeforeUnmount(() => {
       if (viewer.value) {
         viewer.value.destroy();
@@ -105,45 +124,19 @@ export default {
       }
     });
 
-    // If keep-alive is in play, re-open if returning to this route
+    // For keep-alive scenarios: re-trigger transition if necessary.
     onActivated(() => {
-      reOpenTile();
-    });
-
-    // If dziUrl changes while we're on the correct route, re-open
-    watch(
-      () => props.dziUrl,
-      (newVal) => {
-        if (newVal && route.name === "skogsbruk-modell") {
-          reOpenTile();
-        }
+      if (props.dziUrl && viewer.value) {
+        transitionToNewTile(props.dziUrl);
       }
-    );
-
-    // -------------
-    // KEY PART: watch route.name + viewerContainer => init if everything's ready
-    // -------------
-    let alreadyWatching = false;
+    });
 
     onMounted(() => {
       if (typeof window === "undefined") return;
       isClient.value = true;
-
-      // We do a combined watch to run initViewer() whenever
-      // route.name or viewerContainer changes:
-      if (!alreadyWatching) {
-        alreadyWatching = true;
-        watch(
-          [() => route.name, () => viewerContainer.value],
-          ([rName, cEl]) => {
-            if (rName === "skogsbruk-modell" && cEl && !viewer.value) {
-              console.log("[OSD] route name + container => initViewer!");
-              initViewer();
-            }
-          },
-          { immediate: true }
-        );
-      }
+      nextTick(() => {
+        initViewer();
+      });
     });
 
     return {
@@ -160,5 +153,6 @@ export default {
 .openseadragon-viewer {
   width: 100%;
   height: 100%;
+  background: #fff;
 }
 </style>

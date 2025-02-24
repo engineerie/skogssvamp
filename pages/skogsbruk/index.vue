@@ -1,5 +1,80 @@
 <template>
-  <div class="mt-24">
+  <div class="mt-14">
+    <div class="hidden">
+      <NuxtImg
+        src="/images/hyggesfritt.jpg"
+        class="object-cover"
+        alt="Inte kalavverkad"
+        height="250"
+        width="500"
+        format="webp"
+      />
+      <NuxtImg
+        src="/images/kalhygge.jpeg"
+        class="object-cover"
+        alt="Kalavverkad"
+        height="250"
+        width="500"
+        format="webp"
+      />
+      <NuxtImg
+        src="/images/hyggesfritt.jpg"
+        class="object-cover"
+        alt="Inte kalavverkad"
+        width="300"
+        height="180"
+        format="webp"
+      />
+      <NuxtImg
+        src="/images/kalhygge.jpeg"
+        class="object-cover"
+        alt="Kalavverkad"
+        width="300"
+        height="180"
+        format="webp"
+      />
+      <NuxtImg
+        width="300"
+        height="180"
+        src="/images/ingen_åtgärd.jpg"
+        class="h-full rounded-t-xl overflow-hidden"
+        alt="Inga åtgärder"
+        format="webp"
+      />
+      <NuxtImg
+        width="300"
+        height="180"
+        src="/images/kalhygge.jpg"
+        class="h-full rounded-t-xl overflow-hidden"
+        alt="Trakthyggesbruk"
+        format="webp"
+      />
+      <NuxtImg
+        width="300"
+        height="180"
+        src="/images/luckhuggning.jpg"
+        class="h-full rounded-t-xl overflow-hidden"
+        alt="Luckhuggning"
+        format="webp"
+      />
+      <NuxtImg
+        width="300"
+        height="180"
+        src="/images/överhållenskärm.jpg"
+        class="h-full rounded-t-xl overflow-hidden"
+        alt="Överhållen skärm"
+        format="webp"
+      />
+      <NuxtImg
+        width="300"
+        height="180"
+        src="/images/blädning.jpg"
+        class="h-full rounded-t-xl overflow-hidden"
+        alt="Blädning"
+        format="webp"
+      />
+    </div>
+
     <!-- Updated Stepper (Circles and Labels separated) -->
     <div class="mb-20 mx-60">
       <!-- Circles and line -->
@@ -80,9 +155,9 @@
         <div class="rounded-2xl">
           <!-- Step 0: Information -->
           <div v-if="currentStep === 0">
-            <div class="grid grid-cols-11">
+            <div class="grid grid-cols-11 -mt-4 gap-4">
               <div
-                class="col-span-3 col-start-5 border border-neutral-200 rounded-2xl bg-neutral-50 bg-opacity-95 overflow-hidden flex-col justify-between h-fit"
+                class="col-span-3 border border-neutral-200 rounded-2xl bg-neutral-50 bg-opacity-95 overflow-hidden flex-col justify-between h-fit"
               >
                 <div class="p-6">
                   <BaseHeading
@@ -111,6 +186,9 @@
                   />
                 </div>
               </div>
+              <div
+                class="border border-neutral-200 rounded-2xl bg-neutral-50 col-span-8"
+              ></div>
             </div>
             <!-- Navigation buttons -->
             <div class="flex gap-1 w-full justify-center mt-6">
@@ -153,6 +231,7 @@
                       alt="Inte kalavverkad"
                       height="250"
                       width="500"
+                      format="webp"
                     />
                   </div>
                   <div class="p-3">
@@ -186,6 +265,7 @@
                       alt="Kalavverkad"
                       height="250"
                       width="500"
+                      format="webp"
                     />
                   </div>
                   <div class="p-3">
@@ -274,6 +354,7 @@
                         src="/images/ingen_åtgärd.jpg"
                         class="h-full rounded-t-xl overflow-hidden"
                         alt="Inga åtgärder"
+                        format="webp"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
@@ -306,6 +387,7 @@
                         src="/images/kalhygge.jpg"
                         class="h-full rounded-t-xl overflow-hidden"
                         alt="Trakthyggesbruk"
+                        format="webp"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
@@ -338,6 +420,7 @@
                         src="/images/luckhuggning.jpg"
                         class="h-full rounded-t-xl overflow-hidden"
                         alt="Luckhuggning"
+                        format="webp"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
@@ -370,6 +453,7 @@
                         src="/images/överhållenskärm.jpg"
                         class="h-full rounded-t-xl overflow-hidden"
                         alt="Överhållen skärm"
+                        format="webp"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
@@ -402,6 +486,7 @@
                         src="/images/blädning.jpg"
                         class="h-full rounded-t-xl overflow-hidden"
                         alt="Blädning"
+                        format="webp"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
@@ -450,6 +535,9 @@
                             :src="method.image"
                             alt="Framework image"
                             class="object-cover w-full h-full"
+                            width="300"
+                            height="180"
+                            format="webp"
                           />
                         </div>
                       </div>
@@ -536,8 +624,9 @@
                         "
                         class="w-full rounded-t-xl overflow-hidden object-cover"
                         alt="Historik val"
-                        height="180"
                         width="300"
+                        height="180"
+                        format="webp"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">

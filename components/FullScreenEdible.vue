@@ -135,7 +135,7 @@
                 icon: 'i-heroicons-arrow-path-20-solid',
                 label: 'Laddar',
               }"
-              class="max-h-[calc(100vh-400px)] min-h-[415px] mt-8"
+              class="min-h-[415px] mt-8"
               :sort-button="{
                 color: 'text-neutral-700 dark:text-neutral-300',
                 size: 'xl',
@@ -292,7 +292,7 @@
       <div v-else>
         <div
           :class="[
-            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1 max-h-[calc(100vh-400px)] min-h-[399px] overflow-scroll',
+            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1 min-h-[399px] overflow-scroll',
             props.isNormalView ? 'md:grid-cols-3' : 'md:grid-cols-6',
           ]"
         >

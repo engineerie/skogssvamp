@@ -3,8 +3,8 @@
     <client-only>
       <component
         :is="VueApexCharts"
-        height="200px"
-        width="100%"
+        :height="'200px'"
+        :width="chartWidth"
         type="bar"
         :options="chartOptions"
         :series="chartSeries"
@@ -14,80 +14,63 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, shallowRef } from "vue";
+import { ref, computed, watch, onMounted, shallowRef } from "vue";
 import data from "~/assets/data/svampgrupper.json";
 
-// **Define Props:**
+// ***** Define Props *****
 const props = defineProps({
-  currentFramework: {
-    type: Object,
-    required: true,
-  },
-  currentFramework2: {
-    type: Object,
-    required: false,
-    default: null,
-  },
-  currentStartskog: {
-    type: Object,
-    required: true,
-  },
-  timeLabel: {
-    type: String,
-    required: true,
-  },
-  timeLabel2: {
-    type: String,
-    required: false,
-    default: null,
-  },
-  currentTimeLabel: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  chartWidth: {
-    type: String,
-    default: "100%",
-  },
-  isCompareMode: {
-    type: Boolean,
-    default: false,
-  },
-  isFrameworkCompareMode: {
-    type: Boolean,
-    default: false,
-  },
+  currentFramework: { type: Object, required: true },
+  currentFramework2: { type: Object, default: null },
+  currentStartskog: { type: Object, required: true }, // ideally passed as a ref
+  timeLabel: { type: String, required: true },
+  timeLabel2: { type: String, default: null },
+  currentTimeLabel: { type: String, default: "" },
+  chartWidth: { type: String, default: "100%" },
+  isCompareMode: { type: Boolean, default: false },
+  isFrameworkCompareMode: { type: Boolean, default: false },
+  visibleGroups: { type: Array, default: () => [] },
+  yaxisMax: { type: Number, default: 75 },
 });
 
-// **Categories and Colors:**
-const categories = [
+// ***** Categories & Colors *****
+const defaultCategories = [
   "Skinnsvampar",
   "Spindelskivlingar",
   "Kremlor och riskor",
-
   "Övriga svampar",
+  "Rödlistade + signalarter",
+  "Matsvamp",
 ];
 
+// Use passed visibleGroups if available; otherwise, use the default
+const categories = computed(() =>
+  props.visibleGroups.length ? props.visibleGroups : defaultCategories
+);
+
+// Define a color mapping for each group
 const colorMap = {
   Skinnsvampar: "#334155",
   Spindelskivlingar: "#000000",
   "Kremlor och riskor": "#ffffff",
   "Övriga svampar": "#94a3b8",
+  "Rödlistade + signalarter": "#b91c1c",
+  Matsvamp: "#eab308",
 };
 
-// **Computed colors array:** derive an array from the object mapping using the same order as categories
 const computedColors = computed(() =>
-  categories.map((category) => colorMap[category] || "#000000")
+  categories.value.map((cat) => colorMap[cat] || "#000000")
 );
 
-const chartSeries = ref([]);
-
-// **Chart options:**
+// ***** Chart Options *****
 const chartOptions = ref({
   chart: {
     toolbar: { show: false },
-    animations: { enabled: true, easing: "easeinout", speed: 500 },
+    animations: {
+      enabled: true,
+      easing: "easeinout",
+      speed: 500,
+      dynamicAnimation: { enabled: true, speed: 500 },
+    },
     dropShadow: { enabled: true, top: 0, blur: 3, opacity: 0.1 },
   },
   plotOptions: {
@@ -100,7 +83,7 @@ const chartOptions = ref({
   stroke: { width: [1, 1, 4] },
   dataLabels: { enabled: false },
   xaxis: {
-    categories: categories,
+    categories: categories.value,
     type: "category",
     labels: {
       show: false,
@@ -110,7 +93,7 @@ const chartOptions = ref({
   yaxis: {
     show: true,
     min: 0,
-    max: 75,
+    max: props.yaxisMax,
     tickAmount: 3,
     labels: {
       formatter: (value) => value.toFixed(0) + "%",
@@ -122,7 +105,7 @@ const chartOptions = ref({
   legend: {
     show: true,
     position: "bottom",
-    customLegendItems: categories,
+    customLegendItems: categories.value,
     markers: { fillColors: computedColors.value, radius: 12, strokeWidth: 1 },
   },
   tooltip: {
@@ -132,163 +115,15 @@ const chartOptions = ref({
     x: { show: true },
     y: { formatter: (value) => value.toFixed(1) + "%" },
   },
+  colors: computedColors.value,
 });
-
+// (Ensure the colors option is updated)
 chartOptions.value.colors = computedColors.value;
-const VueApexCharts = shallowRef(null);
 
-// **Update Chart Data Function:**
-const updateChartData = () => {
-  let seriesData = [];
+// ***** Chart Series *****
+const chartSeries = ref([]);
 
-  if (props.isFrameworkCompareMode && props.currentFramework2) {
-    // **Framework Comparison Mode**
-
-    // Data for Framework 1
-    const filteredData1 = data.filter(
-      (item) =>
-        item.skogshistorik ===
-          mapStartskogValueToDataValue(props.currentStartskog.value) &&
-        item["skogsskötsel"] ===
-          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
-        item["ålder"] === props.timeLabel
-    );
-
-    const seriesData1 = categories.map((category) => {
-      const item = filteredData1.find((d) => d["Artkategori"] === category);
-      return item ? parseFloat(item.klassning) : 0;
-    });
-
-    // Data for Framework 2
-    const filteredData2 = data.filter(
-      (item) =>
-        item.skogshistorik ===
-          mapStartskogValueToDataValue(props.currentStartskog.value) &&
-        item["skogsskötsel"] ===
-          mapFrameworkLabelToDataValue(props.currentFramework2.label) &&
-        item["ålder"] === props.timeLabel
-    );
-
-    const seriesData2 = categories.map((category) => {
-      const item = filteredData2.find((d) => d["Artkategori"] === category);
-      return item ? parseFloat(item.klassning) : 0;
-    });
-
-    seriesData = [
-      {
-        name: props.currentFramework.label,
-        data: seriesData1,
-      },
-      {
-        name: props.currentFramework2.label,
-        data: seriesData2,
-      },
-    ];
-  } else if (props.isCompareMode && props.timeLabel2) {
-    // **Before and After Comparison Mode**
-
-    // Data for Time 1 (Before)
-    const filteredData1 = data.filter(
-      (item) =>
-        item.skogshistorik ===
-          mapStartskogValueToDataValue(props.currentStartskog.value) &&
-        item["skogsskötsel"] ===
-          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
-        item["ålder"] === props.timeLabel2
-    );
-
-    const seriesData1 = categories.map((category) => {
-      const item = filteredData1.find((d) => d["Artkategori"] === category);
-      return item ? parseFloat(item.klassning) : 0;
-    });
-
-    // Data for Time 2 (After)
-    const filteredData2 = data.filter(
-      (item) =>
-        item.skogshistorik ===
-          mapStartskogValueToDataValue(props.currentStartskog.value) &&
-        item["skogsskötsel"] ===
-          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
-        item["ålder"] === props.timeLabel
-    );
-
-    const seriesData2 = categories.map((category) => {
-      const item = filteredData2.find((d) => d["Artkategori"] === category);
-      return item ? parseFloat(item.klassning) : 0;
-    });
-
-    seriesData = [
-      {
-        name: "Innan avverkning",
-        data: seriesData1,
-      },
-      {
-        name: props.currentTimeLabel,
-        data: seriesData2,
-      },
-    ];
-  } else {
-    // **Normal Mode**
-
-    const filteredData = data.filter(
-      (item) =>
-        item.skogshistorik ===
-          mapStartskogValueToDataValue(props.currentStartskog.value) &&
-        item["skogsskötsel"] ===
-          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
-        item["ålder"] === props.timeLabel
-    );
-
-    const seriesDataSingle = categories.map((category, index) => {
-      const item = filteredData.find((d) => d["Artkategori"] === category);
-      return item ? parseFloat(item.klassning) : 0;
-    });
-
-    seriesData = [
-      {
-        name: "Svampar",
-        data: seriesDataSingle,
-      },
-    ];
-
-    // Update chart options for normal mode
-    chartOptions.value.plotOptions.bar.distributed = true;
-    chartOptions.value.fill = {
-      type: "solid",
-    };
-    chartOptions.value.colors = computedColors.value;
-  }
-
-  // **Update chart series data:**
-  chartSeries.value = seriesData;
-};
-
-watch(
-  () => [
-    props.currentFramework,
-    props.currentFramework2,
-    props.currentStartskog,
-    props.timeLabel,
-    props.timeLabel2,
-    props.currentTimeLabel,
-    props.isCompareMode,
-    props.isFrameworkCompareMode,
-  ],
-  () => {
-    updateChartData();
-  },
-  { immediate: true }
-);
-
-onMounted(async () => {
-  if (process.client) {
-    const module = await import("vue3-apexcharts");
-    VueApexCharts.value = module.default;
-  }
-  updateChartData();
-});
-
-// **Helper functions:**
+// ***** Helper Functions *****
 function mapFrameworkLabelToDataValue(label) {
   const mapping = {
     Trakthygge: "trakthygge",
@@ -307,8 +142,126 @@ function mapStartskogValueToDataValue(value) {
   };
   return mapping[value] || value;
 }
+
+// ***** Update Chart Data *****
+const updateChartData = () => {
+  let seriesData = [];
+  // If currentStartskog was passed as a ref, use its value; otherwise use directly.
+  const startskogValue =
+    props.currentStartskog.value !== undefined
+      ? props.currentStartskog.value
+      : props.currentStartskog;
+
+  if (props.isFrameworkCompareMode && props.currentFramework2) {
+    // Framework Comparison Mode
+    const filteredData1 = data.filter(
+      (item) =>
+        item.skogshistorik === mapStartskogValueToDataValue(startskogValue) &&
+        item["skogsskötsel"] ===
+          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
+        item["ålder"] === props.timeLabel
+    );
+    const seriesData1 = categories.value.map((category) => {
+      const item = filteredData1.find((d) => d["Artkategori"] === category);
+      return item ? parseFloat(item.klassning) : 0;
+    });
+
+    const filteredData2 = data.filter(
+      (item) =>
+        item.skogshistorik === mapStartskogValueToDataValue(startskogValue) &&
+        item["skogsskötsel"] ===
+          mapFrameworkLabelToDataValue(props.currentFramework2.label) &&
+        item["ålder"] === props.timeLabel
+    );
+    const seriesData2 = categories.value.map((category) => {
+      const item = filteredData2.find((d) => d["Artkategori"] === category);
+      return item ? parseFloat(item.klassning) : 0;
+    });
+
+    seriesData = [
+      { name: props.currentFramework.label, data: seriesData1 },
+      { name: props.currentFramework2.label, data: seriesData2 },
+    ];
+  } else if (props.isCompareMode && props.timeLabel2) {
+    // Before/After Compare Mode
+    const filteredData1 = data.filter(
+      (item) =>
+        item.skogshistorik === mapStartskogValueToDataValue(startskogValue) &&
+        item["skogsskötsel"] ===
+          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
+        item["ålder"] === props.timeLabel2
+    );
+    const seriesData1 = categories.value.map((category) => {
+      const item = filteredData1.find((d) => d["Artkategori"] === category);
+      return item ? parseFloat(item.klassning) : 0;
+    });
+
+    const filteredData2 = data.filter(
+      (item) =>
+        item.skogshistorik === mapStartskogValueToDataValue(startskogValue) &&
+        item["skogsskötsel"] ===
+          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
+        item["ålder"] === props.timeLabel
+    );
+    const seriesData2 = categories.value.map((category) => {
+      const item = filteredData2.find((d) => d["Artkategori"] === category);
+      return item ? parseFloat(item.klassning) : 0;
+    });
+
+    seriesData = [
+      { name: "Innan avverkning", data: seriesData1 },
+      { name: props.currentTimeLabel, data: seriesData2 },
+    ];
+  } else {
+    // Normal Mode
+    const filteredData = data.filter(
+      (item) =>
+        item.skogshistorik === mapStartskogValueToDataValue(startskogValue) &&
+        item["skogsskötsel"] ===
+          mapFrameworkLabelToDataValue(props.currentFramework.label) &&
+        item["ålder"] === props.timeLabel
+    );
+    const seriesDataSingle = categories.value.map((category) => {
+      const item = filteredData.find((d) => d["Artkategori"] === category);
+      return item ? parseFloat(item.klassning) : 0;
+    });
+    seriesData = [{ name: "Svampar", data: seriesDataSingle }];
+
+    // For normal mode, update options as needed:
+    chartOptions.value.plotOptions.bar.distributed = true;
+    chartOptions.value.fill = { type: "solid" };
+    chartOptions.value.colors = computedColors.value;
+  }
+  chartSeries.value = seriesData;
+};
+
+watch(
+  () => [
+    props.currentFramework,
+    props.currentFramework2,
+    props.currentStartskog,
+    props.timeLabel,
+    props.timeLabel2,
+    props.currentTimeLabel,
+    props.isCompareMode,
+    props.isFrameworkCompareMode,
+    props.visibleGroups,
+    props.yaxisMax,
+  ],
+  updateChartData,
+  { immediate: true }
+);
+
+const VueApexCharts = shallowRef(null);
+onMounted(async () => {
+  if (process.client) {
+    const module = await import("vue3-apexcharts");
+    VueApexCharts.value = module.default;
+  }
+  updateChartData();
+});
 </script>
 
 <style scoped>
-/* Your styles here */
+/* Add any desired styles here */
 </style>
