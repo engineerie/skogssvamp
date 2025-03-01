@@ -7,17 +7,16 @@
     >
       <VueApexCharts
         :key="`${chartWidth}-${localRouteKey}`"
-        height="365px"
+        height="430px"
         :width="chartWidth"
         type="bar"
         :options="chartOptions"
         :series="chartSeries"
       />
     </div>
-    <div v-else class="flex justify-center">
-      <!-- Placeholder if data is empty or not loaded -->
-      <div class="h-[300px] w-full m-2"></div>
-    </div>
+    <!-- <div v-else class="flex justify-center">
+      <div class="h-[460px] w-full m-2"></div>
+    </div> -->
   </div>
 </template>
 
@@ -167,6 +166,8 @@ const chartOptions = ref({
     labels: {
       show: true,
       rotate: -45,
+      maxHeight: 220,
+      trim: false,
     },
   },
   yaxis: {

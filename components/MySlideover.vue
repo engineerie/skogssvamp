@@ -2,49 +2,43 @@
 <template>
   <!-- Slide-in from right transition -->
   <transition name="slide-in-right">
-    <!-- If modelValue is true, show the slideover wrapper -->
     <div
       v-if="modelValue"
       class="fixed inset-0 z-50 flex pointer-events-none m-2"
     >
-      <!-- Overlay if pinned = false -->
       <div
         v-if="!localPinned"
         class="fixed inset-0 pointer-events-auto"
         @click="emit('update:modelValue', false)"
       ></div>
-
-      <!-- The slideover panel sits on the right side (ml-auto) -->
       <div
         ref="panelRef"
-        class="ml-auto w-96 bg-white shadow-lg z-50 relative pointer-events-auto rounded-xl ring-1 ring-neutral-200 transition-all overflow-hidden"
-        :class="localPinned ? ' -m-1' : ''"
+        class="ml-auto bg-white shadow-lg z-50 relative pointer-events-auto rounded-xl ring-1 ring-neutral-200 transition-all overflow-hidden"
+        :class="[localPinned ? '-m-1' : '', expanded ? 'w-[744px]' : 'w-96']"
         @click.stop
       >
-        <header class="border-b p-2 flex justify-end items-center gap-2">
-          <!-- Pin / Unpin button -->
-          <Icon
-            @click="togglePinned"
-            name="codicon:pinned"
-            class="h-7 w-7 hover:cursor-pointer transition-all"
-            :class="
-              localPinned
-                ? 'text-primary-500 transition-all'
-                : 'text-neutral-700 -mt-2 transition-all'
-            "
-          />
+        <header class="border-b p-2 flex justify-between items-center gap-2">
+          <div>
+            <slot name="header" />
+          </div>
 
-          <!-- Close button -->
-
-          <BaseButtonIcon
-            shape="full"
-            @click="emit('update:modelValue', false)"
-          >
-            <Icon name="heroicons:chevron-right" class="size-5" />
-          </BaseButtonIcon>
+          <div>
+            <Icon
+              @click="togglePinned"
+              name="codicon:pinned"
+              class="h-7 w-7 hover:cursor-pointer transition-all"
+              :class="
+                localPinned ? 'text-primary-500' : 'text-neutral-700 -mt-2'
+              "
+            />
+            <BaseButtonIcon
+              shape="full"
+              @click="emit('update:modelValue', false)"
+            >
+              <Icon name="heroicons:chevron-right" class="size-5" />
+            </BaseButtonIcon>
+          </div>
         </header>
-
-        <!-- Default slot for content -->
         <div class="h-full relative overflow-auto pb-16">
           <slot />
         </div>
@@ -71,6 +65,8 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+
+  expanded: { type: Boolean, default: false },
 });
 const emit = defineEmits(["update:modelValue", "update:pinned"]);
 

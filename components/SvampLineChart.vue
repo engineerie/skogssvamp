@@ -26,6 +26,7 @@ const props = defineProps({
   currentFramework2: { type: Object, default: null },
   // New prop: list of groups to display (if empty, show all)
   visibleGroups: { type: Array, default: () => [] },
+  decimals: { type: Number, default: 2 },
 });
 
 // Colors for the lines (you might already have this defined)
@@ -249,14 +250,14 @@ const chartOptions = computed(() => ({
   yaxis: {
     min: 0,
     tickAmount: 2,
-    labels: { formatter: (value) => value.toFixed(2) + "%" },
+    labels: { formatter: (value) => value.toFixed(props.decimals) + "%" },
     title: { show: false },
   },
   tooltip: {
     followCursor: true,
     shared: true,
     intersect: false,
-    y: { formatter: (value) => value.toFixed(2) + "%" },
+    y: { formatter: (value) => value.toFixed(props.decimals) + "%" },
   },
   legend: { position: "top", show: false },
   fill: {

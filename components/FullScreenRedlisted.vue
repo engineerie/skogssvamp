@@ -53,13 +53,13 @@
             <BaseHeading
               size="3xl"
               weight="medium"
-              class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
+              class="text-neutral-800 dark:text-neutral-300 mr-4"
             >
               Naturvårdsarter
             </BaseHeading>
-            <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+            <!-- <BaseHeading weight="medium" size="xs" class="text-neutral-400">
               Bedömning baserad på samlad kunskap
-            </BaseHeading>
+            </BaseHeading> -->
           </div>
         </div>
 
@@ -86,7 +86,7 @@
               value: 'table',
             },
           ]"
-          class="ml-4 -mb-4 inline-flex align-bottom"
+          class="ml-4 -mb-6 inline-flex align-bottom"
         />
       </UPopover>
 
@@ -151,7 +151,7 @@
                 icon: 'i-heroicons-arrow-path-20-solid',
                 label: 'Laddar',
               }"
-              class="max-h-[calc(100vh-400px)] min-h-[415px] mt-8"
+              class="min-h-[415px] mt-8"
               :sort-button="{
                 color: 'text-neutral-700 dark:text-neutral-300',
                 size: 'xl',
@@ -327,7 +327,7 @@
       <div v-else>
         <div
           :class="[
-            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1 max-h-[calc(100vh-400px)] min-h-[399px] overflow-scroll',
+            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1  min-h-[399px] overflow-scroll',
             props.isNormalView ? 'md:grid-cols-6' : 'md:grid-cols-6',
           ]"
         >

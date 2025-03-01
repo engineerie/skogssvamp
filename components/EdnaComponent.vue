@@ -2,8 +2,8 @@
   <div>
     <!-- list view -->
     <div class="grid grid-cols-12 gap-4 relative">
-      <transition name="fade" mode="out-in">
-        <div class="flex gap-2 absolute right-0 top-5">
+      <transition name="">
+        <div class="flex gap-2 absolute right-0 top-2">
           <div class="flex items-end h-10">
             <div class="w-28">
               <BaseHeading weight="medium" size="xs" class="text-neutral-400"
@@ -113,29 +113,29 @@
 
       <div class="col-span-12">
         <div class="flex justify between">
-          <div class="flex mb-3 items-end">
+          <div class="flex items-end">
             <UPopover mode="hover" class="flex items-end cursor-default">
               <div class="items-end flex cursor-default">
-                <div
+                <!-- <div
                   class="dark:opacity-90 w-12 h-12 ml-2 mr-2 rounded-lg text-violet-500 flex justify-center"
                 >
                   <Icon name="solar:dna-linear" class="h-11 w-11" />
-                </div>
+                </div> -->
                 <div>
                   <BaseHeading
                     size="3xl"
                     weight="medium"
-                    class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
+                    class="text-neutral-800 dark:text-neutral-200 mb-1 ml-4"
                   >
                     Alla&nbsp;mykorrhizasvampar
                   </BaseHeading>
-                  <BaseHeading
+                  <!-- <BaseHeading
                     weight="medium"
                     size="xs"
                     class="text-neutral-400"
                   >
                     Enligt DNA från Markinventeringens provytor
-                  </BaseHeading>
+                  </BaseHeading> -->
                 </div>
               </div>
               <template #panel>
@@ -164,7 +164,7 @@
             />
           </div>
         </div>
-        <transition name="fade">
+        <transition name="">
           <FullScreenEdna
             v-if="activeTab === 'spatialForest'"
             :isNormalView="true"
@@ -176,84 +176,74 @@
 
     <!-- column chart view -->
     <div>
-      <transition name="fade" mode="out-in">
-        <div
-          v-if="activeTab === 'columnChart'"
-          class="p-6 backdrop-blur-3xl rounded-xl bg-neutral-50 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
-        >
-          <div class="absolute top-2 right-2">
-            <div class="flex h-fit shrink-0">
-              <!-- Left mini-legend -->
-              <div
-                class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-white border-[0.5px] border-r-0 border-neutral-300 text-neutral-400"
-              >
-                <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
-                  />
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
-                  />
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 mr-2 text-gray-300 z-0"
-                  />
-                  <BaseHeading
-                    size="xs"
-                    weight="medium"
-                    class="text-neutral-400"
-                  >
-                    {{ topCount }} Arter
-                  </BaseHeading>
-                </div>
+      <div
+        v-if="activeTab === 'columnChart'"
+        class="p-6 backdrop-blur-3xl rounded-xl bg-white dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      >
+        <div class="absolute top-2 right-2">
+          <div class="flex h-fit shrink-0">
+            <!-- Left mini-legend -->
+            <div
+              class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-white border-[0.5px] border-r-0 border-neutral-300 text-neutral-400"
+            >
+              <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
+                />
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
+                />
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 mr-2 text-gray-300 z-0"
+                />
+                <BaseHeading size="xs" weight="medium" class="text-neutral-400">
+                  {{ topCount }} Arter
+                </BaseHeading>
               </div>
+            </div>
 
-              <!-- Right mini-legend -->
-              <div
-                class="flex items-end px-3 py-1 bg-white border-[0.5px] border-neutral-300 rounded-r-xl text-neutral-400 border-l-0"
-              >
-                <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
-                  />
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
-                  />
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
-                  />
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    class="h-6 w-6 mr-2 text-rose-400 z-0"
-                  />
-                  <BaseHeading
-                    size="xs"
-                    weight="medium"
-                    class="text-neutral-400"
-                  >
-                    {{ remainingCount }} Arter
-                  </BaseHeading>
-                </div>
+            <!-- Right mini-legend -->
+            <div
+              class="flex items-end px-3 py-1 bg-white border-[0.5px] border-neutral-300 rounded-r-xl text-neutral-400 border-l-0"
+            >
+              <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
+                />
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
+                />
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
+                />
+                <Icon
+                  name="fluent:shape-organic-16-filled"
+                  class="h-6 w-6 mr-2 text-rose-400 z-0"
+                />
+                <BaseHeading size="xs" weight="medium" class="text-neutral-400">
+                  {{ remainingCount }} Arter
+                </BaseHeading>
               </div>
             </div>
           </div>
-          <BarChart
-            :chartData="data"
-            :geography="geography"
-            :forestType="forestType"
-            :standAge="standAge"
-            :vegetationType="vegetationType"
-            class="w-full h-full"
-            :chartWidth="chartWidth"
-            :key="`-${routeKey}`"
-          />
         </div>
-      </transition>
+        <BarChart
+          :chartData="data"
+          :geography="geography"
+          :forestType="forestType"
+          :standAge="standAge"
+          :vegetationType="vegetationType"
+          class="w-full h-[450px]"
+          :chartWidth="chartWidth"
+          :key="`-${routeKey}`"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -48,13 +48,13 @@
             <BaseHeading
               size="3xl"
               weight="medium"
-              class="text-neutral-800 dark:text-neutral-300 mr-4 -mb-1.5"
+              class="text-neutral-800 dark:text-neutral-300 mr-4"
             >
               Matsvampar
             </BaseHeading>
-            <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+            <!-- <BaseHeading weight="medium" size="xs" class="text-neutral-400">
               Bedömning baserad på samlad kunskap
-            </BaseHeading>
+            </BaseHeading> -->
           </div>
         </div>
         <!-- Added grid/table toggle tabs (same as in FullScreenPoison.vue) -->
@@ -72,7 +72,7 @@
               value: 'table',
             },
           ]"
-          class="ml-4 -mb-4 inline-flex align-bottom"
+          class="ml-4 -mb-6 inline-flex align-bottom"
         />
         <template #panel>
           <div class="p-4 w-96 text-sm text-neutral-500">

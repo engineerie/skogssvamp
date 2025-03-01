@@ -1,10 +1,11 @@
 <template>
-  <div
-    class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 p-6 object-bottom"
-  >
+  <div class="relative">
     <!-- CASE A: Single view -->
     <section v-if="!isCompare && !isFrameworkCompareMode">
-      <div v-if="mainTimelineData">
+      <div
+        v-if="mainTimelineData"
+        class="rounded-2xl border-neutral-200 border p-4"
+      >
         <!-- ICON + LABEL row -->
         <div class="flex justify-between">
           <div class="flex items-center gap-2 mb-2">
@@ -20,51 +21,12 @@
           <BaseButtonIcon
             shape="full"
             size="xs"
-            @click="showModal = true"
+            @click="$emit('open-info')"
             class="size-7"
           >
             <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
           </BaseButtonIcon>
         </div>
-
-        <UModal v-model="showModal">
-          <BaseButtonIcon
-            shape="full"
-            size="xs"
-            @click="showModal = false"
-            class="absolute top-4 right-4"
-          >
-            <Icon name="material-symbols:close" class="size-4 m-1" />
-          </BaseButtonIcon>
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <Icon
-                :name="currentFramework.icon"
-                :class="['icon size-8', currentFramework.iconColor]"
-              />
-              <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
-                {{ currentFramework.label }}
-              </BaseHeading>
-            </div>
-
-            <BaseHeading weight="thin" size="md" class="text-neutral-500">
-              <!-- Pull data from frameworkDescriptions.json -->
-              <p>
-                {{ modalInfo.description }}
-              </p>
-              <br />
-              <p>
-                <b>Påverkan på mykorrhizasvampar</b>
-                <br />
-                {{ modalInfo.impact }}
-              </p>
-            </BaseHeading>
-          </div>
-          <FullFrameworkTimeline
-            :frameworkValue="props.currentFramework.value"
-            :startskogValue="props.currentStartskog.value"
-          />
-        </UModal>
 
         <!-- Time Badge -->
         <UBadge
@@ -116,9 +78,9 @@
     </section>
 
     <!-- CASE B: Compare mode => Before/After -->
-    <section v-else-if="isCompare" class="grid grid-cols-2">
+    <section v-else-if="isCompare" class="grid grid-cols-2 gap-2">
       <!-- Before box -->
-      <div class="mb-4 pb-4 pr-6 border-r">
+      <div class="rounded-2xl border-neutral-200 border p-4">
         <div v-if="beforeData">
           <!-- ICON + LABEL row -->
           <div class="flex justify-between">
@@ -141,45 +103,6 @@
               <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
             </BaseButtonIcon>
           </div>
-
-          <UModal v-model="showModal">
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="showModal = false"
-              class="absolute top-4 right-4"
-            >
-              <Icon name="material-symbols:close" class="size-4 m-1" />
-            </BaseButtonIcon>
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-2">
-                <Icon
-                  :name="currentFramework.icon"
-                  :class="['icon size-8', currentFramework.iconColor]"
-                />
-                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
-                  {{ currentFramework.label }}
-                </BaseHeading>
-              </div>
-
-              <BaseHeading weight="thin" size="md" class="text-neutral-500">
-                <!-- Pull data from frameworkDescriptions.json -->
-                <p>
-                  {{ modalInfo.description }}
-                </p>
-                <br />
-                <p>
-                  <b>Påverkan på mykorrhizasvampar</b>
-                  <br />
-                  {{ modalInfo.impact }}
-                </p>
-              </BaseHeading>
-            </div>
-            <FullFrameworkTimeline
-              :frameworkValue="props.currentFramework.value"
-              :startskogValue="props.currentStartskog.value"
-            />
-          </UModal>
 
           <!-- “Före avverkning” badge -->
           <UBadge
@@ -230,8 +153,8 @@
       </div>
 
       <!-- After box -->
-      <div>
-        <div v-if="mainTimelineData" class="pl-6 pt-7">
+      <div class="rounded-2xl border-neutral-200 border p-4">
+        <div v-if="mainTimelineData" class="pt-7">
           <!-- “Efter avverkning” or “20 år efter avverkning” etc. badge -->
           <UBadge
             :ui="{ rounded: 'rounded-full' }"
@@ -272,9 +195,9 @@
     </section>
 
     <!-- CASE C: Framework compare mode => two frameworks -->
-    <section v-else-if="isFrameworkCompareMode" class="grid grid-cols-2">
+    <section v-else-if="isFrameworkCompareMode" class="grid grid-cols-2 gap-2">
       <!-- Box #1: currentFramework -->
-      <div class="mb-4 pb-4 pr-6 border-r">
+      <div class="rounded-2xl border-neutral-200 border p-4">
         <div v-if="mainTimelineData">
           <div class="flex justify-between">
             <div class="flex items-center gap-2 mb-2">
@@ -296,45 +219,6 @@
               <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
             </BaseButtonIcon>
           </div>
-
-          <UModal v-model="showModal">
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="showModal = false"
-              class="absolute top-4 right-4"
-            >
-              <Icon name="material-symbols:close" class="size-4 m-1" />
-            </BaseButtonIcon>
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-2">
-                <Icon
-                  :name="currentFramework.icon"
-                  :class="['icon size-8', currentFramework.iconColor]"
-                />
-                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
-                  {{ currentFramework.label }}
-                </BaseHeading>
-              </div>
-
-              <BaseHeading weight="thin" size="md" class="text-neutral-500">
-                <!-- Pull data from frameworkDescriptions.json -->
-                <p>
-                  {{ modalInfo.description }}
-                </p>
-                <br />
-                <p>
-                  <b>Påverkan på mykorrhizasvampar</b>
-                  <br />
-                  {{ modalInfo.impact }}
-                </p>
-              </BaseHeading>
-            </div>
-            <FullFrameworkTimeline
-              :frameworkValue="props.currentFramework.value"
-              :startskogValue="props.currentStartskog.value"
-            />
-          </UModal>
 
           <!-- Time badge -->
           <UBadge
@@ -385,8 +269,8 @@
       </div>
 
       <!-- Box #2: compareFramework -->
-      <div>
-        <div v-if="compareTimelineData" class="pl-6">
+      <div class="rounded-2xl border-neutral-200 border p-4">
+        <div v-if="compareTimelineData">
           <div class="flex justify-between">
             <div class="flex items-center gap-2 mb-2">
               <Icon
@@ -407,45 +291,6 @@
               <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
             </BaseButtonIcon>
           </div>
-
-          <UModal v-model="showModal2">
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="showModal2 = false"
-              class="absolute top-4 right-4"
-            >
-              <Icon name="material-symbols:close" class="size-4 m-1" />
-            </BaseButtonIcon>
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-2">
-                <Icon
-                  :name="compareFramework.icon"
-                  :class="['icon size-8', compareFramework.iconColor]"
-                />
-                <BaseHeading size="2xl" weight="thin" class="text-neutral-600">
-                  {{ compareFramework.label }}
-                </BaseHeading>
-              </div>
-
-              <BaseHeading weight="thin" size="md" class="text-neutral-500">
-                <!-- Pull data from frameworkDescriptions.json -->
-                <p>
-                  {{ modalInfo2.description }}
-                </p>
-                <br />
-                <p>
-                  <b>Påverkan på mykorrhizasvampar</b>
-                  <br />
-                  {{ modalInfo2.impact }}
-                </p>
-              </BaseHeading>
-            </div>
-            <FullFrameworkTimeline
-              :frameworkValue="compareFramework.value"
-              :startskogValue="compareStartskog.value"
-            />
-          </UModal>
 
           <!-- Time badge (same time or compareTime if used) -->
           <UBadge

@@ -11,31 +11,28 @@
     />
 
     <div class="">
-      <div
-        class="flex justify-between mb-2 items-end"
-        :class="{ '-mt-4': isNormalView }"
-      >
+      <div class="flex justify-between">
         <UPopover
           mode="hover"
           v-if="props.isNormalView == false"
           class="flex items-end cursor-default"
         >
           <div class="items-end flex cursor-default">
-            <div
+            <!-- <div
               class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
             >
               <Icon name="solar:dna-linear" class="h-11 w-11" />
-            </div>
-            <div>
+            </div> -->
+            <div class="items-end flex cursor-default">
               <BaseHeading
                 size="3xl"
                 weight="medium"
-                class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
+                class="text-neutral-800 dark:text-neutral-200 mb-1 ml-4"
                 >Alla mykorrhizasvampar</BaseHeading
               >
-              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
+              <!-- <BaseHeading weight="medium" size="xs" class="text-neutral-400"
                 >Enligt DNA från markinventeringens provytor
-              </BaseHeading>
+              </BaseHeading> -->
             </div>
           </div>
           <template #panel>
@@ -48,8 +45,8 @@
 
         <div v-else></div>
 
-        <div class="flex gap-2 items-end" v-if="!isNormalView">
-          <div class="flex items-end h-10">
+        <div class="flex gap-2" v-if="!isNormalView">
+          <div class="flex h-10">
             <div class="w-28">
               <BaseHeading weight="medium" size="xs" class="text-neutral-400"
                 >Dataunderlag</BaseHeading
@@ -82,10 +79,10 @@
           <!-- display the  "sample_env_count" here  -->
 
           <div
-            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-full text-neutral-400"
+            class="inline-flex items-end px-3 pb-1 mb-2 bg-white border-[0.5px] border-neutral-300 rounded-full text-neutral-400"
             v-if="!isNormalView"
           >
-            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5"
+            <BaseHeading size="2xl" weight="medium" class="-mb-1.5 mx-1.5"
               >{{ data ? data.length : 0 }}
             </BaseHeading>
             <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
@@ -170,8 +167,7 @@
       </div>
     </div>
     <div
-      :class="{ 'rounded-xl': !isNormalView }"
-      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20 mt-3.5"
+      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20"
     >
       <div v-if="filteredData" class="col-span-6">
         <div class="">
@@ -187,7 +183,7 @@
             :progress="{ color: 'primary', animation: 'carousel' }"
             :class="{
               'h-[442px]': isNormalView,
-              'max-h-[calc(100vh-400px)]': !isNormalView,
+              '': !isNormalView,
             }"
             :sort-button="{
               color: 'text-neutral-700 dark:text-neutral-200',

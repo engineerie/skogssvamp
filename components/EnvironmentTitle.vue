@@ -3,7 +3,10 @@
     <div class="grid grid-cols-4 gap-5 mb-2">
       <!-- GEOGRAPHY -->
       <div class="flex justify-center w-full">
-        <UPopover :popper="{ placement: 'bottom-end' }">
+        <UPopover
+          :popper="{ placement: 'bottom-end' }"
+          :ui="{ rounded: 'rounded-xl' }"
+        >
           <transition name="slide-up" mode="out-in">
             <div
               :key="geographyLabel"
@@ -33,7 +36,7 @@
           </transition>
 
           <template #panel="{ close }">
-            <div class="p-2 min-w-60">
+            <div class="p-2 min-w-52">
               <div
                 v-for="option in enabledGeographyOptions"
                 :key="option.value"
@@ -53,8 +56,12 @@
                   }
                 "
               >
-                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
-                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+                <h1 class="text-xs font-bold text-neutral-900">
+                  {{ option.label }}
+                </h1>
+                <p class="text-xs text-neutral-400 font-light">
+                  {{ option.description }}
+                </p>
               </div>
             </div>
           </template>
@@ -63,7 +70,10 @@
 
       <!-- FOREST TYPE -->
       <div class="flex justify-center">
-        <UPopover :popper="{ placement: 'bottom-end' }">
+        <UPopover
+          :popper="{ placement: 'bottom-end' }"
+          :ui="{ rounded: 'rounded-xl' }"
+        >
           <transition name="slide-up" mode="out-in">
             <div
               :key="forestTypeLabel"
@@ -110,8 +120,12 @@
                   }
                 "
               >
-                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
-                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+                <h1 class="text-xs font-bold text-neutral-900">
+                  {{ option.label }}
+                </h1>
+                <p class="text-xs text-neutral-400 font-light">
+                  {{ option.description }}
+                </p>
               </div>
             </div>
           </template>
@@ -120,7 +134,10 @@
 
       <!-- STAND AGE -->
       <div class="flex justify-center">
-        <UPopover :popper="{ placement: 'bottom-end' }">
+        <UPopover
+          :popper="{ placement: 'bottom-end' }"
+          :ui="{ rounded: 'rounded-xl' }"
+        >
           <transition name="slide-up" mode="out-in">
             <div
               :key="standAgeLabel"
@@ -167,8 +184,12 @@
                   }
                 "
               >
-                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
-                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+                <h1 class="text-xs font-bold text-neutral-900">
+                  {{ option.label }}
+                </h1>
+                <p class="text-xs text-neutral-400 font-light">
+                  {{ option.description }}
+                </p>
               </div>
             </div>
           </template>
@@ -177,7 +198,10 @@
 
       <!-- VEGETATION TYPE -->
       <div class="flex justify-center">
-        <UPopover :popper="{ placement: 'bottom-end' }">
+        <UPopover
+          :popper="{ placement: 'bottom-end' }"
+          :ui="{ rounded: 'rounded-xl' }"
+        >
           <transition name="slide-up" mode="out-in">
             <div
               :key="vegetationTypeLabel"
@@ -224,8 +248,12 @@
                   }
                 "
               >
-                <h1 class="text-md text-neutral-900">{{ option.label }}</h1>
-                <p class="text-sm text-neutral-500">{{ option.description }}</p>
+                <h1 class="text-xs font-bold text-neutral-900">
+                  {{ option.label }}
+                </h1>
+                <p class="text-xs text-neutral-400 font-light">
+                  {{ option.description }}
+                </p>
               </div>
             </div>
           </template>

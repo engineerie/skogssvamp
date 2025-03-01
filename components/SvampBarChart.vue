@@ -30,6 +30,7 @@ const props = defineProps({
   isFrameworkCompareMode: { type: Boolean, default: false },
   visibleGroups: { type: Array, default: () => [] },
   yaxisMax: { type: Number, default: 75 },
+  decimals: { type: Number, default: 2 },
 });
 
 // ***** Categories & Colors *****
@@ -96,7 +97,7 @@ const chartOptions = ref({
     max: props.yaxisMax,
     tickAmount: 3,
     labels: {
-      formatter: (value) => value.toFixed(0) + "%",
+      formatter: (value) => value.toFixed(props.decimals) + "%",
       style: { fontSize: "12px", colors: "#6b7280" },
     },
   },
@@ -113,7 +114,7 @@ const chartOptions = ref({
     shared: true,
     intersect: false,
     x: { show: true },
-    y: { formatter: (value) => value.toFixed(1) + "%" },
+    y: { formatter: (value) => value.toFixed(props.decimals) + "%" },
   },
   colors: computedColors.value,
 });
