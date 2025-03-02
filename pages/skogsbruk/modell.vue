@@ -81,9 +81,9 @@
       </MySlideover>
 
       <div class="pt-8">
-        <div class="w-full grid grid-cols-4 mb-1 gap-2">
+        <div class="w-full flex gap-2">
           <div
-            class="col-span-3 items-center flex relative justify-between"
+            class="items-center flex relative w-full gap-2"
             v-if="!frameworksVisible"
           >
             <div class="flex gap-2 items-center">
@@ -92,13 +92,16 @@
               <Icon
                 :name="currentFramework.icon"
                 :class="[
-                  'icon size-8 transition-all duration-300',
+                  'icon size-7 transition-all duration-300',
                   currentFramework.iconColor,
                 ]"
               />
               <div>
                 <!-- Custom popover-based select for main framework -->
-                <UPopover>
+                <UPopover
+                  :ui="{ rounded: 'rounded-xl' }"
+                  :popper="{ placement: 'bottom-start' }"
+                >
                   <BaseHeading
                     size="3xl"
                     weight="semi-bold"
@@ -108,7 +111,7 @@
                   </BaseHeading>
 
                   <template #panel>
-                    <div class="p-4 flex flex-col gap-2">
+                    <div class="p-2 flex flex-col gap-2">
                       <div
                         v-for="(framework, index) in frameworks"
                         :key="framework.id"
@@ -136,8 +139,28 @@
             <div class="flex gap-2">
               <template v-if="isFrameworkCompareMode">
                 <div class="flex gap-2 items-center">
+                  <BaseHeading
+                    size="3xl"
+                    weight="semi-bold"
+                    class="text-neutral-800"
+                  >
+                    /
+                  </BaseHeading>
+
+                  <div class="relative">
+                    <Icon
+                      :name="currentFramework2.icon"
+                      :class="[
+                        ' size-7 transition-all duration-300',
+                        currentFramework2.iconColor,
+                      ]"
+                    />
+                  </div>
                   <div>
-                    <UPopover>
+                    <UPopover
+                      :ui="{ rounded: 'rounded-xl' }"
+                      :popper="{ placement: 'bottom-start' }"
+                    >
                       <BaseHeading
                         size="3xl"
                         weight="semi-bold"
@@ -147,7 +170,7 @@
                       </BaseHeading>
 
                       <template #panel>
-                        <div class="p-4 flex flex-col gap-2">
+                        <div class="p-2 flex flex-col gap-2">
                           <div
                             v-for="(framework, index) in frameworks"
                             :key="'framework2-' + framework.id"
@@ -171,84 +194,26 @@
                       </template>
                     </UPopover>
                   </div>
-                  <div class="relative">
-                    <Icon
-                      :name="currentFramework2.icon"
-                      :class="[
-                        ' size-8 transition-all duration-300',
-                        currentFramework2.iconColor,
-                      ]"
-                    />
-                  </div>
                 </div>
               </template>
             </div>
           </div>
-          <div></div>
-          <div class="col-span-3 mt-1"></div>
-          <div class="rounded-full flex gap-1 items-center">
-            <UPopover
-              :popper="{ placement: 'bottom-start' }"
-              :ui="{ rounded: 'rounded-xl' }"
-            >
-              <BaseButtonAction
-                color="warning"
-                shape="full"
-                class="text-neutral-400 flex gap-2"
-              >
-                {{ selectedComparisonOption }}
-              </BaseButtonAction>
-              <template #panel>
-                <div class="p-2 flex flex-col gap-1">
-                  <div
-                    v-for="option in compareItems"
-                    :key="option.id"
-                    @click="selectCompareOption(option)"
-                    class="cursor-pointer hover:bg-neutral-100 p-2 rounded-md"
-                  >
-                    <div class="text-xs font-bold">{{ option.name }}</div>
-                    <div class="text-xs font-thin text-neutral-500">
-                      {{ option.text }}
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </UPopover>
-            <BaseButtonAction
-              @click="openSlideover"
-              shape="full"
-              class="text-neutral-400 flex gap-2"
-            >
-              Text om skogsskötsel
-            </BaseButtonAction>
-          </div>
+          <div class="w-96"></div>
         </div>
 
         <div class="flex">
-          <div class="col-span-3">
-            <div class="flex gap-2 items-center w-full justify-between">
+          <div>
+            <div class="p-1 flex my-1">
               <UPopover
                 v-model:open="open"
                 :popper="{ placement: 'bottom-start' }"
                 :ui="{ rounded: 'rounded-xl' }"
               >
-                <!-- The activator: a BaseButtonAction that shows the current selection -->
                 <UButton
                   class="w-full shrink-0"
                   :ui="{ rounded: 'rounded-lg' }"
                   >{{ currentStartskog.label }}</UButton
                 >
-
-                <!-- <BaseButtonAction
-                  color="primary"
-                  rounded="xl"
-                  shape="large"
-                  class="truncate"
-                >
-                  {{ currentStartskog.label }}
-                </BaseButtonAction> -->
-
-                <!-- The popover panel listing the two startskog options -->
                 <template #panel>
                   <div class="p-2 flex flex-col gap-1">
                     <div v-for="option in startskog" :key="option.value">
@@ -267,6 +232,179 @@
                   </div>
                 </template>
               </UPopover>
+            </div>
+            <div
+              class="rounded-lg h-fit p-2 w-72 shrink-0 bg-neutral-200/50 mr-2"
+            >
+              <!-- <h1 class="text-sm text-neutral-500 mb-1">
+                <Icon name="iconamoon:compare-duotone" class="" />
+                Jämförelseläge
+              </h1> -->
+              <!-- <div class="grid grid-cols-2 gap-2">
+                <NuxtImg
+                  :src="frameworkImage"
+                  alt="Framework image"
+                  class="rounded-lg border border-neutral-200"
+                  width="500"
+                  height="320"
+                  format="webp"
+                />
+                <NuxtImg
+                  v-if="isFrameworkCompareMode"
+                  :src="frameworkImage2"
+                  alt="Framework image"
+                  class="rounded-lg border border-neutral-200"
+                  width="500"
+                  height="320"
+                  format="webp"
+                />
+              </div> -->
+
+              <!-- Add a  -->
+
+              <h1 class="text-sm text-neutral-500 mb-1">
+                <Icon name="iconamoon:compare-duotone" class="" />
+                Jämförelseläge
+              </h1>
+              <UTabs
+                orientation="vertical"
+                v-model="selectedCompareIndex"
+                :items="compareTabItems"
+                class="w-full"
+                :ui="{
+                  wrapper: 'relative space-y-2',
+
+                  list: {
+                    background: 'bg-neutral-200/50',
+                    rounded: 'rounded-lg',
+                    marker: {
+                      rounded: 'rounded-lg',
+                    },
+                    tab: {
+                      active: 'text-neutral-900',
+                      inactive: 'text-neutral-600',
+                    },
+                  },
+                }"
+              />
+              <h1 class="text-sm text-neutral-500 mb-1">
+                <Icon name="heroicons:chart-bar-solid" class="" />
+                Artsammansättning
+              </h1>
+              <div class="p-2 bg-neutral-100 rounded-lg">
+                <UTabs
+                  v-model="selectedChartIndex"
+                  :items="chartTabItems"
+                  class="w-full"
+                  :ui="{
+                    wrapper: 'relative space-y-0',
+
+                    list: {
+                      background: 'bg-neutral-200/50',
+                      rounded: 'rounded-lg',
+                      marker: {
+                        rounded: 'rounded-lg',
+                      },
+                      tab: {
+                        active: 'text-neutral-900',
+                        inactive: 'text-neutral-600',
+                      },
+                    },
+                  }"
+                />
+                <SvampLineChart
+                  v-if="chartType === 'line'"
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :visibleGroups="['Rödlistade + signalarter']"
+                  :decimals="2"
+                />
+                <SvampBarChart
+                  v-if="chartType === 'bar'"
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                  :currentTimeLabel="currentTimeLabel"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                  :visibleGroups="['Rödlistade + signalarter']"
+                  :yaxisMax="0.1"
+                  :decimals="2"
+                />
+                <SvampLineChart
+                  v-if="chartType === 'line'"
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :visibleGroups="['Matsvamp']"
+                  :decimals="1"
+                />
+                <SvampBarChart
+                  v-if="chartType === 'bar'"
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                  :currentTimeLabel="currentTimeLabel"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                  :visibleGroups="['Matsvamp']"
+                  :yaxisMax="1"
+                  :decimals="1"
+                />
+                <SvampBarChart
+                  v-if="chartType === 'bar'"
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :timeLabel="timeLabelForDataFiltering"
+                  :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
+                  :currentTimeLabel="currentTimeLabel"
+                  :isCompareMode="isCompare"
+                  :isFrameworkCompareMode="isFrameworkCompareMode"
+                  :visibleGroups="[
+                    'Skinnsvampar',
+                    'Övriga svampar',
+                    'Spindelskivlingar',
+                    'Kremlor och riskor',
+                  ]"
+                  :decimals="0"
+                />
+
+                <SvampLineChart
+                  v-if="chartType === 'line'"
+                  :currentFramework="currentFramework"
+                  :currentFramework2="
+                    isFrameworkCompareMode ? currentFramework2 : null
+                  "
+                  :currentStartskog="currentStartskog"
+                  :visibleGroups="[
+                    'Skinnsvampar',
+                    'Övriga svampar',
+                    'Spindelskivlingar',
+                    'Kremlor och riskor',
+                  ]"
+                  :decimals="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div class="flex gap-2 items-center w-full justify-between">
               <UTabs
                 v-model="selectedTimeIndex"
                 :items="timeItems"
@@ -287,33 +425,28 @@
                   },
                 }"
               />
-
-              <!-- <div class="flex gap-2 items-center">
-                  <div
-                    v-for="step in sliderSteps"
-                    :key="step.value"
-                    @click="handleTimeSelection(step)"
-                    class="flex flex-col items-center cursor-pointer"
-                  >
-                    <BaseButtonAction
-                      shape="full"
-                      :class="
-                        time === step.value &&
-                        '!border-primary-500 !text-primary-500'
-                      "
-                      :disabled="isCompare && step.value === 3"
-                    >
-                      <span class="truncate"> {{ step.label }}</span>
-                    </BaseButtonAction>
-                  </div>
-                </div> -->
+              <UButton
+                icon="i-heroicons-document-text"
+                @click="openSlideover"
+                color="gray"
+                variant="solid"
+                class="mb-1 mt-2"
+                :ui="{
+                  rounded: 'rounded-lg',
+                  color: {
+                    gray: {
+                      solid: 'text-neutral-700 ring-neutral-300',
+                    },
+                  },
+                }"
+              >
+                <!-- <Icon name="solar:sidebar-minimalistic-outline"/> -->
+                Text om skogsskötselmetod</UButton
+              >
             </div>
-            <!-- move here -->
             <div
               class="relative w-full h-96 resize-y overflow-auto flex mt-1 bg-neutral-200/50 p-2 rounded-lg"
             >
-              <!-- External zoom controls -->
-
               <StackedBarSkogsbruk
                 class="h-full border border-neutral-300 rounded-full mr-1 w-3"
                 v-if="isCompare"
@@ -396,7 +529,7 @@
                 <!-- Single View -->
                 <div
                   v-if="!isCompare && !isFrameworkCompareMode"
-                  class="relative w-full h-full"
+                  class="w-full h-full"
                 >
                   <OpenSeadragonViewer
                     ref="singleViewerRef"
@@ -408,7 +541,7 @@
                     @opened="onViewerOpened('single')"
                     class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                   />
-                  <UBadge
+                  <!-- <UBadge
                     size="xs"
                     :label="currentTimeLabel"
                     color="white"
@@ -421,7 +554,7 @@
                     color="white"
                     variant="solid"
                     class="absolute bottom-12 left-4"
-                  />
+                  /> -->
                   <Circle
                     v-for="circle in filteredCircles"
                     :key="circle.id"
@@ -450,7 +583,7 @@
                       @opened="onViewerOpened('before')"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
-                    <UBadge
+                    <!-- <UBadge
                       size="xs"
                       label="Före avverkning"
                       color="white"
@@ -463,7 +596,7 @@
                       color="white"
                       variant="solid"
                       class="absolute bottom-12 left-4"
-                    />
+                    /> -->
                   </template>
                   <template #second>
                     <OpenSeadragonViewer
@@ -476,7 +609,7 @@
                       @opened="onViewerOpened('after')"
                       class="h-full w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
-                    <UBadge
+                    <!-- <UBadge
                       size="xs"
                       :label="currentTimeLabel"
                       color="white"
@@ -489,7 +622,7 @@
                       color="white"
                       variant="solid"
                       class="absolute bottom-12 right-4"
-                    />
+                    /> -->
                   </template>
                 </CustomImageComparisonSlider>
 
@@ -509,7 +642,7 @@
                       @opened="onViewerOpened('framework1')"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
                     />
-                    <UBadge
+                    <!-- <UBadge
                       size="xs"
                       :label="currentTimeLabel"
                       color="white"
@@ -522,7 +655,7 @@
                       color="white"
                       variant="solid"
                       class="absolute bottom-12 left-4"
-                    />
+                    /> -->
                   </template>
                   <template #second>
                     <OpenSeadragonViewer
@@ -537,7 +670,7 @@
                       @opened="onViewerOpened('framework2')"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
                     />
-                    <UBadge
+                    <!-- <UBadge
                       size="xs"
                       :label="currentTimeLabel"
                       color="white"
@@ -550,7 +683,7 @@
                       color="white"
                       variant="solid"
                       class="absolute bottom-12 right-4"
-                    />
+                    /> -->
                   </template>
                 </CustomImageComparisonSlider>
               </div>
@@ -575,154 +708,20 @@
                 :isFrameworkCompareMode="isFrameworkCompareMode"
               />
             </div>
-
-            <TimelineInfoBox
-              class="mt-1"
-              :currentFramework="currentFramework"
-              :currentTime="timeLabelForDataFiltering"
-              :currentStartskog="currentStartskog"
-              :isCompare="isCompare"
-              :isFrameworkCompareMode="isFrameworkCompareMode"
-              :compareFramework="currentFramework2"
-              :compareStartskog="currentStartskog"
-              :compareTime="timeLabelForDataFiltering2"
-              :currentTimeLabel="currentTimeLabel"
-              @open-info="openSlideover"
-            />
-          </div>
-          <div class="rounded-xl h-fit px-5 w-96">
-            <UTabs
-              v-model="selectedChartIndex"
-              :items="chartTabItems"
-              class="w-full"
-              :ui="{
-                wrapper: 'relative space-y-0',
-
-                list: {
-                  background: 'bg-neutral-200/50',
-                  rounded: 'rounded-lg',
-                  marker: {
-                    rounded: 'rounded-lg',
-                  },
-                  tab: {
-                    active: 'text-neutral-900',
-                    inactive: 'text-neutral-600',
-                  },
-                },
-              }"
-            />
-            <!-- <div class="flex gap-4 mb-4">
-              <button
-                @click="chartType = 'bar'"
-                :class="[
-                  'px-4 py-2 rounded',
-                  chartType === 'bar'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200',
-                ]"
-              >
-                Bar Chart
-              </button>
-              <button
-                @click="chartType = 'line'"
-                :class="[
-                  'px-4 py-2 rounded',
-                  chartType === 'line'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200',
-                ]"
-              >
-                Line Chart
-              </button>
-            </div> -->
-            <SvampLineChart
-              v-if="chartType === 'line'"
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :visibleGroups="['Rödlistade + signalarter']"
-              :decimals="2"
-            />
-            <SvampBarChart
-              v-if="chartType === 'bar'"
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :timeLabel="timeLabelForDataFiltering"
-              :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-              :currentTimeLabel="currentTimeLabel"
-              :isCompareMode="isCompare"
-              :isFrameworkCompareMode="isFrameworkCompareMode"
-              :visibleGroups="['Rödlistade + signalarter']"
-              :yaxisMax="0.1"
-              :decimals="2"
-            />
-            <SvampLineChart
-              v-if="chartType === 'line'"
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :visibleGroups="['Matsvamp']"
-              :decimals="1"
-            />
-            <SvampBarChart
-              v-if="chartType === 'bar'"
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :timeLabel="timeLabelForDataFiltering"
-              :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-              :currentTimeLabel="currentTimeLabel"
-              :isCompareMode="isCompare"
-              :isFrameworkCompareMode="isFrameworkCompareMode"
-              :visibleGroups="['Matsvamp']"
-              :yaxisMax="1"
-              :decimals="1"
-            />
-            <SvampBarChart
-              v-if="chartType === 'bar'"
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :timeLabel="timeLabelForDataFiltering"
-              :timeLabel2="isCompare ? timeLabelForDataFiltering2 : null"
-              :currentTimeLabel="currentTimeLabel"
-              :isCompareMode="isCompare"
-              :isFrameworkCompareMode="isFrameworkCompareMode"
-              :visibleGroups="[
-                'Skinnsvampar',
-                'Övriga svampar',
-                'Spindelskivlingar',
-                'Kremlor och riskor',
-              ]"
-              :decimals="0"
-            />
-
-            <SvampLineChart
-              v-if="chartType === 'line'"
-              :currentFramework="currentFramework"
-              :currentFramework2="
-                isFrameworkCompareMode ? currentFramework2 : null
-              "
-              :currentStartskog="currentStartskog"
-              :visibleGroups="[
-                'Skinnsvampar',
-                'Övriga svampar',
-                'Spindelskivlingar',
-                'Kremlor och riskor',
-              ]"
-              :decimals="0"
-            />
+            <div class="p-2 rounded-lg bg-neutral-200/50 mt-1">
+              <TimelineInfoBox
+                :currentFramework="currentFramework"
+                :currentTime="timeLabelForDataFiltering"
+                :currentStartskog="currentStartskog"
+                :isCompare="isCompare"
+                :isFrameworkCompareMode="isFrameworkCompareMode"
+                :compareFramework="currentFramework2"
+                :compareStartskog="currentStartskog"
+                :compareTime="timeLabelForDataFiltering2"
+                :currentTimeLabel="currentTimeLabel"
+                @open-info="openSlideover"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -800,8 +799,8 @@ const modalInfo2 = computed(() => {
 
 // Define your chart tab items:
 const chartTabItems = computed(() => [
-  { key: "bar", label: "Bar Chart" },
-  { key: "line", label: "Line Chart" },
+  { key: "bar", label: "Stapeldiagram" },
+  { key: "line", label: "Linjediagram" },
 ]);
 
 // Use a ref for the selected tab index (default: 0, meaning 'bar')
@@ -932,7 +931,7 @@ const frameworks = [
     label: "Blädning",
     value: "blädning",
     text: "Stora träd gallras",
-    icon: "tabler:christmas-tree-off",
+    icon: "lineicons:trees",
     iconColor: "text-teal-500",
   },
 ];
@@ -1284,7 +1283,7 @@ const compareItems = [
   },
   {
     id: "frameworkCompare",
-    name: "Skogsskötsel",
+    name: "Två olika skogsskötselmetoder",
     text: "Jämför två olika metoder",
     icon: "simple-icons:forestry",
   },
@@ -1298,6 +1297,31 @@ const compareItems = [
 
 // v-model primitive: selected compare choice (id)
 const compareChoice = ref("none");
+
+// Map compareItems to a UTabs‑friendly items array:
+const compareTabItems = computed(() =>
+  compareItems.map((option) => ({
+    key: option.id,
+    label: option.name,
+    icon: option.icon,
+    // Optionally, you could pass disabled if needed:
+    disabled: option.disabled || false,
+  }))
+);
+
+// Use a ref for the selected tab index; default should match the index of compareChoice ("none")
+const selectedCompareIndex = ref(
+  compareTabItems.value.findIndex((item) => item.key === compareChoice.value) ||
+    0
+);
+
+// Watch selectedCompareIndex: when it changes, update compareChoice
+watch(selectedCompareIndex, (newIndex) => {
+  const option = compareTabItems.value[newIndex];
+  if (option) {
+    compareChoice.value = option.key;
+  }
+});
 
 // This computed property returns a display string for the activator button
 const selectedComparisonOption = computed(() => {

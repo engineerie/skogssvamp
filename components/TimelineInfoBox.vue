@@ -2,76 +2,14 @@
   <div class="relative">
     <!-- CASE A: Single view -->
     <section v-if="!isCompare && !isFrameworkCompareMode">
-      <div
+      <TimelineInfoCard
         v-if="mainTimelineData"
-        class="rounded-2xl border-neutral-200 border p-4"
-      >
-        <!-- ICON + LABEL row -->
-        <div class="flex justify-between">
-          <div class="flex items-center gap-2 mb-2">
-            <Icon
-              :name="currentFramework.icon"
-              :class="['icon size-5', currentFramework.iconColor]"
-            />
-            <BaseHeading size="md" weight="thin" class="text-neutral-600">
-              {{ currentFramework.label }}
-            </BaseHeading>
-          </div>
-          <!-- The new “Läs mer” button -->
-          <BaseButtonIcon
-            shape="full"
-            size="xs"
-            @click="$emit('open-info')"
-            class="size-7"
-          >
-            <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
-          </BaseButtonIcon>
-        </div>
-
-        <!-- Time Badge -->
-        <UBadge
-          :ui="{ rounded: 'rounded-full' }"
-          color="primary"
-          variant="outline"
-          class="mb-2 mr-2"
-        >
-          {{ currentTimeLabel }}
-        </UBadge>
-
-        <UBadge
-          v-if="currentStartskog.value === 'produktionsskog_'"
-          :ui="{ rounded: 'rounded-full' }"
-          color="violet"
-          variant="outline"
-          size="sm"
-          class="opacity-80"
-        >
-          Tidigare kalavverkad
-        </UBadge>
-
-        <!-- Skog -->
-        <div class="flex gap-2 mb-2">
-          <div class="size-5">
-            <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
-          </div>
-          <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-            {{ mainTimelineData.skog }}
-          </BaseHeading>
-        </div>
-
-        <!-- Svamp -->
-        <div class="flex gap-2 mb-2">
-          <div class="size-5">
-            <Icon
-              name="fluent:shape-organic-24-filled"
-              class="size-5 text-primary-500 icon"
-            />
-          </div>
-          <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-            {{ mainTimelineData.svamp }}
-          </BaseHeading>
-        </div>
-      </div>
+        :framework="currentFramework"
+        :timeLabel="currentTimeLabel"
+        :data="mainTimelineData"
+        :currentStartskog="currentStartskog"
+        @open-info="$emit('open-info')"
+      />
       <div v-else>
         <p>Välj en tid och åtgärd för att se info</p>
       </div>
@@ -80,265 +18,45 @@
     <!-- CASE B: Compare mode => Before/After -->
     <section v-else-if="isCompare" class="grid grid-cols-2 gap-2">
       <!-- Before box -->
-      <div class="rounded-2xl border-neutral-200 border p-4">
-        <div v-if="beforeData">
-          <!-- ICON + LABEL row -->
-          <div class="flex justify-between">
-            <div class="flex items-center gap-2 mb-2">
-              <Icon
-                :name="currentFramework.icon"
-                :class="['icon size-5', currentFramework.iconColor]"
-              />
-              <BaseHeading size="md" weight="thin" class="text-neutral-600">
-                {{ currentFramework.label }}
-              </BaseHeading>
-            </div>
-            <!-- The new “Läs mer” button -->
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="showModal = true"
-              class="size-7"
-            >
-              <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
-            </BaseButtonIcon>
-          </div>
-
-          <!-- “Före avverkning” badge -->
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            color="muted"
-            variant="outline"
-            class="mb-2 mr-2"
-          >
-            Före avverkning
-          </UBadge>
-          <UBadge
-            v-if="currentStartskog.value === 'produktionsskog_'"
-            :ui="{ rounded: 'rounded-full' }"
-            color="violet"
-            variant="outline"
-            size="sm"
-            class="opacity-80"
-          >
-            Tidigare kalavverkad
-          </UBadge>
-
-          <!-- Skog -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ beforeData.skog }}
-            </BaseHeading>
-          </div>
-
-          <!-- Svamp -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon
-                name="fluent:shape-organic-24-filled"
-                class="size-5 text-primary-500 icon"
-              />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ beforeData.svamp }}
-            </BaseHeading>
-          </div>
-        </div>
-        <div v-else>
-          <p>Ingen data för 'innan'</p>
-        </div>
-      </div>
-
+      <TimelineInfoCard
+        :framework="currentFramework"
+        timeLabel="Före avverkning"
+        :data="beforeData"
+        :currentStartskog="currentStartskog"
+        emptyMessage="Ingen data för 'innan'"
+        @open-info="showModal = true"
+      />
       <!-- After box -->
-      <div class="rounded-2xl border-neutral-200 border p-4">
-        <div v-if="mainTimelineData" class="pt-7">
-          <!-- “Efter avverkning” or “20 år efter avverkning” etc. badge -->
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            color="primary"
-            variant="outline"
-            class="mb-2 mr-2"
-          >
-            {{ currentTimeLabel }}
-          </UBadge>
-
-          <!-- Skog -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ mainTimelineData.skog }}
-            </BaseHeading>
-          </div>
-
-          <!-- Svamp -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon
-                name="fluent:shape-organic-24-filled"
-                class="size-5 text-primary-500 icon"
-              />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ mainTimelineData.svamp }}
-            </BaseHeading>
-          </div>
-        </div>
-        <div v-else>
-          <p>Ingen data för {{ currentTime }}</p>
-        </div>
-      </div>
+      <TimelineInfoCard
+        :framework="currentFramework"
+        :timeLabel="currentTimeLabel"
+        :data="mainTimelineData"
+        :currentStartskog="currentStartskog"
+        containerClasses=""
+        :emptyMessage="`Ingen data för ${currentTime}`"
+      />
     </section>
 
     <!-- CASE C: Framework compare mode => two frameworks -->
     <section v-else-if="isFrameworkCompareMode" class="grid grid-cols-2 gap-2">
       <!-- Box #1: currentFramework -->
-      <div class="rounded-2xl border-neutral-200 border p-4">
-        <div v-if="mainTimelineData">
-          <div class="flex justify-between">
-            <div class="flex items-center gap-2 mb-2">
-              <Icon
-                :name="currentFramework.icon"
-                :class="['icon size-5', currentFramework.iconColor]"
-              />
-              <BaseHeading size="md" weight="thin" class="text-neutral-600">
-                {{ currentFramework.label }}
-              </BaseHeading>
-            </div>
-            <!-- The new “Läs mer” button -->
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="showModal = true"
-              class="size-7"
-            >
-              <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
-            </BaseButtonIcon>
-          </div>
-
-          <!-- Time badge -->
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            color="primary"
-            variant="outline"
-            class="mb-2 mr-2"
-          >
-            {{ currentTimeLabel }}
-          </UBadge>
-          <UBadge
-            v-if="currentStartskog.value === 'produktionsskog_'"
-            :ui="{ rounded: 'rounded-full' }"
-            color="violet"
-            variant="outline"
-            size="sm"
-            class="opacity-80"
-          >
-            Tidigare kalavverkad
-          </UBadge>
-
-          <!-- Skog -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ mainTimelineData.skog }}
-            </BaseHeading>
-          </div>
-
-          <!-- Svamp -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon
-                name="fluent:shape-organic-24-filled"
-                class="size-5 text-primary-500 icon"
-              />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ mainTimelineData.svamp }}
-            </BaseHeading>
-          </div>
-        </div>
-        <div v-else>
-          <p>Ingen data för {{ currentFramework.label }} / {{ currentTime }}</p>
-        </div>
-      </div>
-
+      <TimelineInfoCard
+        :framework="currentFramework"
+        :timeLabel="currentTimeLabel"
+        :data="mainTimelineData"
+        :currentStartskog="currentStartskog"
+        :emptyMessage="`Ingen data för ${currentFramework.label} / ${currentTime}`"
+        @open-info="showModal = true"
+      />
       <!-- Box #2: compareFramework -->
-      <div class="rounded-2xl border-neutral-200 border p-4">
-        <div v-if="compareTimelineData">
-          <div class="flex justify-between">
-            <div class="flex items-center gap-2 mb-2">
-              <Icon
-                :name="compareFramework.icon"
-                :class="['icon size-5', compareFramework.iconColor]"
-              />
-              <BaseHeading size="md" weight="thin" class="text-neutral-600">
-                {{ compareFramework.label }}
-              </BaseHeading>
-            </div>
-            <!-- The new “Läs mer” button -->
-            <BaseButtonIcon
-              shape="full"
-              size="xs"
-              @click="showModal2 = true"
-              class="size-7"
-            >
-              <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
-            </BaseButtonIcon>
-          </div>
-
-          <!-- Time badge (same time or compareTime if used) -->
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            color="primary"
-            variant="outline"
-            class="mb-2 mr-2"
-          >
-            {{ currentTimeLabel }}
-          </UBadge>
-          <UBadge
-            v-if="currentStartskog.value === 'produktionsskog_'"
-            :ui="{ rounded: 'rounded-full' }"
-            color="violet"
-            variant="outline"
-            size="sm"
-            class="opacity-80"
-          >
-            Tidigare kalavverkad
-          </UBadge>
-
-          <!-- Skog -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ compareTimelineData.skog }}
-            </BaseHeading>
-          </div>
-
-          <!-- Svamp -->
-          <div class="flex gap-2 mb-2">
-            <div class="size-5">
-              <Icon
-                name="fluent:shape-organic-24-filled"
-                class="size-5 text-primary-500 icon"
-              />
-            </div>
-            <BaseHeading size="sm" weight="thin" class="text-neutral-600">
-              {{ compareTimelineData.svamp }}
-            </BaseHeading>
-          </div>
-        </div>
-        <div v-else>
-          <p>Ingen data för {{ compareFramework.label }} / {{ compareTime }}</p>
-        </div>
-      </div>
+      <TimelineInfoCard
+        :framework="compareFramework"
+        :timeLabel="currentTimeLabel"
+        :data="compareTimelineData"
+        :currentStartskog="compareStartskog"
+        :emptyMessage="`Ingen data för ${compareFramework.label} / ${compareTime}`"
+        @open-info="showModal2 = true"
+      />
     </section>
 
     <!-- Otherwise -->
@@ -348,75 +66,40 @@
   </div>
 </template>
 
-<script setup>
-import { computed } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import TimelineInfoCard from "./TimelineInfoCard.vue";
 import timelineData from "public/timeline.json";
 import frameworkDescriptions from "public/frameworkDescriptions.json";
 
-const showModal = ref(false);
-const showModal2 = ref(false);
-
-// For Box #1 (currentFramework):
-const modalInfo = computed(() => {
-  if (!props.currentFramework?.value || !props.currentStartskog?.value) {
-    return {};
-  }
-  return (
-    frameworkDescriptions[props.currentStartskog.value][
-      props.currentFramework.value
-    ] || {}
-  );
-});
-
-// For Box #2 (compareFramework):
-const modalInfo2 = computed(() => {
-  if (!props.compareFramework?.value || !props.compareStartskog?.value) {
-    return {};
-  }
-  return (
-    frameworkDescriptions[props.compareStartskog.value][
-      props.compareFramework.value
-    ] || {}
-  );
-});
-
-// 1) Define Props
+// Define Props
 const props = defineProps({
   currentFramework: {
-    type: Object, // has .value, .label, icon, iconColor, etc.
-    required: false,
+    type: Object,
     default: null,
   },
   currentTime: { type: String, default: "" },
   currentStartskog: {
-    type: Object, // has .value, .label, etc.
-    required: false,
+    type: Object,
     default: null,
   },
-  currentTimeLabel: { type: String, default: "" }, // the "friendly" label (e.g. "20 år efter avverkning")
-
-  // Compare modes
+  currentTimeLabel: { type: String, default: "" },
   isCompare: { type: Boolean, default: false },
   isFrameworkCompareMode: { type: Boolean, default: false },
-
-  // Compare frameworks/time
   compareFramework: {
-    type: Object, // also has .value, .label, icon, iconColor
+    type: Object,
     default: null,
   },
   compareTime: { type: String, default: "" },
   compareStartskog: {
-    type: Object, // also .value, .label
+    type: Object,
     default: null,
   },
 });
 
-const data =
-  frameworkDescriptions[props.currentStartskog.value][
-    props.currentFramework.value
-  ];
+const showModal = ref(false);
+const showModal2 = ref(false);
 
-/** mainTimelineData: data for the primary selection (CASE A or first method in compare). */
 const mainTimelineData = computed(() => {
   if (
     !props.currentFramework?.value ||
@@ -435,12 +118,10 @@ const mainTimelineData = computed(() => {
   );
 });
 
-/** beforeData: for "innan" in the before/after scenario. */
 const beforeData = computed(() => {
   if (!props.currentFramework?.value || !props.currentStartskog?.value) {
     return null;
   }
-  // Hard-coded to 'innan'
   return (
     timelineData.find(
       (item) =>
@@ -451,14 +132,11 @@ const beforeData = computed(() => {
   );
 });
 
-/** compareTimelineData: for the “second method” in framework compare mode. */
 const compareTimelineData = computed(() => {
   if (!props.compareFramework?.value || !props.compareStartskog?.value) {
     return null;
   }
-  // Use compareTime or fallback to currentTime
   const theTime = props.compareTime || props.currentTime;
-
   return (
     timelineData.find(
       (item) =>
@@ -470,4 +148,6 @@ const compareTimelineData = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Additional styling if needed */
+</style>
