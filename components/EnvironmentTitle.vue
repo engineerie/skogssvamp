@@ -416,16 +416,13 @@ const route = useRoute();
 watch(
   () => route.fullPath,
   (newPath) => {
-    if (
-      newPath === "/svampdata/dashboard" &&
-      listBoxRef.value?.resetSelections
-    ) {
+    if (newPath === "/mykorrhizasvampar" && listBoxRef.value?.resetSelections) {
       listBoxRef.value.resetSelections();
     }
   }
 );
 
-const isDashboardStart = computed(() => route.path === "/svampdata/dashboard");
+const isDashboardStart = computed(() => route.path === "/mykorrhizasvampar");
 const currentSelection = computed(() => {
   if (
     isDashboardStart.value &&

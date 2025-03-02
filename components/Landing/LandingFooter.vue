@@ -4,13 +4,13 @@
   >
     <div class="flex justify-between gap-6">
       <NuxtLink
-        to="/svampdata"
+        to="/mykorrhizasvampar"
         class="'text-md text-neutral-400 hover:text-neutral-600"
       >
         Sveriges mykorrhizasvampar
       </NuxtLink>
       <NuxtLink
-        to="/skogsbruk"
+        to="/skogsskotsel"
         class="'text-md text-neutral-400 hover:text-neutral-600"
       >
         Skogsskötsel

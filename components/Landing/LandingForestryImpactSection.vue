@@ -28,7 +28,7 @@
 
       <!-- Navigation Buttons -->
 
-      <NuxtLink to="/skogsbruk">
+      <NuxtLink to="/skogsskotsel">
         <BaseButton color="primary" type="outline" size="md" shape="full">
           <Icon
             name="material-symbols:nature-people-outline-rounded"

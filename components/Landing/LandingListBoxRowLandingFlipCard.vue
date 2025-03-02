@@ -318,7 +318,7 @@
   <div class="flex justify-center items-start">
     <!-- Navigation Buttons -->
     <div class="flex gap-4">
-      <NuxtLink to="/svampdata">
+      <NuxtLink to="/mykorrhizasvampar">
         <BaseButton color="default" size="lg" shape="full">
           <span>Sök i karta</span>
           <Icon
@@ -653,7 +653,7 @@ const generateParams = () => {
     encodeURIComponent(selectedOptions.value.vegetationType),
   ].join("/");
 
-  return `/svampdata/dashboard/${path}`;
+  return `/mykorrhizasvampar/${path}`;
 };
 </script>
 

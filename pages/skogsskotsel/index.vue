@@ -784,7 +784,7 @@ function prevStep() {
 
 const router = useRouter();
 function goToModell() {
-  router.push("/skogsbruk/modell");
+  router.push("/skogsskotsel/modell");
 }
 
 function onboardingStepClicked(index) {

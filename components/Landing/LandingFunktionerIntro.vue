@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <NuxtLink to="/svampdata">
+    <NuxtLink to="/mykorrhizasvampar">
       <div
         class="-rotate-6 bg-neutral-100 backdrop-blur-2xl bg-opacity-40 shadow-xl hover:bg-green-100 hover:bg-opacity-20 hover:dark:brightness-110 dark:bg-neutral-900 p-6 w-72 rounded-xl border-neutral-300 dark:border-neutral-700 border-[0.5px]"
       >
@@ -19,7 +19,7 @@
         <Icon name="lucide:arrow-right" class="h-5 w-5" />
       </div>
     </NuxtLink>
-    <NuxtLink to="/skogsbruk">
+    <NuxtLink to="/skogsskotsel">
       <div
         class="rotate-6 bg-neutral-100 backdrop-blur-2xl bg-opacity-40 shadow-xl hover:bg-green-100 hover:bg-opacity-20 hover:dark:brightness-110 dark:bg-neutral-900 p-6 w-72 rounded-xl border-neutral-300 dark:border-neutral-700 border-[0.5px]"
       >

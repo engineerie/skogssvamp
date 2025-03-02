@@ -3,7 +3,7 @@
     >Appfunktioner</BaseHeading
   >
   <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
-    <NuxtLink to="/svampdata/dashboard">
+    <NuxtLink to="/mykorrhizasvampar">
       <div
         class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
       >
@@ -24,7 +24,7 @@
       </div>
     </NuxtLink>
 
-    <NuxtLink to="/skogsbruk">
+    <NuxtLink to="/skogsskotsel">
       <div
         class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
       >

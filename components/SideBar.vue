@@ -4,13 +4,13 @@
       class="h-full px-3 py-2 overflow-y-auto bg-neutral-50 dark:bg-neutral-900 border-r-[1px] dark:border-neutral-800 border-neutral-300"
     >
       <div class="flex flex-col ml-[80px]">
-        <div v-if="currentDirectory === 'svampdata'" class="">
+        <div v-if="currentDirectory === 'mykorrhizasvampar'" class="">
           <SbSvamp />
         </div>
-        <div v-else-if="currentDirectory === 'svampdata/dashboard'" class="">
+        <div v-else-if="currentDirectory === 'mykorrhizasvampar/'" class="">
           <SbSvampInfo />
         </div>
-        <div v-else-if="currentDirectory === 'skogsbruk/modell'">
+        <div v-else-if="currentDirectory === 'skogsskotsel/modell'">
           <SbSkogsbruk />
         </div>
         <div v-else-if="currentDirectory === 'about'"></div>

@@ -107,7 +107,7 @@
             :data-nui-tooltip-position="!isExpanded ? 'right' : null"
           >
             <NuxtLink
-              to="/svampdata/dashboard"
+              to="/mykorrhizasvampar"
               class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
               :class="[
                 isExpanded ? 'w-full' : 'w-12 h-12',
@@ -140,7 +140,7 @@
             :data-nui-tooltip-position="!isExpanded ? 'right' : null"
           >
             <NuxtLink
-              to="/skogsbruk"
+              to="/skogsskotsel"
               class="flex items-center p-3 rounded-full space-x-2 transition-all overflow-hidden hover:bg-neutral-200"
               :class="[
                 isExpanded ? 'w-full' : 'w-12 h-12',
@@ -345,8 +345,8 @@ const isActiveDirectory = (directory: string) =>
   computed(() => route.path.includes(`/${directory}`));
 
 const isInStart = isActiveDirectory("start");
-const isInSvampData = isActiveDirectory("svampdata");
-const isInSkogsbruk = isActiveDirectory("skogsbruk");
+const isInSvampData = isActiveDirectory("mykorrhizasvampar");
+const isInSkogsbruk = isActiveDirectory("skogsskötsel");
 const isInSvampkunskap = isActiveDirectory("svampkunskap");
 const isInGuide = isActiveDirectory("guide");
 const isInAbout = isActiveDirectory("about");

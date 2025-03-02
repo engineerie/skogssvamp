@@ -67,7 +67,7 @@
       <div class="flex items-start">
         <!-- Navigation Buttons -->
         <div class="flex gap-5">
-          <!-- <NuxtLink to="/svampdata">
+          <!-- <NuxtLink to="/mykorrhizasvampar">
             <BaseButton color="primary" size="md" shape="full">
               <Icon name="mdi:file-cog-outline" class="-ms-1 mr-1 size-5" />
               <span>Läs dokumentation</span>

@@ -55,7 +55,7 @@ export default {
         return;
       }
       // Optionally, only initialize on your modell page.
-      if (route.name !== "skogsbruk-modell") {
+      if (route.name !== "skogsskotsel-modell") {
         console.log("[OSD] Not on modell page, skipping initViewer().");
         return;
       }

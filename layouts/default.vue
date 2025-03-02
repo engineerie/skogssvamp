@@ -18,19 +18,18 @@
         {
           'ml-0 md:hidden': isStartPage,
           // 'md:ml-16': isSvampdataSubRoute && !isStartPage,
-          'md:ml-[240px]': thinSideBar?.isExpanded && !isStartPage,
+          'md:ml-[230px]': thinSideBar?.isExpanded && !isStartPage,
           'md:ml-[50px]': !thinSideBar?.isExpanded && !isStartPage,
           'md:ml-[20px]': thinSideBar?.isExpanded && isDocumentation,
         },
       ]"
-      class="bg-neutral-100 dark:bg-neutral-800 py-2"
+      class="bg-neutral-100 dark:bg-neutral-800 py-1.5"
     >
       <div
-        class="px-6 container flex justify-between items-center mx-auto lg:max-w-full 2xl:max-w-screen-2xl"
+        class="px-6 container flex justify-between items-start mx-auto lg:max-w-full 2xl:max-w-screen-2xl"
       >
         <div class="flex gap-2">
           <button @click="toggleThinSidebar">
-            <!-- The icon can depend on whether the ThinSideBar is expanded -->
             <Icon
               name="heroicons:bars-3-bottom-left-solid"
               v-if="!thinSideBar?.isExpanded"
@@ -69,7 +68,7 @@
               class="z-50 pointer-events-none"
             />
           </transition>
-          <BaseButtonIcon
+          <!-- <BaseButtonIcon
             shape="full"
             size="md"
             v-if="isDashboard"
@@ -78,7 +77,7 @@
             @click="copyLinkToClipboard"
           >
             <Icon name="akar-icons:link-chain" class="size-5" />
-          </BaseButtonIcon>
+          </BaseButtonIcon> -->
           <!-- <BaseButtonIcon
             shape="full"
             size="md"
@@ -104,8 +103,8 @@
         :class="{
           '': !isStartPage,
           'pl-0': isStartPage,
-          'md:ml-16': !isStartPage,
-          'md:ml-[240px]': thinSideBar?.isExpanded && !isStartPage,
+          'md:ml-12': !isStartPage,
+          'md:ml-[230px]': thinSideBar?.isExpanded && !isStartPage,
           'md:ml-[20px]': thinSideBar?.isExpanded && isDocumentation,
           'sync-transition': true,
         }"
@@ -132,7 +131,7 @@
         >
           <!-- Trigger: the suggestion button -->
           <button
-            class="rounded-full bg-primary-500 text-white px-2 py-1 text-sm"
+            class="rounded-full bg-primary-500 text-white px-2 py-1 text-sm shadow-sm"
           >
             Föreslå förbättringar
           </button>
@@ -264,17 +263,15 @@ const sidebarStore = useSidebarStore();
 const titleStore = useTitleStore();
 const route = useRoute();
 const isStartPage = computed(() => route.path === "/");
-const isSvampdata = computed(() => route.path === "/svampdata");
-const isExactSvampdata = computed(() => route.path === "/svampdata");
+const isSvampdata = computed(() => route.path === "/mykorrhizasvampar");
+const isExactSvampdata = computed(() => route.path === "/mykorrhizasvampar");
 const isSvampdataSubRoute = computed(() =>
-  route.path.startsWith("/svampdata/")
+  route.path.startsWith("/mykorrhizasvampar")
 );
 
 const isDocumentation = computed(() => route.path === "/guide");
 
-const isDashboard = computed(() =>
-  route.path.startsWith("/svampdata/dashboard/")
-);
+const isDashboard = computed(() => route.path.startsWith("/mykorrhizasvampar"));
 const { isSidebarOpen, toggleSidebar } = toRefs(sidebarStore); // Destructure from the same instance
 
 watch(isSvampdata, (newVal) => {
@@ -330,10 +327,10 @@ watch(
 
 function determineTitle(path) {
   // Implement your logic to return the title based on the route
-  if (path.includes("/skogsbruk")) {
+  if (path.includes("/skogsskotsel")) {
     return "Skogsskötsel";
   }
-  if (path.includes("/svampdata")) {
+  if (path.includes("/mykorrhizasvampar")) {
     return "Sveriges mykorrhizasvampar";
   }
   if (path.includes("/start")) {

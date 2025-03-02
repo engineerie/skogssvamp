@@ -508,7 +508,7 @@ const generateParams = () => {
     encodeURIComponent(selectedOptions.value.vegetationType),
   ].join("/");
 
-  return `/svampdata/dashboard/${path}`;
+  return `/mykorrhizasvampar/${path}`;
 };
 </script>
 

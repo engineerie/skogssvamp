@@ -80,7 +80,7 @@
         </div>
       </MySlideover>
 
-      <div class="pt-8">
+      <div class="pt-4">
         <div class="w-full flex gap-2">
           <div
             class="items-center flex relative w-full gap-2"
@@ -468,7 +468,60 @@
               />
 
               <div class="relative w-full">
-                <div class="absolute w-full justify-between flex p-4 z-10">
+                <div class="absolute w-full justify-between flex p-2 z-10">
+                  <UButtonGroup
+                    class="size-xs"
+                    :ui="{
+                      rounded: 'rounded-lg',
+                    }"
+                  >
+                    <UButton
+                      color="white"
+                      icon="i-fluent-tree-deciduous-20-regular"
+                      @click="showTree = !showTree"
+                      :ui="{
+                        color: {
+                          white: {
+                            solid: 'text-neutral-800',
+                          },
+                        },
+                      }"
+                    >
+                      Visa/dölj träd
+                    </UButton>
+
+                    <UButton
+                      :ui="{
+                        color: {
+                          white: {
+                            solid: 'text-neutral-800',
+                          },
+                        },
+                      }"
+                      color="white"
+                      icon="-fluent-shape-organic-24-filled"
+                      @click="showFungi = !showFungi"
+                    >
+                      Visa/dölj svampmycel
+                    </UButton>
+                    <UButton
+                      color="white"
+                      @click="zoomAllIn"
+                      icon="i-heroicons-magnifying-glass-plus"
+                    />
+
+                    <UButton
+                      :ui="{
+                        color: { white: { solid: 'text-neutral-800' } },
+                      }"
+                      color="white"
+                      icon="i-heroicons-magnifying-glass-minus"
+                      @click="zoomAllOut"
+                    />
+                  </UButtonGroup>
+                  <UIcon name="i-fluent-tree-deciduous-20-regular" />
+                </div>
+                <!-- <div class="absolute w-full justify-between flex p-4 z-10">
                   <div>
                     <div class="mb-2">
                       <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
@@ -516,16 +569,16 @@
                         />
                       </BaseButtonIcon>
                     </div>
-                    <!-- <div>
+                    <div>
                     <BaseButtonIcon @click="resetAll" shape="full">
                       <Icon
                         name="heroicons:magnifying-glass-solid"
                         class="h-5 w-5"
                       />
                     </BaseButtonIcon>
-                  </div> -->
                   </div>
-                </div>
+                  </div>
+                </div> -->
                 <!-- Single View -->
                 <div
                   v-if="!isCompare && !isFrameworkCompareMode"

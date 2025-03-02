@@ -32,7 +32,7 @@
           Ta reda på vilka svampar som finns och hur de trivs i din skog.
         </p>
         <NuxtLink
-          to="/svampdata"
+          to="/mykorrhizasvampar"
           class="inline-flex items-center justify-center mt-8"
         >
           <div
@@ -43,7 +43,7 @@
           </div>
         </NuxtLink>
         <NuxtLink
-          to="/skogsbruk"
+          to="/skogsskotsel"
           class="inline-flex items-center justify-center"
         >
           <div

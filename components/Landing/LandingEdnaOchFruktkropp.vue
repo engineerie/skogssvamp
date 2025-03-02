@@ -20,7 +20,7 @@
       </p>
 
       <!-- <NuxtLink
-        to="/svampdata"
+        to="/mykorrhizasvampar"
         class="inline-flex items-center justify-center cursor-pointer"
       >
         <div

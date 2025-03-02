@@ -6,12 +6,12 @@
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="geographyLabel">
           <div
-            class="my-2 mx-1 w-5 h-5 rounded-lg text-fuchsia-500 flex justify-center items-center"
+            class="my-2 mx-1 size-4 rounded-lg text-fuchsia-500 flex justify-center items-center"
           >
             <Icon name="material-symbols:location-on-outline" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="md" weight="light">
+            <BaseHeading size="sm" weight="light">
               {{ geographyLabel }}
             </BaseHeading>
           </div>
@@ -20,12 +20,12 @@
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="forestTypeLabel">
           <div
-            class="my-2 mx-1 w-5 h-5 rounded-lg text-green-500 flex justify-center items-center"
+            class="my-2 mx-1 size-4 rounded-lg text-green-500 flex justify-center items-center"
           >
             <Icon name="lucide:trees" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="md" weight="light">
+            <BaseHeading size="sm" weight="light">
               {{ forestTypeLabel }}
             </BaseHeading>
           </div>
@@ -34,12 +34,12 @@
       <transition name="slide-up" mode="out-in">
         <div class="flex items-center justify-center" :key="standAgeLabel">
           <div
-            class="my-2 mx-1 w-5 h-5 rounded-lg text-violet-500 flex justify-center items-center"
+            class="my-2 mx-1 size-4 rounded-lg text-violet-500 flex justify-center items-center"
           >
             <Icon name="carbon:crop-growth" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="md" weight="light">{{
+            <BaseHeading size="sm" weight="light">{{
               standAgeLabel
             }}</BaseHeading>
           </div>
@@ -51,12 +51,12 @@
           :key="vegetationTypeLabel"
         >
           <div
-            class="my-2 mx-1 w-5 h-5 rounded-lg text-teal-500 flex justify-center items-center"
+            class="my-2 mx-1 size-4 rounded-lg text-teal-500 flex justify-center items-center"
           >
             <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="md" weight="light">{{
+            <BaseHeading size="sm" weight="light">{{
               vegetationTypeLabel
             }}</BaseHeading>
           </div>

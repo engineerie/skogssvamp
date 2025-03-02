@@ -145,7 +145,7 @@
                     Appfunktioner
                   </BaseHeading>
                   <NuxtLink
-                    to="/svampdata"
+                    to="/mykorrhizasvampar"
                     @click="closeMenu"
                     class="flex items-center text-lg w-fit text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded transition-colors"
                   >
@@ -157,7 +157,7 @@
                   </NuxtLink>
 
                   <NuxtLink
-                    to="/skogsbruk"
+                    to="/skogsskotsel"
                     @click="closeMenu"
                     class="flex items-center text-lg text-neutral-700 dark:text-neutral-300 hover:text-primary-500 py-1 rounded transition-colors"
                   >

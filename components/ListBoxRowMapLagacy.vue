@@ -236,7 +236,7 @@ export default {
         this.selectedOptions.standAge,
         this.selectedOptions.vegetationType,
       ].join("/");
-      return `/svampdata/dashboard/${path}`;
+      return `/mykorrhizasvampar/${path}`;
     },
     isOptionDisabled(option) {
       return option.label.startsWith("P") || option.value.startsWith("P");

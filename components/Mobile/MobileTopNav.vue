@@ -98,7 +98,7 @@
             <li class="flex items-center">
               <Icon name="lineicons:mushroom-1" class="me-2 block w-5 h-5" />
               <NuxtLink
-                to="/svampdata"
+                to="/mykorrhizasvampar"
                 @click="closeMenu"
                 class="block text-neutral-700 dark:text-neutral-300 hover:text-primary-500 text-lg"
               >
@@ -111,7 +111,7 @@
                 class="me-2 block size-6"
               />
               <NuxtLink
-                to="/skogsbruk"
+                to="/skogsskotsel"
                 @click="closeMenu"
                 class="block text-neutral-700 dark:text-neutral-300 hover:text-primary-500 text-lg"
               >
