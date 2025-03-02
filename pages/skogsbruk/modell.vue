@@ -403,7 +403,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="w-full">
             <div class="flex gap-2 items-center w-full justify-between">
               <UTabs
                 v-model="selectedTimeIndex"

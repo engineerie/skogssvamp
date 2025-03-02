@@ -38,7 +38,9 @@
             />
             <ChevronLeftIcon v-else class="h-8 w-8 ml-2 text-green-500" />
           </button>
-          <slot name="title" :key="route.path">
+
+          <Breadcrumb />
+          <!-- <slot name="title" :key="route.path">
             <BaseHeading
               class="text-neutral-800"
               as="h1"
@@ -48,7 +50,7 @@
             >
               {{ titleStore.title }}
             </BaseHeading>
-          </slot>
+          </slot> -->
         </div>
 
         <div class="flex justify-end gap-4 items-center">
