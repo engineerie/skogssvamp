@@ -14,11 +14,22 @@
         <div
           class="flex bg-white rounded-tab w-fit p-2 px-3 pb-0 z-10 -mb-[1.5px] mr-[1.5px]"
         >
-          <Icon name="solar:dna-linear" class="size-6 text-violet-500" />
+          <UBadge
+            size="lg"
+            color="violet"
+            variant="subtle"
+            :ui="{ rounded: 'rounded-lg' }"
+            ><Icon
+              name="solar:dna-linear"
+              class="size-6 text-violet-500 mr-1"
+            />Enligt DNA från markinventeringens provytor
+          </UBadge>
 
-          <span class="text-neutral-500 text-md font-light mx-2">
+          <!-- <Icon name="solar:dna-linear" class="size-7 text-violet-500" />
+
+          <span class="text-neutral-500 text-xl mx-2 font-medium">
             Enligt DNA från markinventeringens provytor
-          </span>
+          </span> -->
         </div>
         <div class="flex items-center">
           <Icon
@@ -91,13 +102,23 @@
         <div
           class="flex bg-white rounded-tab w-fit p-2 px-3 pb-0 z-10 -mb-[1.5px] mr-[1.5px]"
         >
-          <Icon
+          <UBadge
+            size="lg"
+            color="amber"
+            variant="subtle"
+            :ui="{ rounded: 'rounded-lg' }"
+            ><Icon
+              name="lineicons:mushroom-1"
+              class="size-6 text-amber-500 mr-1"
+            />Enligt samlad kunskap, främst var fruktkroppar förekommer
+          </UBadge>
+          <!-- <Icon
             name="lineicons:mushroom-1"
-            class="size-6 text-amber-500"
-          /><span class="text-neutral-500 text-md font-light mx-2"
+            class="size-7 text-amber-500"
+          /><span class="text-neutral-500 text-xl mx-2"
             >Enligt samlad kunskap, framförallt var svamparnas fruktkroppar
             förekommer</span
-          >
+          > -->
         </div>
         <div class="flex items-center">
           <Icon

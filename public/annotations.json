@@ -4,7 +4,7 @@
       "id": "kanteffekt",
       "title": "Kanteffekt",
       "text": "Beskrivning av kanteffekten.",
-      "thumbnail": "/images/thumbnails/kanteffekt.jpg",
+      "thumbnail": "/images/Skogsbruk.png",
       "positions": [
         {
           "framework": "naturskydd",
@@ -33,7 +33,7 @@
       "id": "annat-annotation",
       "title": "Exempel Annotation",
       "text": "Lite text om annotationen.",
-      "thumbnail": "/images/thumbnails/exempel.jpg",
+      "thumbnail": "/images/Skogsbruk.png",
       "positions": [
         {
           "framework": "trakthygge",

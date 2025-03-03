@@ -1,10 +1,12 @@
+<!-- components/OpenSeadragonViewer.vue -->
 <template>
   <div
     v-if="isClient"
     :id="viewerId"
-    class="openseadragon-viewer pointer-events-none"
+    class="openseadragon-viewer"
     ref="viewerContainer"
     :style="{ backgroundColor: backgroundColor }"
+    @mousedown.capture="handleActivate"
   ></div>
 </template>
 
@@ -17,11 +19,15 @@ import {
   onBeforeUnmount,
   onActivated,
   nextTick,
+  createApp,
 } from "vue";
 import { useRoute } from "vue-router";
+import AnnotationPopup from "./AnnotationPopup.vue";
+import AnnotationMarker from "./AnnotationMarker.vue";
+import { useAnnotationStore } from "~/stores/annotationStore";
 
 export default {
-  name: "OpenSeaDragonViewer",
+  name: "OpenSeadragonViewer",
   props: {
     dziUrl: {
       type: String,
@@ -35,8 +41,12 @@ export default {
       type: String,
       default: "#fff",
     },
+    annotations: {
+      type: Array,
+      default: () => [],
+    },
   },
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const route = useRoute();
     const viewer = ref(null);
     const isClient = ref(false);
@@ -44,93 +54,159 @@ export default {
     const viewerId = computed(
       () => "openseadragon-viewer-" + Math.random().toString(36).substr(2, 9)
     );
-
-    // Keep track of the currently displayed tiled image.
+    let osdLib = null;
     const currentTile = ref(null);
+    const annotationStore = useAnnotationStore();
 
+    // Create marker overlays.
+    function updateOverlays() {
+      if (!viewer.value || !osdLib) return;
+      viewer.value.clearOverlays();
+      props.annotations.forEach((annotation) => {
+        const markerContainer = document.createElement("div");
+        const markerApp = createApp(AnnotationMarker, { annotation });
+        markerApp.component("AnnotationMarker", AnnotationMarker);
+        markerApp.mount(markerContainer);
+        new osdLib.MouseTracker({
+          element: markerContainer,
+          clickHandler: (e) => {
+            emit("annotationClicked", annotation);
+          },
+        });
+        viewer.value.addOverlay({
+          element: markerContainer,
+          location: new osdLib.Point(
+            annotation.position.x,
+            annotation.position.y
+          ),
+          placement: annotation.position.placement,
+          checkResize: false,
+        });
+      });
+    }
+
+    // Method to show the popup overlay.
+    function showPopup(annotation) {
+      if (!viewer.value || !osdLib) return;
+      const popupContainer = document.createElement("div");
+      popupContainer.style.pointerEvents = "auto";
+      const app = createApp(AnnotationPopup, { annotation });
+      app.mount(popupContainer);
+      nextTick(() => {
+        const closeButton = popupContainer.querySelector("button.close-button");
+        if (closeButton) {
+          new osdLib.MouseTracker({
+            element: closeButton,
+            clickHandler: function (e) {
+              viewer.value.removeOverlay(popupContainer);
+              annotationStore.closePopup();
+            },
+          });
+        }
+      });
+      annotationStore.openPopup(annotation, popupContainer);
+      viewer.value.addOverlay({
+        element: popupContainer,
+        location: new osdLib.Point(
+          annotation.position.x,
+          annotation.position.y
+        ),
+        placement: annotation.position.placement,
+        checkResize: false,
+      });
+    }
+
+    watch(
+      () => annotationStore.activeAnnotation,
+      (newVal) => {
+        if (newVal === null && annotationStore.activeOverlay) {
+          viewer.value.removeOverlay(annotationStore.activeOverlay);
+          annotationStore.clearOverlay();
+        }
+      }
+    );
+
+    // Initialize the viewer.
     async function initViewer() {
       if (typeof window === "undefined") return;
-      if (viewer.value) {
-        console.log("[OSD] Viewer already created, skipping init.");
-        return;
-      }
-      // Optionally, only initialize on your modell page.
-      if (route.name !== "skogsskotsel-modell") {
-        console.log("[OSD] Not on modell page, skipping initViewer().");
-        return;
-      }
+      if (viewer.value) return;
+      if (route.name !== "skogsskotsel-modell") return;
       const containerEl = viewerContainer.value;
-      if (!containerEl) {
-        console.warn("[OSD] containerEl is null, skipping initViewer().");
-        return;
-      }
-      // Dynamically import OpenSeadragon.
-      const { default: OpenSeadragon } = await import("openseadragon");
-      viewer.value = OpenSeadragon({
+      if (!containerEl) return;
+      const { default: osd } = await import("openseadragon");
+      osdLib = osd;
+      viewer.value = osdLib({
         element: containerEl,
         showNavigationControl: false,
         visibilityRatio: 1,
         minZoomLevel: 1,
         constrainDuringPan: true,
-        panHorizontal: props.allowPan,
-        panVertical: props.allowPan,
-        homeFillsViewer: true, // <-- add this option
+        panHorizontal: true,
+        panVertical: true,
+        homeFillsViewer: true,
+        animationTime: 0.5,
         gestureSettingsMouse: {
-          scrollToZoom: props.allowPan,
+          scrollToZoom: true,
           clickToZoom: false,
-          dblClickToZoom: props.allowPan,
+          dblClickToZoom: true,
           clickTodrag: false,
           pinchToZoom: false,
         },
       });
-      console.log("[OSD] Viewer CREATED");
-      // Load the first image using our transition function.
+      // Emit viewport changes (if needed for other features)
+      viewer.value.addHandler("animation", () => {
+        const zoom = viewer.value.viewport.getZoom();
+        const center = viewer.value.viewport.getCenter();
+        emit("viewportChanged", { zoom, center });
+      });
       transitionToNewTile(props.dziUrl);
     }
 
     function transitionToNewTile(newUrl) {
       if (!viewer.value) return;
-
       viewer.value.addTiledImage({
         tileSource: newUrl,
-        // <-- this option tells OSD to keep the current viewport
         success: function (newTiledImage) {
-          console.log("[OSD] New tiled image added for", newUrl);
-          // Remove the previous image immediately, if any.
           if (currentTile.value) {
             viewer.value.world.removeItem(currentTile.value);
           }
           currentTile.value = newTiledImage;
           emit("opened");
+          updateOverlays();
         },
       });
     }
-    // Watch for changes in the dziUrl prop and trigger a transition.
+
+    // Watch for changes in dziUrl.
     watch(
       () => props.dziUrl,
       (newVal, oldVal) => {
         if (viewer.value && newVal !== oldVal) {
-          console.log("[OSD] Transitioning to new dziUrl:", newVal);
           transitionToNewTile(newVal);
         }
       }
     );
 
-    // Cleanup the viewer when the component is unmounted.
+    // Watch for changes in annotations.
+    watch(
+      () => props.annotations,
+      () => {
+        updateOverlays();
+      },
+      { immediate: true }
+    );
+
     onBeforeUnmount(() => {
       if (viewer.value) {
         viewer.value.destroy();
         viewer.value = null;
       }
     });
-
-    // For keep-alive scenarios: re-trigger transition if necessary.
     onActivated(() => {
       if (props.dziUrl && viewer.value) {
         transitionToNewTile(props.dziUrl);
       }
     });
-
     onMounted(() => {
       if (typeof window === "undefined") return;
       isClient.value = true;
@@ -139,8 +215,69 @@ export default {
       });
     });
 
+    // -----------------------
+    // Methods for zoom control.
+    function zoomIn(factor = 1.2) {
+      if (!viewer.value) return;
+      const currentZoom = viewer.value.viewport.getZoom();
+      const newZoom = currentZoom * factor;
+      viewer.value.viewport.zoomTo(newZoom);
+      viewer.value.viewport.applyConstraints();
+      viewer.value.forceRedraw();
+      return newZoom;
+    }
+
+    function zoomOut(factor = 1.2) {
+      if (!viewer.value) return;
+      const currentZoom = viewer.value.viewport.getZoom();
+      const newZoom = currentZoom / factor;
+      viewer.value.viewport.zoomTo(newZoom);
+      viewer.value.viewport.applyConstraints();
+      viewer.value.forceRedraw();
+      return newZoom;
+    }
+
+    function getZoom() {
+      return viewer.value ? viewer.value.viewport.getZoom() : null;
+    }
+
+    function getCenter() {
+      return viewer.value ? viewer.value.viewport.getCenter() : null;
+    }
+
+    function setZoomAndCenter(zoom, center) {
+      if (!viewer.value) return;
+      viewer.value.viewport.zoomTo(zoom);
+      // Remove the immediate flag so that the pan also animates smoothly.
+      viewer.value.viewport.panTo(center);
+      viewer.value.viewport.applyConstraints();
+      viewer.value.forceRedraw();
+    }
+
+    // NEW: Expose a method to attach event handlers (for syncing).
+    function addSyncHandler(eventType, handler) {
+      if (viewer.value) {
+        viewer.value.addHandler(eventType, handler);
+      }
+    }
+
+    // Emit an activation event.
+    function handleActivate() {
+      emit("activated", viewerId.value);
+    }
+
+    // Expose the necessary methods.
+    expose({
+      showPopup,
+      zoomIn,
+      zoomOut,
+      getZoom,
+      getCenter,
+      setZoomAndCenter,
+      addSyncHandler, // <-- new
+    });
+
     return {
-      viewer,
       isClient,
       viewerContainer,
       viewerId,

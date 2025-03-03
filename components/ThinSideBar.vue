@@ -346,7 +346,7 @@ const isActiveDirectory = (directory: string) =>
 
 const isInStart = isActiveDirectory("start");
 const isInSvampData = isActiveDirectory("mykorrhizasvampar");
-const isInSkogsbruk = isActiveDirectory("skogsskötsel");
+const isInSkogsbruk = isActiveDirectory("skogsskotsel");
 const isInSvampkunskap = isActiveDirectory("svampkunskap");
 const isInGuide = isActiveDirectory("guide");
 const isInAbout = isActiveDirectory("about");

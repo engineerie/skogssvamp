@@ -36,28 +36,38 @@
     </transition>
 
     <div class="flex justify-between mb-2 items-end">
-      <UPopover mode="hover" class="flex items-end cursor-default" :ui="{}">
-        <div class="items-end flex cursor-default">
-          <div
-            class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
-          >
-            <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
-          </div>
+      <div class="items-end flex cursor-default">
+        <div
+          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-yellow-500 flex justify-center items-center"
+        >
+          <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
+        </div>
 
-          <div>
-            <BaseHeading
-              size="3xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-300 mr-4"
-            >
-              Matsvampar
-            </BaseHeading>
-            <!-- <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+        <div class="flex">
+          <BaseHeading
+            size="3xl"
+            weight="medium"
+            class="text-neutral-800 dark:text-neutral-300 mr-4"
+          >
+            Matsvampar
+          </BaseHeading>
+
+          <!-- <BaseHeading weight="medium" size="xs" class="text-neutral-400">
               Bedömning baserad på samlad kunskap
             </BaseHeading> -->
-          </div>
         </div>
-        <!-- Added grid/table toggle tabs (same as in FullScreenPoison.vue) -->
+        <UBadge
+          v-if="!isNormalView"
+          class=""
+          size="lg"
+          color="amber"
+          variant="subtle"
+          :ui="{ rounded: 'rounded-lg' }"
+          ><Icon
+            name="lineicons:mushroom-1"
+            class="size-6 text-amber-500 mr-1"
+          />Enligt samlad kunskap, främst var fruktkroppar förekommer
+        </UBadge>
         <BaseTabs
           v-model="activeView"
           :tabs="[
@@ -74,13 +84,8 @@
           ]"
           class="ml-4 -mb-6 inline-flex align-bottom"
         />
-        <template #panel>
-          <div class="p-4 w-96 text-sm text-neutral-500">
-            Visar matsvampar som kan förekomma i miljön, baserat på
-            observationer av fruktkroppar.
-          </div>
-        </template>
-      </UPopover>
+      </div>
+      <!-- Added grid/table toggle tabs (same as in FullScreenPoison.vue) -->
 
       <div class="flex gap-2 items-end">
         <!-- <BaseListbox ... /> -->

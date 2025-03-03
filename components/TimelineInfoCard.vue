@@ -30,10 +30,15 @@
           />
           {{ framework.label }}
         </UBadge>
-        <UBadge v-if="currentStartskog.value === 'produktionsskog_'">
+        <UBadge
+          variant="subtle"
+          v-if="currentStartskog.value === 'produktionsskog_'"
+        >
           I skog som har kalavverkats
         </UBadge>
-        <UBadge v-else> I äldre skog som inte har kalavverkats </UBadge>
+        <UBadge variant="subtle" v-else>
+          I äldre skog som inte har kalavverkats
+        </UBadge>
         <UBadge color="white" variant="solid">
           {{ timeLabel }}
         </UBadge>

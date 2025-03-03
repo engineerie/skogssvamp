@@ -4,7 +4,6 @@
       <MySlideover
         v-model="showSlideover"
         :pinned="isPinned"
-        :expanded="activeSlideOverOption === 'both'"
         @update:pinned="(val) => (isPinned = val)"
       >
         <!-- Header with three buttons using compareItemsSlideOver -->
@@ -485,7 +484,9 @@
                       :ui="{
                         color: {
                           white: {
-                            solid: 'text-neutral-600',
+                            solid: showTree
+                              ? 'text-neutral-700 '
+                              : 'text-neutral-400',
                           },
                         },
                       }"
@@ -497,9 +498,9 @@
                       :ui="{
                         color: {
                           white: {
-                            solid: showfungi
-                              ? 'text-neutral-50'
-                              : 'text-neutral-600',
+                            solid: showFungi
+                              ? 'text-neutral-700 '
+                              : 'text-neutral-400',
                           },
                         },
                       }"
@@ -510,21 +511,16 @@
                       Visa svampmycel
                     </UButton>
                     <UButton
-                      :ui="{
-                        color: { white: { solid: 'text-neutral-600' } },
-                      }"
+                      :ui="{ color: { white: { solid: 'text-neutral-600' } } }"
                       color="white"
-                      @click="zoomAllIn"
+                      @click="zoomActiveIn"
                       icon="i-heroicons-magnifying-glass-plus"
                     />
-
                     <UButton
-                      :ui="{
-                        color: { white: { solid: 'text-neutral-600' } },
-                      }"
+                      :ui="{ color: { white: { solid: 'text-neutral-600' } } }"
                       color="white"
+                      @click="zoomActiveOut"
                       icon="i-heroicons-magnifying-glass-minus"
-                      @click="zoomAllOut"
                     />
                   </UButtonGroup>
                 </div>
@@ -595,10 +591,13 @@
                     ref="singleViewerRef"
                     :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
                     :allowPan="!isCompare && !isFrameworkCompareMode"
-                    @viewportChanged="
-                      ($event) => onViewportChanged('single', $event)
+                    :annotations="filteredAnnotations"
+                    @annotationClicked="
+                      (annotation) =>
+                        handleAnnotationClicked('single', annotation)
                     "
                     @opened="onViewerOpened('single')"
+                    @activated="activeViewer.value = 'single'"
                     class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                   />
                   <!-- <UBadge
@@ -615,12 +614,6 @@
                     variant="solid"
                     class="absolute bottom-12 left-4"
                   /> -->
-                  <Circle
-                    v-for="circle in filteredCircles"
-                    :key="circle.id"
-                    :position="circle.position"
-                    :info="circle.info"
-                  />
                 </div>
 
                 <!-- Before/After Compare -->
@@ -636,11 +629,9 @@
                       :dziUrl="
                         comparisonImagePath1.replace('.png', '.png_dzi.dzi')
                       "
-                      :allowPan="!isCompare && !isFrameworkCompareMode"
-                      @viewportChanged="
-                        ($event) => onViewportChanged('before', $event)
-                      "
+                      :allowPan="true"
                       @opened="onViewerOpened('before')"
+                      @activated="activeViewer.value = 'before'"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
                     <!-- <UBadge
@@ -662,13 +653,12 @@
                     <OpenSeadragonViewer
                       ref="afterViewerRef"
                       :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                      :allowPan="!isCompare && !isFrameworkCompareMode"
-                      @viewportChanged="
-                        ($event) => onViewportChanged('after', $event)
-                      "
+                      :allowPan="true"
                       @opened="onViewerOpened('after')"
-                      class="h-full w-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                      @activated="activeViewer.value = 'after'"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
+
                     <!-- <UBadge
                       size="xs"
                       :label="currentTimeLabel"
@@ -700,7 +690,8 @@
                         ($event) => onViewportChanged('framework1', $event)
                       "
                       @opened="onViewerOpened('framework1')"
-                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                      @activated="activeViewer.value = 'framework1'"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
                     <!-- <UBadge
                       size="xs"
@@ -728,7 +719,8 @@
                         ($event) => onViewportChanged('framework2', $event)
                       "
                       @opened="onViewerOpened('framework2')"
-                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 pointer-events-none overflow-hidden"
+                      @activated="activeViewer.value = 'framework2'"
+                      class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
                     <!-- <UBadge
                       size="xs"
@@ -791,16 +783,17 @@
 
 <script setup>
 import { ImgComparisonSlider } from "@img-comparison-slider/vue";
-import Circle from "~/components/Circle.vue";
+
 import BarChart from "~/components/BarChartSkogsbruk.vue";
 import BarChartSkogsbrukRödMat from "~/components/BarChartSkogsbrukRödMat.vue";
 import SvampLineChart from "~/components/SvampLineChart.vue";
 import OpenSeadragonViewer from "~/components/OpenSeadragonViewer.vue";
 import { ref, computed, watch, nextTick } from "vue";
 import { useOnboardingStore } from "~/stores/onboardingStore";
-import circleDataJson from "public/circles.json";
+
 import SvampBarChart from "../../components/SvampBarChart.vue";
 import frameworkDescriptions from "public/frameworkDescriptions.json";
+import annotationsData from "public/annotations.json"; // NEW: import your annotations JSON
 
 const frameworkImage = computed(() => {
   const images = {
@@ -878,9 +871,6 @@ const onboardingStore = useOnboardingStore();
 const Modal1 = ref(false);
 const Modal2 = ref(false);
 
-// Circle data
-const circleData = ref(circleDataJson);
-
 // Other refs
 const showPingEffectCompareButton = ref(false);
 const frameworksVisible = ref(false);
@@ -933,7 +923,7 @@ const currentFramework2 = computed(() => {
 
 watch([isFrameworkCompareMode, isCompare], ([frameworkCompare, compare]) => {
   if (!frameworkCompare || !compare) {
-    selectedComparisonOption.value = "framework1";
+    compareChoice.value = "framework1";
   }
 });
 
@@ -1180,12 +1170,6 @@ const currentImageKey = computed(() => {
   return `${framework}_${tLabel}`;
 });
 
-const filteredCircles = computed(() =>
-  circleData.value.filter((circle) =>
-    circle.images.includes(currentImageKey.value)
-  )
-);
-
 const currentImagePath = computed(() => {
   const framework = currentFramework.value.value.toLowerCase();
   const tLabel = mapTimeToLabel(time.value);
@@ -1207,6 +1191,78 @@ watch([currentFramework, isCompare, isFrameworkCompareMode], () => {
 const singleViewerRef = ref(null);
 const beforeViewerRef = ref(null);
 const afterViewerRef = ref(null);
+
+// Guard flags to prevent infinite loops
+let beforeSyncGuard = false;
+let afterSyncGuard = false;
+
+// Synchronization handlers for before/after viewers
+function beforeViewerSyncHandler() {
+  if (afterSyncGuard) return;
+  beforeSyncGuard = true;
+  const zoom = beforeViewerRef.value?.getZoom();
+  const center = beforeViewerRef.value?.getCenter();
+  if (zoom && center && afterViewerRef.value) {
+    afterViewerRef.value.setZoomAndCenter(zoom, center);
+  }
+  beforeSyncGuard = false;
+}
+
+function afterViewerSyncHandler() {
+  if (beforeSyncGuard) return;
+  afterSyncGuard = true;
+  const zoom = afterViewerRef.value?.getZoom();
+  const center = afterViewerRef.value?.getCenter();
+  if (zoom && center && beforeViewerRef.value) {
+    beforeViewerRef.value.setZoomAndCenter(zoom, center);
+  }
+  afterSyncGuard = false;
+}
+
+function onViewerOpened(source) {
+  if (source === "before" && beforeViewerRef.value) {
+    beforeViewerRef.value.addSyncHandler("zoom", beforeViewerSyncHandler);
+    beforeViewerRef.value.addSyncHandler("pan", beforeViewerSyncHandler);
+  } else if (source === "after" && afterViewerRef.value) {
+    afterViewerRef.value.addSyncHandler("zoom", afterViewerSyncHandler);
+    afterViewerRef.value.addSyncHandler("pan", afterViewerSyncHandler);
+  } else if (source === "framework1" && framework1ViewerRef.value) {
+    framework1ViewerRef.value.addSyncHandler("zoom", framework1SyncHandler);
+    framework1ViewerRef.value.addSyncHandler("pan", framework1SyncHandler);
+  } else if (source === "framework2" && framework2ViewerRef.value) {
+    framework2ViewerRef.value.addSyncHandler("zoom", framework2SyncHandler);
+    framework2ViewerRef.value.addSyncHandler("pan", framework2SyncHandler);
+  }
+}
+
+// Define new guard flags for framework compare mode:
+let framework1SyncGuard = false;
+let framework2SyncGuard = false;
+
+// Define sync handler for framework1 viewer.
+function framework1SyncHandler() {
+  if (framework2SyncGuard) return;
+  framework1SyncGuard = true;
+  const zoom = framework1ViewerRef.value?.getZoom();
+  const center = framework1ViewerRef.value?.getCenter();
+  if (zoom && center && framework2ViewerRef.value) {
+    framework2ViewerRef.value.setZoomAndCenter(zoom, center);
+  }
+  framework1SyncGuard = false;
+}
+
+// Define sync handler for framework2 viewer.
+function framework2SyncHandler() {
+  if (framework1SyncGuard) return;
+  framework2SyncGuard = true;
+  const zoom = framework2ViewerRef.value?.getZoom();
+  const center = framework2ViewerRef.value?.getCenter();
+  if (zoom && center && framework1ViewerRef.value) {
+    framework1ViewerRef.value.setZoomAndCenter(zoom, center);
+  }
+  framework2SyncGuard = false;
+}
+
 const framework1ViewerRef = ref(null);
 const framework2ViewerRef = ref(null);
 
@@ -1214,7 +1270,7 @@ const framework2ViewerRef = ref(null);
 let viewportChangeSource = null;
 const globalViewport = ref({ zoom: 1, center: null });
 const openedViewers = ref({});
-
+// Update the global viewport when a viewer emits a viewportChanged event.
 function onViewportChanged(source, { zoom, center } = {}) {
   if (!zoom || !center) return;
   if (viewportChangeSource !== source) {
@@ -1223,10 +1279,10 @@ function onViewportChanged(source, { zoom, center } = {}) {
   }
 }
 
-function onViewerOpened(source) {
-  openedViewers.value[source] = true;
-  applyGlobalViewportToAll();
-}
+// function onViewerOpened(source) {
+//   openedViewers.value[source] = true;
+//   applyGlobalViewportToAll();
+// }
 
 function applyToViewer(viewer, fn) {
   if (!viewer || !viewer.viewport) return;
@@ -1264,39 +1320,82 @@ function applyGlobalViewportToAll() {
   });
 }
 
-function zoomAllIn() {
-  const viewers = getActiveViewers();
-  const zoomFactor = 1.2;
-  viewers.forEach((viewer) => {
-    applyToViewer(viewer, (v) => {
-      const currentZoom = v.viewport.getZoom();
-      v.viewport.zoomTo(currentZoom * zoomFactor);
-      v.viewport.applyConstraints();
-      v.forceRedraw();
-    });
+// Helper: Return an object mapping identifiers to viewer component instances.
+function getActiveViewerComponents() {
+  if (!isCompare.value && !isFrameworkCompareMode.value) {
+    return { single: singleViewerRef.value };
+  } else if (isCompare.value) {
+    return { before: beforeViewerRef.value, after: afterViewerRef.value };
+  } else if (isFrameworkCompareMode.value) {
+    return {
+      framework1: framework1ViewerRef.value,
+      framework2: framework2ViewerRef.value,
+    };
+  }
+  return {};
+}
+
+// Whenever globalViewport changes, update all viewers (except the one that was the source).
+watch(globalViewport, ({ zoom, center }) => {
+  const viewers = getActiveViewerComponents();
+  Object.entries(viewers).forEach(([key, viewerComp]) => {
+    if (
+      key !== viewportChangeSource &&
+      viewerComp &&
+      viewerComp.setZoomAndCenter
+    ) {
+      viewerComp.setZoomAndCenter(zoom, center);
+    }
   });
-  if (viewers.length > 0) {
-    const newZoom = viewers[0].viewport.getZoom();
-    const newCenter = viewers[0].viewport.getCenter();
-    globalViewport.value = { zoom: newZoom, center: newCenter };
+});
+// Make sure activeViewer is a reactive ref (e.g., 'single', 'before', 'after', 'framework1', 'framework2')
+const activeViewer = ref("single");
+
+// Zoom in function
+function zoomActiveIn() {
+  // Single view mode:
+  if (!isCompare.value && !isFrameworkCompareMode.value) {
+    singleViewerRef.value?.zoomIn();
+    return;
+  }
+
+  // Before/After compare mode: default to using "before" as the active viewer
+  if (isCompare.value) {
+    const newZoom = beforeViewerRef.value?.zoomIn();
+    const center = beforeViewerRef.value?.getCenter();
+    afterViewerRef.value?.setZoomAndCenter(newZoom, center);
+    return;
+  }
+
+  // Framework compare mode: default to using "framework1" as the active viewer
+  if (isFrameworkCompareMode.value) {
+    const newZoom = framework1ViewerRef.value?.zoomIn();
+    const center = framework1ViewerRef.value?.getCenter();
+    framework2ViewerRef.value?.setZoomAndCenter(newZoom, center);
+    return;
   }
 }
 
-function zoomAllOut() {
-  const viewers = getActiveViewers();
-  const zoomFactor = 1 / 1.2;
-  viewers.forEach((viewer) => {
-    applyToViewer(viewer, (v) => {
-      const currentZoom = v.viewport.getZoom();
-      v.viewport.zoomTo(currentZoom * zoomFactor);
-      v.viewport.applyConstraints();
-      v.forceRedraw();
-    });
-  });
-  if (viewers.length > 0) {
-    const newZoom = viewers[0].viewport.getZoom();
-    const newCenter = viewers[0].viewport.getCenter();
-    globalViewport.value = { zoom: newZoom, center: newCenter };
+// Zoom out function (similar logic)
+
+function zoomActiveOut() {
+  if (!isCompare.value && !isFrameworkCompareMode.value) {
+    singleViewerRef.value?.zoomOut();
+    return;
+  }
+
+  if (isCompare.value) {
+    const newZoom = beforeViewerRef.value?.zoomOut();
+    const center = beforeViewerRef.value?.getCenter();
+    afterViewerRef.value?.setZoomAndCenter(newZoom, center);
+    return;
+  }
+
+  if (isFrameworkCompareMode.value) {
+    const newZoom = framework1ViewerRef.value?.zoomOut();
+    const center = framework1ViewerRef.value?.getCenter();
+    framework2ViewerRef.value?.setZoomAndCenter(newZoom, center);
+    return;
   }
 }
 
@@ -1435,4 +1534,48 @@ function nudgeOpenSeadragon() {
     });
   }
 }
+
+const currentTimeValue = computed(() => {
+  const step = sliderSteps.value.find((s) => s.value === time.value);
+  return step ? step.timeLabel : "";
+});
+
+const filteredAnnotations = computed(() => {
+  return annotationsData.annotations
+    .map((annotation) => {
+      const matchingPosition = annotation.positions.find(
+        (pos) =>
+          pos.framework === currentFramework.value.value &&
+          pos.time === currentTimeValue.value.toLowerCase() // ensures matching e.g. "före" or "efter"
+      );
+      return matchingPosition
+        ? { ...annotation, position: matchingPosition }
+        : null;
+    })
+    .filter((annotation) => annotation !== null);
+});
+
+function handleAnnotationClicked(viewerKey, annotation) {
+  if (viewerKey === "single" && singleViewerRef.value?.showPopup) {
+    singleViewerRef.value.showPopup(annotation);
+  } else if (viewerKey === "before" && beforeViewerRef.value?.showPopup) {
+    beforeViewerRef.value.showPopup(annotation);
+  } else if (viewerKey === "after" && afterViewerRef.value?.showPopup) {
+    afterViewerRef.value.showPopup(annotation);
+  } else if (
+    viewerKey === "framework1" &&
+    framework1ViewerRef.value?.showPopup
+  ) {
+    framework1ViewerRef.value.showPopup(annotation);
+  } else if (
+    viewerKey === "framework2" &&
+    framework2ViewerRef.value?.showPopup
+  ) {
+    framework2ViewerRef.value.showPopup(annotation);
+  }
+}
+
+watch(activeViewer, (newVal) => {
+  console.log("activeViewer updated to:", newVal);
+});
 </script>

@@ -12,36 +12,35 @@
 
     <div class="">
       <div class="flex justify-between">
-        <UPopover
-          mode="hover"
+        <div
+          class="items-end flex cursor-default"
           v-if="props.isNormalView == false"
-          class="flex items-end cursor-default"
         >
-          <div class="items-end flex cursor-default">
-            <!-- <div
+          <!-- <div
               class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
             >
               <Icon name="solar:dna-linear" class="h-11 w-11" />
             </div> -->
-            <div class="items-end flex cursor-default">
-              <BaseHeading
-                size="3xl"
-                weight="medium"
-                class="text-neutral-800 dark:text-neutral-200 mb-1 ml-4"
-                >Alla mykorrhizasvampar</BaseHeading
-              >
-              <!-- <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-                >Enligt DNA från markinventeringens provytor
-              </BaseHeading> -->
-            </div>
+          <div class="items-end flex cursor-default">
+            <BaseHeading
+              size="3xl"
+              weight="medium"
+              class="text-neutral-800 dark:text-neutral-200 mb-1 ml-4"
+              >Alla mykorrhizasvampar</BaseHeading
+            >
+            <UBadge
+              class="mb-2 ml-4"
+              size="lg"
+              color="violet"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-lg' }"
+              ><Icon
+                name="solar:dna-linear"
+                class="size-6 text-violet-500 mr-1"
+              />Enligt DNA från markinventeringens provytor
+            </UBadge>
           </div>
-          <template #panel>
-            <div class="p-4 w-96 text-sm text-neutral-500">
-              Visar mykorrhizasvampar i svensk skogsmark baserat på DNA-analys
-              av svampmycel från jordprover.
-            </div>
-          </template>
-        </UPopover>
+        </div>
 
         <div v-else></div>
 
