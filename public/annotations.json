@@ -1,0 +1,48 @@
+{
+  "annotations": [
+    {
+      "id": "kanteffekt",
+      "title": "Kanteffekt",
+      "text": "Beskrivning av kanteffekten.",
+      "thumbnail": "/images/thumbnails/kanteffekt.jpg",
+      "positions": [
+        {
+          "framework": "naturskydd",
+          "time": "före",
+          "x": 0.2008,
+          "y": 0.4778,
+          "placement": "RIGHT"
+        },
+        {
+          "framework": "naturskydd",
+          "time": "efter",
+          "x": 0.22,
+          "y": 0.48,
+          "placement": "BOTTOM"
+        },
+        {
+          "framework": "trakthygge",
+          "time": "före",
+          "x": 0.25,
+          "y": 0.5,
+          "placement": "LEFT"
+        }
+      ]
+    },
+    {
+      "id": "annat-annotation",
+      "title": "Exempel Annotation",
+      "text": "Lite text om annotationen.",
+      "thumbnail": "/images/thumbnails/exempel.jpg",
+      "positions": [
+        {
+          "framework": "trakthygge",
+          "time": "efter",
+          "x": 0.3,
+          "y": 0.45,
+          "placement": "TOP_LEFT"
+        }
+      ]
+    }
+  ]
+}

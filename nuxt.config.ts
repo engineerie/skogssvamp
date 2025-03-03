@@ -29,6 +29,12 @@ export default defineNuxtConfig({
   //   },
   // },
 
+  ui: {
+    primary: "gray",
+    gray: "neutral",
+    icons: ["material-symbols", "fluent"],
+  },
+
   app: {
     ssr: false,
     target: "static",
@@ -44,16 +50,6 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/color-mode",
   ],
-
-  icon: {
-    collections: {
-      // Register your Material Symbols collection
-      "material-symbols": () =>
-        import("@iconify-json/material-symbols/icons.json"),
-      // You can also register other collections if needed:
-      // 'uil': () => import('@iconify-json/uil/icons.json'),
-    },
-  },
 
   colorMode: {
     preference: "light", // default value of $colorMode.preference

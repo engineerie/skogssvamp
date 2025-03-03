@@ -209,13 +209,16 @@
                 :popper="{ placement: 'bottom-start' }"
                 :ui="{ rounded: 'rounded-xl' }"
               >
-                <UButton
+                <UBadge
+                  size="lg"
+                  variant="subtle"
                   class="w-full shrink-0"
                   :ui="{ rounded: 'rounded-lg' }"
-                  >{{ currentStartskog.label }}</UButton
-                >
+                  >{{ currentStartskog.label }}
+                  <Icon name="i-heroicons-chevron-down-solid" class="ml-1"
+                /></UBadge>
                 <template #panel>
-                  <div class="p-2 flex flex-col gap-1">
+                  <div class="p-1 flex flex-col gap-1">
                     <div v-for="option in startskog" :key="option.value">
                       <UButton
                         @click="selectOption(option)"
@@ -223,11 +226,11 @@
                         variant="ghost"
                         class="hover:bg-neutral-100 w-full"
                         :class="{
-                          'bg-neutral-200 w-full hover:bg-neutral-200':
+                          ' w-full  text-primary-500':
                             currentStartskog.value === option.value,
                         }"
-                        >{{ option.label }}</UButton
-                      >
+                        >{{ option.label }}
+                      </UButton>
                     </div>
                   </div>
                 </template>
@@ -482,29 +485,34 @@
                       :ui="{
                         color: {
                           white: {
-                            solid: 'text-neutral-800',
+                            solid: 'text-neutral-600',
                           },
                         },
                       }"
                     >
-                      Visa/dölj träd
+                      Visa träd
                     </UButton>
 
                     <UButton
                       :ui="{
                         color: {
                           white: {
-                            solid: 'text-neutral-800',
+                            solid: showfungi
+                              ? 'text-neutral-50'
+                              : 'text-neutral-600',
                           },
                         },
                       }"
                       color="white"
-                      icon="-fluent-shape-organic-24-filled"
+                      icon="i-fluent-shape-organic-24-regular"
                       @click="showFungi = !showFungi"
                     >
-                      Visa/dölj svampmycel
+                      Visa svampmycel
                     </UButton>
                     <UButton
+                      :ui="{
+                        color: { white: { solid: 'text-neutral-600' } },
+                      }"
                       color="white"
                       @click="zoomAllIn"
                       icon="i-heroicons-magnifying-glass-plus"
@@ -512,14 +520,13 @@
 
                     <UButton
                       :ui="{
-                        color: { white: { solid: 'text-neutral-800' } },
+                        color: { white: { solid: 'text-neutral-600' } },
                       }"
                       color="white"
                       icon="i-heroicons-magnifying-glass-minus"
                       @click="zoomAllOut"
                     />
                   </UButtonGroup>
-                  <UIcon name="i-fluent-tree-deciduous-20-regular" />
                 </div>
                 <!-- <div class="absolute w-full justify-between flex p-4 z-10">
                   <div>

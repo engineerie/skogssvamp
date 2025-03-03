@@ -79,10 +79,21 @@ const chartOptions = ref({
       horizontal: false,
       distributed: true,
       columnWidth: "12px",
+      dataLabels: {
+        position: "top",
+      },
     },
   },
   stroke: { width: [1, 1, 4] },
-  dataLabels: { enabled: false },
+  dataLabels: {
+    enabled: true,
+    offsetY: -10, // moves the label above the bar; adjust this value as needed
+    style: {
+      fontSize: "7px",
+      colors: ["#737373"],
+    },
+    formatter: (value) => value.toFixed(props.decimals),
+  },
   xaxis: {
     categories: categories.value,
     type: "category",
@@ -110,7 +121,7 @@ const chartOptions = ref({
     markers: { fillColors: computedColors.value, radius: 12, strokeWidth: 1 },
   },
   tooltip: {
-    marker: { show: false },
+    marker: { show: true },
     shared: true,
     intersect: false,
     x: { show: true },

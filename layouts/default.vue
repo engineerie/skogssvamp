@@ -93,7 +93,9 @@
               felaktig
             </span>
           </BaseMessage> -->
-          <!-- <BaseThemeSwitch /> -->
+          <div class="h-8 flex items-center">
+            <BaseThemeSwitch />
+          </div>
         </div>
       </div>
     </div>
