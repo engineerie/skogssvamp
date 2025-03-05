@@ -1,10 +1,26 @@
 {
   "annotations": [
     {
-      "id": "kanteffekt",
-      "title": "Kanteffekt",
-      "text": "Beskrivning av kanteffekten.",
+      "id": "mykorrhizan_foljer",
+      "title": "Mykorrhizan följer trädens rötter",
+      "text": "Mykorrhizasvamparnas mycel på stubbens rötter tynar bort och  dör inom ett par månader - ett år efter avverkningen.",
+      "thumbnail": "/images/kalhygge.jpeg",
+      "icon": "i-heroicons-star-16-solid",
+      "color": "yellow-500",
+      "positions": [
+        {
+          "framework": ["trakthygge", "naturskydd"],
+          "time": ["efter", "före"]
+        }
+      ]
+    },
+    {
+      "id": "grupp_hansyn",
+      "title": "Grupp av hänsynsträd",
+      "text": "Mykorrhizasvamparnas mycel lever vidare i rötterna av hänsynsträdens rötter efter avverkning.",
       "thumbnail": "/images/Skogsbruk.png",
+      "icon": "i-heroicons-map-pin-solid",
+      "color": "green-500",
       "positions": [
         {
           "framework": "naturskydd",
@@ -22,7 +38,7 @@
         },
         {
           "framework": "trakthygge",
-          "time": "före",
+          "time": "efter",
           "x": 0.25,
           "y": 0.5,
           "placement": "LEFT"
@@ -30,17 +46,17 @@
       ]
     },
     {
-      "id": "annat-annotation",
-      "title": "Exempel Annotation",
-      "text": "Lite text om annotationen.",
-      "thumbnail": "/images/Skogsbruk.png",
+      "id": "stubbe",
+      "title": "Stubbe",
+      "text": "Mykorrhizasvamparnas mycel på stubbens rötter tynar bort och  dör inom ett par månader - ett år efter avverkningen.",
+      "thumbnail": "/images/kalhygge.jpeg",
       "positions": [
         {
           "framework": "trakthygge",
           "time": "efter",
           "x": 0.3,
           "y": 0.45,
-          "placement": "TOP_LEFT"
+          "placement": "LEFT"
         }
       ]
     }

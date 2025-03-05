@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="layoutMode === 'slider'"
     ref="container"
     class="relative w-full h-full overflow-hidden select-none"
     @mousedown="startDrag"
@@ -9,7 +10,7 @@
     <div class="absolute inset-0">
       <slot name="second" />
     </div>
-    <!-- "Before" slot: fully rendered but masked with clip-path -->
+    <!-- "Before" slot: rendered with a clip-path -->
     <div
       class="absolute inset-0 overflow-hidden"
       :style="{
@@ -27,12 +28,23 @@
       }"
     >
       <div
-        class="h-full w-[1px] bg-white bg-opacity-50 border border-gray-300"
+        class="h-full w-1 bg-white bg-opacity-50 border border-gray-300"
       ></div>
     </div>
   </div>
+  <div
+    v-else-if="layoutMode === 'side-by-side'"
+    class="flex w-full h-full gap-1"
+  >
+    <!-- In side-by-side mode, the images are simply rendered in two equal containers -->
+    <div class="w-1/2 h-full">
+      <slot name="first" />
+    </div>
+    <div class="w-1/2 h-full">
+      <slot name="second" />
+    </div>
+  </div>
 </template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 
@@ -50,6 +62,8 @@ function updateSliderPercent(e) {
 }
 
 function startDrag(e) {
+  // Only allow dragging in slider mode
+  if (layoutMode.value !== "slider") return;
   dragging = true;
   updateSliderPercent(e);
   window.addEventListener("mousemove", onDrag);
@@ -71,11 +85,25 @@ function stopDrag() {
   window.removeEventListener("touchend", stopDrag);
 }
 
+// New: Reactive layout mode and functions to set it.
+const layoutMode = ref("slider"); // "slider" or "side-by-side"
+function toggleLayoutMode() {
+  layoutMode.value = layoutMode.value === "slider" ? "side-by-side" : "slider";
+}
+function setLayoutMode(newMode) {
+  console.log("setLayoutMode called with:", newMode);
+  if (newMode === "slider" || newMode === "side-by-side") {
+    layoutMode.value = newMode;
+  }
+}
+
+// Expose both toggle and set functions.
+defineExpose({
+  toggleLayoutMode,
+  setLayoutMode,
+});
+
 onMounted(() => {
   sliderPercent.value = 0.5;
 });
 </script>
-
-<style scoped>
-/* Additional styling if needed */
-</style>

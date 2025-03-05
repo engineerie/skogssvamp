@@ -289,6 +289,15 @@
                   },
                 }"
               />
+              <div class="flex justify-end mb-2">
+                <UButton
+                  variant="ghost"
+                  color="primary"
+                  @click="toggleComparisonLayout"
+                >
+                  Toggle Layout
+                </UButton>
+              </div>
               <h1 class="text-sm text-neutral-500 mb-1">
                 <Icon name="heroicons:chart-bar-solid" class="" />
                 Artsammansättning
@@ -679,6 +688,7 @@
                 <!-- Framework Compare -->
                 <CustomImageComparisonSlider
                   v-else-if="isFrameworkCompareMode"
+                  ref="comparisonSliderRef"
                   class="w-full h-full"
                 >
                   <template #first>
@@ -760,7 +770,9 @@
                 :isFrameworkCompareMode="isFrameworkCompareMode"
               />
             </div>
-            <div class="p-2 rounded-lg bg-neutral-200/50 mt-1">
+            <div class="p-2 rounded-lg bg-neutral-200/50 mt-1 flex gap-1">
+              <!-- Timeline Info Box -->
+
               <TimelineInfoBox
                 :currentFramework="currentFramework"
                 :currentTime="timeLabelForDataFiltering"
@@ -773,6 +785,42 @@
                 :currentTimeLabel="currentTimeLabel"
                 @open-info="openSlideover"
               />
+
+              <!-- Annotations List -->
+              <div class="w-60">
+                <ul>
+                  <li
+                    v-for="annotation in filteredAnnotations"
+                    :key="annotation.id"
+                    class="mb-0.5"
+                  >
+                    <UPopover>
+                      <UButton color="white" size="xs" class="w-full">
+                        <template #leading>
+                          <Icon
+                            :name="annotation.icon"
+                            :class="['text-' + annotation.color]"
+                          />
+                        </template>
+
+                        {{ annotation.title }}
+                      </UButton>
+
+                      <template #panel>
+                        <div class="p-4">
+                          <img
+                            :src="annotation.thumbnail"
+                            alt="Annotation thumbnail"
+                            class="w-20 h-20 mb-2"
+                          />
+                          <h4 class="font-bold">{{ annotation.title }}</h4>
+                          <p>{{ annotation.text }}</p>
+                        </div>
+                      </template>
+                    </UPopover>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -794,6 +842,16 @@ import { useOnboardingStore } from "~/stores/onboardingStore";
 import SvampBarChart from "../../components/SvampBarChart.vue";
 import frameworkDescriptions from "public/frameworkDescriptions.json";
 import annotationsData from "public/annotations.json"; // NEW: import your annotations JSON
+
+// Make sure you have a ref attached to your CustomImageComparisonSlider:
+const comparisonSliderRef = ref(null);
+
+function toggleComparisonLayout() {
+  if (comparisonSliderRef.value && comparisonSliderRef.value.toggleLayoutMode) {
+    comparisonSliderRef.value.toggleLayoutMode();
+    console.log("Layout mode toggled");
+  }
+}
 
 const frameworkImage = computed(() => {
   const images = {
