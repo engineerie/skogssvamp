@@ -19,7 +19,7 @@
                 class="h-10 w-10"
               />
             </div>
-            <BaseHeading size="2xl" weight="light"> Var i Sverige </BaseHeading>
+            <h1 size="2xl" weight="light">Var i Sverige</h1>
           </div>
           <div class="relative p-6 pb-4 h-fit">
             <div>
@@ -42,7 +42,7 @@
                 >
                   {{ option.label }}
                 </label>
-                <BaseCheckbox
+                <UCheckbox
                   :id="'geography-' + option.value"
                   color="primary"
                   :model-value="selectedOptions.geography === option.value"
@@ -75,7 +75,7 @@
                 class="h-10 w-10"
               />
             </div>
-            <BaseHeading size="2xl" weight="light"> Var i Sverige </BaseHeading>
+            <h1 size="2xl" weight="light">Var i Sverige</h1>
           </div>
 
           <!-- Close Icon -->
@@ -101,7 +101,7 @@
             >
               <Icon name="lucide:trees" class="h-10 w-10" />
             </div>
-            <BaseHeading size="2xl" weight="light"> Skogstyp </BaseHeading>
+            <h1 size="2xl" weight="light">Skogstyp</h1>
           </div>
           <div class="relative p-6 pb-4 h-fit">
             <div>
@@ -124,7 +124,7 @@
                 >
                   {{ option.label }}
                 </label>
-                <BaseCheckbox
+                <UCheckbox
                   :id="'forestType-' + option.value"
                   color="primary"
                   :model-value="selectedOptions.forestType === option.value"
@@ -175,7 +175,7 @@
             >
               <Icon name="carbon:crop-growth" class="h-10 w-10" />
             </div>
-            <BaseHeading size="2xl" weight="light"> Beståndsålder </BaseHeading>
+            <h1 size="2xl" weight="light">Beståndsålder</h1>
           </div>
           <div class="relative p-6 pb-4 h-fit">
             <div>
@@ -198,7 +198,7 @@
                 >
                   {{ option.label }}
                 </label>
-                <BaseCheckbox
+                <UCheckbox
                   :id="'standAge-' + option.value"
                   color="primary"
                   :model-value="selectedOptions.standAge === option.value"
@@ -251,7 +251,7 @@
             >
               <Icon name="fluent-emoji-high-contrast:herb" class="h-10 w-10" />
             </div>
-            <BaseHeading size="2xl" weight="light"> Fältskikt </BaseHeading>
+            <h1 size="2xl" weight="light">Fältskikt</h1>
           </div>
           <div class="relative p-6 pb-4 h-fit">
             <div>
@@ -274,7 +274,7 @@
                 >
                   {{ option.label }}
                 </label>
-                <BaseCheckbox
+                <UCheckbox
                   :id="'vegetationType-' + option.value"
                   color="primary"
                   :model-value="selectedOptions.vegetationType === option.value"
@@ -319,22 +319,22 @@
     <!-- Navigation Buttons -->
     <div class="flex gap-4">
       <NuxtLink to="/mykorrhizasvampar">
-        <BaseButton color="default" size="lg" shape="full">
+        <UButton color="default" size="lg" shape="full">
           <span>Sök i karta</span>
           <Icon
             name="material-symbols:map-outline-rounded"
             class="-ms-1 size-6"
           />
-        </BaseButton>
+        </UButton>
       </NuxtLink>
       <NuxtLink :to="generateParams()" v-if="!isButtonDisabled()">
-        <BaseButton color="primary" size="lg" shape="full">
+        <UButton color="primary" size="lg" shape="full">
           <span>Gå till miljö</span>
           <Icon name="heroicons:arrow-right-16-solid" class="-ms-1 size-6" />
-        </BaseButton>
+        </UButton>
       </NuxtLink>
       <div v-else>
-        <BaseButton
+        <UButton
           color="primary"
           disabled
           size="lg"
@@ -344,7 +344,7 @@
         >
           <span>Gå till miljö</span>
           <Icon name="heroicons:arrow-right-16-solid" class="-ms-1 size-6" />
-        </BaseButton>
+        </UButton>
       </div>
     </div>
   </div>

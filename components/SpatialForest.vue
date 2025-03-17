@@ -12,7 +12,7 @@
         />
       </div>
     </div>
-    <BasePlaceload v-else class="h-20 w-32 mb-12 rounded-lg" />
+    <USkeleton v-else class="h-20 w-32 mb-12 rounded-lg" />
 
     <div class="hidden">
       <NuxtImg

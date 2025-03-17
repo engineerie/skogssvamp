@@ -1,115 +1,165 @@
 <template>
-  <BaseHeading size="sm" weight="thin" class="text-neutral-500 mt-4"
-    >Appfunktioner</BaseHeading
-  >
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
+  <h1 class="text-neutral-500 mt-4 text-xs">Appfunktioner</h1>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mb-6 mt-1">
+    <!-- First card: Mykorrhizasvampar -->
     <NuxtLink to="/mykorrhizasvampar">
       <div
-        class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
+        class="ring-1 shadow ring-neutral-200 rounded-3xl hover:bg-neutral-50 hover:ring-neutral-300 bg-white transition-all flex flex-col justify-between overflow-hidden"
       >
-        <div class="p-4">
-          <div class="flex gap-2 items-center text-neutral-900">
-            <icon name="lineicons:mushroom-1" class="h-6 w-6" />
-
-            <BaseHeading size="lg" weight="thin">
-              Sveriges mykorrhizasvampar
-            </BaseHeading>
-          </div>
-
-          <BaseHeading size="md" weight="medium" class="text-neutral-500 mt-2">
-            Se vilka arter som kan finnas olika i skogsmiljöer.
-          </BaseHeading>
+        <!-- Fixed height image section -->
+        <div
+          class="bg-primary-50/50 border-b w-full h-32 flex items-start overflow-hidden"
+        >
+          <img
+            class="w-full object-cover"
+            src="/images/SvamparSverige4.svg"
+            alt="Mykorrhizasvampar"
+          />
         </div>
-        <img src="/images/SvamparSverige4.svg" class="" />
+        <!-- Fixed height text section -->
+        <div class="p-4 relative h-28">
+          <UButton
+            icon="lineicons:mushroom-1"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            class="absolute -top-4"
+          />
+          <div class="flex gap-2 items-center text-neutral-900 mt-1">
+            <h1 class="text-md font-medium truncate">Mykorrhizasvampar</h1>
+          </div>
+          <h1 class="text-neutral-500 text-sm line-clamp-2">
+            Se vilka arter som kan finnas olika i skogsmiljöer.
+          </h1>
+        </div>
       </div>
     </NuxtLink>
 
+    <!-- Second card: Skogsskötsel -->
     <NuxtLink to="/skogsskotsel">
       <div
-        class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
+        class="ring-1 shadow ring-neutral-200 rounded-3xl hover:bg-neutral-50 hover:ring-neutral-300 bg-white transition-all flex flex-col justify-between overflow-hidden"
       >
-        <div class="p-4">
-          <div class="flex gap-2 items-center text-neutral-900">
-            <icon name="healthicons:forest-persons-outline" class="size-6" />
-            <BaseHeading size="lg" weight="thin"> Skogsskötsel </BaseHeading>
-          </div>
-
-          <BaseHeading
-            size="md"
-            weight="medium"
-            class="text-neutral-500 pr-12 mt-2"
-          >
-            Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
-          </BaseHeading>
+        <div
+          class="bg-primary-50/50 border-b w-full h-32 flex items-start overflow-hidden"
+        >
+          <img
+            class="w-full object-cover"
+            src="/images/Skogsskötsel4.svg"
+            alt="Skogsskötsel"
+          />
         </div>
-        <img src="/images/Skogsskötsel4.svg" class="" />
+        <div class="p-4 relative h-28">
+          <UButton
+            icon="healthicons:forest-persons-outline"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            class="absolute -top-4"
+          />
+          <div class="flex gap-2 items-center text-neutral-900 mt-1">
+            <h1 class="text-md font-medium truncate">Skogsskötsel</h1>
+          </div>
+          <h1 class="text-neutral-500 text-sm line-clamp-2">
+            Se hur olika sorters skogsskötsel påverkar mykorrhizasvampar.
+          </h1>
+        </div>
       </div>
     </NuxtLink>
-  </div>
-  <BaseHeading size="sm" weight="thin" class="text-neutral-500"
-    >Resurser</BaseHeading
-  >
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
     <NuxtLink to="/svampkunskap">
       <div
-        class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden"
+        class="ring-1 shadow ring-neutral-200 rounded-3xl hover:bg-neutral-50 hover:ring-neutral-300 bg-white transition-all flex flex-col justify-between overflow-hidden"
       >
-        <div class="p-4">
-          <div class="flex gap-2 items-center text-neutral-900">
-            <icon name="heroicons:book-open" class="h-6 w-6" />
-            <BaseHeading size="lg" weight="thin"> Svampkunskap </BaseHeading>
-          </div>
-
-          <BaseHeading size="md" weight="medium" class="text-neutral-500 mt-2">
-            Grundläggande kunskap om hur mykorrhizasvampar lever i marken.
-          </BaseHeading>
+        <div
+          class="bg-primary-50/50 border-b w-full h-32 flex items-start overflow-hidden"
+        >
+          <img
+            class="w-full object-cover"
+            src="/images/Svampkunskap3.svg"
+            alt="Svampkunskap"
+          />
         </div>
-        <div class="flex justify-center">
-          <img src="/images/Svampkunskap3.svg" class="mt-4" />
+        <div class="p-4 relative h-28">
+          <UButton
+            icon="heroicons:book-open"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            class="absolute -top-4"
+          />
+          <div class="flex gap-2 items-center text-neutral-900 mt-1">
+            <h1 class="text-md font-medium truncate">Svampkunskap</h1>
+          </div>
+          <h1 class="text-neutral-500 text-sm line-clamp-2">
+            Grundläggande kunskap om hur mykorrhizasvampar lever i marken.
+          </h1>
         </div>
       </div>
     </NuxtLink>
   </div>
-  <BaseHeading size="sm" weight="thin" class="text-neutral-500"
-    >Dokumentation</BaseHeading
-  >
 
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 mt-1">
+  <!-- <h1 class="text-neutral-500 text-sm">Resurser</h1>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mb-6 mt-1">
+  
+  </div> -->
+
+  <h1 class="text-neutral-500 text-xs">Dokumentation</h1>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mb-12 mt-1">
+    <!-- Fourth card: Dokumentation -->
     <NuxtLink to="/guide">
       <div
-        class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
+        class="ring-1 shadow ring-neutral-200 rounded-3xl hover:bg-neutral-50 hover:ring-neutral-300 bg-white transition-all flex flex-col justify-between overflow-hidden"
       >
-        <div class="p-4">
-          <div class="flex gap-2 items-center text-neutral-900">
-            <icon name="mdi:file-cog-outline" class="h-6 w-6" />
-            <BaseHeading size="lg" weight="thin"> Dokumentation </BaseHeading>
-          </div>
-
-          <BaseHeading size="md" weight="medium" class="text-neutral-500 mt-2">
-            Definitioner, källor och hur du bäst använder appen.
-          </BaseHeading>
+        <div
+          class="bg-primary-50/50 border-b w-full h-32 flex items-start overflow-hidden"
+        >
+          <img
+            class="w-full object-cover"
+            src="/images/Dokumentation.svg"
+            alt="Dokumentation"
+          />
         </div>
-        <div class="flex justify-center">
-          <img src="/images/Dokumentation.svg" class="mt-4" />
+        <div class="p-4 relative h-28">
+          <UButton
+            icon="mdi:file-cog-outline"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            class="absolute -top-4"
+          />
+          <div class="flex gap-2 items-center text-neutral-900 mt-1">
+            <h1 class="text-md font-medium truncate">Dokumentation</h1>
+          </div>
+          <h1 class="text-neutral-500 text-sm line-clamp-2">
+            Definitioner, källor och hur du bäst använder appen.
+          </h1>
         </div>
       </div>
     </NuxtLink>
+
+    <!-- Fifth card: Om projektet -->
     <NuxtLink to="/about">
       <div
-        class="ring-1 ring-neutral-200 rounded-xl hover:bg-neutral-50 bg-neutral-100 transition-all overflow-hidden h-72 flex flex-col justify-between"
+        class="ring-1 shadow ring-neutral-200 rounded-3xl hover:bg-neutral-50 hover:ring-neutral-300 bg-white transition-all flex flex-col justify-between overflow-hidden"
       >
-        <div class="p-4">
-          <div class="flex gap-2 items-center text-neutral-900">
-            <icon name="tabler:info-circle" class="h-6 w-6" />
-            <BaseHeading size="lg" weight="thin"> Om projektet </BaseHeading>
-          </div>
-
-          <BaseHeading size="md" weight="medium" class="text-neutral-500 mt-2">
-            Bakgrund och syfte med projektet.
-          </BaseHeading>
+        <div
+          class="bg-primary-50/50 border-b w-full h-32 flex items-start overflow-hidden"
+        >
+          <img
+            class="w-full object-cover"
+            src="/images/Projektet.svg"
+            alt="Om projektet"
+          />
         </div>
-        <div class="flex justify-center">
-          <img src="/images/Projektet.svg" class="mt-4" />
+        <div class="p-4 relative h-28">
+          <UButton
+            icon="tabler:info-circle"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            class="absolute -top-4"
+          />
+          <div class="flex gap-2 items-center text-neutral-900 mt-1">
+            <h1 class="text-md font-medium truncate">Om projektet</h1>
+          </div>
+          <h1 class="text-neutral-500 text-sm line-clamp-2">
+            Bakgrund och syfte med projektet.
+          </h1>
         </div>
       </div>
     </NuxtLink>

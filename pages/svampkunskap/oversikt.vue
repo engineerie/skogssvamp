@@ -6,12 +6,12 @@
       <div class="p-4">
         <div class="flex gap-2 items-center text-neutral-900">
           <icon name="heroicons:book-open" class="h-6 w-6" />
-          <BaseHeading size="lg" weight="thin"> Svampkunskap </BaseHeading>
+          <h1 size="lg" weight="thin">Svampkunskap</h1>
         </div>
 
-        <BaseHeading size="md" weight="medium" class="text-neutral-500 mt-2">
+        <h1 size="md" weight="medium" class="text-neutral-500 mt-2">
           Grundläggande kunskap om hur mykorrhizasvampar lever i marken.
-        </BaseHeading>
+        </h1>
       </div>
       <div class="flex justify-center">
         <img src="/images/Svampkunskap3.svg" class="mt-4" />

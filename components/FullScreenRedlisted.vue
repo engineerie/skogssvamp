@@ -1,60 +1,32 @@
 <template>
   <div>
-    <!-- Info box for selected row -->
-    <transition name="fade" mode="out-in">
-      <div
-        v-if="selectedRows.length > 0"
-        class="fixed w-80 h-72 rounded-xl bg-neutral-100 dark:bg-neutral-900 border dark:border-neutral-800 border-neutral-300 z-30 shadow-lg shadow-neutral-300 dark:shadow-neutral-900 cursor-grab active:cursor-grabbing"
-        :style="{ top: boxPosition.top + 'px', left: boxPosition.left + 'px' }"
-        @mousedown="startDrag($event)"
-        @mouseup="stopDrag"
-        @mousemove="drag($event)"
-      >
-        <NuxtImg
-          height="270"
-          src="/images/filtskinn.jpg"
-          class="rounded-t-xl mb-2 pointer-events-none"
+    <!-- Header with title, filters and view toggle -->
+    <div class="flex justify-between items-end">
+      <div class="flex gap-4">
+        <UIcon
+          name="material-symbols:award-star-outline"
+          class="h-10 w-10 text-teal-500 ml-4"
         />
 
-        <BaseButtonIcon
-          shape="full"
-          size="sm"
-          @click="closeInfoBox"
-          class="absolute top-2 right-2"
-        >
-          <Icon name="material-symbols:close" class="size-4" />
-        </BaseButtonIcon>
-
-        <div class="px-3 pt-1 pointer-events-none">
-          <BaseHeading size="lg" class="pointer-events-none">
-            {{ capitalize(selectedRows[0].Commonname) }}
-          </BaseHeading>
-          <BaseHeading weight="light" size="sm" class="pointer-events-none">
-            {{ selectedRows[0].Scientificname }}
-          </BaseHeading>
-        </div>
-      </div>
-    </transition>
-
-    <!-- Header with title, filters and view toggle -->
-    <div class="flex justify-between mb-2 items-end">
-      <div class="items-end flex cursor-default">
-        <div
-          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-teal-500 flex justify-center items-center"
-        >
-          <Icon name="material-symbols:award-star-outline" class="h-10 w-10" />
-        </div>
-
-        <BaseHeading
-          size="3xl"
-          weight="medium"
-          class="text-neutral-800 dark:text-neutral-300 mr-4"
-        >
+        <h1 class="text-neutral-800 dark:text-neutral-300 text-3xl">
           Naturvårdsarter
-        </BaseHeading>
+        </h1>
+        <UTabs
+          v-model="selectedIndex"
+          :items="items"
+          :ui="{
+            list: {
+              rounded: 'rounded-full',
+
+              marker: {
+                rounded: 'rounded-full',
+              },
+            },
+          }"
+        />
         <UBadge
           v-if="!isNormalView"
-          class="truncate"
+          class="truncate h-fit"
           size="lg"
           color="amber"
           variant="subtle"
@@ -64,254 +36,256 @@
             class="size-6 text-amber-500 mr-1"
           />Enligt samlad kunskap, främst var fruktkroppar förekommer
         </UBadge>
-        <BaseTabs
-          v-model="activeView"
-          :tabs="[
-            {
-              label: 'Galleri',
-              icon: 'i-heroicons-squares-2x2',
-              value: 'grid',
-            },
-            {
-              label: 'Lista',
-              icon: 'material-symbols:format-list-bulleted-rounded',
-              value: 'table',
-            },
-          ]"
-          class="ml-4 -mb-6 inline-flex align-bottom"
-        />
       </div>
 
       <!-- New: Grid/table view toggle -->
 
-      <div class="flex gap-2 items-end">
-        <div v-if="!props.isNormalView" class="w-20">
-          <BaseListbox
-            v-model="rowsPerPage"
-            :items="[10, 20, 30, 40, 50, 'Alla']"
-            placeholder="Rader per sida"
-            shape="full"
-            label="Rader"
-            label-float
-          />
-        </div>
-        <BaseListbox
-          class="w-44"
-          v-model="selectedMark"
-          :items="markOptions"
-          :properties="{ value: 'value', label: 'name', key: 'id' }"
-          placeholder="Välj marktyp"
-          shape="full"
-          label="Marktyp"
-          label-float
-        />
-        <BaseInput
-          v-if="!props.isNormalView"
-          icon="i-heroicons-magnifying-glass-20-solid"
-          v-model="searchQuery"
-          shape="full"
-          placeholder="Sök i tabell"
-          class="w-1/2"
-        />
-        <BaseButtonIcon
-          shape="full"
+      <div class="flex gap-2 items-end mb-2">
+        <UButton
+          size="lg"
+          :color="props.isNormalView ? 'white' : 'rose'"
+          :icon="
+            props.isNormalView
+              ? 'material-symbols:open-in-full'
+              : 'material-symbols:close-fullscreen'
+          "
+          :ui="{ rounded: 'rounded-full' }"
           @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
-        >
-          <Icon
-            v-if="props.isNormalView"
-            name="material-symbols:open-in-full"
-            class="size-5"
-          />
-          <Icon
-            v-else
-            name="material-symbols:close-fullscreen"
-            class="size-5"
-          />
-        </BaseButtonIcon>
+        />
       </div>
     </div>
 
     <!-- Main content: switch between table view and grid view -->
     <div
-      class="relative pt-3 backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      class="backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
+      <div class="flex gap-2 p-2 justify-end z-30" v-if="!isNormalView">
+        <USelectMenu
+          :ui="{ rounded: 'rounded-full' }"
+          v-model="rowsPerPage"
+          :options="[10, 20, 30, 40, 50, 'Alla']"
+          placeholder="Rader per sida"
+        />
+
+        <USelectMenu
+          v-model="selectedMark"
+          :options="markOptions"
+          placeholder="Välj marktyp"
+          label="Marktyp"
+          :ui="{ rounded: 'rounded-full' }"
+        />
+        <UInput
+          :ui="{ rounded: 'rounded-full' }"
+          icon="i-heroicons-magnifying-glass-20-solid"
+          v-model="searchQuery"
+          placeholder="Sök i tabell"
+        />
+      </div>
+
       <!-- TABLE VIEW -->
       <div v-if="isTableView">
-        <div v-if="filteredData" class="col-span-6 -mt-12">
-          <div class="h-fit">
-            <UTable
-              :loading="isLoading"
-              :loading-state="{
-                icon: 'i-heroicons-arrow-path-20-solid',
-                label: 'Laddar',
-              }"
-              class="min-h-[415px] mt-8"
-              :sort-button="{
-                color: 'text-neutral-700 dark:text-neutral-300',
-                size: 'xl',
-              }"
-              :ui="computedUITable"
-              :columns="selectedColumns"
-              :rows="paginatedData"
-              @select="selectRow"
-              v-model:sort="sort"
-              sort-mode="manual"
-              :key="route.fullPath"
-            >
-              <template #empty-state>
-                <div
-                  class="flex flex-col items-center justify-center py-6 gap-3"
+        <div v-if="filteredData" :class="[isNormalView ? '' : 'border-t']">
+          <UTable
+            :loading="isLoading"
+            :loading-state="{
+              icon: 'i-heroicons-arrow-path-20-solid',
+              label: 'Laddar',
+            }"
+            :class="{
+              'min-h-[415px]': isNormalView,
+              '': !isNormalView,
+            }"
+            :sort-button="{
+              color: 'text-neutral-700 dark:text-neutral-300',
+              size: 'xl',
+            }"
+            :ui="computedUITable"
+            :columns="selectedColumns"
+            :rows="paginatedData"
+            @select="selectRow"
+            v-model:sort="sort"
+            sort-mode="manual"
+            :key="route.fullPath"
+          >
+            <template #empty-state>
+              <div class="flex flex-col items-center justify-center py-6 gap-3">
+                <span class="italic text-sm">
+                  Inga naturvårdsarter att visa i denna miljön
+                </span>
+              </div>
+            </template>
+            <template #image-data="{ row }">
+              <NuxtImg
+                v-if="row.images && row.images.length"
+                :src="row.images[0]"
+                class="size-12 object-cover -my-4 rounded-lg border border-neutral-200"
+                alt="Species Image"
+                height="300"
+                width="450"
+                format="webp"
+              />
+              <div
+                v-else
+                class="size-12 -my-4 rounded-lg flex items-center justify-center bg-gray-200 dark:bg-gray-700"
+              >
+                <Icon
+                  name="material-symbols:photo"
+                  class="size-5 text-neutral-500"
+                />
+              </div>
+            </template>
+            <template #RL2020kat-data="{ row }">
+              <div class="flex items-center space-x-2">
+                <UBadge
+                  v-if="row.SIGNAL_art !== 'S'"
+                  color="rose"
+                  variant="subtle"
+                  size="xs"
+                  :label="
+                    row.RL2020kat !== 'Saknas'
+                      ? getStatusTooltip(row.RL2020kat)
+                      : 'Ej bedömd'
+                  "
+                />
+
+                <UBadge
+                  v-if="row.SIGNAL_art === 'S'"
+                  color="gray"
+                  variant="solid"
+                  size="xs"
+                  label="Signalart"
+                />
+                <!-- <div
+                  v-if="row.SIGNAL_art !== 'S'"
+                  :class="getStatusColor(row.RL2020kat)"
+                  class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0 max-w-12"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="
+                    row['RL2020kat'] !== 'Saknas'
+                      ? getStatusTooltip(row.RL2020kat)
+                      : 'Ej bedömd'
+                  "
                 >
-                  <span class="italic text-sm">
-                    Inga naturvårdsarter att visa i denna miljön
-                  </span>
+                  {{ getStatusAbbreviation(row.RL2020kat) }}
                 </div>
-              </template>
-              <template #RL2020kat-data="{ row }">
-                <div class="flex items-center space-x-2">
+                <div v-if="row.SIGNAL_art === 'S'" class="relative">
                   <div
-                    v-if="row.SIGNAL_art !== 'S'"
-                    :class="getStatusColor(row.RL2020kat)"
-                    class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0 max-w-12"
+                    class="h-8 w-8 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10"
                     data-nui-tooltip-position="right"
-                    :data-nui-tooltip="
-                      row['RL2020kat'] !== 'Saknas'
-                        ? getStatusTooltip(row.RL2020kat)
-                        : 'Ej bedömd'
-                    "
+                    :data-nui-tooltip="'Signalart'"
                   >
-                    {{ getStatusAbbreviation(row.RL2020kat) }}
+                    S
                   </div>
-                  <div v-if="row.SIGNAL_art === 'S'" class="relative">
-                    <div
-                      class="h-8 w-8 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10"
-                      data-nui-tooltip-position="right"
-                      :data-nui-tooltip="'Signalart'"
-                    >
-                      S
-                    </div>
-                  </div>
-                </div>
-              </template>
-              <template #Commonname-data="{ row }">
-                <div class="truncate">
-                  {{ capitalize(row.Commonname) }}
-                  <span
-                    class="italic text-neutral-400"
-                    v-if="props.isNormalView"
-                  >
-                    ({{ capitalize(row.Scientificname) }})
-                  </span>
-                </div>
-              </template>
-              <template #Scientificname-data="{ row }">
-                <div class="italic font-thin">{{ row.Scientificname }}</div>
-              </template>
-              <template #Mark-data="{ row }">
-                <div class="flex items-center space-x-1">
-                  <div v-if="row.KALKmark">
-                    <UBadge
-                      :ui="{ rounded: 'rounded-full' }"
-                      color="amber"
-                      variant="outline"
-                    >
-                      Kalkmark
-                    </UBadge>
-                  </div>
-                  <div v-if="row.ANNANmark">
-                    <UBadge
-                      :ui="{ rounded: 'rounded-full' }"
-                      color="emerald"
-                      variant="outline"
-                    >
-                      Vanlig skogsmark
-                    </UBadge>
-                  </div>
-                </div>
-              </template>
-              <template #OVANLIGHET-data="{ row }">
-                <div
-                  v-if="row.OVANLIGHET == 2"
-                  data-nui-tooltip-position="left"
-                  :data-nui-tooltip="'Väldigt sällsynt'"
-                  class="ml-2"
-                >
-                  <Icon
-                    name="material-symbols:star-rounded"
-                    class="w-8 h-8 text-teal-500"
-                  />
-                </div>
-              </template>
-              <template #Svamp-grupp-data="{ row }">
-                <div
-                  data-nui-tooltip-position="left"
-                  :data-nui-tooltip="capitalize(row['Svamp-grupp'])"
-                  class="ml-2"
-                >
-                  <NuxtImg
-                    :src="getIconPath(row['Svamp-grupp'])"
-                    class="w-5"
-                    alt="Svamp Icon"
-                  />
-                </div>
-              </template>
-              <template #RankRed-data="{ row }">
-                <div class="px-2 w-32">
-                  <UProgress
-                    max="3"
-                    :value="getInvertedRankValue(row.RankRed)"
-                    :color="getColorForRank(row.RankRed)"
-                    size="md"
-                    data-nui-tooltip-position="right"
-                    :data-nui-tooltip="getRankTooltip(row.RankRed)"
-                  />
-                </div>
-              </template>
-            </UTable>
-            <div
-              class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-800"
-            >
-              <div>
-                <BaseProse class="text-sm">
-                  Visar {{ startItem }} till {{ endItem }} av
-                  {{ totalItems }} arter
-                </BaseProse>
+                </div> -->
               </div>
-              <div v-if="rowsPerPage !== 'Alla'">
-                <UPagination
-                  :max="2"
-                  v-model="page"
-                  :page-count="rowsPerPage"
-                  :total="totalItems"
-                  :ui="{
-                    wrapper: 'flex items-center gap-1',
-                    rounded: '!rounded-full min-w-[32px] justify-center px-4',
-                    default: {},
-                  }"
-                  size="lg"
-                >
-                  <template #prev="{ onClick }">
-                    <UButton
-                      icon="i-heroicons-chevron-left-20-solid"
-                      size="lg"
-                      color="white"
-                      :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                      class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
-                      @click="onClick"
-                    />
-                  </template>
-                  <template #next="{ onClick }">
-                    <UButton
-                      icon="i-heroicons-chevron-right-20-solid"
-                      size="lg"
-                      color="white"
-                      :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
-                      class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
-                      @click="onClick"
-                    />
-                  </template>
-                </UPagination>
+            </template>
+            <template #Commonname-data="{ row }">
+              <div class="truncate">
+                {{ capitalize(row.Commonname) }}
+                <span class="italic text-neutral-400" v-if="props.isNormalView">
+                  ({{ capitalize(row.Scientificname) }})
+                </span>
               </div>
+            </template>
+            <template #Scientificname-data="{ row }">
+              <div class="italic text-neutral-400">
+                {{ row.Scientificname }}
+              </div>
+            </template>
+            <template #Mark-data="{ row }">
+              <div class="flex items-center space-x-1">
+                <div v-if="row.KALKmark">
+                  <UBadge color="amber" variant="subtle"> Kalkmark </UBadge>
+                </div>
+                <div v-if="row.ANNANmark">
+                  <UBadge color="emerald" variant="subtle">
+                    Vanlig skogsmark
+                  </UBadge>
+                </div>
+              </div>
+            </template>
+            <template #OVANLIGHET-data="{ row }">
+              <div
+                v-if="row.OVANLIGHET == 2"
+                data-nui-tooltip-position="left"
+                :data-nui-tooltip="'Väldigt sällsynt'"
+                class="ml-2"
+              >
+                <Icon
+                  name="material-symbols:star-rounded"
+                  class="w-8 h-8 text-teal-500"
+                />
+              </div>
+            </template>
+            <template #Svamp-grupp-data="{ row }">
+              <div
+                data-nui-tooltip-position="left"
+                :data-nui-tooltip="capitalize(row['Svamp-grupp'])"
+                class="ml-2"
+              >
+                <NuxtImg
+                  :src="getIconPath(row['Svamp-grupp'])"
+                  class="w-5"
+                  alt="Svamp Icon"
+                />
+              </div>
+            </template>
+            <template #RankRed-data="{ row }">
+              <div class="px-2 w-32">
+                <UProgress
+                  max="3"
+                  :value="getInvertedRankValue(row.RankRed)"
+                  :color="getColorForRank(row.RankRed)"
+                  size="md"
+                  data-nui-tooltip-position="right"
+                  :data-nui-tooltip="getRankTooltip(row.RankRed)"
+                />
+              </div>
+            </template>
+          </UTable>
+          <div
+            class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-800"
+          >
+            <div>
+              <p class="text-sm">
+                Visar {{ startItem }} till {{ endItem }} av
+                {{ totalItems }} arter
+              </p>
+            </div>
+            <div v-if="rowsPerPage !== 'Alla'">
+              <UPagination
+                :max="2"
+                v-model="page"
+                :page-count="rowsPerPage"
+                :total="totalItems"
+                :ui="{
+                  wrapper: 'flex items-center gap-1',
+                  rounded: '!rounded-full min-w-[32px] justify-center px-4',
+                  default: {},
+                }"
+                size="lg"
+              >
+                <template #prev="{ onClick }">
+                  <UButton
+                    icon="i-heroicons-chevron-left-20-solid"
+                    size="lg"
+                    color="white"
+                    :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                    class="rtl:[&_span:first-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                    @click="onClick"
+                  />
+                </template>
+                <template #next="{ onClick }">
+                  <UButton
+                    icon="i-heroicons-chevron-right-20-solid"
+                    size="lg"
+                    color="white"
+                    :ui="{ rounded: 'rounded-full dark:border-neutral-800' }"
+                    class="rtl:[&_span:last-child]:rotate-180 dark:bg-neutral-900 border-[0.5px]"
+                    @click="onClick"
+                  />
+                </template>
+              </UPagination>
             </div>
           </div>
         </div>
@@ -321,8 +295,8 @@
       <div v-else>
         <div
           :class="[
-            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1  min-h-[399px] overflow-scroll',
-            props.isNormalView ? 'md:grid-cols-6' : 'md:grid-cols-6',
+            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 min-h-[399px] overflow-scroll',
+            props.isNormalView ? 'md:grid-cols-6' : 'md:grid-cols-6 border-t',
           ]"
         >
           <div
@@ -352,7 +326,7 @@
                 />
               </div>
               <div class="absolute bottom-2 left-2 flex gap-1">
-                <div
+                <!-- <div
                   v-if="row.SIGNAL_art !== 'S'"
                   :class="getStatusColor(row.RL2020kat)"
                   class="h-8 w-8 rounded-full flex items-center justify-center text-white z-0 max-w-12"
@@ -364,16 +338,26 @@
                   "
                 >
                   {{ getStatusAbbreviation(row.RL2020kat) }}
-                </div>
-                <div v-if="row.SIGNAL_art === 'S'" class="relative">
-                  <div
-                    class="h-8 w-8 rounded-full bg-neutral-500 opacity-100 flex items-center justify-center text-white z-10"
-                    data-nui-tooltip-position="right"
-                    :data-nui-tooltip="'Signalart'"
-                  >
-                    S
-                  </div>
-                </div>
+                </div> -->
+                <UBadge
+                  v-if="row.SIGNAL_art !== 'S'"
+                  color="rose"
+                  variant="subtle"
+                  size="xs"
+                  :label="
+                    row.RL2020kat !== 'Saknas'
+                      ? getStatusTooltip(row.RL2020kat)
+                      : 'Ej bedömd'
+                  "
+                />
+
+                <UBadge
+                  v-if="row.SIGNAL_art === 'S'"
+                  color="gray"
+                  variant="solid"
+                  size="xs"
+                  label="Signalart"
+                />
               </div>
             </div>
             <!-- Species Names -->
@@ -397,10 +381,10 @@
           class="flex justify-between items-center p-5 border-t border-neutral-200 dark:border-neutral-800"
         >
           <div>
-            <BaseProse class="text-sm">
+            <p class="text-sm">
               Visar {{ gridStartItem }} till {{ gridEndItem }} av
               {{ totalItems }} arter
-            </BaseProse>
+            </p>
           </div>
           <div>
             <UPagination
@@ -448,22 +432,49 @@ import { ref, computed, reactive, onMounted, onUnmounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
 
-console.log("FullscreenRedlisted setup started");
+const items = [
+  {
+    label: "Galleri",
+    icon: "i-heroicons-squares-2x2",
+    value: "grid",
+  },
+  {
+    label: "Tabell",
+    icon: "material-symbols:table-outline",
+    value: "table",
+  },
+];
 
 // --- View Toggle ---
 const activeView = ref("grid");
 const isTableView = computed(() => activeView.value === "table");
+
+// Create a computed property that converts between the index and the custom value
+const selectedIndex = computed({
+  get() {
+    // Find the index of the active tab value in the items array.
+    const index = items.findIndex((item) => item.value === activeView.value);
+    return index === -1 ? 0 : index;
+  },
+  set(index) {
+    // Update your custom active tab value based on the new index.
+    activeView.value = items[index].value;
+  },
+});
 
 // --- Props and UI Config ---
 const props = defineProps({ isNormalView: Boolean });
 console.log("isNormalView in FullscreenRedlisted:", props.isNormalView);
 
 const computedUITable = computed(() => ({
-  thead:
-    "sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-50",
+  thead: !props.isNormalView
+    ? "sticky top-12 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-10"
+    : " bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-10",
+  wrapper: { base: "" },
+
   td: {
     base: "",
-    padding: "py-5 pl-6",
+    padding: "py-6 pl-6",
     size: "text-md",
     color: "text-neutral-500 dark:text-neutral-400",
   },
@@ -644,9 +655,9 @@ const searchQuery = ref("");
 const page = ref(1);
 const rowsPerPage = ref(props.isNormalView ? 5 : 10);
 const markOptions = [
-  { id: "all", name: "Alla marker", value: null },
-  { id: "kalkmark", name: "Kalkmark", value: "KALKmark" },
-  { id: "annanmark", name: "Vanlig skogsmark", value: "ANNANmark" },
+  { id: "all", label: "Alla marker", value: null },
+  { id: "kalkmark", label: "Kalkmark", value: "KALKmark" },
+  { id: "annanmark", label: "Vanlig skogsmark", value: "ANNANmark" },
 ];
 const selectedMark = ref(markOptions[0]);
 const filteredData = computed(() => {
@@ -732,6 +743,13 @@ const gridEndItem = computed(() =>
 );
 
 const sort = ref({ column: "", direction: "asc" });
+
+const imageColumn = {
+  key: "image",
+  label: "",
+  sortable: false,
+};
+
 const columns = [
   {
     key: "RL2020kat",
@@ -759,7 +777,7 @@ const columns = [
     label: "Grupp",
     sortable: props.isNormalView ? false : true,
   },
-  { key: "RankRed", label: "Antal fynd", sortable: false },
+  { key: "RankRed", label: "Antal fynd", sortable: true },
 ];
 const isRare = ref(false);
 const toggleRare = () => {
@@ -767,12 +785,15 @@ const toggleRare = () => {
 };
 const selectedColumns = computed(() =>
   [
+    imageColumn,
     columns[0],
     columns[1],
     !props.isNormalView ? columns[2] : null,
+
     columns[3],
     isRare.value ? columns[4] : null,
     columns[5],
+
     !props.isNormalView ? columns[6] : null,
   ].filter((col) => col !== null)
 );

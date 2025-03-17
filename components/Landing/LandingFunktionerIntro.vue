@@ -9,13 +9,13 @@
         >
           <Icon name="mingcute:mushroom-line" class="h-6 w-6" />
         </div>
-        <BaseHeading weight="normal" size="lg" class="mb-2">
+        <h1 weight="normal" size="lg" class="mb-2">
           Svamparter i olika skogar
-        </BaseHeading>
-        <BaseHeading weight="light" size="md" class="mb-4 text-neutral-500">
+        </h1>
+        <h1 weight="light" size="md" class="mb-4 text-neutral-500">
           Ta del av nysammanställd information om vilka svampar som finns i
           olika skogsmiljöer.
-        </BaseHeading>
+        </h1>
         <Icon name="lucide:arrow-right" class="h-5 w-5" />
       </div>
     </NuxtLink>
@@ -28,13 +28,11 @@
         >
           <Icon name="jam:tree" class="h-7 w-7" />
         </div>
-        <BaseHeading weight="normal" size="lg" class="mb-2">
-          Skogsskötsel
-        </BaseHeading>
-        <BaseHeading weight="light" size="md" class="mb-4 text-neutral-500">
+        <h1 weight="normal" size="lg" class="mb-2">Skogsskötsel</h1>
+        <h1 weight="light" size="md" class="mb-4 text-neutral-500">
           Lär dig om hur svampar och träd hänger ihop, och se hur marksvampar
-          påverkas vid och efter avverkning.</BaseHeading
-        >
+          påverkas vid och efter avverkning.
+        </h1>
         <Icon name="lucide:arrow-right" class="h-5 w-5" />
       </div>
     </NuxtLink>

@@ -45,21 +45,21 @@
           Giftsvampar
         </UBadge>
       </div>
-      <BaseHeading
+      <h1
         size=""
         class="text-neutral-950 dark:text-neutral-200 text-xl md:text-2xl"
       >
         Samlad kunskap från fruktkroppar
-      </BaseHeading>
-      <!-- <BaseHeading
+      </h1>
+      <!-- <h1
         lead="tight"
         size="2xl"
         class="text-primary-500 dark:text-neutral-200 mb-1"
       >
         från fruktkroppsfynd
-      </BaseHeading> -->
+      </h1> -->
       <!-- Description -->
-      <BaseHeading
+      <h1
         weight="semi-bold"
         size=""
         class="text-neutral-500 dark:text-neutral-400 mb-6 text-md md:text-lg"
@@ -68,15 +68,15 @@
         om fruktkroppar. Här har vi sammanställt sådan information om mat- och
         giftsvampar samt naturvårdsintressanta svampar (rödlistade och
         signalarter).
-      </BaseHeading>
+      </h1>
       <div class="flex items-start">
         <!-- Navigation Buttons -->
         <!-- <div class="flex gap-4">
           <NuxtLink to="/mykorrhizasvampar">
-            <BaseButton color="primary" size="md" shape="full">
+            <UButton color="primary" size="md" shape="full">
               <Icon name="mdi:file-cog-outline" class="-ms-1 mr-1 size-5" />
               <span>Läs dokumentation</span>
-            </BaseButton>
+            </UButton>
           </NuxtLink>
         </div> -->
       </div>

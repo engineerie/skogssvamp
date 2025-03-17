@@ -1,17 +1,17 @@
 <!-- SpeciesInfo.vue -->
 <template>
-  <div class="w-full pt-16 relative overflow-scroll">
+  <div class="w-full relative overflow-scroll">
     <!-- Top Heading Bar -->
-    <div class="absolute top-0 w-full z-50 bg-white flex justify-between">
-      <BaseHeading size="3xl" weight="thin" lead="snug" class="pt-3 pb-2 px-6">
+    <!-- <div class="absolute top-0 w-full z-50 flex justify-between">
+      <h1 class="pt-3 pb-2 px-6 text-3xl">
         {{ capitalize(species.Commonname) }}
-      </BaseHeading>
-    </div>
+      </h1>
+    </div> -->
 
     <!-- Images Section -->
     <div
       v-if="imageUrls.length > 1"
-      class="group mx-4 mb-0 rounded-md overflow-hidden z-40"
+      class="group rounded-xl overflow-hidden m-2"
     >
       <UCarousel
         v-slot="{ item }"
@@ -29,57 +29,51 @@
         }"
         arrows
       >
-        <div class="w-full">
+        <div class="w-full relative">
           <NuxtImg
             :src="item"
-            class="w-full rounded-md border border-neutral-300"
+            class="w-full rounded-xl border border-neutral-300"
             draggable="false"
             height="300"
             width="450"
             format="webp"
           />
-          <div
-            class="flex bg-white w-full justify-end px-2 py-1 items-center rounded-b"
-          >
-            <BaseHeading weight="light" size="sm" class="text-neutral-700">
-              Foto:
-            </BaseHeading>
-            <Icon name="ph:copyright" class="h-4 w-4 mx-1" />
-            <BaseHeading weight="light" size="sm" class="text-neutral-700">
-              Michael Krikorev
-            </BaseHeading>
+          <div class="absolute bottom-0 right-0 justify-end p-2 items-center">
+            <UBadge color="gray" :ui="{ rounded: 'rounded-lg' }">
+              <h1 weight="light" size="sm" class="">Foto:</h1>
+              <Icon name="ph:copyright" class="h-4 w-4 mx-1" />
+              <h1 weight="light" size="sm" class="">
+                Michael Krikorev
+              </h1></UBadge
+            >
           </div>
         </div>
       </UCarousel>
     </div>
     <div
       v-else-if="imageUrls.length === 1"
-      class="mx-4 mb-0 rounded-md overflow-hidden z-40"
+      class="m-2 rounded-xl overflow-hidden relative group"
     >
       <NuxtImg
         :src="imageUrls[0]"
-        class="w-full rounded-md border border-neutral-300"
+        class="w-full rounded-xl border border-neutral-300"
         draggable="false"
         height="300"
         width="450"
         format="webp"
       />
-      <div
-        class="flex bg-white w-full justify-end px-2 py-1 items-center rounded-b"
-      >
-        <BaseHeading weight="light" size="sm" class="text-neutral-700">
-          Foto:
-        </BaseHeading>
-        <Icon name="ph:copyright" class="h-4 w-4 mx-1" />
-        <BaseHeading weight="light" size="sm" class="text-neutral-700">
-          Michael Krikorev
-        </BaseHeading>
+      <div class="absolute bottom-0 right-0 justify-end p-2 items-center">
+        <UBadge color="gray" :ui="{ rounded: 'rounded-lg' }">
+          <h1 weight="light" size="sm" class="">Foto:</h1>
+          <Icon name="ph:copyright" class="h-4 w-4 mx-1" />
+          <h1 weight="light" size="sm" class="">Michael Krikorev</h1></UBadge
+        >
       </div>
     </div>
     <div v-else>
       <!-- Placeholder image section -->
       <div
-        class="mx-4 relative pb-[56.25%] bg-transparent border border-neutral-300 rounded-md cursor-pointer"
+        class="m-2 relative pb-[230px] bg-transparent border border-neutral-300 rounded-xl cursor-pointer"
         style="
           background-image: repeating-linear-gradient(
             -45deg,
@@ -93,11 +87,9 @@
     </div>
 
     <!-- Content Section -->
-    <div class="px-6 pb-3">
-      <BaseHeading size="lg">{{ capitalize(species.Commonname) }}</BaseHeading>
-      <BaseHeading weight="light" size="sm">{{
-        species.Scientificname
-      }}</BaseHeading>
+    <div class="px-4 pb-3">
+      <h1 class="text-2xl font-medium">{{ capitalize(species.Commonname) }}</h1>
+      <h1 class="text-neutral-600">{{ species.Scientificname }}</h1>
 
       <!-- Svamp-grupp Icon and Name -->
       <div
@@ -111,9 +103,9 @@
           class="w-5"
           alt="Svamp Icon"
         />
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ capitalize(displayedSvampGrupp) }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <!-- Matsvamp indicator -->
@@ -125,7 +117,7 @@
           name="icon-park-solid:knife-fork"
           class="h-7 w-7 text-yellow-500 -my-2"
         />
-        <BaseHeading size="md" weight="light">Matsvamp</BaseHeading>
+        <h1 size="md" weight="light">Matsvamp</h1>
       </div>
 
       <!-- Giftsvamp indicator -->
@@ -134,7 +126,7 @@
         v-if="species.Giftsvamp === 'x'"
       >
         <Icon name="hugeicons:danger" class="h-7 w-7 text-lime-500 -my-2" />
-        <BaseHeading size="md" weight="light">Giftsvamp</BaseHeading>
+        <h1 size="md" weight="light">Giftsvamp</h1>
       </div>
 
       <!-- SIGNAL_art indicator -->
@@ -147,7 +139,7 @@
         >
           S
         </div>
-        <BaseHeading size="md" weight="light">Signalart</BaseHeading>
+        <h1 size="md" weight="light">Signalart</h1>
       </div>
 
       <!-- RL2020kat Status Badge -->
@@ -158,30 +150,18 @@
         >
           {{ getStatusAbbreviation(species.RL2020kat) }}
         </div>
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ getStatusTooltip(species.RL2020kat) }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <!-- Kalkmark and Vanlig Skogsmark Badges -->
       <div class="flex items-center space-x-2 mt-3">
         <div v-if="species.KALKmark">
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            color="amber"
-            variant="outline"
-          >
-            Kalkmark
-          </UBadge>
+          <UBadge color="amber" variant="subtle"> Kalkmark </UBadge>
         </div>
         <div v-if="species.ANNANmark">
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            color="emerald"
-            variant="outline"
-          >
-            Vanlig skogsmark
-          </UBadge>
+          <UBadge color="emerald" variant="subtle"> Vanlig skogsmark </UBadge>
         </div>
       </div>
 
@@ -196,7 +176,7 @@
         v-if="species.ekologi"
         @click="toggleExpandEkologi"
       >
-        <BaseHeading size="lg" weight="medium">Ekologi</BaseHeading>
+        <h1 size="lg" weight="medium">Ekologi</h1>
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -211,9 +191,9 @@
         v-if="species.ekologi"
         @click="toggleExpandEkologi"
       >
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ truncatedTextEkologi }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <hr class="my-2" v-if="species.Kriteriedokumentation" />
@@ -224,9 +204,7 @@
         v-if="species.Kriteriedokumentation"
         @click="toggleExpand"
       >
-        <BaseHeading size="lg" weight="medium">
-          Dokumentation i rödlistan
-        </BaseHeading>
+        <h1 size="lg" weight="medium">Dokumentation i rödlistan</h1>
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -241,15 +219,15 @@
         v-if="species.Kriteriedokumentation"
         @click="toggleExpand"
       >
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ truncatedText }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <hr class="my-2" v-if="species.Kriteriedokumentation" />
 
       <!-- Links Section -->
-      <BaseHeading size="md" weight="medium">Länkar</BaseHeading>
+      <h1 size="md" weight="medium">Länkar</h1>
       <NuxtLink
         v-if="species.Artfakta != 'Information saknas'"
         :to="stripDetailsFromURL(species.Artfakta)"
@@ -271,7 +249,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, computed } from "vue";
 
 const props = defineProps({
@@ -307,18 +285,18 @@ const truncatedTextEkologi = computed(() => {
 });
 
 // Utility functions
-const capitalize = (str: string): string => {
+const capitalize = (str) => {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-const stripDetailsFromURL = (url: string): string => {
+const stripDetailsFromURL = (url) => {
   if (!url) return "";
   return url.replace("/detaljer", "").replace("/artinformation", "");
 };
 
-const getStatusAbbreviation = (status: string): string => {
-  const abbreviations: Record<string, string> = {
+const getStatusAbbreviation = (status) => {
+  const abbreviations = {
     LC: "LC",
     NT: "NT",
     EN: "EN",
@@ -330,8 +308,8 @@ const getStatusAbbreviation = (status: string): string => {
   return abbreviations[status] || "NE";
 };
 
-const getStatusColor = (status: string): string => {
-  const colors: Record<string, string> = {
+const getStatusColor = (status) => {
+  const colors = {
     LC: "bg-green-500",
     NT: "bg-[#D7838E]",
     EN: "bg-[#C4004F]",
@@ -343,8 +321,8 @@ const getStatusColor = (status: string): string => {
   return colors[status] || "bg-neutral-300";
 };
 
-const getStatusTooltip = (status: string): string => {
-  const tooltips: Record<string, string> = {
+const getStatusTooltip = (status) => {
+  const tooltips = {
     LC: "Livskraftig",
     NT: "Nära hotad",
     EN: "Starkt hotad",
@@ -356,10 +334,10 @@ const getStatusTooltip = (status: string): string => {
   return tooltips[status] || "Ej bedömd";
 };
 
-const getIconPath = (primary: string, fallback?: string): string => {
+const getIconPath = (primary, fallback) => {
   // If primary is "0", use the fallback value
   const group = primary === "0" && fallback ? fallback : primary;
-  const iconMapping: Record<string, string> = {
+  const iconMapping = {
     övrigt: "BasilOther1Solid.png",
     hattsvamp: "hattsvamp.png",
     kantarell: "kantarell.webp",
@@ -380,7 +358,3 @@ const displayedSvampGrupp = computed(() => {
     : props.species["Svamp-grupp"];
 });
 </script>
-
-<style scoped>
-/* You can add component-specific styles here if needed */
-</style>

@@ -51,7 +51,10 @@
       <div
         class="p-4 bg-white rounded-2xl shadow-neutral-300 shadow-[-1px_1px_4px_0px]"
       >
-        <EdnaComponent @enlarge="emitEnlarge('FullScreenEdna')" />
+        <EdnaComponent
+          :isNormalView="true"
+          @enlarge="emitEnlarge('FullScreenEdna')"
+        />
       </div>
       <!-- </div>
       </div> -->
@@ -70,7 +73,7 @@
           },
         }"
       >
-        <BaseHeading
+        <h1
           size="md"
           weight="thin"
           class="text-neutral-500 dark:text-neutral-200"
@@ -92,7 +95,7 @@
           /></span>
           giftsvampar bygger på samlad kunskap, framförallt var svamparnas
           fruktkroppar förekommer.
-        </BaseHeading>
+        </h1>
       </UDivider>
     </div> -->
     <!-- folder tab here that connects to the div beneath -->
@@ -178,11 +181,7 @@
 </template>
 
 <script setup>
-import EnvironmentImage from "./EnvironmentImage.vue";
-import SpeciesCount from "./SpeciesCount.vue";
 import EdnaComponent from "./EdnaComponent.vue";
-import Edible from "./Edible.vue";
-import Redlisted from "./Redlisted.vue";
 import { useRoute } from "vue-router";
 import EnvImgInfo from "./EnvImgInfo.vue";
 const route = useRoute();

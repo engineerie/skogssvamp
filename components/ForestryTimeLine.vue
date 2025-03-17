@@ -21,21 +21,21 @@
         <div
           class="p-6 w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-neutral-200 rounded-xl"
         >
-          <BaseHeading
+          <h1
             size="md"
             weight="thin"
             lead="tight"
             class="text-neutral-800 mb-2 dark:text-white"
           >
             {{ step.title }}
-          </BaseHeading>
+          </h1>
 
-          <BaseParagraph size="sm" lead="tight" class="text-muted-400">
+          <p size="sm" lead="tight" class="text-muted-400">
             <strong>Skog:</strong> {{ step.forestDescription }}
-          </BaseParagraph>
-          <BaseParagraph size="sm" lead="tight" class="text-muted-400 mt-2">
+          </p>
+          <p size="sm" lead="tight" class="text-muted-400 mt-2">
             <strong>Svamp:</strong> {{ step.mushroomDescription }}
-          </BaseParagraph>
+          </p>
         </div>
       </div>
     </div>

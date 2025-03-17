@@ -31,9 +31,9 @@
           <div class="size-5">
             <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
           </div>
-          <BaseHeading size="sm" weight="thin" class="text-neutral-500">
+          <h1 size="sm" weight="thin" class="text-neutral-500">
             {{ step.skog }}
-          </BaseHeading>
+          </h1>
         </div>
         <div class="flex gap-2 mb-2 items-baseline">
           <div class="size-5">
@@ -42,9 +42,9 @@
               class="w-5 h-5 icon text-primary-500"
             />
           </div>
-          <BaseHeading size="sm" weight="thin" class="text-neutral-500">
+          <h1 size="sm" weight="thin" class="text-neutral-500">
             {{ step.svamp }}
-          </BaseHeading>
+          </h1>
         </div>
       </div>
     </div>

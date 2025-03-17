@@ -4,12 +4,9 @@
       name="material-symbols:info-rounded"
       class="h-9 w-9 text-green-500 mr-2"
     />
-    <BaseHeading
-      size="2xl"
-      weight="thin"
-      class="text-neutral-800 dark:text-neutral-200"
-      >Information om sidan</BaseHeading
-    >
+    <h1 size="2xl" weight="thin" class="text-neutral-800 dark:text-neutral-200">
+      Information om sidan
+    </h1>
   </div>
   <DefinitionerSvampData />
 </template>

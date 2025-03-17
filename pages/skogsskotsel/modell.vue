@@ -21,13 +21,13 @@
         <div class="p-6 pt-3">
           <div class="flex gap-6">
             <div class="w-[336px]">
-              <BaseHeading size="3xl" weight="thin" lead="snug" class="mb-2">
+              <h1 size="3xl" weight="thin" lead="snug" class="mb-2">
                 {{
                   selectedTabKey === "framework1"
                     ? currentFramework.label
                     : currentFramework2.label
                 }}
-              </BaseHeading>
+              </h1>
               <NuxtImg
                 :src="
                   selectedTabKey === 'framework1'
@@ -40,32 +40,22 @@
                 height="320"
                 format="webp"
               />
-              <BaseHeading size="lg" weight="medium">Om metoden</BaseHeading>
-              <BaseHeading
-                weight="thin"
-                size="md"
-                class="text-neutral-500 mb-2"
-              >
+              <h1 size="lg" weight="medium">Om metoden</h1>
+              <h1 weight="thin" size="md" class="text-neutral-500 mb-2">
                 {{
                   selectedTabKey === "framework1"
                     ? modalInfo.description
                     : modalInfo2.description
                 }}
-              </BaseHeading>
-              <BaseHeading size="lg" weight="medium">
-                Påverkan på mykorrhizasvampar
-              </BaseHeading>
-              <BaseHeading
-                weight="thin"
-                size="md"
-                class="text-neutral-500 mb-2"
-              >
+              </h1>
+              <h1 size="lg" weight="medium">Påverkan på mykorrhizasvampar</h1>
+              <h1 weight="thin" size="md" class="text-neutral-500 mb-2">
                 {{
                   selectedTabKey === "framework1"
                     ? modalInfo.impact
                     : modalInfo2.impact
                 }}
-              </BaseHeading>
+              </h1>
               <FullFrameworkTimeline
                 :frameworkValue="
                   selectedTabKey === 'framework1'
@@ -91,7 +81,7 @@
               <Icon
                 :name="currentFramework.icon"
                 :class="[
-                  'icon size-7 transition-all duration-300',
+                  'icon size-6 transition-all duration-300',
                   currentFramework.iconColor,
                 ]"
               />
@@ -101,13 +91,13 @@
                   :ui="{ rounded: 'rounded-xl' }"
                   :popper="{ placement: 'bottom-start' }"
                 >
-                  <BaseHeading
-                    size="3xl"
-                    weight="semi-bold"
-                    class="text-neutral-800"
-                  >
+                  <h1 class="text-neutral-800 text-2xl flex items-center">
                     {{ currentFramework.label }}
-                  </BaseHeading>
+                    <Icon
+                      name="i-heroicons-chevron-down-solid"
+                      class="size-5 ml-1 mt-1"
+                    />
+                  </h1>
 
                   <template #panel>
                     <div class="p-2 flex flex-col gap-2">
@@ -138,35 +128,28 @@
             <div class="flex gap-2">
               <template v-if="isFrameworkCompareMode">
                 <div class="flex gap-2 items-center">
-                  <BaseHeading
-                    size="3xl"
-                    weight="semi-bold"
-                    class="text-neutral-800"
-                  >
-                    /
-                  </BaseHeading>
+                  <h1 class="text-neutral-800 text-2xl">/</h1>
 
-                  <div class="relative">
-                    <Icon
-                      :name="currentFramework2.icon"
-                      :class="[
-                        ' size-7 transition-all duration-300',
-                        currentFramework2.iconColor,
-                      ]"
-                    />
-                  </div>
+                  <Icon
+                    :name="currentFramework2.icon"
+                    :class="[
+                      ' size-6 transition-all duration-300',
+                      currentFramework2.iconColor,
+                    ]"
+                  />
+
                   <div>
                     <UPopover
                       :ui="{ rounded: 'rounded-xl' }"
                       :popper="{ placement: 'bottom-start' }"
                     >
-                      <BaseHeading
-                        size="3xl"
-                        weight="semi-bold"
-                        class="text-neutral-800"
-                      >
+                      <h1 class="text-neutral-800 text-2xl flex items-center">
                         {{ currentFramework2.label }}
-                      </BaseHeading>
+                        <Icon
+                          name="i-heroicons-chevron-down-solid"
+                          class="size-5 ml-1 mt-1"
+                        />
+                      </h1>
 
                       <template #panel>
                         <div class="p-2 flex flex-col gap-2">
@@ -536,15 +519,15 @@
                 <!-- <div class="absolute w-full justify-between flex p-4 z-10">
                   <div>
                     <div class="mb-2">
-                      <BaseButtonIcon @click="zoomAllIn" shape="full" size="sm">
+                      <UButton @click="zoomAllIn" shape="full" size="sm">
                         <Icon
                           name="heroicons:magnifying-glass-plus"
                           class="h-5 w-5"
                         />
-                      </BaseButtonIcon>
+                      </UButton>
                     </div>
                     <div class="mb-2">
-                      <BaseButtonIcon
+                      <UButton
                         @click="zoomAllOut"
                         shape="full"
                         size="sm"
@@ -553,10 +536,10 @@
                           name="heroicons:magnifying-glass-minus-solid"
                           class="h-5 w-5"
                         />
-                      </BaseButtonIcon>
+                      </UButton>
                     </div>
                     <div class="mb-2">
-                      <BaseButtonIcon
+                      <UButton
                         shape="full"
                         size="sm"
                         @click="showTree = !showTree"
@@ -566,10 +549,10 @@
                           class="size-5"
                           :class="{ ' text-primary-500': showTree }"
                         />
-                      </BaseButtonIcon>
+                      </UButton>
                     </div>
                     <div class="mb-2">
-                      <BaseButtonIcon
+                      <UButton
                         shape="full"
                         size="sm"
                         @click="showFungi = !showFungi"
@@ -579,35 +562,31 @@
                           class="size-5"
                           :class="{ ' text-primary-500': showFungi }"
                         />
-                      </BaseButtonIcon>
+                      </UButton>
                     </div>
                     <div>
-                    <BaseButtonIcon @click="resetAll" shape="full">
+                    <UButton @click="resetAll" shape="full">
                       <Icon
                         name="heroicons:magnifying-glass-solid"
                         class="h-5 w-5"
                       />
-                    </BaseButtonIcon>
+                    </UButton>
                   </div>
                   </div>
                 </div> -->
                 <!-- Single View -->
                 <div
                   v-if="!isCompare && !isFrameworkCompareMode"
-                  class="w-full h-full"
+                  class="w-full h-full overflow-hidden rounded-xl relative border border-neutral-200"
                 >
                   <OpenSeadragonViewer
                     ref="singleViewerRef"
                     :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
-                    :allowPan="!isCompare && !isFrameworkCompareMode"
+                    :allowPan="true"
                     :annotations="filteredAnnotations"
-                    @annotationClicked="
-                      (annotation) =>
-                        handleAnnotationClicked('single', annotation)
-                    "
-                    @opened="onViewerOpened('single')"
-                    @activated="activeViewer.value = 'single'"
-                    class="w-full h-full rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
+                    :selectedAnnotation="selectedAnnotation"
+                    @annotationClicked="handleAnnotationClicked"
+                    class="w-full h-full"
                   />
                   <!-- <UBadge
                     size="xs"
@@ -623,6 +602,36 @@
                     variant="solid"
                     class="absolute bottom-12 left-4"
                   /> -->
+                  <transition name="slide-out">
+                    <div
+                      v-if="selectedAnnotation"
+                      class="absolute inset-y-0 right-0 p-1.5 m-2 w-64 bg-neutral-50 overflow-auto z-10 pointer-events-auto border-neutral-300 border rounded-xl"
+                    >
+                      <NuxtImg
+                        v-if="selectedAnnotation.thumbnail"
+                        :src="selectedAnnotation.thumbnail"
+                        width="300"
+                        height="300"
+                        alt="Thumbnail"
+                        class="rounded-xl border border-neutral-300"
+                      />
+                      <UButton
+                        color="white"
+                        :ui="{ rounded: 'rounded-full' }"
+                        icon="heroicons:x-mark"
+                        @click="closeAnnotation"
+                        class="absolute bottom-2 right-2"
+                      />
+                      <div class="px-1.5 py-1">
+                        <h3 class="text-lg font-semibold text-neutral-800">
+                          {{ selectedAnnotation.title }}
+                        </h3>
+                        <p class="text-neutral-500">
+                          {{ selectedAnnotation.text }}
+                        </p>
+                      </div>
+                    </div>
+                  </transition>
                 </div>
 
                 <!-- Before/After Compare -->
@@ -640,7 +649,7 @@
                       "
                       :allowPan="true"
                       @opened="onViewerOpened('before')"
-                      @activated="activeViewer.value = 'before'"
+                      @activated="activeViewer.valueOf = 'before'"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
                     <!-- <UBadge
@@ -664,7 +673,7 @@
                       :dziUrl="currentImagePath.replace('.png', '.png_dzi.dzi')"
                       :allowPan="true"
                       @opened="onViewerOpened('after')"
-                      @activated="activeViewer.value = 'after'"
+                      @activated="activeViewer.valueOf = 'after'"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
 
@@ -700,7 +709,7 @@
                         ($event) => onViewportChanged('framework1', $event)
                       "
                       @opened="onViewerOpened('framework1')"
-                      @activated="activeViewer.value = 'framework1'"
+                      @activated="activeViewer.valueOf = 'framework1'"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
                     <!-- <UBadge
@@ -729,7 +738,7 @@
                         ($event) => onViewportChanged('framework2', $event)
                       "
                       @opened="onViewerOpened('framework2')"
-                      @activated="activeViewer.value = 'framework2'"
+                      @activated="activeViewer.valueOf = 'framework2'"
                       class="w-full h-full z-0 rounded-xl border-[0.5px] border-neutral-300 dark:border-neutral-800 overflow-hidden"
                     />
                     <!-- <UBadge
@@ -787,37 +796,47 @@
               />
 
               <!-- Annotations List -->
-              <div class="w-60">
+              <div
+                class="w-64 shrink-0"
+                v-if="!isCompare && !isFrameworkCompareMode"
+              >
                 <ul>
                   <li
                     v-for="annotation in filteredAnnotations"
                     :key="annotation.id"
                     class="mb-0.5"
                   >
-                    <UPopover>
-                      <UButton color="white" size="xs" class="w-full">
-                        <template #leading>
-                          <Icon
-                            :name="annotation.icon"
-                            :class="['text-' + annotation.color]"
-                          />
-                        </template>
-
-                        {{ annotation.title }}
-                      </UButton>
-
-                      <template #panel>
-                        <div class="p-4">
-                          <img
-                            :src="annotation.thumbnail"
-                            alt="Annotation thumbnail"
-                            class="w-20 h-20 mb-2"
-                          />
-                          <h4 class="font-bold">{{ annotation.title }}</h4>
-                          <p>{{ annotation.text }}</p>
-                        </div>
+                    <UButton
+                      :color="
+                        selectedAnnotation &&
+                        selectedAnnotation.id === annotation.id
+                          ? 'green'
+                          : 'white'
+                      "
+                      :variant="
+                        selectedAnnotation &&
+                        selectedAnnotation.id === annotation.id
+                          ? 'soft'
+                          : 'solid'
+                      "
+                      size="xs"
+                      class="w-full"
+                      @click="handleAnnotationClicked(annotation)"
+                    >
+                      <template #leading>
+                        <Icon
+                          :name="annotation.icon"
+                          :class="
+                            selectedAnnotation &&
+                            selectedAnnotation.id === annotation.id
+                              ? 'text-green-500'
+                              : ['text-' + annotation.color]
+                          "
+                          class="size-4"
+                        />
                       </template>
-                    </UPopover>
+                      {{ annotation.title }}
+                    </UButton>
                   </li>
                 </ul>
               </div>
@@ -830,18 +849,36 @@
 </template>
 
 <script setup>
-import { ImgComparisonSlider } from "@img-comparison-slider/vue";
-
-import BarChart from "~/components/BarChartSkogsbruk.vue";
-import BarChartSkogsbrukRödMat from "~/components/BarChartSkogsbrukRödMat.vue";
 import SvampLineChart from "~/components/SvampLineChart.vue";
 import OpenSeadragonViewer from "~/components/OpenSeadragonViewer.vue";
-import { ref, computed, watch, nextTick } from "vue";
+import { ref, computed, watch } from "vue";
 import { useOnboardingStore } from "~/stores/onboardingStore";
 
 import SvampBarChart from "../../components/SvampBarChart.vue";
 import frameworkDescriptions from "public/frameworkDescriptions.json";
 import annotationsData from "public/annotations.json"; // NEW: import your annotations JSON
+import { useSelectedAnnotationStore } from "~/stores/selectedAnnotationStore";
+
+const selectedAnnotationStore = useSelectedAnnotationStore();
+const selectedAnnotation = computed(
+  () => selectedAnnotationStore.selectedAnnotation
+);
+
+// Now, when a marker or button is clicked, call:
+function handleAnnotationClicked(annotation) {
+  selectedAnnotationStore.setSelectedAnnotation(annotation);
+  // Center the viewer on the annotation if it has a valid position.
+  if (annotation.position && singleViewerRef.value) {
+    // Use the current zoom level to maintain the current scale.
+    const currentZoom = singleViewerRef.value.getZoom();
+    // Center the viewport on the annotation's x and y coordinates.
+    singleViewerRef.value.setZoomAndCenter(currentZoom, annotation.position);
+  }
+}
+
+function closeAnnotation() {
+  selectedAnnotationStore.clearSelectedAnnotation();
+}
 
 // Make sure you have a ref attached to your CustomImageComparisonSlider:
 const comparisonSliderRef = ref(null);
@@ -925,38 +962,12 @@ const chartType = computed(() => {
 // Initialize the store
 const onboardingStore = useOnboardingStore();
 
-// Modal references
-const Modal1 = ref(false);
-const Modal2 = ref(false);
-
 // Other refs
-const showPingEffectCompareButton = ref(false);
 const frameworksVisible = ref(false);
-const toggleFrameworks = () =>
-  (frameworksVisible.value = !frameworksVisible.value);
 const showTree = ref(true);
 const showFungi = ref(true);
 const isFrameworkCompareMode = ref(false);
 const isCompare = ref(false);
-
-// const selectedComparisonOption = ref("framework1");
-
-// const selectedComparisonObject = computed({
-//   get() {
-//     return (
-//       compareItemsSlideOver.value.find(
-//         (item) => item.id === selectedComparisonOption.value
-//       ) || null
-//     );
-//   },
-//   set(newVal) {
-//     if (newVal && newVal.id) {
-//       selectedComparisonOption.value = newVal.id;
-//     } else {
-//       selectedComparisonOption.value = newVal;
-//     }
-//   },
-// });
 
 // Define selectedFrameworkIndex
 const selectedFrameworkIndex = computed({
@@ -1060,44 +1071,6 @@ const currentStartskog = computed(
   () => startskog[selectedStartskogIndex.value]
 );
 
-// Computed property for the select element's v-model
-const selectedStartskogValue = computed({
-  get() {
-    return currentStartskog.value.value;
-  },
-  set(newValue) {
-    // Find the matching option and update the store's index
-    const newIndex = startskog.findIndex((item) => item.value === newValue);
-    if (newIndex !== -1) {
-      selectedStartskogIndex.value = newIndex;
-    }
-  },
-});
-
-// Compare toggling functions
-const toggleFrameworkCompare = () => {
-  isFrameworkCompareMode.value = !isFrameworkCompareMode.value;
-};
-
-const toggleCompare = () => {
-  isCompare.value = !isCompare.value;
-};
-
-const onClickFrameworkCompare = () => {
-  if (!isFrameworkCompareMode.value) {
-    isCompare.value = false;
-  }
-  toggleFrameworkCompare();
-};
-
-const onClickBeforeAfterCompare = () => {
-  if (!isCompare.value) {
-    isFrameworkCompareMode.value = false;
-    time.value = 15; // Set to "Efter avverkning"
-  }
-  toggleCompare();
-};
-
 // Time references
 const time = ref(3);
 
@@ -1148,9 +1121,9 @@ const sliderSteps = computed(() => {
 // Create UTabs items from sliderSteps
 const timeItems = computed(() =>
   sliderSteps.value.map((step) => ({
-    key: step.value, // using the numeric value as the key
+    key: String(step.value), // Ensure the key is a string
     label: step.label,
-    disabled: isCompare.value && step.value === 3, // disable step value 3 in compare mode as before
+    disabled: isCompare.value && step.value === 3,
   }))
 );
 
@@ -1181,27 +1154,6 @@ const timeLabelForDataFiltering2 = computed(() =>
 const timeLabelForDataFiltering = computed(() =>
   mapTimeValueToDataAlder(time.value)
 );
-
-// Time icon mapping
-const timeIconMap = {
-  efter: "material-symbols:clock-loader-10",
-  10: "material-symbols:clock-loader-20",
-  20: "material-symbols:clock-loader-40",
-  50: "material-symbols:clock-loader-60",
-  80: "material-symbols:clock-loader-90",
-};
-
-// Available time steps
-const availableTimeSteps = computed(() =>
-  sliderSteps.value.filter((s) => s.timeLabel !== "före")
-);
-
-// Current time icon
-const currentTimeIcon = computed(() => {
-  const step = sliderSteps.value.find((s) => s.value === time.value);
-  if (!step) return "";
-  return timeIconMap[step.timeLabel] || "";
-});
 
 // Image paths
 const comparisonImagePath1 = computed(() => {
@@ -1327,55 +1279,13 @@ const framework2ViewerRef = ref(null);
 // Viewport synchronization
 let viewportChangeSource = null;
 const globalViewport = ref({ zoom: 1, center: null });
-const openedViewers = ref({});
-// Update the global viewport when a viewer emits a viewportChanged event.
+
 function onViewportChanged(source, { zoom, center } = {}) {
   if (!zoom || !center) return;
   if (viewportChangeSource !== source) {
     viewportChangeSource = source;
     globalViewport.value = { zoom, center };
   }
-}
-
-// function onViewerOpened(source) {
-//   openedViewers.value[source] = true;
-//   applyGlobalViewportToAll();
-// }
-
-function applyToViewer(viewer, fn) {
-  if (!viewer || !viewer.viewport) return;
-  fn(viewer);
-}
-
-function getActiveViewers() {
-  if (!isCompare.value && !isFrameworkCompareMode.value) {
-    return [singleViewerRef.value?.viewer].filter(Boolean);
-  } else if (isCompare.value) {
-    return [beforeViewerRef.value?.viewer, afterViewerRef.value?.viewer].filter(
-      Boolean
-    );
-  } else if (isFrameworkCompareMode.value) {
-    return [
-      framework1ViewerRef.value?.viewer,
-      framework2ViewerRef.value?.viewer,
-    ].filter(Boolean);
-  }
-  return [];
-}
-
-function applyGlobalViewportToAll() {
-  const { zoom, center } = globalViewport.value;
-  if (!zoom || !center) return;
-
-  const viewers = getActiveViewers();
-  viewers.forEach((viewer) => {
-    applyToViewer(viewer, (v) => {
-      v.viewport.panTo(center, true);
-      v.viewport.zoomTo(zoom);
-      v.viewport.applyConstraints();
-      v.forceRedraw();
-    });
-  });
 }
 
 // Helper: Return an object mapping identifiers to viewer component instances.
@@ -1457,26 +1367,6 @@ function zoomActiveOut() {
   }
 }
 
-function resetAll() {
-  const viewers = getActiveViewers();
-  viewers.forEach((viewer) => {
-    applyToViewer(viewer, (v) => {
-      v.viewport.goHome(true);
-      v.viewport.applyConstraints();
-      v.forceRedraw();
-    });
-  });
-  globalViewport.value = { zoom: 1, center: { x: 0.5, y: 0.5 } };
-}
-
-// Compare choices
-// const compareChoice = ref({
-//   id: "none",
-//   name: "Ingen jämförelse",
-//   text: "Återgå till enkel vy",
-//   icon: "i-mynaui:rectangle",
-// });
-// Our two tabs (we’re omitting “Visa båda”)
 const tabItems = computed(() => [
   { key: "framework1", label: currentFramework.value.label },
   { key: "framework2", label: currentFramework2.value.label },
@@ -1540,20 +1430,6 @@ watch(selectedCompareIndex, (newIndex) => {
   }
 });
 
-// This computed property returns a display string for the activator button
-const selectedComparisonOption = computed(() => {
-  const selected = compareItems.find((item) => item.id === compareChoice.value);
-  return selected ? selected.name : "Jämför";
-});
-
-// When an option is clicked, update the value and close the popover
-function selectCompareOption(option) {
-  console.log("Option clicked:", option);
-  compareChoice.value = option.id;
-
-  console.log("compareChoice now:", compareChoice.value);
-}
-
 watch(compareChoice, (newVal) => {
   if (newVal === "none") {
     isCompare.value = false;
@@ -1573,67 +1449,88 @@ watch(isCompare, (newVal) => {
   }
 });
 
-// Function to nudge OpenSeadragonViewer
-function nudgeOpenSeadragon() {
-  console.log("[modell.vue] Nudging OpenSeadragonViewer...");
-  if (singleViewerRef.value?.viewer && currentImagePath.value) {
-    // 1) Force-close the current tile
-    singleViewerRef.value.viewer.close();
-
-    // 2) Now open the same tile again
-    const dziPath = currentImagePath.value.replace(".png", ".png_dzi.dzi");
-    singleViewerRef.value.viewer.open(dziPath);
-
-    // 3) Optionally reset or re-center
-    singleViewerRef.value.viewer.addHandler("open", () => {
-      // For example, goHome + forceRedraw so you see it refresh:
-      singleViewerRef.value.viewer.viewport.goHome(true);
-      singleViewerRef.value.viewer.forceRedraw();
-    });
-  }
-}
-
 const currentTimeValue = computed(() => {
   const step = sliderSteps.value.find((s) => s.value === time.value);
   return step ? step.timeLabel : "";
 });
 
 const filteredAnnotations = computed(() => {
-  return annotationsData.annotations
-    .map((annotation) => {
-      const matchingPosition = annotation.positions.find(
-        (pos) =>
-          pos.framework === currentFramework.value.value &&
-          pos.time === currentTimeValue.value.toLowerCase() // ensures matching e.g. "före" or "efter"
-      );
-      return matchingPosition
-        ? { ...annotation, position: matchingPosition }
-        : null;
-    })
-    .filter((annotation) => annotation !== null);
+  const currentFrameworkValue = currentFramework.value.value;
+  const currentTimeLower = currentTimeValue.value.toLowerCase();
+
+  return annotationsData.annotations.flatMap((annotation) => {
+    if (annotation.positions && Array.isArray(annotation.positions)) {
+      return annotation.positions
+        .filter((pos) => {
+          // Check if the position's framework matches:
+          const matchesFramework = Array.isArray(pos.framework)
+            ? pos.framework.includes(currentFrameworkValue)
+            : pos.framework === currentFrameworkValue;
+          // Check if the position's times array includes the current time:
+          const matchesTime = Array.isArray(pos.times)
+            ? pos.times.map((t) => t.toLowerCase()).includes(currentTimeLower)
+            : pos.times.toLowerCase() === currentTimeLower;
+          return matchesFramework && matchesTime;
+        })
+        .map((pos) => ({
+          ...annotation,
+          position: {
+            x: pos.x,
+            y: pos.y,
+            placement: pos.placement,
+          },
+        }));
+    } else {
+      // For global annotations (without positions) use the original arrays:
+      const matchesFramework = Array.isArray(annotation.frameworks)
+        ? annotation.frameworks.includes(currentFrameworkValue)
+        : annotation.framework === currentFrameworkValue;
+      const matchesTime = Array.isArray(annotation.times)
+        ? annotation.times
+            .map((t) => t.toLowerCase())
+            .includes(currentTimeLower)
+        : annotation.time.toLowerCase() === currentTimeLower;
+      return matchesFramework && matchesTime ? [annotation] : [];
+    }
+  });
 });
 
-function handleAnnotationClicked(viewerKey, annotation) {
-  if (viewerKey === "single" && singleViewerRef.value?.showPopup) {
-    singleViewerRef.value.showPopup(annotation);
-  } else if (viewerKey === "before" && beforeViewerRef.value?.showPopup) {
-    beforeViewerRef.value.showPopup(annotation);
-  } else if (viewerKey === "after" && afterViewerRef.value?.showPopup) {
-    afterViewerRef.value.showPopup(annotation);
-  } else if (
-    viewerKey === "framework1" &&
-    framework1ViewerRef.value?.showPopup
-  ) {
-    framework1ViewerRef.value.showPopup(annotation);
-  } else if (
-    viewerKey === "framework2" &&
-    framework2ViewerRef.value?.showPopup
-  ) {
-    framework2ViewerRef.value.showPopup(annotation);
-  }
-}
+// function handleAnnotationClicked(viewerKey, annotation) {
+//   if (viewerKey === "single" && singleViewerRef.value?.showPopup) {
+//     singleViewerRef.value.showPopup(annotation);
+//   } else if (viewerKey === "before" && beforeViewerRef.value?.showPopup) {
+//     beforeViewerRef.value.showPopup(annotation);
+//   } else if (viewerKey === "after" && afterViewerRef.value?.showPopup) {
+//     afterViewerRef.value.showPopup(annotation);
+//   } else if (
+//     viewerKey === "framework1" &&
+//     framework1ViewerRef.value?.showPopup
+//   ) {
+//     framework1ViewerRef.value.showPopup(annotation);
+//   } else if (
+//     viewerKey === "framework2" &&
+//     framework2ViewerRef.value?.showPopup
+//   ) {
+//     framework2ViewerRef.value.showPopup(annotation);
+//   }
+// }
 
 watch(activeViewer, (newVal) => {
   console.log("activeViewer updated to:", newVal);
 });
 </script>
+
+<style scoped>
+.slide-out-enter-active,
+.slide-out-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-out-enter-from,
+.slide-out-leave-to {
+  transform: translateX(100%);
+}
+.slide-out-enter-to,
+.slide-out-leave-from {
+  transform: translateX(0);
+}
+</style>

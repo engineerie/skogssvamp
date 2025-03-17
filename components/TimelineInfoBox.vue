@@ -70,7 +70,6 @@
 import { computed, ref } from "vue";
 import TimelineInfoCard from "./TimelineInfoCard.vue";
 import timelineData from "public/timeline.json";
-import frameworkDescriptions from "public/frameworkDescriptions.json";
 
 // Define Props
 const props = defineProps({
@@ -106,7 +105,7 @@ const mainTimelineData = computed(() => {
     !props.currentTime ||
     !props.currentStartskog?.value
   ) {
-    return null;
+    return undefined; // return undefined instead of null
   }
   return (
     timelineData.find(
@@ -114,13 +113,13 @@ const mainTimelineData = computed(() => {
         item.atgard === props.currentFramework.value &&
         item.tid === props.currentTime &&
         item.startskog === props.currentStartskog.value
-    ) || null
+    ) || undefined
   );
 });
 
 const beforeData = computed(() => {
   if (!props.currentFramework?.value || !props.currentStartskog?.value) {
-    return null;
+    return undefined;
   }
   return (
     timelineData.find(
@@ -128,13 +127,13 @@ const beforeData = computed(() => {
         item.atgard === props.currentFramework.value &&
         item.tid === "innan" &&
         item.startskog === props.currentStartskog.value
-    ) || null
+    ) || undefined
   );
 });
 
 const compareTimelineData = computed(() => {
   if (!props.compareFramework?.value || !props.compareStartskog?.value) {
-    return null;
+    return undefined;
   }
   const theTime = props.compareTime || props.currentTime;
   return (
@@ -143,7 +142,7 @@ const compareTimelineData = computed(() => {
         item.atgard === props.compareFramework.value &&
         item.tid === theTime &&
         item.startskog === props.compareStartskog.value
-    ) || null
+    ) || undefined
   );
 });
 </script>

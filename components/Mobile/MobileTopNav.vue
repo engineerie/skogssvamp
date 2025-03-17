@@ -8,7 +8,7 @@
       ]"
     >
       <div class="w-full flex justify-center -mb-6">
-        <BaseHeading size="xs" weight="medium">Svampskog.se</BaseHeading>
+        <h1 size="xs" weight="medium">Svampskog.se</h1>
       </div>
       <div class="flex justify-between items-center py-2 pl-1 pr-4">
         <!-- Logo -->

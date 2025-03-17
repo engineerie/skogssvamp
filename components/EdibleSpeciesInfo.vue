@@ -2,9 +2,9 @@
   <div class="w-full pt-16">
     <!-- Top heading bar -->
     <div class="absolute top-0 w-full z-50 bg-white flex justify-between">
-      <BaseHeading size="3xl" weight="thin" lead="snug" class="pt-3 pb-2 px-6">
+      <h1 size="3xl" weight="thin" lead="snug" class="pt-3 pb-2 px-6">
         {{ capitalize(species.Commonname) }}
-      </BaseHeading>
+      </h1>
     </div>
 
     <!-- Images Section -->
@@ -40,13 +40,11 @@
           <div
             class="flex bg-white w-full justify-end px-2 py-1 items-center rounded-b"
           >
-            <BaseHeading weight="light" size="sm" class="text-neutral-700"
-              >Foto:</BaseHeading
-            >
+            <h1 weight="light" size="sm" class="text-neutral-700">Foto:</h1>
             <Icon name="ph:copyright" class="h-4 w-4 mx-1" />
-            <BaseHeading weight="light" size="sm" class="text-neutral-700"
-              >Michael Krikorev</BaseHeading
-            >
+            <h1 weight="light" size="sm" class="text-neutral-700">
+              Michael Krikorev
+            </h1>
           </div>
         </div>
       </UCarousel>
@@ -66,13 +64,11 @@
       <div
         class="flex bg-white w-full justify-end px-2 py-1 items-center rounded-b"
       >
-        <BaseHeading weight="light" size="sm" class="text-neutral-700"
-          >Foto:</BaseHeading
-        >
+        <h1 weight="light" size="sm" class="text-neutral-700">Foto:</h1>
         <Icon name="ph:copyright" class="h-4 w-4 mx-1" />
-        <BaseHeading weight="light" size="sm" class="text-neutral-700"
-          >Michael Krikorev</BaseHeading
-        >
+        <h1 weight="light" size="sm" class="text-neutral-700">
+          Michael Krikorev
+        </h1>
       </div>
     </div>
     <div v-else>
@@ -93,10 +89,8 @@
 
     <!-- Content Section -->
     <div class="px-6 pb-3">
-      <BaseHeading size="lg">{{ capitalize(species.Commonname) }}</BaseHeading>
-      <BaseHeading weight="light" size="sm">{{
-        species.Scientificname
-      }}</BaseHeading>
+      <h1 size="lg">{{ capitalize(species.Commonname) }}</h1>
+      <h1 weight="light" size="sm">{{ species.Scientificname }}</h1>
 
       <div class="flex items-center space-x-2 mt-3">
         <NuxtImg
@@ -104,9 +98,9 @@
           class="w-5"
           alt="Svamp Icon"
         />
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ capitalize(species["Svamp-grupp"]) }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <div
@@ -117,7 +111,7 @@
           name="icon-park-solid:knife-fork"
           class="h-7 w-7 text-yellow-500 -my-2"
         />
-        <BaseHeading size="md" weight="light"> Matsvamp </BaseHeading>
+        <h1 size="md" weight="light">Matsvamp</h1>
       </div>
 
       <div
@@ -125,7 +119,7 @@
         class="flex items-center space-x-2 mt-3"
       >
         <Icon name="hugeicons:danger" class="h-7 w-7 text-lime-500 -my-2" />
-        <BaseHeading size="md" weight="light"> Giftsvamp </BaseHeading>
+        <h1 size="md" weight="light">Giftsvamp</h1>
       </div>
 
       <div
@@ -137,7 +131,7 @@
         >
           S
         </div>
-        <BaseHeading size="md" weight="light"> Signalart </BaseHeading>
+        <h1 size="md" weight="light">Signalart</h1>
       </div>
 
       <div v-if="species.RL2020kat" class="flex items-center space-x-2 mt-3">
@@ -147,9 +141,9 @@
         >
           {{ getStatusAbbreviation(species.RL2020kat) }}
         </div>
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ getStatusTooltip(species.RL2020kat) }}
-        </BaseHeading>
+        </h1>
       </div>
       <!-- <div
         v-if="species.OVANLIGHET == 2"
@@ -159,7 +153,7 @@
           name="material-symbols:star-rounded"
           class="w-8 h-8 text-teal-500"
         />
-        <BaseHeading size="md" weight="light"> Väldigt sällsynt </BaseHeading>
+        <h1 size="md" weight="light"> Väldigt sällsynt </h1>
       </div> -->
       <div class="flex items-center space-x-2 mt-3">
         <div v-if="species.KALKmark">
@@ -190,7 +184,7 @@
         v-if="species.ekologi"
         @click="toggleExpandEkologi"
       >
-        <BaseHeading size="lg" weight="medium"> Ekologi </BaseHeading>
+        <h1 size="lg" weight="medium">Ekologi</h1>
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -206,9 +200,9 @@
         v-if="species.ekologi"
         @click="toggleExpandEkologi"
       >
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ truncatedTextEkologi }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <hr class="my-2" v-if="species.ekologi" />
@@ -218,9 +212,7 @@
         v-if="species.Kriteriedokumentation"
         @click="toggleExpand"
       >
-        <BaseHeading size="lg" weight="medium">
-          Dokumentation i rödlistan
-        </BaseHeading>
+        <h1 size="lg" weight="medium">Dokumentation i rödlistan</h1>
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -236,14 +228,14 @@
         v-if="species.Kriteriedokumentation"
         @click="toggleExpand"
       >
-        <BaseHeading size="md" weight="light">
+        <h1 size="md" weight="light">
           {{ truncatedText }}
-        </BaseHeading>
+        </h1>
       </div>
 
       <hr class="my-2" v-if="species.Kriteriedokumentation" />
 
-      <BaseHeading size="md" weight="medium"> Länkar </BaseHeading>
+      <h1 size="md" weight="medium">Länkar</h1>
 
       <NuxtLink
         v-if="species.Artfakta != 'Information saknas'"

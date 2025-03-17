@@ -4,7 +4,7 @@
   <transition name="slide-in-right">
     <div
       v-if="modelValue"
-      class="fixed inset-0 z-50 flex pointer-events-none m-2"
+      class="fixed inset-0 z-50 flex pointer-events-none m-2 group"
     >
       <div
         v-if="!localPinned"
@@ -17,28 +17,32 @@
         :class="[localPinned ? '-m-1' : '', expanded ? 'w-[744px]' : 'w-96']"
         @click.stop
       >
-        <header class="border-b p-2 flex justify-between items-center gap-2">
-          <div>
+        <!-- <div>
             <slot name="header" />
-          </div>
+          </div> -->
 
-          <div>
-            <Icon
-              @click="togglePinned"
-              name="codicon:pinned"
-              class="h-7 w-7 hover:cursor-pointer transition-all"
-              :class="
-                localPinned ? 'text-primary-500' : 'text-neutral-700 -mt-2'
-              "
-            />
-            <BaseButtonIcon
-              shape="full"
-              @click="emit('update:modelValue', false)"
-            >
-              <Icon name="heroicons:chevron-right" class="size-5" />
-            </BaseButtonIcon>
-          </div>
-        </header>
+        <div class="absolute top-4 right-4 items-end gap-2 z-10 flex">
+          <UButton
+            class="shadow hover:opacity-100"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            @click="togglePinned"
+            icon="codicon:pinned"
+            :class="
+              localPinned
+                ? 'text-primary-500 opacity-100'
+                : 'text-neutral-700 opacity-90'
+            "
+          />
+          <UButton
+            class="shadow opacity-90 hover:opacity-100"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            icon="heroicons:x-mark"
+            @click="emit('update:modelValue', false)"
+          />
+        </div>
+
         <div class="h-full relative overflow-auto pb-16">
           <slot />
         </div>

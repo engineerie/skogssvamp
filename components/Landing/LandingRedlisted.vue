@@ -9,16 +9,16 @@
           <Icon name="material-symbols:award-star-outline" class="h-12 w-12" />
         </div>
         <div>
-          <BaseHeading
+          <h1
             size="3xl"
             weight="medium"
             class="text-neutral-800 dark:text-neutral-200 -mb-1.5"
           >
             Naturvårdsarter
-          </BaseHeading>
-          <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+          </h1>
+          <h1 weight="medium" size="xs" class="text-neutral-400">
             Bedömning baserad på samlad kunskap
-          </BaseHeading>
+          </h1>
         </div>
       </div>
     </div>
@@ -111,8 +111,8 @@
       <!-- Loading State -->
       <div v-else>
         <div class="max-w-sm space-y-2 mt-2">
-          <BasePlaceload class="h-4 w-full rounded" />
-          <BasePlaceload class="h-4 w-[85%] rounded" />
+          <USkeleton class="h-4 w-full rounded" />
+          <USkeleton class="h-4 w-[85%] rounded" />
         </div>
       </div>
     </div>

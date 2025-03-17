@@ -3,7 +3,7 @@
     class="relative p-6 bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-100 border dark:border-stone-700 border-stone-300 rounded-xl"
   >
     <div class="flex justify-between items-center mb-4">
-      <BaseHeading size="md" class="mb-4">Markinventeringsdata</BaseHeading>
+      <h1 size="md" class="mb-4">Markinventeringsdata</h1>
       <div
         class="w-12 h-12 mb-4 rounded-lg text-violet-500 flex justify-center items-center border-[0.5px] dark:border-neutral-700 border-neutral-300 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-neutral-300 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800"
       >
@@ -35,16 +35,16 @@
             :style="{ color: allColors[index] }"
           />
           <div>
-            <BaseProse class="text-neutral-500">
+            <p class="text-neutral-500">
               {{
                 row.Commonname
                   ? capitalize(row.Commonname)
                   : "saknar svenskt namn"
               }}
-            </BaseProse>
-            <BaseProse class="text-xs text-neutral-500">{{
-              capitalize(row.Scientificname)
-            }}</BaseProse>
+            </p>
+            <p class="text-xs text-neutral-500">
+              {{ capitalize(row.Scientificname) }}
+            </p>
           </div>
         </div>
 

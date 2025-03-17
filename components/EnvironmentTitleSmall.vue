@@ -11,9 +11,9 @@
             <Icon name="material-symbols:location-on-outline" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="sm" weight="light">
+            <h1 size="sm" weight="light">
               {{ geographyLabel }}
-            </BaseHeading>
+            </h1>
           </div>
         </div>
       </transition>
@@ -25,9 +25,9 @@
             <Icon name="lucide:trees" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="sm" weight="light">
+            <h1 size="sm" weight="light">
               {{ forestTypeLabel }}
-            </BaseHeading>
+            </h1>
           </div>
         </div>
       </transition>
@@ -39,9 +39,7 @@
             <Icon name="carbon:crop-growth" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="sm" weight="light">{{
-              standAgeLabel
-            }}</BaseHeading>
+            <h1 size="sm" weight="light">{{ standAgeLabel }}</h1>
           </div>
         </div>
       </transition>
@@ -56,9 +54,7 @@
             <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="sm" weight="light">{{
-              vegetationTypeLabel
-            }}</BaseHeading>
+            <h1 size="sm" weight="light">{{ vegetationTypeLabel }}</h1>
           </div>
         </div>
       </transition>

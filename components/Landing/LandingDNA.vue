@@ -18,22 +18,22 @@
         <Icon name="solar:dna-linear" class="text-violet-500 mr-1" />
         Alla mykorrhizasvampar
       </UBadge>
-      <BaseHeading
+      <h1
         size=""
         class="text-neutral-950 dark:text-neutral-200 text-xl md:text-2xl"
       >
         DNA-analys av jordprover
-      </BaseHeading>
-      <!-- <BaseHeading
+      </h1>
+      <!-- <h1
         lead="tight"
         size="2xl"
         class="text-primary-500 dark:text-neutral-200 mb-1"
       >
         av jordprover
-      </BaseHeading> -->
+      </h1> -->
       <!-- Description -->
 
-      <BaseHeading
+      <h1
         weight="semi-bold"
         size=""
         class="text-neutral-500 dark:text-neutral-400 mb-6 text-md md:text-lg"
@@ -63,24 +63,24 @@
         <!-- Denna stickprovsundersökning fångar dock inte
         upp ovanligare arter, eftersom dessa ofta är lokalt begränsade och
         sällan förekommer i de små proverna. -->
-      </BaseHeading>
+      </h1>
       <div class="flex items-start">
         <!-- Navigation Buttons -->
         <div class="flex gap-5">
           <!-- <NuxtLink to="/mykorrhizasvampar">
-            <BaseButton color="primary" size="md" shape="full">
+            <UButton color="primary" size="md" shape="full">
               <Icon name="mdi:file-cog-outline" class="-ms-1 mr-1 size-5" />
               <span>Läs dokumentation</span>
-            </BaseButton>
+            </UButton>
           </NuxtLink> -->
           <!-- <NuxtLink to="https://svamparisverige.se/" target="blank">
-            <BaseButton color="default" type="outline" size="md" shape="full">
+            <UButton color="default" type="outline" size="md" shape="full">
               <Icon
                 name="mingcute:external-link-line"
                 class="-ms-1 mr-1 size-6"
               />
               <span>Mer på svamparisverige.se</span>
-            </BaseButton>
+            </UButton>
           </NuxtLink> -->
         </div>
       </div>

@@ -11,14 +11,15 @@
         >
           <Icon name="game-icons:plant-roots" class="h-10 w-10" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-200"
-          >Mykorrhizasvampar</BaseHeading
         >
+          Mykorrhizasvampar
+        </h1>
       </div>
-      <BaseButtonIcon shape="full" size="sm" @click="toggleCard('mykorrhiza')">
+      <UButton shape="full" size="sm" @click="toggleCard('mykorrhiza')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -26,15 +27,15 @@
             expandedCards.mykorrhiza ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
     <transition name="fade">
-      <BaseProse class="ml-2 my-4 text-sm" v-if="expandedCards.mykorrhiza">
+      <p class="ml-2 my-4 text-sm" v-if="expandedCards.mykorrhiza">
         Denna del visar vilka mykorrhizasvampar som finns i svensk skogsmark,
         baserat på DNA-analyser av svampmycel från jordprover. Resultaten är
         baserade på prover från 2500 skogar som samlades in mellan 2015 och
         2022.
-      </BaseProse>
+      </p>
     </transition>
   </UCard>
 
@@ -46,14 +47,15 @@
         >
           <Icon name="icon-park-solid:knife-fork" class="h-10 w-10" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-300 mr-4"
-          >Matsvampar</BaseHeading
         >
+          Matsvampar
+        </h1>
       </div>
-      <BaseButtonIcon shape="full" size="sm" @click="toggleCard('matsvampar')">
+      <UButton shape="full" size="sm" @click="toggleCard('matsvampar')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -61,15 +63,15 @@
             expandedCards.matsvampar ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
     <transition name="fade">
-      <BaseProse class="ml-2 my-4 text-sm" v-if="expandedCards.matsvampar">
+      <p class="ml-2 my-4 text-sm" v-if="expandedCards.matsvampar">
         Denna del visar ätbara svampar som kan förekomma i miljön, baserat på
         observationer av fruktkroppar som rapporterats till Artdatabanken.
         Informationen har sammanställts för hand av sakkunniga vid SLU och
         kompletterar DNA-undersökningen som missar många arter.
-      </BaseProse>
+      </p>
     </transition>
   </UCard>
 
@@ -81,18 +83,15 @@
         >
           <Icon name="material-symbols:award-star-outline" class="h-10 w-10" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-300 mr-4"
-          >Naturvårdsarter</BaseHeading
         >
+          Naturvårdsarter
+        </h1>
       </div>
-      <BaseButtonIcon
-        shape="full"
-        size="sm"
-        @click="toggleCard('naturvardsarter')"
-      >
+      <UButton shape="full" size="sm" @click="toggleCard('naturvardsarter')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -100,15 +99,15 @@
             expandedCards.naturvardsarter ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
     <transition name="fade">
-      <BaseProse class="ml-2 my-4 text-sm" v-if="expandedCards.naturvardsarter">
+      <p class="ml-2 my-4 text-sm" v-if="expandedCards.naturvardsarter">
         Denna del visar signalarter och rödlistade arter som kan förekomma i
         miljön, baserat på observationer av fruktkroppar. Information har
         sammanställts för hand av sakkunniga vid SLU och kompletterar
         DNA-undersökningen som missar ovanliga arter.
-      </BaseProse>
+      </p>
     </transition>
   </UCard>
 </template>

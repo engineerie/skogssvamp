@@ -1,6 +1,6 @@
-import { resolve } from "path";
-import fs from "fs";
-import path from "path";
+// import { resolve } from "path";
+// import fs from "fs";
+// import path from "path";
 
 // const manifestPath = path.resolve("public/imagemanifest/manifest.json");
 // let images: string[] = [];
@@ -21,6 +21,7 @@ import path from "path";
 // }
 
 export default defineNuxtConfig({
+  // extends: ["@shuriken-ui/nuxt"],
   // runtimeConfig: {
   //   public: {
   //     geeClientId: process.env.GEE_CLIENT_ID,
@@ -29,16 +30,20 @@ export default defineNuxtConfig({
   //   },
   // },
 
-  ui: {
-    primary: "gray",
-    gray: "neutral",
-    icons: ["material-symbols", "fluent"],
-  },
+  // ui: {
+  //   primary: "gray",
+  //   gray: "neutral",
+  //   icons: ["material-symbols", "fluent"],
+  // },
 
-  app: {
-    ssr: false,
-    target: "static",
-  },
+  // app: {
+  //   ssr: false,
+  //   target: "static",
+  // },
+
+  // tailwindcss: {
+  //   configPath: "~/tailwind.config.js",
+  // },
 
   modules: [
     "nuxt-mapbox",
@@ -49,19 +54,19 @@ export default defineNuxtConfig({
     "nuxt-swiper",
     "@nuxt/image",
     "@nuxtjs/color-mode",
+    "@nuxtjs/tailwindcss", // Add this line
   ],
 
-  colorMode: {
-    preference: "light", // default value of $colorMode.preference
-    fallback: "light", // fallback value if not system preference found
-    hid: "nuxt-color-mode-script",
-    globalName: "__NUXT_COLOR_MODE__",
-    componentName: "ColorScheme",
-    classPrefix: "",
-    classSuffix: "-mode",
-    storage: false, // or 'sessionStorage' or 'cookie'
-    storageKey: "nuxt-color-mode",
-  },
+  // colorMode: {
+  //   preference: "light",
+  //   fallback: "light",
+  //   globalName: "__NUXT_COLOR_MODE__",
+  //   componentName: "ColorScheme",
+  //   classPrefix: "",
+  //   classSuffix: "-mode",
+  //   storage: false,
+  //   storageKey: "nuxt-color-mode",
+  // },
 
   mapbox: {
     accessToken:
@@ -72,21 +77,19 @@ export default defineNuxtConfig({
     autoImports: ["defineStore", ["defineStore", "definePiniaStore"]],
   },
 
-  extends: ["@shuriken-ui/nuxt"],
-
-  alias: {
-    "@": resolve(__dirname, "/"),
-  },
+  // alias: {
+  //   "@": resolve(__dirname, "/"),
+  // },
 
   css: ["~/assets/main.css"],
   devtools: { enabled: true },
 
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {},
+  //     autoprefixer: {},
+  //   },
+  // },
 
-  compatibilityDate: "2024-07-03",
+  compatibilityDate: "2025-03-05",
 });

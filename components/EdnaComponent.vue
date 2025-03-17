@@ -1,249 +1,158 @@
 <template>
   <div>
     <!-- list view -->
-    <div class="grid grid-cols-12 gap-4 relative">
-      <transition name="">
-        <div class="flex gap-2 absolute right-0 top-2">
-          <div class="flex items-end h-10">
-            <div class="w-28">
-              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-                >Dataunderlag</BaseHeading
-              >
-              <div class="flex items-end">
-                <UProgress
-                  :color="color"
-                  :indicator="false"
-                  :value="sampleEnvCount"
-                  :max="100"
-                  size="2xl"
-                  :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
-                />
-              </div>
-            </div>
-          </div>
+    <div class="flex justify-between">
+      <div class="flex justify between">
+        <div class="flex gap-4">
+          <h1 class="text-neutral-800 dark:text-neutral-200 text-3xl ml-4">
+            Alla&nbsp;mykorrhizasvampar
+          </h1>
+          <UTabs
+            v-model="selectedIndex"
+            :items="items"
+            :ui="{
+              list: {
+                rounded: 'rounded-full',
 
-          <div
-            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-full text-neutral-400"
-          >
-            <BaseHeading size="2xl" weight="medium" class="-mb-1 mx-1.5">
-              {{ data ? data.length : 0 }}
-            </BaseHeading>
-            <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
-          </div>
-
-          <!-- The enlarge button in Edna -->
-          <BaseButtonIcon
-            shape="full"
-            @click="$emit('enlarge')"
-            v-if="activeTab !== 'columnChart'"
-          >
-            <Icon name="material-symbols:open-in-full" class="size-5" />
-          </BaseButtonIcon>
-
-          <!-- <div
-            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-            :data-nui-tooltip="'Mycel från få arter dominerar i marken'"
-          >
-            <div class="flex items-end">
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-[2]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-[1]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-0"
-              />
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400">
-                {{ topCount }} Arter
-              </BaseHeading>
-            </div>
-          </div>
-
-          <div
-            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
-            :data-nui-tooltip="'De flesta arterna och deras mycel är ovanliga i marken'"
-          >
-            <div class="flex items-end">
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-[3]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-[2]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-[1]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 mr-2 text-rose-400 z-0"
-              />
-
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400">
-                {{ remainingCount }} Arter
-              </BaseHeading>
-            </div>
-          </div> -->
-
-          <BaseButtonIcon
-            @click="handleZoomIn"
-            shape="full"
-            v-if="activeTab === 'columnChart'"
-          >
-            <Icon name="heroicons:magnifying-glass-plus" class="h-5 w-5" />
-          </BaseButtonIcon>
-          <BaseButtonIcon
-            @click="handleZoomOut"
-            shape="full"
-            v-if="activeTab === 'columnChart'"
-          >
-            <Icon
-              name="heroicons:magnifying-glass-minus-solid"
-              class="h-5 w-5"
-            />
-          </BaseButtonIcon>
-        </div>
-      </transition>
-
-      <div class="col-span-12">
-        <div class="flex justify between">
-          <div class="flex items-end">
-            <UPopover mode="hover" class="flex items-end cursor-default">
-              <div class="items-end flex cursor-default">
-                <!-- <div
-                  class="dark:opacity-90 w-12 h-12 ml-2 mr-2 rounded-lg text-violet-500 flex justify-center"
-                >
-                  <Icon name="solar:dna-linear" class="h-11 w-11" />
-                </div> -->
-                <div>
-                  <BaseHeading
-                    size="3xl"
-                    weight="medium"
-                    class="text-neutral-800 dark:text-neutral-200 mb-1 ml-4"
-                  >
-                    Alla&nbsp;mykorrhizasvampar
-                  </BaseHeading>
-                  <!-- <BaseHeading
-                    weight="medium"
-                    size="xs"
-                    class="text-neutral-400"
-                  >
-                    Enligt DNA från Markinventeringens provytor
-                  </BaseHeading> -->
-                </div>
-              </div>
-              <template #panel>
-                <div class="p-4 w-96 text-sm text-neutral-500">
-                  Visar mykorrhizasvampar i svensk skogsmark baserat på
-                  DNA-analys av svampmycel från jordprover.
-                </div>
-              </template>
-            </UPopover>
-
-            <BaseTabs
-              class="ml-4 -mb-4"
-              v-model="activeTab"
-              :tabs="[
-                {
-                  label: 'Diagram',
-                  icon: 'material-symbols:bar-chart',
-                  value: 'columnChart',
+                marker: {
+                  rounded: 'rounded-full',
                 },
-                {
-                  label: 'Lista',
-                  icon: 'material-symbols:format-list-bulleted-rounded',
-                  value: 'spatialForest',
-                },
-              ]"
-            />
-          </div>
-        </div>
-        <transition name="">
-          <FullScreenEdna
-            v-if="activeTab === 'spatialForest'"
-            :isNormalView="true"
-            @enlarge="emitEnlarge('FullScreenEdna')"
+              },
+            }"
           />
-        </transition>
-      </div>
-    </div>
-
-    <!-- column chart view -->
-    <div>
-      <div
-        v-if="activeTab === 'columnChart'"
-        class="p-6 backdrop-blur-3xl rounded-xl bg-white dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
-      >
-        <div class="absolute top-2 right-2">
-          <div class="flex h-fit shrink-0">
-            <!-- Left mini-legend -->
-            <div
-              class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-white border-[0.5px] border-r-0 border-neutral-300 text-neutral-400"
-            >
-              <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
-                />
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
-                />
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 mr-2 text-gray-300 z-0"
-                />
-                <BaseHeading size="xs" weight="medium" class="text-neutral-400">
-                  {{ topCount }} Arter
-                </BaseHeading>
-              </div>
-            </div>
-
-            <!-- Right mini-legend -->
-            <div
-              class="flex items-end px-3 py-1 bg-white border-[0.5px] border-neutral-300 rounded-r-xl text-neutral-400 border-l-0"
-            >
-              <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
-                />
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
-                />
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
-                />
-                <Icon
-                  name="fluent:shape-organic-16-filled"
-                  class="h-6 w-6 mr-2 text-rose-400 z-0"
-                />
-                <BaseHeading size="xs" weight="medium" class="text-neutral-400">
-                  {{ remainingCount }} Arter
-                </BaseHeading>
-              </div>
-            </div>
-          </div>
+          <UBadge
+            v-if="!isNormalView"
+            size="lg"
+            color="violet"
+            variant="subtle"
+            :ui="{ rounded: 'rounded-lg' }"
+            class="h-fit"
+            ><Icon
+              name="solar:dna-linear"
+              class="size-6 text-violet-500 mr-1"
+            />Enligt DNA från markinventeringens provytor
+          </UBadge>
         </div>
-        <BarChart
-          :chartData="data"
-          :geography="geography"
-          :forestType="forestType"
-          :standAge="standAge"
-          :vegetationType="vegetationType"
-          class="w-full h-[450px]"
-          :chartWidth="chartWidth"
-          :key="`-${routeKey}`"
+      </div>
+      <div class="flex gap-4 items-end pb-2">
+        <div class="w-32">
+          <h1 class="text-neutral-400 text-xs">
+            Baserat på {{ sampleEnvCount }} skogar
+          </h1>
+          <UProgress
+            :color="color"
+            :indicator="false"
+            :value="sampleEnvCount"
+            :max="100"
+            size="xl"
+            :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
+          />
+        </div>
+        <UButton
+          size="lg"
+          :icon="
+            props.isNormalView
+              ? 'material-symbols:open-in-full'
+              : 'material-symbols:close-fullscreen'
+          "
+          :color="props.isNormalView ? 'white' : 'rose'"
+          :ui="{ rounded: 'rounded-full' }"
+          @click="$emit('enlarge')"
         />
       </div>
+    </div>
+    <FullScreenEdna
+      v-if="activeTab === 'spatialForest'"
+      :isNormalView="props.isNormalView"
+    />
+
+    <!-- column chart view -->
+
+    <div
+      v-if="activeTab === 'columnChart'"
+      class="p-6 backdrop-blur-3xl rounded-xl bg-white dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+    >
+      <div class="absolute top-2 right-2">
+        <div class="flex h-fit shrink-0 gap-1 items-center">
+          <!-- Left mini-legend -->
+          <h1
+            class="text-neutral-800 mr-2 bg-neutral-50 border-[0.5px] border-neutral-100 py-1 px-2 rounded-xl"
+          >
+            {{ data ? data.length : 0 }} Arter
+          </h1>
+          <div
+            class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-neutral-50 border-[0.5px] border-r-0 border-neutral-100 text-neutral-400"
+          >
+            <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 mr-2 text-gray-300 z-0"
+              />
+              <h1 class="text-neutral-400">{{ topCount }} Arter</h1>
+            </div>
+          </div>
+          <!-- Right mini-legend -->
+          <div
+            class="flex items-end px-3 py-1 bg-neutral-50 border-[0.5px] border-neutral-100 rounded-r-xl text-neutral-400 border-l-0"
+          >
+            <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
+              />
+              <Icon
+                name="fluent:shape-organic-16-filled"
+                class="h-6 w-6 mr-2 text-rose-400 z-0"
+              />
+              <h1 size="xs" weight="medium" class="text-neutral-400">
+                {{ remainingCount }} Arter
+              </h1>
+            </div>
+          </div>
+          <UButton
+            class="z-10"
+            icon="heroicons:magnifying-glass-plus"
+            @click="handleZoomIn"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            v-if="activeTab === 'columnChart'"
+          />
+          <UButton
+            class="z-10"
+            icon="heroicons:magnifying-glass-minus-solid"
+            @click="handleZoomOut"
+            color="white"
+            :ui="{ rounded: 'rounded-full' }"
+            v-if="activeTab === 'columnChart'"
+          />
+        </div>
+      </div>
+      <BarChart
+        :chartData="data"
+        :geography="geography"
+        :forestType="forestType"
+        :standAge="standAge"
+        :vegetationType="vegetationType"
+        class="w-full h-[450px]"
+        :chartWidth="chartWidth"
+        :key="`-${routeKey}`"
+      />
     </div>
   </div>
 </template>
@@ -252,6 +161,34 @@
 import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 
+const items = [
+  {
+    label: "Diagram",
+    icon: "material-symbols:bar-chart",
+    value: "columnChart",
+  },
+  {
+    label: "Tabell",
+    icon: "material-symbols:table-outline",
+    value: "spatialForest",
+  },
+];
+
+const activeTab = ref("columnChart");
+
+// Create a computed property that converts between the index and the custom value
+const selectedIndex = computed({
+  get() {
+    // Find the index of the active tab value in the items array.
+    const index = items.findIndex((item) => item.value === activeTab.value);
+    return index === -1 ? 0 : index;
+  },
+  set(index) {
+    // Update your custom active tab value based on the new index.
+    activeTab.value = items[index].value;
+  },
+});
+
 // -- PROPS --
 const props = defineProps({
   isNormalView: Boolean,
@@ -259,15 +196,15 @@ const props = defineProps({
 
 // -- EMITS --
 const emit = defineEmits(["zoomIn", "zoomOut", "enlarge"]);
-const emitEnlarge = (componentName) => {
-  emit("enlarge", componentName);
-};
+// const emitEnlarge = (componentName) => {
+//   emit("enlarge", componentName);
+// };
 
 // -- ROUTE --
 const route = useRoute();
 
 // -- TABS, CHART WIDTH, ZOOM --
-const activeTab = ref("columnChart");
+// const activeTab = ref("columnChart");
 const chartWidth = ref("100%");
 
 const handleZoomIn = () => {

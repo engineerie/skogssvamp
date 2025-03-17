@@ -7,15 +7,12 @@
         class="col-span-3 border border-neutral-200 rounded-2xl bg-neutral-50 bg-opacity-95 overflow-hidden flex-col justify-between h-fit"
       >
         <div class="p-6">
-          <BaseHeading size="2xl" weight="light" class="text-neutral-900 mb-2">
-            Se vilka arter som kan finnas olika i skogsmiljöer.
-          </BaseHeading>
-          <BaseHeading size="lg" weight="light" class="text-neutral-500">
+          <h1 class="text-neutral-500 text-lg">
             Här kan du söka på svenska skogsmiljöer för att se vilka arter som
             kan finnas i marken baserat på DNA-analyser av svampmycel i
             jordprover samt vår samlade kunskap om var olika arters fruktkroppar
             förekommer.
-          </BaseHeading>
+          </h1>
         </div>
         <div class="w-full">
           <img src="/images/SvamparSverige4.svg" class="z-10" />
@@ -24,39 +21,50 @@
 
       <!-- Right side with tabs -->
       <div class="col-span-9">
-        <BaseTabs v-model="activeTab" :tabs="tabs" class="mb-4" />
+        <UTabs
+          v-model="selectedIndex"
+          :items="items"
+          class="w-fit"
+          :ui="{
+            list: {
+              rounded: 'rounded-full',
+              marker: {
+                rounded: 'rounded-full',
+              },
+            },
+          }"
+        />
 
         <!-- Kom igång Tab -->
         <div
           v-if="activeTab === 'komigang'"
           class="border rounded-2xl p-6 border-neutral-200 bg-neutral-50"
         >
-          <!-- <BaseHeading size="xl" weight="light">Instruktioner</BaseHeading> -->
-          <div class="text-neutral-500 text-lg font-light">
+          <!-- <h1 size="xl" weight="light">Instruktioner</h1> -->
+          <div class="text-neutral-500 text-md">
             <ul class="space-y-4">
               <li class="">
                 Välj skogsmiljö genom att ange
 
                 <Icon
                   name="material-symbols:location-on-outline"
-                  class="size-5 text-fuchsia-500 inline-flex mb-1"
+                  class="size-5 text-fuchsia-500 -mb-1"
                 />
                 Var i Sverige (för närvarande begränsat till norr och söder),
-                <span>
-                  <Icon name="lucide:trees" class="size-5 text-green-500 mb-1"
-                /></span>
+
+                <Icon name="lucide:trees" class="size-5 text-green-500 -mb-1" />
                 Skogstyp (vilka träd som dominerar),
-                <span>
-                  <Icon
-                    name="carbon:crop-growth"
-                    class="size-5 text-violet-500 mb-1"
-                /></span>
+
+                <Icon
+                  name="carbon:crop-growth"
+                  class="size-5 text-violet-500 -mb-1"
+                />
                 Beståndsålder (trädens ålder) och
-                <span>
-                  <Icon
-                    name="fluent-emoji-high-contrast:herb"
-                    class="size-5 text-teal-500 mb-1"
-                /></span>
+
+                <Icon
+                  name="fluent-emoji-high-contrast:herb"
+                  class="size-5 text-teal-500 -mb-1"
+                />
                 Fältskikt (vilken vegetation som växer på marken).
               </li>
               <li>
@@ -104,13 +112,11 @@
           v-else-if="activeTab === 'miljo'"
           class="border rounded-2xl p-6 border-neutral-200 bg-neutral-50"
         >
-          <!-- <BaseHeading size="xl" weight="light">Miljöinformation</BaseHeading> -->
+          <!-- <h1 size="xl" weight="light">Miljöinformation</h1> -->
           <div class="space-y-6 mt-4">
             <!-- Gallery for Geography -->
             <div>
-              <BaseHeading size="lg" weight="light" class="mb-2">
-                Var i Sverige
-              </BaseHeading>
+              <h1 size="lg" weight="light" class="mb-2">Var i Sverige</h1>
               <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div
                   v-for="option in geographyOptions"
@@ -137,9 +143,7 @@
             </div>
             <!-- Gallery for Forest Type -->
             <div>
-              <BaseHeading size="lg" weight="light" class="mb-2">
-                Skogstyp
-              </BaseHeading>
+              <h1 size="lg" weight="light" class="mb-2">Skogstyp</h1>
               <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div
                   v-for="option in forestTypeOptions"
@@ -166,9 +170,7 @@
             </div>
             <!-- Gallery for Stand Age -->
             <div>
-              <BaseHeading size="lg" weight="light" class="mb-2">
-                Beståndsålder
-              </BaseHeading>
+              <h1 size="lg" weight="light" class="mb-2">Beståndsålder</h1>
               <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div
                   v-for="option in standAgeOptions"
@@ -195,9 +197,7 @@
             </div>
             <!-- Gallery for Vegetation Type -->
             <div>
-              <BaseHeading size="lg" weight="light" class="mb-2">
-                Fältskikt
-              </BaseHeading>
+              <h1 size="lg" weight="light" class="mb-2">Fältskikt</h1>
               <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div
                   v-for="option in vegetationTypeOptions"
@@ -228,9 +228,9 @@
             <UCard>
               <template #header>
                 <div class="flex justify-between items-center">
-                  <BaseHeading size="xl" weight="light">
+                  <h1 size="xl" weight="light">
                     {{ selectedOption?.label }}
-                  </BaseHeading>
+                  </h1>
                   <Icon
                     @click="isModalOpen = false"
                     name="heroicons:x-mark"
@@ -264,9 +264,9 @@
           v-else-if="activeTab === 'dataunderlag'"
           class="border rounded-2xl p-6 border-neutral-200 bg-neutral-50"
         >
-          <!-- <BaseHeading size="xl" weight="light">
+          <!-- <h1 size="xl" weight="light">
             Dataunderlagsinformation
-          </BaseHeading>
+          </h1>
           <div class="text-neutral-500 text-lg font-light">
             <p>
               Här visas information om det dataunderlag som används för
@@ -286,15 +286,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-// --- Tab setup ---
 const activeTab = ref("komigang");
-const tabs = [
+
+const items = [
   { label: "Kom igång", value: "komigang" },
   { label: "Miljöinformation", value: "miljo" },
   { label: "Dataunderlagsinformation", value: "dataunderlag" },
 ];
+
+// Computed property that maps between the activeTab value and its index.
+const selectedIndex = computed({
+  get() {
+    const index = items.findIndex((item) => item.value === activeTab.value);
+    return index === -1 ? 0 : index;
+  },
+  set(index) {
+    activeTab.value = items[index].value;
+  },
+});
 
 // --- Options (from EnvironmentTitle.vue) ---
 const geographyOptions = [

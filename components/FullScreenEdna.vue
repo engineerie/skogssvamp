@@ -1,174 +1,26 @@
 <template>
-  <div>
-    <NuxtImg
-      height="270"
-      src="/images/filtskinn.jpg"
-      class="rounded-xl mb-2 hidden"
-    />
-    <NuxtImg
-      src="/images/svampgrupp/BasilOther1Solid.png"
-      class="w-6 mr-2 hidden"
-    />
-
-    <div class="">
-      <div class="flex justify-between">
-        <div
-          class="items-end flex cursor-default"
-          v-if="props.isNormalView == false"
-        >
-          <!-- <div
-              class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-violet-500 flex justify-center items-center"
-            >
-              <Icon name="solar:dna-linear" class="h-11 w-11" />
-            </div> -->
-          <div class="items-end flex cursor-default">
-            <BaseHeading
-              size="3xl"
-              weight="medium"
-              class="text-neutral-800 dark:text-neutral-200 mb-1 ml-4"
-              >Alla mykorrhizasvampar</BaseHeading
-            >
-            <UBadge
-              class="mb-2 ml-4"
-              size="lg"
-              color="violet"
-              variant="subtle"
-              :ui="{ rounded: 'rounded-lg' }"
-              ><Icon
-                name="solar:dna-linear"
-                class="size-6 text-violet-500 mr-1"
-              />Enligt DNA från markinventeringens provytor
-            </UBadge>
-          </div>
-        </div>
-
-        <div v-else></div>
-
-        <div class="flex gap-2" v-if="!isNormalView">
-          <div class="flex h-10">
-            <div class="w-28">
-              <BaseHeading weight="medium" size="xs" class="text-neutral-400"
-                >Dataunderlag</BaseHeading
-              >
-
-              <div class="flex items-end">
-                <UProgress
-                  :color="color"
-                  :indicator="false"
-                  :value="sampleEnvCount"
-                  :max="100"
-                  size="2xl"
-                  :data-nui-tooltip="`Baserat på ${sampleEnvCount} skogar`"
-                  indicator
-                />
-              </div>
-            </div>
-          </div>
-          <div v-if="!props.isNormalView" class="w-20">
-            <BaseListbox
-              v-model="rowsPerPage"
-              :items="[10, 20, 30, 40, 50, 'Alla']"
-              placeholder="Rader per sida"
-              shape="full"
-              label="Rader"
-              label-float
-            />
-          </div>
-
-          <!-- display the  "sample_env_count" here  -->
-
-          <div
-            class="inline-flex items-end px-3 pb-1 mb-2 bg-white border-[0.5px] border-neutral-300 rounded-full text-neutral-400"
-            v-if="!isNormalView"
-          >
-            <BaseHeading size="2xl" weight="medium" class="-mb-1.5 mx-1.5"
-              >{{ data ? data.length : 0 }}
-            </BaseHeading>
-            <BaseHeading weight="medium" size="xs">Arter</BaseHeading>
-          </div>
-
-          <!-- <div
-            class="flex items-end px-3 -mr-2 pb-1 bg-white border-[0.5px] border-neutral-300 text-neutral-400"
-            :data-nui-tooltip="'Mycel från få arter dominerar i marken'"
-          >
-            <div class="flex items-end">
-
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-500 z-[2]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-gray-400 z-[1]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 mr-2 text-gray-300 z-0"
-              />
-
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ topCount }} Arter</BaseHeading
-              >
-            </div>
-          </div>
-
-          <div
-            class="flex items-end px-3 pb-1 bg-white border-[0.5px] border-neutral-300 rounded-r-full text-neutral-400"
-            :data-nui-tooltip="'De flesta arterna och deras mycel är ovanliga i marken'"
-          >
-            <div class="flex items-end">
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-yellow-400 z-[3]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-lime-400 z-[2]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 -mr-5 text-teal-400 z-[1]"
-              />
-              <Icon
-                name="fluent:shape-organic-16-filled"
-                class="h-7 w-7 mt-1 mr-2 text-rose-400 z-0"
-              />
-
-              <BaseHeading size="xs" weight="medium" class="text-neutral-400"
-                >{{ remainingCount }} Arter</BaseHeading
-              >
-            </div>
-          </div> -->
-          <BaseInput
-            v-if="!isNormalView"
-            icon="i-heroicons-magnifying-glass-20-solid"
-            v-model="searchQuery"
-            shape="full"
-            placeholder="Sök i tabell"
-          />
-          <BaseButtonIcon
-            v-if="!isNormalView"
-            shape="full"
-            @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
-          >
-            <Icon
-              v-if="props.isNormalView"
-              name="material-symbols:open-in-full"
-              class="size-5"
-            />
-            <Icon
-              v-else
-              name="material-symbols:close-fullscreen"
-              class="size-5"
-            />
-          </BaseButtonIcon>
-        </div>
-      </div>
-    </div>
+  <div class="">
     <div
-      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-20"
+      class="overflow-clip backdrop-blur-3xl rounded-xl bg-white bg-opacity-80 dark:bg-neutral-700 dark:bg-opacity-20 border dark:border-neutral-600 dark:border-opacity-30 border-stone-200"
     >
-      <div v-if="filteredData" class="col-span-6">
+      <div class="flex gap-2 p-2 justify-end z-30" v-if="!isNormalView">
+        <div>
+          <USelectMenu
+            :ui="{ rounded: 'rounded-full' }"
+            v-model="rowsPerPage"
+            :options="[10, 20, 30, 40, 50, 'Alla']"
+            placeholder="Rader per sida"
+          />
+        </div>
+
+        <UInput
+          :ui="{ rounded: 'rounded-full' }"
+          icon="i-heroicons-magnifying-glass-20-solid"
+          v-model="searchQuery"
+          placeholder="Sök i tabell"
+        />
+      </div>
+      <div v-if="filteredData" :class="[isNormalView ? '' : 'border-t']">
         <div class="">
           <!-- v-model="selectedRows" -->
 
@@ -194,9 +46,12 @@
                 size: 'text-md',
                 color: 'text-neutral-500 dark:text-neutral-300',
               },
-              thead:
-                'sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-20',
+
+              thead: !props.isNormalView
+                ? 'sticky top-12 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-10'
+                : 'sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-10',
               tbody: 'divide-y divide-neutral-200 dark:divide-neutral-700',
+              wrapper: { base: '' },
               tr: {
                 selected: 'bg-neutral-100 dark:bg-neutral-800',
                 active:
@@ -210,36 +65,6 @@
             sort-mode="manual"
             :key="route.fullPath"
           >
-            <!-- <template
-              v-if="isNormalView"
-              #sample_plot_count-data="{ row, index }"
-            >
-              <div class="flex items-center justify-center">
-                <div
-                  data-nui-tooltip-position="right"
-                  :data-nui-tooltip="`Förekommer i ${row['sample_plot_count']} av ${sampleEnvCount} skogar`"
-                >
-                  <Icon
-                    name="fluent:shape-organic-16-filled"
-                    :class="'h-8 w-8'"
-                    :style="{ color: allColors[index] }"
-                  />
-                </div>
-              </div>
-            </template>
-            <template #sample_plot_count-data="{ row }" v-else>
-              <div class="px-2 w-32">
-                <UProgress
-                  :max="sampleEnvCount"
-                  :value="row.sample_plot_count"
-                  size="md"
-                  :color="''"
-                  :style="{ color: allColors[row.colorIndex] }"
-                  data-nui-tooltip-position="right"
-                  :data-nui-tooltip="`Förekommer i ${row.sample_plot_count} av ${sampleEnvCount} skogar`"
-                />
-              </div>
-            </template> -->
             <template #sample_plot_count-data="{ row, index }">
               <!-- Show icons if `showIcons` is true -->
               <div v-if="showIcons" class="flex items-center justify-center">
@@ -352,85 +177,69 @@
           <div
             class="flex justify-between items-center p-5 border-t-[1px] border-neutral-200 dark:border-neutral-700"
           >
-            <UPopover
-              mode="hover"
-              class="flex items-end cursor-default"
-              :popper="{ placement: 'top-end' }"
-            >
-              <div
-                class="flex h-fit shrink-0 items-center"
-                @click="showIcons = !showIcons"
+            <div class="flex h-fit shrink-0 gap-1 items-center">
+              <!-- Left mini-legend -->
+              <h1
+                v-if="isNormalView"
+                class="text-neutral-800 mr-2 bg-neutral-50 border-[0.5px] border-neutral-100 py-1 px-2 rounded-xl"
               >
-                <!-- Left mini-legend -->
-                <div
-                  class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-white border-[0.5px] border-r-0 border-neutral-300 text-neutral-400"
-                >
-                  <div class="flex items-end">
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
-                    />
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
-                    />
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 mr-2 text-gray-300 z-0"
-                    />
-                    <BaseHeading
-                      size="xs"
-                      weight="medium"
-                      class="text-neutral-400"
-                    >
-                      {{ topCount }} Arter
-                    </BaseHeading>
-                  </div>
-                </div>
-
-                <!-- Right mini-legend -->
-                <div
-                  class="flex items-end px-3 py-1 bg-white border-[0.5px] border-neutral-300 rounded-r-xl text-neutral-400 border-l-0"
-                >
-                  <div class="flex items-end">
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
-                    />
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
-                    />
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
-                    />
-                    <Icon
-                      name="fluent:shape-organic-16-filled"
-                      class="h-6 w-6 mr-2 text-rose-400 z-0"
-                    />
-                    <BaseHeading
-                      size="xs"
-                      weight="medium"
-                      class="text-neutral-400"
-                    >
-                      {{ remainingCount }} Arter
-                    </BaseHeading>
-                  </div>
+                {{ data ? data.length : 0 }} Arter
+              </h1>
+              <h1
+                v-else
+                class="text-neutral-800 mr-2 bg-neutral-50 border-[0.5px] border-neutral-100 py-1 px-2 rounded-xl"
+              >
+                Visar {{ startItem }} till {{ endItem }} av
+                {{ totalItems }} arter
+              </h1>
+              <div
+                class="rounded-l-xl flex items-end px-3 -mr-2 py-1 bg-neutral-50 border-[0.5px] border-r-0 border-neutral-100 text-neutral-400"
+              >
+                <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 -mr-5 text-gray-500 z-[2]"
+                  />
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 -mr-5 text-gray-400 z-[1]"
+                  />
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 mr-2 text-gray-300 z-0"
+                  />
+                  <h1 class="text-neutral-400">{{ topCount }} Arter</h1>
                 </div>
               </div>
-              <template #panel>
-                <div class="p-4 w-96 text-sm text-neutral-500">
-                  Få arter är vanliga och många arter är ovanliga.
+              <!-- Right mini-legend -->
+              <div
+                class="flex items-end px-3 py-1 bg-neutral-50 border-[0.5px] border-neutral-100 rounded-r-xl text-neutral-400 border-l-0"
+              >
+                <div class="flex items-end" :data-nui-tooltip="'Mycelform'">
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 -mr-5 text-yellow-400 z-[3]"
+                  />
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 -mr-5 text-lime-400 z-[2]"
+                  />
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 -mr-5 text-teal-400 z-[1]"
+                  />
+                  <Icon
+                    name="fluent:shape-organic-16-filled"
+                    class="h-6 w-6 mr-2 text-rose-400 z-0"
+                  />
+                  <h1 size="xs" weight="medium" class="text-neutral-400">
+                    {{ remainingCount }} Arter
+                  </h1>
                 </div>
-              </template>
-            </UPopover>
+              </div>
+            </div>
 
             <!-- Display the current range and total items -->
-            <!-- <BaseProse class="text-sm"
-                >Visar {{ startItem }} till {{ endItem }} av
-                {{ totalItems }} arter
-              </BaseProse> -->
 
             <div>
               <!-- Pagination component -->
@@ -478,8 +287,8 @@
       </div>
       <div v-else>
         <div class="max-w-sm space-y-2 mt-2">
-          <BasePlaceload class="h-4 w-full rounded" />
-          <BasePlaceload class="h-4 w-[85%] rounded" />
+          <USkeleton class="h-4 w-full rounded" />
+          <USkeleton class="h-4 w-[85%] rounded" />
         </div>
       </div>
 

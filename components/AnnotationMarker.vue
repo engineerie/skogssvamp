@@ -1,52 +1,52 @@
-<!-- AnnotationMarker.vue -->
 <template>
-  <div class="flex items-center gap-2">
-    <div
-      class="size-5 rounded-full bg-green-500 ring ring-white/90 transition-all hover:size-7 cursor-pointer"
-      @click="handleClick"
-    >
-      <!-- For debugging we display the annotation title.
-         You can later remove or change this as needed -->
-    </div>
-    <div
-      class="text-sm p-1 rounded-md border border-neutral-200 bg-white pointer-events-none cursor-default text-neutral-700"
-    >
-      {{ annotation.title }}
+  <div class="cursor-pointer" @click="handleClick">
+    <UBadge :label="annotation.title" color="white" v-if="isSelected" />
+    <div class="w-full flex justify-center">
+      <div
+        :class="['relative transition-all', isSelected ? 'size-12' : 'size-12']"
+      >
+        <Icon
+          name="i-heroicons-map-pin-solid"
+          :class="[
+            'absolute  transition-all ',
+            isSelected ? 'size-12 text-green-500' : 'size-12 text-violet-600',
+          ]"
+        />
+        <Icon
+          name="i-heroicons-outline-map-pin"
+          :class="[
+            'absolute transition-all ',
+            isSelected ? 'size-12 text-white' : ' size-12 text-white',
+          ]"
+        />
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "AnnotationMarker",
-  props: {
-    annotation: {
-      type: Object,
-      required: true,
-    },
-  },
-  methods: {
-    handleClick(e) {
-      // We emit a click event so that the parent (or our MouseTracker) can react.
-      this.$emit("marker-click", this.annotation);
-    },
-  },
-};
-</script>
+<script setup lang="ts">
+import { computed } from "vue";
+import { useSelectedAnnotationStore } from "~/stores/selectedAnnotationStore";
 
-<style scoped>
-.annotation-marker {
-  width: 20px;
-  height: 20px;
-  background: green;
-  border: 2px solid darkgreen;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 10px;
-  cursor: pointer;
-  /* Adjust additional styling as needed */
+interface Annotation {
+  id: string;
+  title: string;
+  [key: string]: any;
 }
-</style>
+
+const props = defineProps<{
+  annotation: Annotation;
+}>();
+
+const selectedAnnotationStore = useSelectedAnnotationStore();
+
+// Reactive computed property to check if this marker's annotation is the selected one.
+const isSelected = computed(() => {
+  return selectedAnnotationStore.selectedAnnotation?.id === props.annotation.id;
+});
+
+// When this marker is clicked, update the store.
+function handleClick() {
+  selectedAnnotationStore.setSelectedAnnotation(props.annotation);
+}
+</script>

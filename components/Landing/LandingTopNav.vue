@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- <BaseMessage type="danger" icon class="fixed top-4 right-4 z-[999]">
+    <!-- <UAlert type="danger" icon class="fixed top-4 right-4 z-[999]">
       <span class="text-red-500">
         <b>Testversion:</b> information kan vara ofullständig eller felaktig
       </span>
-    </BaseMessage> -->
+    </UAlert> -->
     <!-- Navigation Bar -->
     <div
       ref="navRef"
@@ -41,7 +41,7 @@
               class="size-16 mr-2 -my-3"
             />
 
-            <BaseHeading size="xl" weight="medium">Svampskog</BaseHeading>
+            <h1 size="xl" weight="medium">Svampskog</h1>
           </div>
 
           <!-- Center: Navigation Links -->
@@ -118,7 +118,7 @@
 
           <!-- Right Side: Theme Switch -->
           <div class="flex items-center w-10">
-            <!-- <BaseThemeSwitch /> -->
+            <!-- <UToggle /> -->
           </div>
         </div>
 
@@ -137,13 +137,9 @@
                 class="grid grid-cols-1 md:grid-cols-3 gap-4"
               >
                 <div>
-                  <BaseHeading
-                    weight="thin"
-                    size="sm"
-                    class="text-neutral-400 mb-2"
-                  >
+                  <h1 weight="thin" size="sm" class="text-neutral-400 mb-2">
                     Appfunktioner
-                  </BaseHeading>
+                  </h1>
                   <NuxtLink
                     to="/mykorrhizasvampar"
                     @click="closeMenu"
@@ -169,13 +165,9 @@
                   </NuxtLink>
                 </div>
                 <div>
-                  <BaseHeading
-                    weight="thin"
-                    size="sm"
-                    class="text-neutral-400 mb-2"
-                  >
+                  <h1 weight="thin" size="sm" class="text-neutral-400 mb-2">
                     Resurser
-                  </BaseHeading>
+                  </h1>
                   <NuxtLink
                     to="/svampkunskap"
                     @click="closeMenu"
@@ -199,13 +191,9 @@
                 class="grid grid-cols-1 md:grid-cols-3 gap-4"
               >
                 <div>
-                  <BaseHeading
-                    weight="thin"
-                    size="sm"
-                    class="text-neutral-400 mb-2"
-                  >
+                  <h1 weight="thin" size="sm" class="text-neutral-400 mb-2">
                     Dokumentation
-                  </BaseHeading>
+                  </h1>
                   <NuxtLink
                     to="/guide"
                     @click="closeMenu"
@@ -226,13 +214,9 @@
                 class="grid grid-cols-1 md:grid-cols-3 gap-4"
               >
                 <div>
-                  <BaseHeading
-                    weight="thin"
-                    size="sm"
-                    class="text-neutral-400 mb-2"
-                  >
+                  <h1 weight="thin" size="sm" class="text-neutral-400 mb-2">
                     Om projektet
-                  </BaseHeading>
+                  </h1>
                   <NuxtLink
                     to="/about"
                     @click="closeMenu"

@@ -3,10 +3,10 @@
   <div class="relative h-fit">
     <!-- Title and heading section -->
     <!-- <div class="flex justify-between items-center mb-10">
-        <BaseHeading size="md" class="mb-4">Markinventeringsdata</BaseHeading>
-        <BaseIconBox size="sm" shape="curved" flavor="pastel" color="warning">
+        <h1 size="md" class="mb-4">Markinventeringsdata</h1>
+        <UIcon size="sm" shape="curved" flavor="pastel" color="warning">
           <Icon name="solar:dna-bold-duotone" class="h-6 w-6" />
-        </BaseIconBox>
+        </UIcon>
       </div> -->
 
     <!-- Chart Section -->
@@ -20,7 +20,7 @@
     </div>
 
     <div v-else>
-      <BasePlaceload class="h-32 w-32 mb-12 rounded-full" />
+      <USkeleton class="h-32 w-32 mb-12 rounded-full" />
     </div>
   </div>
 
@@ -29,16 +29,16 @@
       <hr class="border-stone-200 dark:border-stone-700 mb-4"/>
       <div class="flex justify-between">
         <div>
-          <BaseParagraph size="md" class="text-neutral-500">{{ top4Count }} arter</BaseParagraph>
-          <div class="flex items-center"><div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div><BaseParagraph size="md" class="text-neutral-500">{{ top4Percentage }}%</BaseParagraph></div>
+          <p size="md" class="text-neutral-500">{{ top4Count }} arter</p>
+          <div class="flex items-center"><div class="bg-neutral-500 rounded-full w-2 h-2 mr-1"></div><p size="md" class="text-neutral-500">{{ top4Percentage }}%</p></div>
         </div>
         <div>
-          <BaseParagraph size="md" class="text-neutral-500">{{ next10Count }} arter</BaseParagraph>
-          <div class="flex items-center"><div class="bg-green-500 rounded-full w-2 h-2 mr-1"></div><BaseParagraph size="md" class="text-neutral-500">{{ next10Percentage }}%</BaseParagraph></div>
+          <p size="md" class="text-neutral-500">{{ next10Count }} arter</p>
+          <div class="flex items-center"><div class="bg-green-500 rounded-full w-2 h-2 mr-1"></div><p size="md" class="text-neutral-500">{{ next10Percentage }}%</p></div>
         </div>
         <div>
-          <BaseParagraph size="md" class="text-neutral-500">{{ remainingCount }} arter</BaseParagraph>
-          <div class="flex items-center"><div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div><BaseParagraph size="md" class="text-neutral-500">{{ remainingPercentage }}%</BaseParagraph></div>
+          <p size="md" class="text-neutral-500">{{ remainingCount }} arter</p>
+          <div class="flex items-center"><div class="bg-violet-500 rounded-full w-2 h-2 mr-1"></div><p size="md" class="text-neutral-500">{{ remainingPercentage }}%</p></div>
         </div>
       </div>
     </div> -->

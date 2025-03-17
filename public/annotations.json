@@ -3,16 +3,18 @@
     {
       "id": "mykorrhizan_foljer",
       "title": "Mykorrhizan följer trädens rötter",
-      "text": "Mykorrhizasvamparnas mycel på stubbens rötter tynar bort och  dör inom ett par månader - ett år efter avverkningen.",
+      "text": "Mykorrhizasvamparnas mycel på stubbens rötter tynar bort och dör inom ett par månader - ett år efter avverkningen.",
       "thumbnail": "/images/kalhygge.jpeg",
       "icon": "i-heroicons-star-16-solid",
       "color": "yellow-500",
-      "positions": [
-        {
-          "framework": ["trakthygge", "naturskydd"],
-          "time": ["efter", "före"]
-        }
-      ]
+      "frameworks": [
+        "naturskydd",
+        "trakthygge",
+        "blädning",
+        "skärmträd",
+        "luckhuggning"
+      ],
+      "times": ["före", "efter", "10", "20", "50", "80"]
     },
     {
       "id": "grupp_hansyn",
@@ -20,27 +22,20 @@
       "text": "Mykorrhizasvamparnas mycel lever vidare i rötterna av hänsynsträdens rötter efter avverkning.",
       "thumbnail": "/images/Skogsbruk.png",
       "icon": "i-heroicons-map-pin-solid",
-      "color": "green-500",
+      "color": "violet-500",
       "positions": [
         {
-          "framework": "naturskydd",
-          "time": "före",
+          "framework": ["naturskydd"],
+          "times": ["före", "efter"],
           "x": 0.2008,
           "y": 0.4778,
-          "placement": "RIGHT"
+          "placement": "LEFT"
         },
         {
-          "framework": "naturskydd",
-          "time": "efter",
-          "x": 0.22,
-          "y": 0.48,
-          "placement": "BOTTOM"
-        },
-        {
-          "framework": "trakthygge",
-          "time": "efter",
-          "x": 0.25,
-          "y": 0.5,
+          "framework": ["trakthygge"],
+          "times": ["efter"],
+          "x": 0.247,
+          "y": 0.3261,
           "placement": "LEFT"
         }
       ]
@@ -48,12 +43,14 @@
     {
       "id": "stubbe",
       "title": "Stubbe",
-      "text": "Mykorrhizasvamparnas mycel på stubbens rötter tynar bort och  dör inom ett par månader - ett år efter avverkningen.",
+      "text": "Mykorrhizasvamparnas mycel på stubbens rötter tynar bort och dör inom ett par månader - ett år efter avverkningen.",
       "thumbnail": "/images/kalhygge.jpeg",
+      "icon": "i-heroicons-map-pin-solid",
+      "color": "violet-500",
       "positions": [
         {
-          "framework": "trakthygge",
-          "time": "efter",
+          "framework": ["trakthygge"],
+          "times": ["efter"],
           "x": 0.3,
           "y": 0.45,
           "placement": "LEFT"

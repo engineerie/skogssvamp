@@ -26,24 +26,20 @@ onActivated(() => {
 
 <template>
   <section>
-    <BaseHeading id="intro" size="2xl" weight="semi-bold" class="mb-4">
-      Introduction
-    </BaseHeading>
+    <h1 id="intro" size="2xl" weight="semi-bold" class="mb-4">Introduction</h1>
     <p>Some introductory text...</p>
 
-    <BaseHeading id="morphology" size="2xl" weight="semi-bold" class="mb-4">
+    <h1 id="morphology" size="2xl" weight="semi-bold" class="mb-4">
       Morphology
-    </BaseHeading>
+    </h1>
     <p>Details about morphology...</p>
 
-    <BaseHeading id="ecology" size="2xl" weight="semi-bold" class="mb-4">
-      Ecology
-    </BaseHeading>
+    <h1 id="ecology" size="2xl" weight="semi-bold" class="mb-4">Ecology</h1>
     <p>Details about ecology...</p>
 
-    <BaseHeading id="conclusion" size="2xl" weight="semi-bold" class="mb-4">
+    <h1 id="conclusion" size="2xl" weight="semi-bold" class="mb-4">
       Conclusion
-    </BaseHeading>
+    </h1>
     <p>Final thoughts...</p>
   </section>
 </template>

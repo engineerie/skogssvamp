@@ -1,23 +1,23 @@
 <!-- <template>
-  <BaseHeading
+  <h1
     size="xl"
     weight="normal"
     class="text-neutral-800 dark:text-neutral-100 mb-6"
   >
     Dokumentation
-  </BaseHeading>
+  </h1>
 
   <button
     @click="toggleSvampar"
     class="flex justify-between items-center w-full text-left py-2"
   >
-    <BaseHeading
+    <h1
       size="sm"
       weight="bold"
       class="text-neutral-800 dark:text-neutral-100"
     >
       Markinventeringen och Rikskogstaxeringen
-    </BaseHeading>
+    </h1>
     <span
       class="transform transition-transform pb-1"
       :class="!svamparOpen ? 'rotate-90' : ''"
@@ -34,13 +34,13 @@
     @click="toggleSkogssbruk"
     class="flex justify-between items-center w-full text-left py-2 mt-4"
   >
-    <BaseHeading
+    <h1
       size="sm"
       weight="bold"
       class="text-neutral-800 dark:text-neutral-100"
     >
       Skogsskötsel
-    </BaseHeading>
+    </h1>
     <span
       class="transform transition-transform pb-1"
       :class="!skogssbrukOpen ? 'rotate-90' : ''"

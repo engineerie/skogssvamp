@@ -6,18 +6,18 @@
           
         <div class="flex items-center gap-2 mb-2">
           
-          <BaseHeading size="md" weight="thin" class="text-neutral-600">
+          <h1 size="md" weight="thin" class="text-neutral-600">
             {{ framework.label }}
-          </BaseHeading>
+          </h1>
         </div>
-        <BaseButtonIcon
+        <UButton
           shape="full"
           size="xs"
           @click="$emit('open-info')"
           class="size-7"
         >
           <Icon name="i-material-symbols:info-i-rounded" class="w-4 h-4" />
-        </BaseButtonIcon>
+        </UButton>
       </div> -->
 
       <!-- Badge row -->
@@ -49,12 +49,12 @@
         <!-- <div class="size-5">
           <Icon name="lucide:trees" class="w-5 h-5 icon text-primary-500" />
         </div> -->
-        <BaseHeading size="sm" weight="thin" class="text-neutral-700">
+        <h1 size="sm" weight="thin" class="text-neutral-700">
           Vad händer med skogen
-        </BaseHeading>
-        <BaseHeading size="sm" weight="thin" class="text-neutral-500">
+        </h1>
+        <h1 size="sm" weight="thin" class="text-neutral-500">
           {{ data.skog }}
-        </BaseHeading>
+        </h1>
       </div>
       <div class="gap-2 mb-2">
         <div class="flex">
@@ -62,13 +62,13 @@
             name="fluent:shape-organic-24-filled"
             class="size-4 icon text-primary-500"
           /> -->
-          <BaseHeading size="sm" weight="thin" class="text-neutral-700">
+          <h1 size="sm" weight="thin" class="text-neutral-700">
             Vad händer med svampen
-          </BaseHeading>
+          </h1>
         </div>
-        <BaseHeading size="sm" weight="thin" class="text-neutral-500">
+        <h1 size="sm" weight="thin" class="text-neutral-500">
           {{ data.svamp }}
-        </BaseHeading>
+        </h1>
       </div>
     </div>
     <div v-else>

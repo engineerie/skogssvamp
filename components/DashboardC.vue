@@ -1,13 +1,6 @@
 <template>
   <div>
     <!-- A button to toggle the slideover (e.g. for species info) -->
-    <BaseButtonIcon
-      shape="full"
-      @click="toggleSlideover"
-      class="fixed top-2 right-2 z-50"
-    >
-      <Icon name="heroicons:chevron-left" class="size-5" />
-    </BaseButtonIcon>
 
     <!-- Always show the EnvironmentTitle at the top -->
     <EnvironmentTitle />
@@ -45,7 +38,6 @@ import { useRoute } from "vue-router";
 import { useTitleStore } from "~/stores/titleStore";
 import MySlideover from "./MySlideover.vue";
 import FullScreenPoison from "./FullScreenPoison.vue";
-import FullScreenEdna from "./FullScreenEdna.vue";
 import FullScreenEdible from "./FullScreenEdible.vue";
 import FullScreenRedlisted from "./FullScreenRedlisted.vue";
 import NormalView from "./NormalView.vue"; // Component for the normal view
@@ -54,6 +46,7 @@ import StartView from "./StartView.vue"; // Component for the normal view
 import { useEnvParamsStore } from "~/stores/envParamsStore";
 
 import { useSpeciesStore } from "~/stores/speciesStore";
+import EdnaComponent from "./EdnaComponent.vue";
 
 const speciesStore = useSpeciesStore();
 const envParamsStore = useEnvParamsStore();
@@ -98,7 +91,7 @@ const activeComponent = computed(() => {
   }
   switch (activeFullScreenComponent.value) {
     case "FullScreenEdna":
-      return FullScreenEdna;
+      return EdnaComponent;
     case "FullScreenEdible":
       return FullScreenEdible;
     case "FullScreenPoison":

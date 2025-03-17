@@ -40,7 +40,7 @@
 
           <Breadcrumb />
           <!-- <slot name="title" :key="route.path">
-            <BaseHeading
+            <h1
               class="text-neutral-800"
               as="h1"
               weight="medium"
@@ -48,12 +48,12 @@
               :key="route.path"
             >
               {{ titleStore.title }}
-            </BaseHeading>
+            </h1>
           </slot> -->
         </div>
 
         <div class="flex justify-end gap-4 items-center">
-          <!-- <BaseButtonIcon
+          <!-- <UButton
             shape="full"
             size="md"
             v-if="isDashboard"
@@ -61,14 +61,14 @@
             data-nui-tooltip="Dela miljö på sociala medier"
           >
             <Icon name="material-symbols:share" class="size-5" />
-          </BaseButtonIcon> -->
+          </UButton> -->
           <transition name="slide-down">
             <EnvironmentTitleSmall
               v-if="isDashboard && showEnvironmentTitleSmall"
               class="z-50 pointer-events-none"
             />
           </transition>
-          <!-- <BaseButtonIcon
+          <!-- <UButton
             shape="full"
             size="md"
             v-if="isDashboard"
@@ -77,8 +77,8 @@
             @click="copyLinkToClipboard"
           >
             <Icon name="akar-icons:link-chain" class="size-5" />
-          </BaseButtonIcon> -->
-          <!-- <BaseButtonIcon
+          </UButton> -->
+          <!-- <UButton
             shape="full"
             size="md"
             v-if="isDashboard"
@@ -86,15 +86,15 @@
             data-nui-tooltip="Spara miljö som PDF"
           >
             <Icon name="carbon:generate-pdf" class="size-5" />
-          </BaseButtonIcon> -->
-          <!-- <BaseMessage type="danger" icon>
+          </UButton> -->
+          <!-- <UAlert type="danger" icon>
             <span class="text-red-500">
               <b>Testversion:</b> information kan vara ofullständig eller
               felaktig
             </span>
-          </BaseMessage> -->
+          </UAlert> -->
           <div class="h-8 flex items-center">
-            <BaseThemeSwitch />
+            <UToggle />
           </div>
         </div>
       </div>
@@ -141,9 +141,9 @@
           <!-- Panel: the form submission -->
           <template #panel="{ close }">
             <div class="p-8 bg-white dark:bg-neutral-800 rounded-xl shadow-lg">
-              <BaseHeading size="2xl" class="text-neutral-800 mb-1">
+              <h1 size="2xl" class="text-neutral-800 mb-1">
                 Föreslå en förbättring
-              </BaseHeading>
+              </h1>
               <p class="w-96 mb-2 text-neutral-500">
                 Har du idéer på förbättringar? Dela dina tankar och hjälp oss
                 göra svampskog.se ännu bättre.
@@ -153,7 +153,7 @@
                 method="POST"
               >
                 <div class="mb-2">
-                  <BaseCheckbox
+                  <UCheckbox
                     label="Meddelande gäller den aktiva sidan"
                     color="primary"
                     v-model="includeUrl"

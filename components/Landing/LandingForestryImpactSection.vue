@@ -1,22 +1,22 @@
 <template>
   <div class="mt-44 mb-44">
     <div class="text-center mx-24">
-      <BaseHeading
+      <h1
         size="5xl"
         lead="tight"
         class="text-neutral-950 dark:text-neutral-200"
       >
         Hur påverkar skogsskötsel
-      </BaseHeading>
-      <BaseHeading
+      </h1>
+      <h1
         lead="tight"
         size="5xl"
         class="text-primary-500 dark:text-neutral-200 mb-1"
       >
         mykorrhizasvampar?
-      </BaseHeading>
+      </h1>
       <!-- Description -->
-      <BaseHeading
+      <h1
         weight="semi-bold"
         size="xl"
         class="text-neutral-500 dark:text-neutral-400 mb-6"
@@ -24,18 +24,18 @@
         Här visualiserar vi baserat på den kunskap som finns hur olika former av
         trakthyggesbruk och hyggesfria metoder påverkar förekomsten av
         mykorrhizasvampar under en skogsgeneration.
-      </BaseHeading>
+      </h1>
 
       <!-- Navigation Buttons -->
 
       <NuxtLink to="/skogsskotsel">
-        <BaseButton color="primary" type="outline" size="md" shape="full">
+        <UButton color="primary" type="outline" size="md" shape="full">
           <Icon
             name="material-symbols:nature-people-outline-rounded"
             class="-ms-1 mr-1 size-6"
           />
           <span>Skogsskötsel</span>
-        </BaseButton>
+        </UButton>
       </NuxtLink>
     </div>
     <div class="container mx-auto px-6">
@@ -98,9 +98,9 @@
                       class="w-5 h-5 icon text-primary-500"
                     />
                   </div>
-                  <BaseHeading size="sm" weight="thin" class="text-neutral-600">
+                  <h1 size="sm" weight="thin" class="text-neutral-600">
                     {{ image.skog }}
-                  </BaseHeading>
+                  </h1>
                 </div>
                 <div class="flex gap-2 mb-2">
                   <div class="size-5">
@@ -109,9 +109,9 @@
                       class="size-5 text-primary-500 icon"
                     />
                   </div>
-                  <BaseHeading size="sm" weight="thin" class="text-neutral-600">
+                  <h1 size="sm" weight="thin" class="text-neutral-600">
                     {{ image.svamp }}
-                  </BaseHeading>
+                  </h1>
                 </div>
               </div>
             </div>

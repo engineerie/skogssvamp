@@ -9,13 +9,13 @@
             <Icon name="material-symbols:location-on-outline" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="lg" weight="light" class="text-neutral-500"
-              >Var i Sverige</BaseHeading
-            >
+            <h1 size="lg" weight="light" class="text-neutral-500">
+              Var i Sverige
+            </h1>
 
-            <BaseHeading size="2xl" weight="light">
+            <h1 size="2xl" weight="light">
               {{ geographyLabel }}
-            </BaseHeading>
+            </h1>
           </div>
         </div>
       </transition>
@@ -27,12 +27,10 @@
             <Icon name="lucide:trees" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="lg" weight="light" class="text-neutral-500"
-              >Skogstyp</BaseHeading
-            >
-            <BaseHeading size="2xl" weight="light">
+            <h1 size="lg" weight="light" class="text-neutral-500">Skogstyp</h1>
+            <h1 size="2xl" weight="light">
               {{ forestTypeLabel }}
-            </BaseHeading>
+            </h1>
           </div>
         </div>
       </transition>
@@ -44,12 +42,10 @@
             <Icon name="carbon:crop-growth" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="lg" weight="light" class="text-neutral-500"
-              >Beståndsålder</BaseHeading
-            >
-            <BaseHeading size="2xl" weight="light">{{
-              standAgeLabel
-            }}</BaseHeading>
+            <h1 size="lg" weight="light" class="text-neutral-500">
+              Beståndsålder
+            </h1>
+            <h1 size="2xl" weight="light">{{ standAgeLabel }}</h1>
           </div>
         </div>
       </transition>
@@ -64,12 +60,8 @@
             <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
           </div>
           <div>
-            <BaseHeading size="lg" weight="light" class="text-neutral-500"
-              >Fältskikt</BaseHeading
-            >
-            <BaseHeading size="2xl" weight="light">{{
-              vegetationTypeLabel
-            }}</BaseHeading>
+            <h1 size="lg" weight="light" class="text-neutral-500">Fältskikt</h1>
+            <h1 size="2xl" weight="light">{{ vegetationTypeLabel }}</h1>
           </div>
         </div>
       </transition>
@@ -89,7 +81,7 @@
   </div>
   <div class="flex justify-center">
     <div class="relative">
-      <BaseButtonAction @click="toggleHeight" shape="full" color="primary">
+      <UButton @click="toggleHeight" shape="full" color="primary">
         <span class="ml-2">
           {{ listBoxRowVisible ? "Byt miljö" : "Byt miljö" }}
         </span>
@@ -97,7 +89,7 @@
           :name="listBoxRowVisible ? 'mdi:chevron-up' : 'mdi:chevron-down'"
           class="h-6 w-6"
         />
-      </BaseButtonAction>
+      </UButton>
     </div>
   </div>
 </template>

@@ -6,14 +6,14 @@
       >
         <!-- <Icon name="lineicons:mushroom-1" class="size-5 md:size-6 -mr-1" /> -->
 
-        <BaseHeading
+        <h1
           weight=""
           size=""
           lead="thight"
           class="font-medium md:text-center text-md md:text-xl"
         >
           Sveriges mykorrhizasvampar
-        </BaseHeading>
+        </h1>
         <Icon name="heroicons:arrow-right-16-solid" class="size-4 md:size-5" />
       </div>
     </div>

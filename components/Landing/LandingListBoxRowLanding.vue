@@ -1,11 +1,11 @@
 <template>
   <!-- Geography Options -->
   <!-- <div class="container mx-auto px-6 text-center">
-    <BaseHeading lead="tight" size="4xl" class="font-bold mb-4 text-center">
+    <h1 lead="tight" size="4xl" class="font-bold mb-4 text-center">
       Använd skogsmiljö-filter <br /><span class="text-primary-500"
         >eller utforska via karta</span
       >
-    </BaseHeading>
+    </h1>
     <p class="text-xl mb-10 text-neutral-500 mx-40 text-center">
       Genom att ange var i Sverige, trädslag, beståndets ålder samt dominerande
       växter på marken kan du se vilka svampar som kan förekomma. Prova nedan
@@ -25,7 +25,7 @@
         >
           <Icon name="material-symbols:location-on-outline" class="h-10 w-10" />
         </div>
-        <BaseHeading size="2xl" weight="light"> Var i Sverige </BaseHeading>
+        <h1 size="2xl" weight="light">Var i Sverige</h1>
       </div>
       <div class="relative p-6 pb-4 h-fit">
         <div>
@@ -48,7 +48,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'geography-' + option.value"
               color="primary"
               :model-value="selectedOptions.geography === option.value"
@@ -78,7 +78,7 @@
         >
           <Icon name="lucide:trees" class="h-10 w-10" />
         </div>
-        <BaseHeading size="2xl" weight="light"> Skogstyp </BaseHeading>
+        <h1 size="2xl" weight="light">Skogstyp</h1>
       </div>
       <div class="relative p-6 pb-4 h-fit">
         <div>
@@ -101,7 +101,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'forestType-' + option.value"
               color="primary"
               :model-value="selectedOptions.forestType === option.value"
@@ -130,7 +130,7 @@
         >
           <Icon name="carbon:crop-growth" class="h-10 w-10" />
         </div>
-        <BaseHeading size="2xl" weight="light"> Beståndsålder </BaseHeading>
+        <h1 size="2xl" weight="light">Beståndsålder</h1>
       </div>
       <label class="text-neutral-400 text-sm"></label>
       <div class="relative p-6 pb-4 h-fit">
@@ -154,7 +154,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'standAge-' + option.value"
               color="primary"
               :model-value="selectedOptions.standAge === option.value"
@@ -183,7 +183,7 @@
         >
           <Icon name="fluent-emoji-high-contrast:herb" class="h-10 w-10" />
         </div>
-        <BaseHeading size="2xl" weight="light"> Fältskikt </BaseHeading>
+        <h1 size="2xl" weight="light">Fältskikt</h1>
       </div>
       <div class="relative p-6 pb-4 h-fit">
         <div>
@@ -206,7 +206,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'vegetationType-' + option.value"
               color="primary"
               :model-value="selectedOptions.vegetationType === option.value"
@@ -231,14 +231,14 @@
     <!-- Navigation Buttons -->
     <div class="flex gap-4">
       <NuxtLink to="/mykorrhizasvampar">
-        <BaseButton color="default" size="lg" shape="full">
+        <UButton color="default" size="lg" shape="full">
           <span>Sök i karta</span>
           <Icon
             name="material-symbols:map-outline-rounded"
             class="-ms-1 size-6"
           />
-        </BaseButton>
-        <!-- <BaseIconBox
+        </UButton>
+        <!-- <UIcon
           flavor="solid"
           color="primary"
           shape="full"
@@ -246,14 +246,14 @@
           class="opacity-90 hover:h-14 hover:w-14 transition-all duration-100"
         >
           <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-        </BaseIconBox> -->
+        </UIcon> -->
       </NuxtLink>
       <NuxtLink :to="generateParams()" v-if="!isButtonDisabled()">
-        <BaseButton color="primary" size="lg" shape="full">
+        <UButton color="primary" size="lg" shape="full">
           <span>Gå till miljö</span>
           <Icon name="heroicons:arrow-right-16-solid" class="-ms-1 size-6" />
-        </BaseButton>
-        <!-- <BaseIconBox
+        </UButton>
+        <!-- <UIcon
           flavor="solid"
           color="primary"
           shape="full"
@@ -261,10 +261,10 @@
           class="opacity-90 hover:h-14 hover:w-14 transition-all duration-100"
         >
           <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-        </BaseIconBox> -->
+        </UIcon> -->
       </NuxtLink>
       <div v-else>
-        <BaseButton
+        <UButton
           color="primary"
           disabled
           size="lg"
@@ -274,8 +274,8 @@
         >
           <span>Gå till miljö</span>
           <Icon name="heroicons:arrow-right-16-solid" class="-ms-1 size-6" />
-        </BaseButton>
-        <!-- <BaseIconBox
+        </UButton>
+        <!-- <UIcon
           shape="full"
           flavor="solid"
           color="default"
@@ -283,7 +283,7 @@
           size="md"
         >
           <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-        </BaseIconBox> -->
+        </UIcon> -->
       </div>
     </div>
   </div>

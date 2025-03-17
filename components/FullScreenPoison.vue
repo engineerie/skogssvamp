@@ -1,24 +1,28 @@
 <!-- FullScreenPoison.vue -->
 <template>
   <div>
-    <div class="flex justify-between mb-2 items-end">
-      <div class="items-end flex cursor-default">
-        <div
-          class="dark:opacity-90 w-12 h-12 ml-2 mr-3 rounded-lg text-lime-500 flex justify-center items-center"
-        >
-          <Icon name="hugeicons:danger" class="h-10 w-10" />
-        </div>
-
-        <BaseHeading
-          size="3xl"
-          weight="medium"
-          class="text-neutral-800 dark:text-neutral-300 mr-4"
-        >
+    <div class="flex justify-between items-end">
+      <div class="flex gap-4">
+        <UIcon name="hugeicons:danger" class="h-10 w-10 text-lime-500 ml-4" />
+        <h1 class="text-neutral-800 dark:text-neutral-300 text-3xl">
           Giftsvampar
-        </BaseHeading>
+        </h1>
+        <UTabs
+          v-model="selectedIndex"
+          :items="items"
+          :ui="{
+            list: {
+              rounded: 'rounded-full',
+
+              marker: {
+                rounded: 'rounded-full',
+              },
+            },
+          }"
+        />
         <UBadge
           v-if="!isNormalView"
-          class=""
+          class="h-fit"
           size="lg"
           color="amber"
           variant="subtle"
@@ -28,72 +32,46 @@
             class="size-6 text-amber-500 mr-1"
           />Enligt samlad kunskap, främst var fruktkroppar förekommer
         </UBadge>
-        <BaseTabs
-          v-model="activeView"
-          :tabs="[
-            {
-              label: 'Galleri',
-              icon: 'i-heroicons-squares-2x2',
-              value: 'grid',
-            },
-            {
-              label: 'Lista',
-              icon: 'material-symbols:format-list-bulleted-rounded',
-              value: 'table',
-            },
-          ]"
-          class="ml-4 -mb-6 inline-flex align-bottom"
-        />
       </div>
 
-      <div class="flex gap-2 items-end">
-        <!-- Original rows-per-page selector -->
-        <div v-if="!props.isNormalView" class="w-20">
-          <BaseListbox
-            v-model="rowsPerPage"
-            :items="[10, 20, 30, 40, 50, 'Alla']"
-            placeholder="Rader per sida"
-            shape="full"
-            label="Rader"
-            label-float
-          />
-        </div>
-
-        <!-- Original search input -->
-        <BaseInput
-          v-if="!isNormalView"
-          icon="i-heroicons-magnifying-glass-20-solid"
-          v-model="searchQuery"
-          shape="full"
-          placeholder="Sök i tabell"
-          class="w-1/2"
+      <div class="flex gap-2 items-end mb-2">
+        <UButton
+          size="lg"
+          :color="props.isNormalView ? 'white' : 'rose'"
+          :icon="
+            props.isNormalView
+              ? 'material-symbols:open-in-full'
+              : 'material-symbols:close-fullscreen'
+          "
+          :ui="{ rounded: 'rounded-full' }"
+          @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
         />
 
-        <!-- Fullscreen toggle button -->
-        <BaseButtonIcon
-          shape="full"
-          @click="$emit(props.isNormalView ? 'enlarge' : 'close')"
-        >
-          <Icon
-            v-if="props.isNormalView"
-            name="material-symbols:open-in-full"
-            class="size-5"
-          />
-          <Icon
-            v-else
-            name="material-symbols:close-fullscreen"
-            class="size-5"
-          />
-        </BaseButtonIcon>
+        <!-- Original search input -->
       </div>
     </div>
 
     <div
-      class="relative pt-3 backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
+      class="relative backdrop-blur-3xl overflow-clip rounded-xl bg-white bg-opacity-80 dark:bg-neutral-900 dark:bg-opacity-60 border dark:border-neutral-800 border-stone-200"
     >
+      <div class="flex gap-2 p-2 justify-end z-30" v-if="!isNormalView">
+        <USelectMenu
+          :ui="{ rounded: 'rounded-full' }"
+          v-model="rowsPerPage"
+          :options="[10, 20, 30, 40, 50, 'Alla']"
+          placeholder="Rader per sida"
+        />
+
+        <UInput
+          :ui="{ rounded: 'rounded-full' }"
+          icon="i-heroicons-magnifying-glass-20-solid"
+          v-model="searchQuery"
+          placeholder="Sök i tabell"
+        />
+      </div>
       <!-- TABLE VIEW -->
       <div v-if="isTableView">
-        <div v-if="filteredData" class="col-span-6 -mt-12">
+        <div v-if="filteredData" :class="[isNormalView ? '' : 'border-t']">
           <div class="h-fit">
             <UTable
               :loading="isLoading"
@@ -101,7 +79,10 @@
                 icon: 'i-heroicons-arrow-path-20-solid',
                 label: 'Laddar',
               }"
-              class="min-h-[415px] mt-8"
+              :class="{
+                'min-h-[415px]': isNormalView,
+                '': !isNormalView,
+              }"
               :sort-button="{
                 color: 'text-neutral-700 dark:text-neutral-300',
                 size: 'xl',
@@ -209,10 +190,10 @@
               class="flex justify-between items-center p-5 border-t border-neutral-200 dark:border-neutral-800"
             >
               <div>
-                <BaseProse class="text-sm">
+                <p class="text-sm">
                   Visar {{ startItem }} till {{ endItem }} av
                   {{ totalItems }} arter
-                </BaseProse>
+                </p>
               </div>
               <div>
                 <div v-if="rowsPerPage !== 'Alla'">
@@ -259,8 +240,8 @@
         </div>
         <div v-else>
           <div class="max-w-sm space-y-2 mt-2">
-            <BasePlaceload class="h-4 w-full rounded" />
-            <BasePlaceload class="h-4 w-[85%] rounded" />
+            <USkeleton class="h-4 w-full rounded" />
+            <USkeleton class="h-4 w-[85%] rounded" />
           </div>
         </div>
       </div>
@@ -269,8 +250,8 @@
       <div v-else>
         <div
           :class="[
-            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 pt-1  min-h-[399px] overflow-scroll',
-            isNormalView ? 'md:grid-cols-3' : 'md:grid-cols-6',
+            'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4  min-h-[399px] overflow-scroll',
+            isNormalView ? 'md:grid-cols-3' : 'md:grid-cols-6 border-t',
           ]"
         >
           <div
@@ -299,11 +280,13 @@
                   class="w-8 h-8 text-neutral-500"
                 />
               </div>
-              <div class="absolute bottom-2 left-2 flex gap-1">
-                <div class="p-1 rounded-full bg-neutral-50 bg-opacity-90">
-                  <Icon name="hugeicons:danger" class="size-6 text-lime-500" />
-                </div>
-              </div>
+              <UBadge
+                color="lime"
+                variant="subtle"
+                class="absolute left-2 bottom-2"
+                size="xs"
+                label="Giftsvamp"
+              />
             </div>
             <!-- Species Names -->
             <div class="p-2 pt-1">
@@ -326,10 +309,10 @@
           class="flex justify-between items-center p-5 border-t border-neutral-200 dark:border-neutral-800"
         >
           <div>
-            <BaseProse class="text-sm">
+            <p class="text-sm">
               Visar {{ gridStartItem }} till {{ gridEndItem }} av
               {{ totalItems }} arter
-            </BaseProse>
+            </p>
           </div>
           <div>
             <UPagination
@@ -388,6 +371,36 @@ import { ref, computed, watch, onMounted, onUnmounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { useSpeciesStore } from "~/stores/speciesStore";
 
+const items = [
+  {
+    label: "Galleri",
+    icon: "i-heroicons-squares-2x2",
+    value: "grid",
+  },
+  {
+    label: "Tabell",
+    icon: "material-symbols:table-outline",
+    value: "table",
+  },
+];
+
+// --- View Toggle ---
+const activeView = ref("grid");
+const isTableView = computed(() => activeView.value === "table");
+
+// Create a computed property that converts between the index and the custom value
+const selectedIndex = computed({
+  get() {
+    // Find the index of the active tab value in the items array.
+    const index = items.findIndex((item) => item.value === activeView.value);
+    return index === -1 ? 0 : index;
+  },
+  set(index) {
+    // Update your custom active tab value based on the new index.
+    activeView.value = items[index].value;
+  },
+});
+
 console.log("FullScreenEdible setup started");
 
 // --- Food Options ---
@@ -412,19 +425,6 @@ const foodOptions = [
   },
 ];
 const selectedFoodOption = ref(foodOptions[2]); // "Alla svampar"
-
-// --- Toggling between table and grid view ---
-
-const activeView = ref("grid");
-const isTableView = computed(() => activeView.value === "table");
-
-// const isTableView = ref(true);
-// const toggleIcon = computed(() =>
-//   isTableView.value ? "i-heroicons-squares-2x2" : "i-heroicons-table-cells"
-// );
-// function toggleView() {
-//   isTableView.value = !isTableView.value;
-// }
 
 // --- Ranking / Status Utilities ---
 function getInvertedRankValue(rank) {
@@ -520,8 +520,10 @@ const props = defineProps({ isNormalView: Boolean });
 console.log("isNormalView in FullScreenEdible:", props.isNormalView);
 
 const computedUITable = computed(() => ({
-  thead:
-    "sticky top-0 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-50",
+  thead: !props.isNormalView
+    ? "sticky top-12 bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-10"
+    : " bg-white dark:bg-neutral-800 dark:bg-opacity-100 shadow-sm shadow-neutral-300 dark:shadow-neutral-700 z-10",
+  wrapper: { base: "" },
   td: {
     base: "",
     padding: "py-6 pl-6",
@@ -621,7 +623,7 @@ const columns = [
       return `<div class="flex items-center justify-center w-6 h-6 rounded-full ${statusColor} text-white" data-nui-tooltip-position="top" data-nui-tooltip="${tooltip}">${statusAbbr}</div>`;
     },
   },
-  { key: "Rank", label: "Antal fynd", sortable: false },
+  { key: "Rank", label: "Antal fynd", sortable: true },
 ];
 
 const sort = ref({ column: "", direction: "asc" });

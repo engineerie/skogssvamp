@@ -9,9 +9,9 @@
     />
   </div>
   <div>
-    <BaseHeading weight="thin" size="sm" class="text-neutral-500"
+    <h1 weight="thin" size="sm" class="text-neutral-500"
       >Figuren visar hur mycelutbredningar kan se ut. Ofta täcker ca 10% av
-      arterna ca 80% av marken.</BaseHeading
+      arterna ca 80% av marken.</h1
     >
   </div> -->
 </template>

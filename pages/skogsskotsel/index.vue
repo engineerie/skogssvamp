@@ -155,28 +155,17 @@
         <div class="rounded-2xl">
           <!-- Step 0: Information -->
           <div v-if="currentStep === 0">
-            <div class="grid grid-cols-11 -mt-4 gap-4">
+            <div class="grid grid-cols-12 -mt-4 gap-4">
               <div
                 class="col-span-3 border border-neutral-200 rounded-2xl bg-neutral-50 bg-opacity-95 overflow-hidden flex-col justify-between h-fit"
               >
                 <div class="p-6">
-                  <BaseHeading
-                    size="2xl"
-                    weight="light"
-                    class="text-neutral-900 mb-2"
-                  >
-                    Se skogsskötselns påverkan på mykorrhizasvampar.
-                  </BaseHeading>
-                  <BaseHeading
-                    size="lg"
-                    weight="light"
-                    class="text-neutral-500"
-                  >
+                  <h1 class="text-neutral-500 text-lg">
                     Här visualiserar vi baserat på den kunskap som finns hur
                     olika former av trakthyggesbruk och hyggesfria metoder
                     påverkar förekomsten av mykorrhizasvampar under en
                     skogsgeneration.
-                  </BaseHeading>
+                  </h1>
                 </div>
                 <div>
                   <img
@@ -193,34 +182,31 @@
             <!-- Navigation buttons -->
             <div class="flex gap-1 w-full justify-center mt-6">
               <!-- Next Button -->
-              <button
+              <UButton
+                size="lg"
+                color="white"
+                :ui="{ rounded: 'rounded-full' }"
+                trailing
+                icon="heroicons:arrow-right"
                 @click="nextStep"
                 :disabled="!isStepEnabled(1)"
-                :class="[
-                  'rounded-full text-sm border p-2 px-5 transition-colors',
-                  !isStepEnabled(1)
-                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
-                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
-                ]"
-              >
-                <span>Välj historik</span>
-                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
-              </button>
+                label="Välj historik"
+              />
             </div>
           </div>
 
           <!-- Step 1: Välj historik -->
           <div v-else-if="currentStep === 1">
-            <BaseHeading size="2xl" weight="light" class="mb-12 text-center">
+            <h1 class="mb-12 text-center text-2xl text-neutral-800">
               Har skogen varit kalavverkad tidigare eller inte?
-            </BaseHeading>
+            </h1>
 
             <!-- Custom selection options for historik -->
             <div class="mb-6">
               <div class="mx-auto mb-8 grid max-w-3xl gap-6 sm:grid-cols-2">
                 <!-- Option 0: Inte kalavverkad -->
                 <div
-                  class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all col-start-1"
+                  class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
                   :class="optionCardClass(onboardingStore.selectedStartskog, 0)"
                   @click="onboardingStore.selectedStartskog = 0"
                 >
@@ -234,27 +220,19 @@
                       format="webp"
                     />
                   </div>
-                  <div class="p-3">
-                    <BaseHeading
-                      size="md"
-                      weight="medium"
-                      class="text-muted-600"
-                    >
+                  <div class="pt-2 px-4 pb-5">
+                    <h1 class="text-muted-800 text-xl font-medium mb-1">
                       Inte kalavverkad
-                    </BaseHeading>
-                    <BaseHeading
-                      size="md"
-                      weight="medium"
-                      class="text-muted-400"
-                    >
+                    </h1>
+                    <h1 class="text-muted-400">
                       Skogen har oftast skogsbrukats, men inte varit
                       kalavverkad.
-                    </BaseHeading>
+                    </h1>
                   </div>
                 </div>
                 <!-- Option 1: Kalavverkad -->
                 <div
-                  class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
+                  class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
                   :class="optionCardClass(onboardingStore.selectedStartskog, 1)"
                   @click="onboardingStore.selectedStartskog = 1"
                 >
@@ -268,22 +246,14 @@
                       format="webp"
                     />
                   </div>
-                  <div class="p-3">
-                    <BaseHeading
-                      size="md"
-                      weight="medium"
-                      class="text-muted-600"
-                    >
+                  <div class="pt-2 px-4 pb-5">
+                    <h1 class="text-muted-800 text-xl font-medium mb-1">
                       Kalavverkad
-                    </BaseHeading>
-                    <BaseHeading
-                      size="md"
-                      weight="medium"
-                      class="text-muted-400"
-                    >
+                    </h1>
+                    <h1 size="md" weight="medium" class="text-muted-400">
                       Skogen har varit kalavverkad eller är etablerad på
                       tidigare trädlös mark.
-                    </BaseHeading>
+                    </h1>
                   </div>
                 </div>
               </div>
@@ -291,216 +261,194 @@
             <!-- Navigation buttons for Step 1 -->
             <div class="flex gap-1 w-full justify-center mt-6">
               <!-- Previous Button -->
-              <button
+              <UButton
+                size="lg"
+                color="white"
+                :ui="{ rounded: 'rounded-full' }"
+                icon="heroicons:arrow-left"
                 @click="prevStep"
                 :disabled="currentStep === 0"
-                :class="[
-                  'rounded-full text-sm border p-2 px-5 transition-colors',
-                  currentStep === 0
-                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
-                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
-                ]"
-              >
-                <Icon name="heroicons:arrow-left" class="size-5 mr-1 -ml-2" />
-                <span>Information</span>
-              </button>
-              <!-- Next Button -->
-              <button
+                label="Information"
+              />
+
+              <UButton
+                trailing
+                size="lg"
+                color="white"
+                :ui="{ rounded: 'rounded-full' }"
+                icon="heroicons:arrow-right"
                 @click="nextStep"
                 :disabled="!isStepEnabled(2)"
-                :class="[
-                  'rounded-full text-sm border p-2 px-5 transition-colors',
-                  !isStepEnabled(2)
-                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
-                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
-                ]"
-              >
-                <span>Välj skogsskötsel</span>
-                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
-              </button>
+                label="Välj skogsskötsel"
+              />
             </div>
           </div>
 
           <!-- Step 2: Välj skogsskötsel -->
           <div v-else-if="currentStep === 2">
-            <BaseHeading size="2xl" weight="light" class="mb-6 text-center">
+            <h1 class="mb-6 text-center text-neutral-800 text-2xl">
               Vilken skogsskötsel planeras?
-            </BaseHeading>
+            </h1>
 
             <div class="w-full flex justify-center">
-              <BaseTabs v-model="activeTab" :tabs="tabs" />
+              <UTabs v-model="activeTab" :tabs="tabs" />
             </div>
             <div v-if="activeTab === 'komigang'">
               <!-- Custom selection options for management method -->
               <div class="mb-6">
-                <div class="mx-auto mb-8 grid max-w-7xl gap-6 sm:grid-cols-5">
+                <div class="mx-auto mb-8 grid max-w-7xl sm:grid-cols-5">
                   <div
-                    class="mx-8 col-start-3 col-span-3 text-primary-500 text-sm font-light flex justify-center border-primary-500 border-b border-dashed pb-2"
+                    class="col-start-3 col-span-3 text-neutral-500 text-sm flex justify-center pb-2"
                   >
                     Hyggesfria metoder
                   </div>
                   <!-- Option 0: Inga åtgärder (naturskydd) -->
-                  <div
-                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
-                    :class="
-                      optionCardClass(onboardingStore.selectedFramework, 0)
-                    "
-                    @click="onboardingStore.selectedFramework = 0"
-                  >
-                    <div class="relative">
-                      <NuxtImg
-                        width="300"
-                        height="180"
-                        src="/images/ingen_åtgärd.jpg"
-                        class="h-full rounded-t-xl overflow-hidden"
-                        alt="Inga åtgärder"
-                        format="webp"
-                      />
+                  <div class="col-span-2 grid grid-cols-2 gap-6 p-4">
+                    <div
+                      class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
+                      :class="
+                        optionCardClass(onboardingStore.selectedFramework, 0)
+                      "
+                      @click="onboardingStore.selectedFramework = 0"
+                    >
+                      <div class="relative">
+                        <NuxtImg
+                          width="300"
+                          height="180"
+                          src="/images/ingen_åtgärd.jpg"
+                          class="h-full overflow-hidden"
+                          alt="Inga åtgärder"
+                          format="webp"
+                        />
+                      </div>
+                      <div class="flex items-center gap-1 p-2">
+                        <Icon
+                          name="pepicons-pop:tree-circle"
+                          class="size-5 text-green-400"
+                        />
+                        <h1 size="md" weight="medium" class="text-muted-600">
+                          Inga åtgärder
+                        </h1>
+                      </div>
                     </div>
-                    <div class="flex items-center gap-1 p-2">
-                      <Icon
-                        name="pepicons-pop:tree-circle"
-                        class="size-5 text-green-400"
-                      />
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
-                        Inga åtgärder
-                      </BaseHeading>
-                    </div>
-                  </div>
-
-                  <!-- Option 1: Trakthyggesbruk -->
-                  <div
-                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
-                    :class="
-                      optionCardClass(onboardingStore.selectedFramework, 1)
-                    "
-                    @click="onboardingStore.selectedFramework = 1"
-                  >
-                    <div class="relative">
-                      <NuxtImg
-                        width="300"
-                        height="180"
-                        src="/images/kalhygge.jpg"
-                        class="h-full rounded-t-xl overflow-hidden"
-                        alt="Trakthyggesbruk"
-                        format="webp"
-                      />
-                    </div>
-                    <div class="flex items-center gap-1 p-2">
-                      <Icon
-                        name="material-symbols:resize"
-                        class="size-5 text-violet-400"
-                      />
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
-                        Trakthyggesbruk
-                      </BaseHeading>
+                    <!-- Option 1: Trakthyggesbruk -->
+                    <div
+                      class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
+                      :class="
+                        optionCardClass(onboardingStore.selectedFramework, 1)
+                      "
+                      @click="onboardingStore.selectedFramework = 1"
+                    >
+                      <div class="relative">
+                        <NuxtImg
+                          width="300"
+                          height="180"
+                          src="/images/kalhygge.jpg"
+                          class="h-full overflow-hidden"
+                          alt="Trakthyggesbruk"
+                          format="webp"
+                        />
+                      </div>
+                      <div class="flex items-center gap-1 p-2">
+                        <Icon
+                          name="material-symbols:resize"
+                          class="size-5 text-violet-400"
+                        />
+                        <h1 size="md" weight="medium" class="text-muted-600">
+                          Trakthyggesbruk
+                        </h1>
+                      </div>
                     </div>
                   </div>
 
-                  <!-- Option 2: Luckhuggning -->
                   <div
-                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
-                    :class="
-                      optionCardClass(onboardingStore.selectedFramework, 2)
-                    "
-                    @click="onboardingStore.selectedFramework = 2"
+                    class="col-span-3 grid grid-cols-3 bg-neutral-200 gap-6 p-4 rounded-xl"
                   >
-                    <div class="relative">
-                      <NuxtImg
-                        width="300"
-                        height="180"
-                        src="/images/luckhuggning.jpg"
-                        class="h-full rounded-t-xl overflow-hidden"
-                        alt="Luckhuggning"
-                        format="webp"
-                      />
+                    <!-- Option 2: Luckhuggning -->
+                    <div
+                      class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
+                      :class="
+                        optionCardClass(onboardingStore.selectedFramework, 2)
+                      "
+                      @click="onboardingStore.selectedFramework = 2"
+                    >
+                      <div class="relative">
+                        <NuxtImg
+                          width="300"
+                          height="180"
+                          src="/images/luckhuggning.jpg"
+                          class="h-full overflow-hidden"
+                          alt="Luckhuggning"
+                          format="webp"
+                        />
+                      </div>
+                      <div class="flex items-center gap-1 p-2">
+                        <Icon
+                          name="pixelarticons:chess"
+                          class="size-5 text-sky-400"
+                        />
+                        <h1 size="md" weight="medium" class="text-muted-600">
+                          Luckhuggning
+                        </h1>
+                      </div>
                     </div>
-                    <div class="flex items-center gap-1 p-2">
-                      <Icon
-                        name="pixelarticons:chess"
-                        class="size-5 text-sky-400"
-                      />
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
-                        Luckhuggning
-                      </BaseHeading>
-                    </div>
-                  </div>
 
-                  <!-- Option 3: Överhållen skärm -->
-                  <div
-                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
-                    :class="
-                      optionCardClass(onboardingStore.selectedFramework, 3)
-                    "
-                    @click="onboardingStore.selectedFramework = 3"
-                  >
-                    <div class="relative">
-                      <NuxtImg
-                        width="300"
-                        height="180"
-                        src="/images/överhållenskärm.jpg"
-                        class="h-full rounded-t-xl overflow-hidden"
-                        alt="Överhållen skärm"
-                        format="webp"
-                      />
+                    <!-- Option 3: Överhållen skärm -->
+                    <div
+                      class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
+                      :class="
+                        optionCardClass(onboardingStore.selectedFramework, 3)
+                      "
+                      @click="onboardingStore.selectedFramework = 3"
+                    >
+                      <div class="relative">
+                        <NuxtImg
+                          width="300"
+                          height="180"
+                          src="/images/överhållenskärm.jpg"
+                          class="h-full overflow-hidden"
+                          alt="Överhållen skärm"
+                          format="webp"
+                        />
+                      </div>
+                      <div class="flex items-center gap-1 p-2">
+                        <Icon
+                          name="catppuccin:redwood"
+                          class="size-5 text-orange-400"
+                        />
+                        <h1 size="md" weight="medium" class="text-muted-600">
+                          Överhållen skärm
+                        </h1>
+                      </div>
                     </div>
-                    <div class="flex items-center gap-1 p-2">
-                      <Icon
-                        name="catppuccin:redwood"
-                        class="size-5 text-orange-400"
-                      />
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
-                        Överhållen skärm
-                      </BaseHeading>
-                    </div>
-                  </div>
 
-                  <!-- Option 4: Blädning -->
-                  <div
-                    class="cursor-pointer group border border-neutral-200 rounded-xl overflow-hidden hover:border-primary-500 transition-all"
-                    :class="
-                      optionCardClass(onboardingStore.selectedFramework, 4)
-                    "
-                    @click="onboardingStore.selectedFramework = 4"
-                  >
-                    <div class="relative">
-                      <NuxtImg
-                        width="300"
-                        height="180"
-                        src="/images/blädning.jpg"
-                        class="h-full rounded-t-xl overflow-hidden"
-                        alt="Blädning"
-                        format="webp"
-                      />
-                    </div>
-                    <div class="flex items-center gap-1 p-2">
-                      <Icon
-                        name="tabler:christmas-tree-off"
-                        class="size-5 text-teal-400"
-                      />
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
-                        Blädning
-                      </BaseHeading>
+                    <!-- Option 4: Blädning -->
+                    <div
+                      class="cursor-pointer group border border-neutral-300 shadow rounded-xl overflow-hidden hover:border-primary-500 transition-all bg-white"
+                      :class="
+                        optionCardClass(onboardingStore.selectedFramework, 4)
+                      "
+                      @click="onboardingStore.selectedFramework = 4"
+                    >
+                      <div class="relative">
+                        <NuxtImg
+                          width="300"
+                          height="180"
+                          src="/images/blädning.jpg"
+                          class="h-full overflow-hidden"
+                          alt="Blädning"
+                          format="webp"
+                        />
+                      </div>
+                      <div class="flex items-center gap-1 p-2">
+                        <Icon
+                          name="tabler:christmas-tree-off"
+                          class="size-5 text-teal-400"
+                        />
+                        <h1 size="md" weight="medium" class="text-muted-600">
+                          Blädning
+                        </h1>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -529,7 +477,7 @@
                         class="bg-gray-200 h-full rounded-lg flex items-center justify-center overflow-hidden"
                       >
                         <div
-                          class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700"
+                          class="w-full h-full flex items-center justify-center bg-white shadow dark:bg-gray-700"
                         >
                           <NuxtImg
                             :src="method.image"
@@ -562,36 +510,30 @@
                 </div>
               </div>
             </div>
+
             <!-- Navigation buttons for Step 2 -->
             <div class="flex gap-1 w-full justify-center mt-6">
               <!-- Previous Button -->
-              <button
+              <UButton
+                size="lg"
+                color="white"
+                :ui="{ rounded: 'rounded-full' }"
+                icon="heroicons:arrow-left"
                 @click="prevStep"
                 :disabled="currentStep === 0"
-                :class="[
-                  'rounded-full text-sm border p-2 px-5 transition-colors',
-                  currentStep === 0
-                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
-                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
-                ]"
-              >
-                <Icon name="heroicons:arrow-left" class="size-5 mr-1 -ml-2" />
-                <span>Historik</span>
-              </button>
-              <!-- Next Button -->
-              <button
+                label="Historik"
+              />
+
+              <UButton
+                trailing
+                size="lg"
+                color="white"
+                :ui="{ rounded: 'rounded-full' }"
+                icon="heroicons:arrow-right"
                 @click="nextStep"
                 :disabled="!isStepEnabled(3)"
-                :class="[
-                  'rounded-full text-sm border p-2 px-5 transition-colors',
-                  !isStepEnabled(3)
-                    ? 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed'
-                    : 'bg-neutral-100 border-neutral-300 text-neutral-700 hover:bg-neutral-50',
-                ]"
-              >
-                <span>Gå till modell</span>
-                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
-              </button>
+                label="Gå till modell"
+              />
             </div>
           </div>
 
@@ -599,21 +541,21 @@
           <div v-else-if="currentStep === 3">
             <!-- Summary of user choices -->
             <div class="mb-6">
-              <BaseHeading size="2xl" weight="light" class="mb-6 text-center">
+              <h1 class="mb-6 text-center text-neutral-800 text-2xl">
                 Klar att fortsätta till modell?
-              </BaseHeading>
+              </h1>
               <div class="grid grid-cols-6 gap-6">
                 <div class="col-start-3">
-                  <BaseHeading
+                  <h1
                     size="md"
                     weight="light"
                     class="text-center text-neutral-400 mb-2"
                   >
                     Skogens historik
-                  </BaseHeading>
+                  </h1>
                   <!-- Historik summary card -->
                   <div
-                    class="rounded-xl overflow-hidden border border-neutral-200"
+                    class="rounded-xl overflow-hidden border border-neutral-300 bg-white shadow"
                   >
                     <div class="relative">
                       <NuxtImg
@@ -622,7 +564,7 @@
                             ? '/images/hyggesfritt.jpg'
                             : '/images/kalhygge.jpeg'
                         "
-                        class="w-full rounded-t-xl overflow-hidden object-cover"
+                        class="w-full overflow-hidden object-cover"
                         alt="Historik val"
                         width="300"
                         height="180"
@@ -630,68 +572,57 @@
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
+                      <h1 size="md" weight="medium" class="text-muted-600">
                         {{
                           startskogOptions[onboardingStore.selectedStartskog]
                         }}
-                      </BaseHeading>
+                      </h1>
                     </div>
                   </div>
                 </div>
 
                 <!-- Skogsskötsel summary card -->
                 <div>
-                  <BaseHeading
+                  <h1
                     size="md"
                     weight="light"
                     class="text-center text-neutral-400 mb-2"
                   >
                     Planerad skogsskötsel
-                  </BaseHeading>
+                  </h1>
                   <div
-                    class="rounded-xl overflow-hidden border border-neutral-200"
+                    class="rounded-xl overflow-hidden border border-neutral-300 bg-white shadow"
                   >
                     <div class="relative">
                       <NuxtImg
                         :src="frameworkImage()"
-                        class="w-full rounded-t-xl overflow-hidden object-cover"
+                        class="w-full overflow-hidden object-cover"
                         alt="Skogsskötsel val"
                         height="180"
                         width="300"
                       />
                     </div>
                     <div class="flex items-center gap-1 p-2">
-                      <BaseHeading
-                        size="md"
-                        weight="medium"
-                        class="text-muted-600"
-                      >
+                      <h1 class="text-muted-600">
                         {{
                           frameworkOptions[onboardingStore.selectedFramework]
                         }}
-                      </BaseHeading>
+                      </h1>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-center">
-              <button
+              <UButton
+                trailing
+                size="lg"
+                color="primary"
+                :ui="{ rounded: 'rounded-full' }"
+                icon="heroicons:arrow-right"
                 @click="goToModell"
-                :class="[
-                  'rounded-full text-sm border p-2 px-5 transition-colors',
-                  isStepEnabled(3)
-                    ? 'bg-primary-500  text-neutral-50 hover:bg-opacity-80'
-                    : 'bg-neutral-100 border-neutral-300 text-neutral-400 cursor-not-allowed',
-                ]"
-              >
-                <span>Gå till modell</span>
-                <Icon name="heroicons:arrow-right" class="size-5 ml-1 -mr-2" />
-              </button>
+                label="Gå till modell"
+              />
             </div>
           </div>
         </div>

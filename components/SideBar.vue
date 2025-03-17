@@ -16,7 +16,7 @@
         <div v-else-if="currentDirectory === 'about'"></div>
         <div v-else-if="currentDirectory.startsWith('guide')">
           <SbDokumentation />
-          <!-- <BaseHeading size="lg" weight="normal" class="my-4">Dokumentation</BaseHeading> -->
+          <!-- <h1 size="lg" weight="normal" class="my-4">Dokumentation</h1> -->
         </div>
       </div>
     </div>

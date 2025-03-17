@@ -12,10 +12,10 @@ const { geographyLabel, forestTypeLabel, standAgeLabel, vegetationTypeLabel } =
 
 <template>
   <div class="p-2">
-    <!-- <BaseHeading weight="medium" size="lg" class="text-neutral-900">
+    <!-- <h1 weight="medium" size="lg" class="text-neutral-900">
       {{ geographyLabel }} - {{ forestTypeLabel }} - {{ standAgeLabel }} -
       {{ vegetationTypeLabel }}
-    </BaseHeading> -->
+    </h1> -->
     <!-- <div class="flex gap-2 w-full mb-4">
       <UBadge
         icon="i-material-symbols-location-on-outline"
@@ -63,11 +63,11 @@ const { geographyLabel, forestTypeLabel, standAgeLabel, vegetationTypeLabel } =
       </UBadge>
     </div> -->
     <div class="">
-      <BaseHeading size="lg" weight="light" class="text-neutral-500">
+      <h1 size="lg" weight="light" class="text-neutral-500">
         Här är underlaget från markinventeringen [gott] och visar [många] arter,
         så som [art1, art2]. I den här miljön finns det [få] Naturvårdsarter
         t.ex. [art3], [Många] matsvampar kan också finnas här, t.ex [art4].
-      </BaseHeading>
+      </h1>
     </div>
   </div>
 </template>

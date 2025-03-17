@@ -3,7 +3,7 @@
     <div class="grid grid-cols-4 gap-5 overflow-visible">
       <!-- ==================== GEOGRAPHY COLUMN ==================== -->
       <div
-        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-white bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200/50 h-fit"
       >
         <div>
           <div
@@ -25,7 +25,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'geography-' + option.value"
               color="primary"
               :model-value="selectedOptions.geography === option.value"
@@ -33,21 +33,15 @@
                 () => updateSelection(option.value, 'geography')
               "
               :disabled="option.disabled"
-              shape="full"
+              :ui="{ rounded: 'rounded-full', base: 'size-5' }"
             />
           </div>
         </div>
-        <!-- Info button -->
-        <Icon
-          @click="openModal('geography')"
-          name="heroicons:question-mark-circle"
-          class="size-6 text-neutral-300 absolute bottom-2 left-2 hover:text-primary-500 cursor-pointer transition-all"
-        />
       </div>
 
       <!-- ==================== FOREST TYPE COLUMN ==================== -->
       <div
-        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-white bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200/50 h-fit"
       >
         <div>
           <div
@@ -69,7 +63,8 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
+              size="lg"
               :id="'forestType-' + option.value"
               color="primary"
               :model-value="selectedOptions.forestType === option.value"
@@ -77,21 +72,15 @@
                 () => updateSelection(option.value, 'forestType')
               "
               :disabled="option.disabled"
-              shape="full"
+              :ui="{ rounded: 'rounded-full', base: 'size-5' }"
             />
           </div>
         </div>
-        <!-- Info button -->
-        <Icon
-          @click="openModal('forestType')"
-          name="heroicons:question-mark-circle"
-          class="size-6 text-neutral-300 absolute bottom-2 left-2 hover:text-primary-500 cursor-pointer transition-all"
-        />
       </div>
 
       <!-- ==================== STAND AGE COLUMN ==================== -->
       <div
-        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-white bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200/50 h-fit"
       >
         <div>
           <div
@@ -113,7 +102,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'standAge-' + option.value"
               color="primary"
               :model-value="selectedOptions.standAge === option.value"
@@ -121,21 +110,15 @@
                 () => updateSelection(option.value, 'standAge')
               "
               :disabled="option.disabled"
-              shape="full"
+              :ui="{ rounded: 'rounded-full', base: 'size-5' }"
             />
           </div>
         </div>
-        <!-- Info button -->
-        <Icon
-          @click="openModal('standAge')"
-          name="heroicons:question-mark-circle"
-          class="size-6 text-neutral-300 absolute bottom-2 left-2 hover:text-primary-500 cursor-pointer transition-all"
-        />
       </div>
 
       <!-- ==================== VEGETATION TYPE COLUMN ==================== -->
       <div
-        class="relative p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-neutral-50 bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200 h-fit"
+        class="p-6 pl-10 pb-4 backdrop-blur-3xl rounded-xl bg-white bg-opacity-40 dark:bg-neutral-900 dark:bg-opacity-60 border-[1px] dark:border-neutral-800 border-stone-200/50 h-fit"
       >
         <div>
           <div
@@ -157,7 +140,7 @@
             >
               {{ option.label }}
             </label>
-            <BaseCheckbox
+            <UCheckbox
               :id="'vegetationType-' + option.value"
               color="primary"
               :model-value="selectedOptions.vegetationType === option.value"
@@ -165,72 +148,12 @@
                 () => updateSelection(option.value, 'vegetationType')
               "
               :disabled="option.disabled"
-              shape="full"
+              :ui="{ rounded: 'rounded-full', base: 'size-5' }"
             />
           </div>
         </div>
-        <!-- Info button -->
-        <Icon
-          @click="openModal('vegetationType')"
-          name="heroicons:question-mark-circle"
-          class="size-6 text-neutral-300 absolute bottom-2 left-2 hover:text-primary-500 cursor-pointer transition-all"
-        />
       </div>
     </div>
-
-    <!-- Reusable Modal -->
-    <UModal v-model="isModalOpen">
-      <UCard
-        :ui="{
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-        }"
-      >
-        <template #header>
-          <div class="flex justify-between items-center">
-            <div class="flex gap-2">
-              <Icon :name="modalIcon" :class="modalIconColor" class="size-6" />
-              <BaseHeading size="xl" weight="light">
-                {{ modalTitle }}
-              </BaseHeading>
-            </div>
-            <BaseButtonIcon
-              shape="full"
-              @click="closeModal"
-              class="absolute top-4 right-4"
-            >
-              <Icon name="heroicons:x-mark" class="size-5" />
-            </BaseButtonIcon>
-          </div>
-        </template>
-        <div class="space-y-2">
-          <div
-            v-for="option in currentModalOptions"
-            :key="option.value"
-            class="grid grid-cols-3 flex-grow items-center justify-between rounded-xl overflow-hidden h-28"
-            :class="[
-              option.disabled
-                ? 'opacity-50 cursor-not-allowed'
-                : 'cursor-pointer hover:ring-1 hover:ring-neutral-200',
-              option.value === currentSelectedValue
-                ? 'border border-green-500 shadow-sm '
-                : '',
-            ]"
-            @click="() => handleModalOptionClick(option)"
-          >
-            <!-- Left side: title and description -->
-            <div class="p-4 col-span-2">
-              <div class="font-semibold text-gray-700">{{ option.label }}</div>
-              <div class="text-sm text-gray-500">{{ option.description }}</div>
-            </div>
-            <!-- Right side: placeholder image -->
-            <div
-              class="col-span-1 h-24 w-36 my-2 bg-gray-200 flex items-center justify-center rounded-xl"
-            ></div>
-          </div>
-        </div>
-      </UCard>
-    </UModal>
   </div>
 </template>
 
@@ -501,86 +424,6 @@ function updateSelection(value, category) {
     selectedOptions.value[category] === value ? null : value;
 }
 
-// --- Modal Logic ---
-const openModalType = ref(null);
-const isModalOpen = computed({
-  get: () => openModalType.value !== null,
-  set: (val) => {
-    if (!val) openModalType.value = null;
-  },
-});
-function openModal(type) {
-  openModalType.value = type;
-}
-function closeModal() {
-  openModalType.value = null;
-}
-
-const currentModalOptions = computed(() => {
-  switch (openModalType.value) {
-    case "geography":
-      return enabledGeographyOptions.value;
-    case "forestType":
-      return enabledForestTypes.value;
-    case "standAge":
-      return enabledStandAges.value;
-    case "vegetationType":
-      return enabledVegetationTypes.value;
-    default:
-      return [];
-  }
-});
-const modalTitle = computed(() => {
-  switch (openModalType.value) {
-    case "geography":
-      return "Var i Sverige";
-    case "forestType":
-      return "Skogstyp";
-    case "standAge":
-      return "Beståndsålder";
-    case "vegetationType":
-      return "Fältskikt";
-    default:
-      return "";
-  }
-});
-const modalIcon = computed(() => {
-  switch (openModalType.value) {
-    case "geography":
-      return "material-symbols:location-on-outline";
-    case "forestType":
-      return "lucide:trees";
-    case "standAge":
-      return "carbon:crop-growth";
-    case "vegetationType":
-      return "fluent-emoji-high-contrast:herb";
-    default:
-      return "";
-  }
-});
-const modalIconColor = computed(() => {
-  switch (openModalType.value) {
-    case "geography":
-      return "text-fuchsia-500";
-    case "forestType":
-      return "text-green-500";
-    case "standAge":
-      return "text-violet-500";
-    case "vegetationType":
-      return "text-teal-500";
-    default:
-      return "";
-  }
-});
-const currentSelectedValue = computed(() => {
-  return selectedOptions.value[openModalType.value];
-});
-function handleModalOptionClick(option) {
-  if (option.disabled) return;
-  updateSelection(option.value, openModalType.value);
-  closeModal();
-}
-
 // --- Reset Selections ---
 function resetSelections() {
   selectedOptions.value = {
@@ -594,7 +437,6 @@ function resetSelections() {
 // Expose properties and functions for parent components.
 defineExpose({
   selectedOptions,
-  openModal,
   resetSelections,
   setRestriction,
   updateSelection,

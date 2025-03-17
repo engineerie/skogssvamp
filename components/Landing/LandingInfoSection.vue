@@ -2,20 +2,22 @@
   <div class="grid grid-cols-1 md:grid-cols-2 mt-6 mb-24 items-center gap-20">
     <!-- Left Column: Text Content -->
     <div>
-      <BaseHeading
+      <h1
         size="5xl"
         lead="tight"
         class="text-neutral-950 dark:text-neutral-200"
-        >Svampar och träd
-      </BaseHeading>
-      <BaseHeading
+      >
+        Svampar och träd
+      </h1>
+      <h1
         lead="tight"
         size="5xl"
         class="text-primary-500 dark:text-neutral-200 mb-1"
-        >hänger ihop
-      </BaseHeading>
+      >
+        hänger ihop
+      </h1>
       <!-- Description -->
-      <BaseHeading
+      <h1
         weight="semi-bold"
         size="xl"
         class="text-neutral-500 dark:text-neutral-400 mb-6"
@@ -26,15 +28,15 @@
         träd. Svampar med stora fruktkroppar, som kantareller, kremlor och
         soppar är mykorrhizasvampar. De allra flesta vildplockade matsvampar är
         mykorrhizasvampar.
-      </BaseHeading>
+      </h1>
       <div class="flex items-start">
         <!-- Navigation Buttons -->
         <div class="flex gap-4">
           <NuxtLink to="/svampkunskap">
-            <BaseButton color="primary" type="outline" size="md" shape="full">
+            <UButton color="primary" type="outline" size="md" shape="full">
               <Icon name="heroicons:book-open" class="-ms-1 mr-1 size-6" />
               <span>Svampkunskap</span>
-            </BaseButton>
+            </UButton>
           </NuxtLink>
         </div>
       </div>
@@ -52,7 +54,7 @@
           title="Video about Mykorrhizasvampar"
         ></iframe>
       </div>
-      <BaseHeading
+      <h1
         weight="semi-bold"
         size="md"
         class="text-neutral-500 dark:text-neutral-400 mb-6"
@@ -67,7 +69,7 @@
         >
           här</NuxtLink
         >.
-      </BaseHeading>
+      </h1>
     </div>
   </div>
 </template>

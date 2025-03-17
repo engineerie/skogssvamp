@@ -21,22 +21,16 @@
                 />
               </div>
               <div>
-                <BaseHeading size="md" weight="light" class="text-neutral-500">
-                  Var i Sverige
-                </BaseHeading>
-                <BaseHeading
-                  size="2xl"
-                  weight="semi-bold"
-                  class="text-neutral-800"
-                >
+                <h1 class="text-neutral-500">Var i Sverige</h1>
+                <h1 class="text-neutral-800 text-2xl">
                   {{ geographyLabel }}
-                </BaseHeading>
+                </h1>
               </div>
             </div>
           </transition>
 
           <template #panel="{ close }">
-            <div class="p-2 min-w-52">
+            <div class="p-2 min-w-60 max-w-96">
               <div
                 v-for="option in enabledGeographyOptions"
                 :key="option.value"
@@ -56,10 +50,10 @@
                   }
                 "
               >
-                <h1 class="text-xs font-bold text-neutral-900">
+                <h1 class="text-sm font-bold text-neutral-900">
                   {{ option.label }}
                 </h1>
-                <p class="text-xs text-neutral-400 font-light">
+                <p class="text-sm text-neutral-400 font-light">
                   {{ option.description }}
                 </p>
               </div>
@@ -85,22 +79,16 @@
                 <Icon name="lucide:trees" class="h-8 w-8" />
               </div>
               <div>
-                <BaseHeading size="md" weight="light" class="text-neutral-500">
-                  Skogstyp
-                </BaseHeading>
-                <BaseHeading
-                  size="2xl"
-                  weight="semi-bold"
-                  class="text-neutral-800"
-                >
+                <h1 class="text-neutral-500">Skogstyp</h1>
+                <h1 class="text-neutral-800 text-2xl">
                   {{ forestTypeLabel }}
-                </BaseHeading>
+                </h1>
               </div>
             </div>
           </transition>
 
           <template #panel="{ close }">
-            <div class="p-2 min-w-60">
+            <div class="p-2 min-w-60 max-w-96">
               <div
                 v-for="option in enabledForestTypes"
                 :key="option.value"
@@ -120,10 +108,10 @@
                   }
                 "
               >
-                <h1 class="text-xs font-bold text-neutral-900">
+                <h1 class="text-sm font-bold text-neutral-900">
                   {{ option.label }}
                 </h1>
-                <p class="text-xs text-neutral-400 font-light">
+                <p class="text-sm text-neutral-400 font-light">
                   {{ option.description }}
                 </p>
               </div>
@@ -149,22 +137,18 @@
                 <Icon name="carbon:crop-growth" class="h-8 w-8" />
               </div>
               <div>
-                <BaseHeading size="md" weight="light" class="text-neutral-500">
+                <h1 size="md" weight="light" class="text-neutral-500">
                   Beståndsålder
-                </BaseHeading>
-                <BaseHeading
-                  size="2xl"
-                  weight="semi-bold"
-                  class="text-neutral-800"
-                >
+                </h1>
+                <h1 class="text-neutral-800 text-2xl">
                   {{ standAgeLabel }}
-                </BaseHeading>
+                </h1>
               </div>
             </div>
           </transition>
 
           <template #panel="{ close }">
-            <div class="p-2 min-w-60">
+            <div class="p-2 min-w-60 max-w-96">
               <div
                 v-for="option in enabledStandAges"
                 :key="option.value"
@@ -184,10 +168,10 @@
                   }
                 "
               >
-                <h1 class="text-xs font-bold text-neutral-900">
+                <h1 class="text-sm font-bold text-neutral-900">
                   {{ option.label }}
                 </h1>
-                <p class="text-xs text-neutral-400 font-light">
+                <p class="text-sm text-neutral-400 font-light">
                   {{ option.description }}
                 </p>
               </div>
@@ -213,22 +197,18 @@
                 <Icon name="fluent-emoji-high-contrast:herb" class="h-8 w-8" />
               </div>
               <div>
-                <BaseHeading size="md" weight="light" class="text-neutral-500">
+                <h1 size="md" weight="light" class="text-neutral-500">
                   Fältskikt
-                </BaseHeading>
-                <BaseHeading
-                  size="2xl"
-                  weight="semi-bold"
-                  class="text-neutral-800"
-                >
+                </h1>
+                <h1 class="text-neutral-800 text-2xl">
                   {{ vegetationTypeLabel }}
-                </BaseHeading>
+                </h1>
               </div>
             </div>
           </transition>
 
           <template #panel="{ close }">
-            <div class="p-2 min-w-60">
+            <div class="p-2 min-w-60 max-w-96">
               <div
                 v-for="option in enabledVegetationTypes"
                 :key="option.value"
@@ -248,10 +228,10 @@
                   }
                 "
               >
-                <h1 class="text-xs font-bold text-neutral-900">
+                <h1 class="text-sm font-bold text-neutral-900">
                   {{ option.label }}
                 </h1>
-                <p class="text-xs text-neutral-400 font-light">
+                <p class="text-sm text-neutral-400 font-light">
                   {{ option.description }}
                 </p>
               </div>
@@ -277,37 +257,34 @@
   </div>
 
   <!-- Toggle button -->
-  <div class="flex justify-end gap-2">
-    <BaseButtonAction
+  <div class="flex justify-end gap-2 mb-2">
+    <UButton
+      trailing
+      :icon="restrictionEnabled ? 'mdi:lock' : 'mdi:lock-open'"
       @click="toggleRestriction"
       shape="full"
-      class="mb-2"
-      :color="restrictionEnabled ? 'warning' : 'white'"
+      class="transition-all"
+      :ui="{
+        rounded: 'rounded-full',
+        icon: {
+          size: {
+            sm: 'h-4 w-4',
+          },
+        },
+      }"
+      :color="restrictionEnabled ? 'violet' : 'white'"
     >
-      <span class="ml-2">
-        {{
-          restrictionEnabled ? "Markinventeringsdata" : "Markinventeringsdata"
-        }}
-      </span>
-      <Icon
-        :name="restrictionEnabled ? 'mdi:lock' : 'mdi:lock-open'"
-        class="size-4"
-      />
-    </BaseButtonAction>
-    <BaseButtonAction
+      {{ restrictionEnabled ? "Markinventeringsdata" : "Markinventeringsdata" }}
+    </UButton>
+    <UButton
+      trailing
+      :icon="listBoxRowVisible ? 'mdi:chevron-up' : 'mdi:chevron-down'"
       @click="toggleHeight"
-      shape="full"
-      class="mb-2"
       color="white"
+      :ui="{ rounded: 'rounded-full' }"
     >
-      <span class="ml-2">
-        {{ listBoxRowVisible ? "Dölj kombinationsvy" : "Visa kombinationsvy" }}
-      </span>
-      <Icon
-        :name="listBoxRowVisible ? 'mdi:chevron-up' : 'mdi:chevron-down'"
-        class="h-6 w-6"
-      />
-    </BaseButtonAction>
+      {{ listBoxRowVisible ? "Dölj kombinationsvy" : "Visa kombinationsvy" }}
+    </UButton>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
       </div>
       <!-- Hero Text -->
       <div class="mb-28">
-        <BaseButton
+        <UButton
           to="https://www.slu.se/ew-nyheter/2023/3/se-svampen-i-din-skog/"
           target="_blank"
           color="primary"
@@ -17,14 +17,10 @@
         >
           <span>Läs artikel på slu.se</span>
           <Icon name="lucide:arrow-up-right" class="me-1 h-4 w-4" />
-        </BaseButton>
-        <BaseHeading
-          size="7xl"
-          lead="tight"
-          class="text-gray-800 dark:text-white"
-        >
+        </UButton>
+        <h1 size="7xl" lead="tight" class="text-gray-800 dark:text-white">
           Svampkunskap <br />för skogsägare
-        </BaseHeading>
+        </h1>
         <p class="mt-4 text-xl text-neutral-500 dark:text-gray-300">
           <!-- Utforska vilka mykorrhizasvampar som finns, hur deras mycelutbredning
           <br />

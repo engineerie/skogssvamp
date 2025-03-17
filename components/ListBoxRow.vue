@@ -5,10 +5,10 @@
     class="p-6 border-[1px] dark:border-stone-700 border-stone-200 rounded-xl"
   >
     <div class="pr-2">
-      <!-- <BaseHeading as="h2" size="md" class="mb-4">Select Location</BaseHeading> -->
+      <!-- <h1 as="h2" size="md" class="mb-4">Select Location</h1> -->
       <div class="">
         <!-- grid grid-cols-5 gap-4 items-end    -->
-        <BaseListbox
+        <USelectMenu
           shape="full"
           v-model="selectedOptions.geography"
           label="Geografi"
@@ -17,7 +17,7 @@
           placeholder="Välj"
           class="mb-3"
         />
-        <BaseListbox
+        <USelectMenu
           shape="full"
           v-model="selectedOptions.forestType"
           label="Skogsstyp"
@@ -26,7 +26,7 @@
           placeholder="Välj"
           class="mb-3"
         />
-        <BaseListbox
+        <USelectMenu
           shape="full"
           v-model="selectedOptions.standAge"
           label="Beståndsålder"
@@ -35,7 +35,7 @@
           placeholder="Välj"
           class="mb-3"
         />
-        <BaseListbox
+        <USelectMenu
           shape="full"
           v-model="selectedOptions.vegetationType"
           label="Vegetationstyp"
@@ -49,23 +49,17 @@
   <div class="mt-4 flex justify-end mr-2">
     <div v-if="!isButtonDisabled">
       <NuxtLink :to="generateParams()">
-        <BaseButton shape="full" size="sm" flavor="solid" color="primary">
+        <UButton shape="full" size="sm" flavor="solid" color="primary">
           <span>Utforska</span>
           <Icon name="lucide:arrow-right" class="me-1 h-4 w-4" />
-        </BaseButton>
+        </UButton>
       </NuxtLink>
     </div>
     <div v-else>
-      <BaseButton
-        shape="full"
-        size="sm"
-        disabled
-        flavor="solid"
-        color="primary"
-      >
+      <UButton shape="full" size="sm" disabled flavor="solid" color="primary">
         <span>Utforska</span>
         <Icon name="lucide:arrow-right" class="me-1 h-4 w-4" />
-      </BaseButton>
+      </UButton>
     </div>
   </div>
 </template>
@@ -77,7 +71,7 @@ export default {
   data() {
     return {
       listboxProperties: {
-        label: "label", // This tells BaseListbox to use the 'label' property of your items for display
+        label: "label", // This tells USelectMenu to use the 'label' property of your items for display
       },
       selectedOptions: {
         geography: null,

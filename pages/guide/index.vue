@@ -6,9 +6,7 @@
     <div class="space-y-4">
       <!-- Section -->
       <div>
-        <BaseHeading size="2xl" weight="semi-bold" class="mb-2">
-          Översikt
-        </BaseHeading>
+        <h1 size="2xl" weight="semi-bold" class="mb-2">Översikt</h1>
         <p class="text-md text-neutral-700">
           Här skall finnas en utförlig dokumentation när applikationen blir
           publik i april 2025.
@@ -17,9 +15,9 @@
 
       <!-- Markinventeringen Section -->
       <div>
-        <BaseHeading size="2xl" weight="semi-bold" class="mb-2">
+        <h1 size="2xl" weight="semi-bold" class="mb-2">
           Markinventeringen och Rikskogstaxeringen
-        </BaseHeading>
+        </h1>
         <ul class="list-disc list-inside space-y-1">
           <li>
             <NuxtLink
@@ -44,9 +42,9 @@
 
       <!-- Svampförekomst Section -->
       <div>
-        <BaseHeading size="2xl" weight="semi-bold" class="mb-2">
+        <h1 size="2xl" weight="semi-bold" class="mb-2">
           Uppgifter om svampförekomst i skogsmark baserat på DNA-analyser
-        </BaseHeading>
+        </h1>
         <p class="text-md text-neutral-700">
           Underlag för uppgifter om svampförekomst i skogsmark, se tills vidare.
           Hur bearbetningen för att visa i denna applikation gått till kommer
@@ -56,13 +54,11 @@
 
       <!-- Uppgifter om Mat- och Giftsvampar Section -->
       <div>
-        <BaseHeading size="2xl" weight="semi-bold" class="mb-2">
+        <h1 size="2xl" weight="semi-bold" class="mb-2">
           Uppgifter om mat- och giftsvampar samt naturvårdsarter (rödlistade
           arter och signalarter)
-        </BaseHeading>
-        <BaseHeading size="lg" weight="medium" class="mt-4">
-          Arturvalet baseras på
-        </BaseHeading>
+        </h1>
+        <h1 size="lg" weight="medium" class="mt-4">Arturvalet baseras på</h1>
         <ul class="list-disc list-inside space-y-1 ml-4">
           <li>
             <strong>Matsvampar:</strong> Nya svampboken (2014) av Pelle Holmberg
@@ -111,9 +107,7 @@
 
       <!-- Kartfunktionen Section -->
       <div>
-        <BaseHeading size="2xl" weight="semi-bold" class="mb-2">
-          Kartfunktionen
-        </BaseHeading>
+        <h1 size="2xl" weight="semi-bold" class="mb-2">Kartfunktionen</h1>
         <p class="text-md text-neutral-700">
           Referenser och vad som visas kommer att beskrivas här.
         </p>
@@ -121,9 +115,7 @@
 
       <!-- Skogsskötsel Section -->
       <div>
-        <BaseHeading size="2xl" weight="semi-bold" class="mb-2">
-          Skogsskötsel
-        </BaseHeading>
+        <h1 size="2xl" weight="semi-bold" class="mb-2">Skogsskötsel</h1>
         <p class="text-md text-neutral-700">
           Sammanställning över referenser, vad de säger och hur bedömningar
           skett beskrivs här.

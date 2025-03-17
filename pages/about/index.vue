@@ -2,9 +2,7 @@
   <div class="w-full p-6">
     <!-- Syfte Section -->
     <div class="mb-6">
-      <BaseHeading size="2xl" weight="semi-bold" class="mb-4">
-        Syfte
-      </BaseHeading>
+      <h1 size="2xl" weight="semi-bold" class="mb-4">Syfte</h1>
       <p class="text-md text-neutral-700 mb-4">
         I projektet utvecklas en interaktiv applikation där man som skogsägare
         kan få visualiserat vilka mykorrhizasvampar som kan förekomma i den egna
@@ -49,9 +47,7 @@
 
     <!-- Finansiering Section -->
     <div class="mb-6">
-      <BaseHeading size="2xl" weight="semi-bold" class="mb-4">
-        Finansiering
-      </BaseHeading>
+      <h1 size="2xl" weight="semi-bold" class="mb-4">Finansiering</h1>
       <p class="text-md text-neutral-700 mb-4">
         Skogssällskapet 865 000 kr samt avsatt tid inom ramen för SLU-tjänst.
       </p>
@@ -69,9 +65,7 @@
 
     <!-- Kontakt Section -->
     <div>
-      <BaseHeading size="2xl" weight="semi-bold" class="mb-4">
-        Kontakt
-      </BaseHeading>
+      <h1 size="2xl" weight="semi-bold" class="mb-4">Kontakt</h1>
       <p class="text-md text-neutral-700 mb-2">
         <strong>Anders Dahlberg</strong><br />
         Professor,

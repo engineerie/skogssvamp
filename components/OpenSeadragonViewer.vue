@@ -1,13 +1,20 @@
-<!-- components/OpenSeadragonViewer.vue -->
 <template>
   <div
     v-if="isClient"
     :id="viewerId"
-    class="openseadragon-viewer"
+    class="openseadragon-viewer relative"
     ref="viewerContainer"
     :style="{ backgroundColor: backgroundColor }"
     @mousedown.capture="handleActivate"
-  ></div>
+    @mousemove="updateMousePosition"
+  >
+    <!-- Display viewport coordinates for marker placement -->
+    <div
+      class="absolute top-0 right-0 m-2 p-1 bg-black bg-opacity-50 text-white text-xs z-50"
+    >
+      X: {{ mousePos.x.toFixed(4) }}, Y: {{ mousePos.y.toFixed(4) }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,7 +31,7 @@ import {
 import { useRoute } from "vue-router";
 import AnnotationPopup from "./AnnotationPopup.vue";
 import AnnotationMarker from "./AnnotationMarker.vue";
-import { useAnnotationStore } from "~/stores/annotationStore";
+import { useSelectedAnnotationStore } from "~/stores/selectedAnnotationStore";
 
 export default {
   name: "OpenSeadragonViewer",
@@ -39,7 +46,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: "#fff",
+      default: "#d4d4d4",
     },
     annotations: {
       type: Array,
@@ -56,30 +63,61 @@ export default {
     );
     let osdLib = null;
     const currentTile = ref(null);
-    const annotationStore = useAnnotationStore();
+
+    // Reactive variable for viewport coordinates (for marker placement)
+    const mousePos = ref({ x: 0, y: 0 });
+    function updateMousePosition(e) {
+      if (!viewerContainer.value || !viewer.value || !osdLib) return;
+      // Get container coordinates
+      const rect = viewerContainer.value.getBoundingClientRect();
+      const containerX = e.clientX - rect.left;
+      const containerY = e.clientY - rect.top;
+      // Convert container pixel coordinates to viewport coordinates
+      const pixelPoint = new osdLib.Point(containerX, containerY);
+      const viewportPoint = viewer.value.viewport.pointFromPixel(pixelPoint);
+      mousePos.value.x = viewportPoint.x;
+      mousePos.value.y = viewportPoint.y;
+    }
+
+    const selectedAnnotationStore = useSelectedAnnotationStore();
+
+    // When the selected annotation changes, update the overlays.
+    watch(
+      () => selectedAnnotationStore.selectedAnnotation,
+      () => {
+        if (viewer.value) {
+          updateOverlays();
+        }
+      }
+    );
 
     // Create marker overlays.
     function updateOverlays() {
       if (!viewer.value || !osdLib) return;
       viewer.value.clearOverlays();
       props.annotations.forEach((annotation) => {
+        // Only create marker overlays if a valid position exists.
+        if (!annotation.position) return;
+
         const markerContainer = document.createElement("div");
+        // Mount the AnnotationMarker component (which uses the store for its selected state)
         const markerApp = createApp(AnnotationMarker, { annotation });
-        markerApp.component("AnnotationMarker", AnnotationMarker);
         markerApp.mount(markerContainer);
+
         new osdLib.MouseTracker({
           element: markerContainer,
-          clickHandler: (e) => {
+          clickHandler: () => {
             emit("annotationClicked", annotation);
           },
         });
+
         viewer.value.addOverlay({
           element: markerContainer,
           location: new osdLib.Point(
             annotation.position.x,
             annotation.position.y
           ),
-          placement: annotation.position.placement,
+          placement: "BOTTOM",
           checkResize: false,
         });
       });
@@ -92,39 +130,7 @@ export default {
       popupContainer.style.pointerEvents = "auto";
       const app = createApp(AnnotationPopup, { annotation });
       app.mount(popupContainer);
-      nextTick(() => {
-        const closeButton = popupContainer.querySelector("button.close-button");
-        if (closeButton) {
-          new osdLib.MouseTracker({
-            element: closeButton,
-            clickHandler: function (e) {
-              viewer.value.removeOverlay(popupContainer);
-              annotationStore.closePopup();
-            },
-          });
-        }
-      });
-      annotationStore.openPopup(annotation, popupContainer);
-      viewer.value.addOverlay({
-        element: popupContainer,
-        location: new osdLib.Point(
-          annotation.position.x,
-          annotation.position.y
-        ),
-        placement: annotation.position.placement,
-        checkResize: false,
-      });
     }
-
-    watch(
-      () => annotationStore.activeAnnotation,
-      (newVal) => {
-        if (newVal === null && annotationStore.activeOverlay) {
-          viewer.value.removeOverlay(annotationStore.activeOverlay);
-          annotationStore.clearOverlay();
-        }
-      }
-    );
 
     // Initialize the viewer.
     async function initViewer() {
@@ -248,13 +254,13 @@ export default {
     function setZoomAndCenter(zoom, center) {
       if (!viewer.value) return;
       viewer.value.viewport.zoomTo(zoom);
-      // Remove the immediate flag so that the pan also animates smoothly.
+      // Animate the pan smoothly.
       viewer.value.viewport.panTo(center);
       viewer.value.viewport.applyConstraints();
       viewer.value.forceRedraw();
     }
 
-    // NEW: Expose a method to attach event handlers (for syncing).
+    // Expose a method to attach event handlers (for syncing).
     function addSyncHandler(eventType, handler) {
       if (viewer.value) {
         viewer.value.addHandler(eventType, handler);
@@ -274,13 +280,15 @@ export default {
       getZoom,
       getCenter,
       setZoomAndCenter,
-      addSyncHandler, // <-- new
+      addSyncHandler,
     });
 
     return {
       isClient,
       viewerContainer,
       viewerId,
+      mousePos,
+      updateMousePosition,
     };
   },
 };
@@ -290,6 +298,6 @@ export default {
 .openseadragon-viewer {
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #d50000;
 }
 </style>

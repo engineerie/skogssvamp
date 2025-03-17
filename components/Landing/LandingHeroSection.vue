@@ -30,85 +30,52 @@
       <!-- Text Content -->
       <div class="mb-10 lg:mb-0">
         <!-- Existing content -->
-        <BaseButton
+        <NuxtLink
           to="https://www.slu.se/ew-nyheter/2023/3/se-svampen-i-din-skog/"
           target="_blank"
-          color="primary"
-          flavor="pastel"
-          size="sm"
-          shape="full"
-          class="border-[0.5px] border-green-500 inline-flex mb-5"
         >
-          <span>Testversion 2025.02.03</span>
-          <Icon name="heroicons:arrow-right-16-solid" class="me-1 h-4 w-4" />
-        </BaseButton>
-        <!-- <BaseHeading
-          size="2xl"
-          lead="tight"
-          class="text-primary-500 dark:text-white"
-        >
-          Svampskogen.se
-        </BaseHeading> -->
-        <!-- <BaseHeading
-          size=""
-          lead="tight"
-          class="text-green-500 dark:text-white text-6xl md:text-6xl mb-6 mt-8"
-        >
-          Svampskog
-        </BaseHeading> -->
-        <BaseHeading
-          size=""
-          lead="tight"
-          class="text-neutral-800 dark:text-white text-4xl md:text-7xl mb-6"
+          <UBadge
+            variant="subtle"
+            color="primary"
+            size="lg"
+            :ui="{ rounded: 'rounded-full' }"
+            class="border-[0.5px] border-green-500 inline-flex mb-5"
+          >
+            <span>Testversion 2025.02.03</span>
+            <Icon name="heroicons:arrow-right-16-solid" class="me-1 h-4 w-4" />
+          </UBadge>
+        </NuxtLink>
+
+        <h1
+          class="text-neutral-800 dark:text-white text-4xl md:text-7xl mb-6 font-semibold"
         >
           Mykorrhizasvampar
           <br />
           <span class="text-primary-500 -mt-6">& skogsskötsel </span>
-        </BaseHeading>
-        <BaseHeading
-          weight="thin"
-          size=""
-          lead="tight"
+        </h1>
+        <h1
           class="text-neutral-500 dark:text-white text-lg md:text-xl md:mx-36"
         >
           Svampskog.se är en webbapplikation där du kan utforska vilka
           mykorrhizasvampar som kan finnas i olika skogar och se hur de reagerar
           vid skogsbruksåtgärder
-        </BaseHeading>
-        <NuxtLink
-          to="/start"
-          class="inline-flex items-center justify-center md:mt-8 mt-8"
-        >
-          <div
-            class="text-neutral-100 rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-primary-500 border-neutral-300 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-primary-400"
+        </h1>
+        <div class="space-x-2 mt-8">
+          <UButton to="/start" size="lg" :ui="{ rounded: 'rounded-full' }">
+            Börja här
+          </UButton>
+          <UButton
+            @click="isOpen = true"
+            icon="heroicons:play-circle-solid"
+            color="white"
+            size="lg"
+            trailing
+            :ui="{ rounded: 'rounded-full' }"
           >
-            <!-- <Icon name="mingcute:mushroom-line" class="-ms-1 h-6 w-6 mr-3" /> -->
-            <span>Börja här</span>
-          </div>
-        </NuxtLink>
-        <NuxtLink
-          @click="isOpen = true"
-          class="inline-flex items-center justify-center cursor-pointer"
-        >
-          <div
-            class="rounded-full text-sm dark:bg-neutral-700 dark:border-neutral-600 bg-neutral-100 border-neutral-300 border-[1px] mr-2 p-2 px-5 dark:hover:bg-neutral-800 hover:bg-neutral-50"
-          >
-            <span>Introduktionsfilm</span>
-            <Icon
-              name="heroicons:play-circle-solid"
-              class="h-6 w-6 ml-1 -mr-2"
-            />
-          </div>
-        </NuxtLink>
+            Introduktionsfilm
+          </UButton>
+        </div>
       </div>
-      <!-- Placeholder Image -->
-      <!-- <div class="lg:w-1/2 flex justify-center">
-        <img
-          src="public/images/EDNA_bilder_skog/Norr_Barrblandskog_1-40_Blåbär_grupp.png"
-          alt="Placeholder Image"
-          class="w-full h-auto max-w-md"
-        />
-      </div> -->
     </div>
   </div>
 </template>

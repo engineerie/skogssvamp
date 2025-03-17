@@ -43,7 +43,7 @@
             src="/images/SeSvampenIDinSkog.png"
             class="rounded-lg z-50 absolute w-full -bottom-40 -right-10"
           />
-          <BaseButtonIcon
+          <UButton
             @click="expandLeft"
             color="default"
             flavor="solid"
@@ -52,7 +52,7 @@
             class="absolute bottom-2 right-2 z-50"
           >
             <Icon name="heroicons:plus" class="h-5 w-5" />
-          </BaseButtonIcon>
+          </UButton>
         </div>
 
         <!-- Right div -->
@@ -69,14 +69,14 @@
             class="object-center rounded-lg z-50 absolute h-96"
           />
           <!-- <div class="absolute top-4 left-4 flex z-50">
-            <BaseIconBox
+            <UIcon
               size="sm"
               shape="full"
               color="none"
               class="bg-primary-500 shadow-primary-500/50 text-white shadow-lg"
             >
               <Icon name="jam:tree" class="size-6" />
-            </BaseIconBox>
+            </UIcon>
           </div> -->
           <!-- <NuxtImg
             src="/images/image005.png"
@@ -86,7 +86,7 @@
             src="/images/Skogsbruk.png"
             class="h-full w-full object-cover"
           /> -->
-          <BaseButtonIcon
+          <UButton
             @click="expandRight"
             color="default"
             flavor="solid"
@@ -95,7 +95,7 @@
             class="absolute bottom-2 right-2 z-30"
           >
             <Icon name="heroicons:plus" class="h-5 w-5" />
-          </BaseButtonIcon>
+          </UButton>
         </div>
       </div>
     </transition>

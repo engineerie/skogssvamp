@@ -9,15 +9,15 @@
         >
           <Icon name="material-symbols:location-on-outline" class="h-9 w-9" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-200"
         >
           Geografi
-        </BaseHeading>
+        </h1>
       </div>
-      <BaseButtonIcon shape="full" size="sm" @click="toggleCard('geografi')">
+      <UButton shape="full" size="sm" @click="toggleCard('geografi')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -25,7 +25,7 @@
             expandedCards.geografi ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
 
     <!-- Smooth Transition for the content -->
@@ -48,15 +48,15 @@
         >
           <Icon name="lucide:trees" class="h-7 w-7" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-300 mr-4"
         >
           Skogstyp
-        </BaseHeading>
+        </h1>
       </div>
-      <BaseButtonIcon shape="full" size="sm" @click="toggleCard('skogstyp')">
+      <UButton shape="full" size="sm" @click="toggleCard('skogstyp')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -64,7 +64,7 @@
             expandedCards.skogstyp ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
 
     <transition name="fade">
@@ -107,19 +107,15 @@
         >
           <Icon name="carbon:crop-growth" class="h-10 w-10" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-300 mr-4"
         >
           Beståndsålder
-        </BaseHeading>
+        </h1>
       </div>
-      <BaseButtonIcon
-        shape="full"
-        size="sm"
-        @click="toggleCard('beståndsålder')"
-      >
+      <UButton shape="full" size="sm" @click="toggleCard('beståndsålder')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -127,7 +123,7 @@
             expandedCards.beståndsålder ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
 
     <transition name="fade">
@@ -162,19 +158,15 @@
         >
           <Icon name="fluent-emoji-high-contrast:herb" class="h-10 w-10" />
         </div>
-        <BaseHeading
+        <h1
           size="xl"
           weight="medium"
           class="text-neutral-800 dark:text-neutral-300 mr-4"
         >
           Markvegetation
-        </BaseHeading>
+        </h1>
       </div>
-      <BaseButtonIcon
-        shape="full"
-        size="sm"
-        @click="toggleCard('markvegetation')"
-      >
+      <UButton shape="full" size="sm" @click="toggleCard('markvegetation')">
         <Icon
           name="mdi:chevron-down"
           :class="[
@@ -182,7 +174,7 @@
             expandedCards.markvegetation ? 'rotate-180' : 'rotate-0',
           ]"
         />
-      </BaseButtonIcon>
+      </UButton>
     </div>
 
     <transition name="fade">

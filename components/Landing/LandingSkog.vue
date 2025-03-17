@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="container mx-auto md:px-6 px-4">
-      <BaseHeading
+      <h1
         size=""
         lead="thight"
         class="font-bold mb-2 md:mb-4 md:text-center text-xl md:text-5xl"
@@ -9,7 +9,7 @@
         Hur påverkar skogsskötsel <br /><span class="text-primary-500"
           >mykorrhizasvampar?</span
         >
-      </BaseHeading>
+      </h1>
 
       <p
         class="md:text-lg text-md mb-10 text-neutral-500 md:mx-24 md:text-center"
@@ -31,10 +31,10 @@
         </div>
       </NuxtLink> -->
       <!-- <NuxtLink >
-        <BaseButton color="white" type="outline" size="md" shape="full">
+        <UButton color="white" type="outline" size="md" shape="full">
           <Icon name="" class="-ms-1 mr-1 size-6" />
           
-        </BaseButton>
+        </UButton>
       </NuxtLink> -->
     </div>
   </div>

@@ -1,18 +1,26 @@
 <template>
-  <div
-    class="p-2 w-64 bg-neutral-50 rounded-xl shadow-md border border-neutral-100 relative"
+  <!-- <UCard
+    class="w-64 absolute"
+    :ui="{
+      rounded: 'rounded-md',
+      body: {
+        padding: 'p-2 sm:p-2',
+      },
+    }"
   >
     <NuxtImg
       width="400"
       :src="annotation.thumbnail"
       :alt="annotation.title"
-      class="rounded-xl w-fit border border-neutral-200"
+      class="rounded-md w-fit border border-neutral-200"
     />
     <div class="p-1">
       <h3 class="text-lg font-medium text-neutral-800">
         {{ annotation.title }}
       </h3>
-      <p class="text-md font-normal text-neutral-500">{{ annotation.text }}</p>
+      <p class="text-md font-normal text-neutral-500">
+        {{ annotation.text }}
+      </p>
       <UButton
         size="xs"
         class="close-button absolute top-4 right-4 shadow"
@@ -22,10 +30,10 @@
         @click="closePopup"
       />
     </div>
-  </div>
+  </UCard> -->
 </template>
 
-<script setup>
+<!-- <script setup>
 import { useAnnotationStore } from "~/stores/annotationStore";
 
 const props = defineProps({
@@ -47,4 +55,4 @@ function closePopup() {
     annotationStore.activeAnnotation
   );
 }
-</script>
+</script> -->

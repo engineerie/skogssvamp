@@ -10,9 +10,13 @@
         <div
           class="flex absolute bottom-0 justify-between w-full p-2 items-end"
         >
-          <BaseHeading weight="medium" size="xs" class="text-neutral-400">
+          <h1
+            weight="medium"
+            size="xs"
+            class="text-neutral-400 text-xs font-medium"
+          >
             Figuren visar hur mycelutbredningar kan se ut.
-          </BaseHeading>
+          </h1>
         </div>
         <!-- Clicking this icon opens the modal -->
         <Icon
@@ -40,7 +44,7 @@
       <!-- Optional header with a close button -->
       <template #header>
         <div class="flex justify-between items-center">
-          <BaseHeading size="xl" weight="light">Skogsbild</BaseHeading>
+          <h1 size="xl" weight="light">Skogsbild</h1>
           <Icon
             @click="isForestModalOpen = false"
             name="heroicons:x-mark"

@@ -21,7 +21,7 @@
             class="mb-1"
           >
             <div class="flex items-center gap-2">
-              <BaseRadio
+              <URadioGroup
                 color="primary"
                 v-model="selectedOptions.geography"
                 :value="option.value"
@@ -55,7 +55,7 @@
             :key="option.value"
             class="mb-1"
           >
-            <BaseRadio
+            <URadioGroup
               color="primary"
               v-model="selectedOptions.forestType"
               :value="option.value"
@@ -83,7 +83,7 @@
             :key="option.value"
             class="mb-1"
           >
-            <BaseRadio
+            <URadioGroup
               color="primary"
               v-model="selectedOptions.standAge"
               :value="option.value"
@@ -111,7 +111,7 @@
             :key="option.value"
             class="mb-1"
           >
-            <BaseRadio
+            <URadioGroup
               color="primary"
               v-model="selectedOptions.vegetationType"
               :value="option.value"
@@ -124,17 +124,17 @@
       <div class="col-span-2 mr-12 h-full">
         <div v-if="!isButtonDisabled">
           <NuxtLink :to="generateParams()">
-            <BaseButton size="md" flavor="solid" color="primary" shape="full">
+            <UButton size="md" flavor="solid" color="primary" shape="full">
               <Icon
                 name="material-symbols:travel-explore"
                 class="me-1 h-5 w-5"
               />
               <span>Utforska</span>
-            </BaseButton>
+            </UButton>
           </NuxtLink>
         </div>
         <div v-else>
-          <BaseButton
+          <UButton
             size="md"
             disabled
             flavor="pastel"
@@ -143,7 +143,7 @@
           >
             <Icon name="material-symbols:travel-explore" class="me-1 h-5 w-5" />
             <span>Utforska</span>
-          </BaseButton>
+          </UButton>
         </div>
 
         <div
@@ -175,7 +175,7 @@ export default {
   data() {
     return {
       listboxProperties: {
-        label: "label", // This tells BaseListbox to use the 'label' property of your items for display
+        label: "label", // This tells USelectMenu to use the 'label' property of your items for display
       },
       selectedOptions: {
         geography: this.geography,

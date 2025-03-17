@@ -31,7 +31,7 @@
               >
                 {{ option.label }}
               </label>
-              <BaseCheckbox
+              <UCheckbox
                 :id="'geography-' + option.value"
                 color="primary"
                 :model-value="selectedOptions.geography === option.value"
@@ -72,7 +72,7 @@
               >
                 {{ option.label }}
               </label>
-              <BaseCheckbox
+              <UCheckbox
                 :id="'forestType-' + option.value"
                 color="primary"
                 :model-value="selectedOptions.forestType === option.value"
@@ -115,7 +115,7 @@
               >
                 {{ option.label }}
               </label>
-              <BaseCheckbox
+              <UCheckbox
                 :id="'standAge-' + option.value"
                 color="primary"
                 :model-value="selectedOptions.standAge === option.value"
@@ -156,7 +156,7 @@
               >
                 {{ option.label }}
               </label>
-              <BaseCheckbox
+              <UCheckbox
                 :id="'vegetationType-' + option.value"
                 color="primary"
                 :model-value="selectedOptions.vegetationType === option.value"
@@ -172,7 +172,7 @@
       </div>
       <div class="flex w-full justify-end pt-2">
         <NuxtLink :to="generateParams()" v-if="!isButtonDisabled()">
-          <BaseIconBox
+          <UIcon
             flavor="solid"
             color="primary"
             shape="full"
@@ -180,10 +180,10 @@
             class="opacity-90 hover:h-14 hover:w-14 transition-all duration-100"
           >
             <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-          </BaseIconBox>
+          </UIcon>
         </NuxtLink>
         <div v-else>
-          <BaseIconBox
+          <UIcon
             shape="full"
             flavor="solid"
             color="default"
@@ -191,7 +191,7 @@
             size="md"
           >
             <Icon name="heroicons-solid:magnifying-glass" class="h-6 w-6" />
-          </BaseIconBox>
+          </UIcon>
         </div>
       </div>
     </div>
@@ -203,13 +203,13 @@
       class="p-4 rounded bg-gray-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm max-w-md relative"
     >
       <!-- <Transition name="fade">
-        <BaseMessage
+        <UAlert
           v-if="hoveredDescription"
           type="primary"
           icon="material-symbols:info-i-rounded"
           shape="full"
           class="fixed max-w-3xl"
-          >{{ hoveredDescription }}</BaseMessage
+          >{{ hoveredDescription }}</UAlert
         >
       </Transition> -->
     </div>

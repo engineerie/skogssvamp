@@ -26,14 +26,9 @@ onActivated(() => {
 
 <template>
   <section>
-    <BaseHeading
-      id="intro2"
-      size="2xl"
-      weight="semi-bold"
-      class="mb-4 text-neutral-700"
-    >
+    <h1 id="intro2" size="2xl" weight="semi-bold" class="mb-4 text-neutral-700">
       Introduction2
-    </BaseHeading>
+    </h1>
     <p class="text-neutral-500">
       Some introductory text...Lorem ipsum dolor sit amet, consectetur
       adipiscing elit. Nulla vulputate, arcu ut porta luctus, lorem augue
@@ -86,9 +81,9 @@ onActivated(() => {
       Etiam aliquet mi sed fermentum volutpat.
     </p>
 
-    <BaseHeading id="morphology2" size="2xl" weight="semi-bold" class="mb-4">
+    <h1 id="morphology2" size="2xl" weight="semi-bold" class="mb-4">
       Morphology2
-    </BaseHeading>
+    </h1>
     <p>
       Details about morphology... Some introductory text...Lorem ipsum dolor sit
       amet, consectetur adipiscing elit. Nulla vulputate, arcu ut porta luctus,
@@ -141,9 +136,7 @@ onActivated(() => {
       Etiam aliquet mi sed fermentum volutpat.
     </p>
 
-    <BaseHeading id="ecology2" size="2xl" weight="semi-bold" class="mb-4">
-      Ecology2
-    </BaseHeading>
+    <h1 id="ecology2" size="2xl" weight="semi-bold" class="mb-4">Ecology2</h1>
     <p>
       Details about ecology... Some introductory text...Lorem ipsum dolor sit
       amet, consectetur adipiscing elit. Nulla vulputate, arcu ut porta luctus,
@@ -196,9 +189,9 @@ onActivated(() => {
       Etiam aliquet mi sed fermentum volutpat.
     </p>
 
-    <BaseHeading id="conclusion2" size="2xl" weight="semi-bold" class="mb-4">
+    <h1 id="conclusion2" size="2xl" weight="semi-bold" class="mb-4">
       Conclusion2
-    </BaseHeading>
+    </h1>
     <p>
       Final thoughts... Some introductory text...Lorem ipsum dolor sit amet,
       consectetur adipiscing elit. Nulla vulputate, arcu ut porta luctus, lorem
